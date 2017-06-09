@@ -16,6 +16,7 @@ To simplify your development process, Udacity has provided a backend server for 
 `search(query, maxResults)`
 > query: <String>
 > maxResults: <Integer> Due to the nature of the backend server, search results are capped at 20, even if this is set higher.
-> Returns a Promise<JSON> which resolves to a JSON object containing a collection of book objects. 
+> Returns a Promise<JSON> which resolves to a JSON object containing a collection of book objects.
+> These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page. 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
