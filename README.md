@@ -5,7 +5,7 @@ Of course, you are free to start this project from scratch if you wish! Just be 
 ## What You're Getting
 ```
 +--public/    
- \|-- index.html - DO NOT MODIFY
+ |-- index.html - DO NOT MODIFY
  |-- favicon.ico - React Icon, You may change if you wish.
 +-- src/
  +-- icons/ - Helpful images for your app. Use at your discretion.
