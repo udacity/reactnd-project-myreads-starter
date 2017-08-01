@@ -7,14 +7,35 @@ import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    
+    shelves: {
+      currentlyReading: [],
+      wantToRead: [],
+      read: []
+    }
+  }
+
+  componentDidMount() {
+    BooksAPI.getAll().then( books => {
+
+      this.setState({ shelves: { 
+        currentlyReading: books.filter( book => 
+          book.shelf === 'currentlyReading'
+        ),
+        wantToRead: books.filter ( book => 
+          book.shelf === 'wantToRead'
+        ),
+        read: books.filter ( book => 
+          book.shelf === 'read'
+        )
+      }})
+    })
   }
 
   render() {
     return (
       <div className="app">
         <Route exact path='/' render={() =>
-          <ListBooks />
+          <ListBooks shelves={this.state.shelves} />
         } />
         <Route path='/search' render={() =>
           <SearchBooks />
