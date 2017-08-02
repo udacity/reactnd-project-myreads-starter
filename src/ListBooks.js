@@ -7,7 +7,6 @@ class ListBooks extends Component {
   render() {
     let { currentlyReading, wantToRead, read } = this.props.shelves
 
-    console.log(this.props.shelves)
     return (
       <div className="list-books">
         <div className="list-books-title">
