@@ -14,7 +14,7 @@ class BooksApp extends React.Component {
     }
   }
 
-  componentDidMount() {
+  updateShelves() {
     BooksAPI.getAll().then( books => {
 
       this.setState({ shelves: { 
@@ -31,7 +31,12 @@ class BooksApp extends React.Component {
     })
   }
 
+  componentDidMount() {
+    this.updateShelves()
+  }
+
   render() {
+    
     return (
       <div className="app">
         <Route exact path='/' render={() =>
