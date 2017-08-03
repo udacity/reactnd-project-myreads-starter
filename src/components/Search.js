@@ -4,8 +4,11 @@
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import BookGrid from './BookGrid';
+import * as BooksAPI from '../BooksAPI';
 
 class Search extends Component {
+
     render(){
         return (
           <div className="search-books">
@@ -25,7 +28,7 @@ class Search extends Component {
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <BookGrid books={this.props.books} />
             </div>
           </div>
         );
