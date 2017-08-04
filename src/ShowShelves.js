@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 class ShowShelves extends Component {
     render() {
@@ -160,7 +161,10 @@ class ShowShelves extends Component {
               </div>
             </div>
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+              <Link
+                to='/add'
+                onClick={this.props.onNavigate}>
+              </Link>
             </div>
           </div>
         </div>
