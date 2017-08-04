@@ -2,11 +2,21 @@
  * Created by jansplichal on 03/08/2017.
  */
 
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
-import  Bookshelf  from './Bookshelf';
+import React, {Component} from "react";
+import {Link} from "react-router-dom";
+import Bookshelf from "./Bookshelf";
+import * as BooksAPI from "../BooksAPI";
 
 class BookList extends Component {
+    state = {
+        books: []
+    };
+
+    componentDidMount() {
+        BooksAPI.getAll().then((books) => {
+            this.setState({books});
+        });
+    }
 
     filterByShelf(books, shelf) {
         return books.filter(book => {
@@ -14,8 +24,22 @@ class BookList extends Component {
         });
     }
 
+    handleOnShelfChange(bookId, shelf) {
+        console.log('Moving ' + bookId + ' to ' + shelf);
+        BooksAPI.update({id: bookId}, shelf).then((book) => {
+            this.setState((prevState) => {
+                return prevState.books.map(book => {
+                   if(book.id === bookId){
+                       book.shelf = shelf;
+                   }
+                   return book;
+                });
+            });
+        });
+    }
+
     render() {
-        const {books} = this.props;
+        const {books} = this.state;
 
         return (
             <div className="list-books">
@@ -24,11 +48,14 @@ class BookList extends Component {
                 </div>
                 <div className="list-books-content">
                     <div>
-                        <Bookshelf title="Currently Reading"
+                        <Bookshelf onShelfChange={this.handleOnShelfChange.bind(this)}
+                                   title="Currently Reading"
                                    books={this.filterByShelf(books, 'currentlyReading')}/>
-                        <Bookshelf title="Want to Read"
+                        <Bookshelf onShelfChange={this.handleOnShelfChange.bind(this)}
+                                   title="Want to Read"
                                    books={this.filterByShelf(books, 'wantToRead')}/>
-                        <Bookshelf title="Read"
+                        <Bookshelf onShelfChange={this.handleOnShelfChange.bind(this)}
+                                   title="Read"
                                    books={this.filterByShelf(books, 'read')}/>
                     </div>
                 </div>

@@ -2,19 +2,19 @@
  * Created by jansplichal on 03/08/2017.
  */
 
-import React, {Component} from 'react';
-import Book from './Book';
-import PropTypes from 'prop-types';
+import React, {Component} from "react";
+import Book from "./Book";
+import PropTypes from "prop-types";
 
 class BookGrid extends Component {
     render() {
-        const { books } = this.props;
+        const {books,onShelfChange} = this.props;
 
         return (
             <ol className="books-grid">
                 { books.map(book => (
                     <li key={book.id}>
-                        <Book shelf={book.shelf} authors={book.authors} title={book.title}
+                        <Book onShelfChange={onShelfChange} bookId={book.id} shelf={book.shelf} authors={book.authors} title={book.title}
                               thumbnail={book.imageLinks.thumbnail}/>
                     </li>
                 ))}
@@ -25,7 +25,8 @@ class BookGrid extends Component {
 }
 
 BookGrid.propTypes = {
-    books: PropTypes.array.isRequired
+    books: PropTypes.array.isRequired,
+    onShelfChange:PropTypes.func.isRequired
 };
 
 export default BookGrid;
