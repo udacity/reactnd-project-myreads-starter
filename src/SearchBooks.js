@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class SearchBooks extends Component {
 
@@ -25,8 +25,8 @@ class SearchBooks extends Component {
           <ol className="books-grid"></ol>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default SearchBooks
+export default SearchBooks;

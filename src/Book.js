@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 function Book(props) {
   return (
@@ -18,7 +18,7 @@ function Book(props) {
       <div className="book-title">{props.book.title}</div>
       <div className="book-authors">{props.book.authors.join(', ')}</div>
     </div>
-  )
+  );
 }
 
-export default Book
+export default Book;
