@@ -7,8 +7,8 @@ import PropTypes from "prop-types";
 
 class BookGrid extends Component {
     render() {
-        const {books,onShelfChange} = this.props;
-
+        const {books, onShelfChange} = this.props;
+        //console.log(books);
         return (
             <ol className="books-grid">
                 { books.map(book => (
@@ -26,7 +26,7 @@ class BookGrid extends Component {
 
 BookGrid.propTypes = {
     books: PropTypes.array.isRequired,
-    onShelfChange:PropTypes.func.isRequired
+    onShelfChange: PropTypes.func.isRequired
 };
 
 export default BookGrid;
