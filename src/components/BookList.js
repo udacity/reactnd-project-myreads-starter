@@ -2,10 +2,10 @@
  * Created by jansplichal on 03/08/2017.
  */
 
-import React, {Component} from "react";
-import {Link} from "react-router-dom";
-import Bookshelf from "./Bookshelf";
-import * as BooksAPI from "../BooksAPI";
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import Bookshelf from './Bookshelf';
+import * as BooksAPI from '../BooksAPI';
 
 class BookList extends Component {
     state = {

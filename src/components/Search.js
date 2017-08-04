@@ -2,11 +2,11 @@
  * Created by jansplichal on 03/08/2017.
  */
 
-import React, {Component} from "react";
-import {Link} from "react-router-dom";
-import BookGrid from "./BookGrid";
-import * as BooksAPI from "../BooksAPI";
-import _ from "lodash";
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import BookGrid from './BookGrid';
+import * as BooksAPI from '../BooksAPI';
+import _ from 'lodash';
 
 class Search extends Component {
     state = {

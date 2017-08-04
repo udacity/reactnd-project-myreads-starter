@@ -1,9 +1,9 @@
 /**
  * Created by jansplichal on 03/08/2017.
  */
-import React, {Component} from "react";
-import ShelfChanger from "./ShelfChanger";
-import PropTypes from "prop-types";
+import React, {Component} from 'react';
+import ShelfChanger from './ShelfChanger';
+import PropTypes from 'prop-types';
 
 class Book extends Component {
     render() {

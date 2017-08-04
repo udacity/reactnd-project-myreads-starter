@@ -2,8 +2,8 @@
  * Created by jansplichal on 03/08/2017.
  */
 
-import React, {Component} from "react";
-import PropTypes from "prop-types";
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 class ShelfChanger extends Component {
     render() {
