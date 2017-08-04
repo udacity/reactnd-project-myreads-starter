@@ -22,7 +22,7 @@ class ListBooks extends Component {
                     currentlyReading[0] && (
                       currentlyReading.map( (book) => ( 
                         <li key={book.id}>
-                          <Book book={book} />
+                          <Book book={book} updateBook={this.props.updateBook} />
                         </li>
                       ))
                     )
@@ -38,7 +38,7 @@ class ListBooks extends Component {
                     wantToRead[0] && (
                       wantToRead.map( (book) => ( 
                         <li key={book.id}>
-                          <Book book={book} />
+                          <Book book={book} updateBook={this.props.updateBook} />
                         </li>
                       ))
                     )
@@ -54,7 +54,7 @@ class ListBooks extends Component {
                     read[0] && (
                       read.map( (book) => ( 
                         <li key={book.id}>
-                          <Book book={book} />
+                          <Book book={book} updateBook={this.props.updateBook} />
                         </li>
                       ))
                     )
