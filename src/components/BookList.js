@@ -25,14 +25,14 @@ class BookList extends Component {
     }
 
     handleOnShelfChange(bookId, shelf) {
-        console.log('Moving ' + bookId + ' to ' + shelf);
+        //console.log('Moving ' + bookId + ' to ' + shelf);
         BooksAPI.update({id: bookId}, shelf).then((book) => {
             this.setState((prevState) => {
                 return prevState.books.map(book => {
-                   if(book.id === bookId){
-                       book.shelf = shelf;
-                   }
-                   return book;
+                    if (book.id === bookId) {
+                        book.shelf = shelf;
+                    }
+                    return book;
                 });
             });
         });

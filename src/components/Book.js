@@ -1,8 +1,6 @@
 /**
  * Created by jansplichal on 03/08/2017.
  */
-
-
 import React, {Component} from "react";
 import ShelfChanger from "./ShelfChanger";
 import PropTypes from "prop-types";
@@ -32,7 +30,7 @@ Book.propTypes = {
     bookId: PropTypes.string.isRequired,
     authors: PropTypes.array.isRequired,
     thumbnail: PropTypes.string.isRequired,
-    onShelfChange:PropTypes.func.isRequired,
+    onShelfChange: PropTypes.func.isRequired,
     shelf: PropTypes.oneOf(['currentlyReading', 'wantToRead', 'read', 'none']).isRequired
 };
 

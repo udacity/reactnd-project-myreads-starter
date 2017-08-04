@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 class ShelfChanger extends Component {
     render() {
-        const {shelf, onShelfChange, bookId } = this.props;
+        const {shelf, onShelfChange, bookId} = this.props;
         return (
             <div className="book-shelf-changer">
                 <select onChange={(event) => (onShelfChange(bookId, event.target.value))} value={shelf}>

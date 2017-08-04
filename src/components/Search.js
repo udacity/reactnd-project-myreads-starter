@@ -31,6 +31,19 @@ class Search extends Component {
         this.findBooks(trimmedQuery);
     }
 
+    handleOnShelfChange(bookId, shelf) {
+        BooksAPI.update({id: bookId}, shelf).then((book) => {
+            this.setState((prevState) => {
+                return prevState.books.map(book => {
+                    if (book.id === bookId) {
+                        book.shelf = shelf;
+                    }
+                    return book;
+                });
+            });
+        });
+    }
+
     render() {
         return (
             <div className="search-books">
@@ -52,7 +65,7 @@ class Search extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <BookGrid books={this.state.books}/>
+                    <BookGrid onShelfChange={this.handleOnShelfChange.bind(this)} books={this.state.books}/>
                 </div>
             </div>
         );
