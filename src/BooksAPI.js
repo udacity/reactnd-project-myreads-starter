@@ -40,5 +40,9 @@ export const search = (query, maxResults) =>
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ query, maxResults })
-  }).then(res => res.json())
-    .then(data => data.books)
+  }).then(res => {
+      if (!res.ok) {
+          throw Error(res.statusText);
+      }
+      return res.json()
+  }).then(data => data.books)
