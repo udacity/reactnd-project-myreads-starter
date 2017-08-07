@@ -3,6 +3,28 @@ import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 
+function Shelf(props) {
+    return (
+        <div className="bookshelf">
+            <h2 className="bookshelf-title">{props.shelfTitle}</h2>
+            <div className="bookshelf-books">
+                <ol className="books-grid">
+                    {props.books.map((book) => (
+                        (book.shelf === props.id) && (
+                            <Book
+                                key={book.id}
+                                imageURL={book.imageLinks.thumbnail}
+                                author={book.authors[0]}
+                                title={book.title}
+                            />
+                        )
+                    ))}
+                </ol>
+            </div>
+        </div>
+    )
+}
+
 class ListBooks extends Component {
     render() {
         return (
@@ -12,57 +34,13 @@ class ListBooks extends Component {
               </div>
               <div className="list-books-content">
                 <div>
-                  <div className="bookshelf">
-                    <h2 className="bookshelf-title">Currently Reading</h2>
-                    <div className="bookshelf-books">
-                      <ol className="books-grid">
-                        {this.props.books.map((book) => (
-                            (book.shelf === 'currentlyReading') && (
-                                <Book
-                                    key={book.id}
-                                    imageURL={book.imageLinks.thumbnail}
-                                    author={book.authors[0]}
-                                    title={book.title}
-                                />
-                            )
-                        ))}
-                      </ol>
-                    </div>
-                  </div>
-                  <div className="bookshelf">
-                    <h2 className="bookshelf-title">Want to Read</h2>
-                    <div className="bookshelf-books">
-                      <ol className="books-grid">
-                        {this.props.books.map((book) => (
-                            (book.shelf === 'wantToRead') && (
-                                <Book
-                                    key={book.id}
-                                    imageURL={book.imageLinks.thumbnail}
-                                    author={book.authors[0]}
-                                    title={book.title}
-                                />
-                            )
-                        ))}
-                      </ol>
-                    </div>
-                  </div>
-                  <div className="bookshelf">
-                    <h2 className="bookshelf-title">Read</h2>
-                    <div className="bookshelf-books">
-                      <ol className="books-grid">
-                        {this.props.books.map((book) => (
-                            (book.shelf === 'read') && (
-                                <Book
-                                    key={book.id}
-                                    imageURL={book.imageLinks.thumbnail}
-                                    author={book.authors[0]}
-                                    title={book.title}
-                                />
-                            )
-                        ))}
-                      </ol>
-                    </div>
-                  </div>
+                    {this.props.shelves.map((shelf) =>
+                        <Shelf
+                            shelfTitle={shelf.title}
+                            id={shelf.id}
+                            books={this.props.books}
+                            key={shelf.id}/>
+                    )}
                 </div>
               </div>
               <div className="open-search">
