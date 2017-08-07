@@ -2,28 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
-
-function Shelf(props) {
-    return (
-        <div className="bookshelf">
-            <h2 className="bookshelf-title">{props.shelfTitle}</h2>
-            <div className="bookshelf-books">
-                <ol className="books-grid">
-                    {props.books.map((book) => (
-                        (book.shelf === props.id) && (
-                            <Book
-                                key={book.id}
-                                imageURL={book.imageLinks.thumbnail}
-                                author={book.authors[0]}
-                                title={book.title}
-                            />
-                        )
-                    ))}
-                </ol>
-            </div>
-        </div>
-    )
-}
+import Shelf from './Shelf'
 
 class ListBooks extends Component {
     render() {
