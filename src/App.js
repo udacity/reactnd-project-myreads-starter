@@ -1,4 +1,5 @@
 import React from 'react'
+import Shelves from './components/Shelves'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
