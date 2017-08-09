@@ -4,7 +4,7 @@ const Cover = props => (
     <div className="book-cover" style={{ 
         width: 128, 
         height: 193, 
-        backgroundImage: `url("${props.cover.coverImg}")` }}></div>
+        backgroundImage: `url(${props.cover})` }}></div>
 
 )
 
@@ -14,7 +14,7 @@ class Book extends Component {
         return (
             <div className="book">
                 <div className="book-top">
-                <Cover cover={this.props.book.cover}/>
+                <Cover cover={this.props.book.coverImg}/>
                 <div className="book-shelf-changer">
                     <select>
                     <option value="none" disabled>Move to...</option>
