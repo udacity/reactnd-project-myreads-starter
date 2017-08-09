@@ -32,7 +32,7 @@ let books = [
     }
   ]
   // Filter shelves uniquly
-  let shelvesOptions = [...new Set(books.map(book => book.shelf))];
+  // let shelvesList = [...new Set(books.map(book => book.shelf))];
 
 class BooksApp extends Component {
     
@@ -43,9 +43,10 @@ class BooksApp extends Component {
   render() {
     return (   
       <div className="app list-books">
-        <Header pageTitle={'My Reads'} />
-        <Shelves shelvesOptions={shelvesOptions} books={books}/>
-        <SearchButton />
+        <Header />
+        {/* shelvesList={shelvesList} */}
+        <Shelves books={books}/>
+        <SearchButton className ="open-search"/>
       </div> 
     )
   }

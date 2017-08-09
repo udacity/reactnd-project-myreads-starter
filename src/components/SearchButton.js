@@ -2,7 +2,11 @@ import React, { Component } from 'react'
 
 class SearchButton extends Component {
     render(){
-        return <h1>SearchButton Component</h1>
+        return (
+            <div className="open-search">
+              <a>Add a book</a>
+            </div>
+)
     }
         
 }
