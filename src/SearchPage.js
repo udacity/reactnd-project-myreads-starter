@@ -1,10 +1,28 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import escapeRegExp from 'escape-string-regexp'
 
 class SearchPage extends Component {
 
-  render() {
-    return(
+	state = {
+		query: ''
+	} 
+
+render() {
+
+	const {query} = this.state
+	const {books} = this.props
+
+	let showingBooks
+
+	if (this.state.query){
+		const match = new RegExp(escapeRegExp(query),'i')
+		showingBooks = books.filter((book) => match.test(book.name))
+	} else {
+		showingBooks = books
+	}
+
+	return(
 
 	  <div className="search-books">
 	    <div className="search-books-bar">
