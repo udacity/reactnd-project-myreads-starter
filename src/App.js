@@ -1,6 +1,12 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
+//test book
+const book1 = {
+  title: '',
+  authors: '',
+  cover: ''
+}
 
 class BooksApp extends React.Component {
   state = {
