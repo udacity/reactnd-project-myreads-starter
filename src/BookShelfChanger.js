@@ -4,13 +4,16 @@ class BookShelfChanger extends Component {
   state = {
     shelf: ''
   }
+  handleSubmit = (e) => {
+    e.preventDefault()
+    if(this.props.toChangeShelf)
+      this.props.toChangeShelf(this.props.book, e.target.value)
+  }
   render() {
-    const { book } = this.props.book
+    const { book, toChangeShelf } = this.props
     return (
       <div className="book-shelf-changer">
-        {/* <select value={book.shelf} onChange={(event) => (
-          book.shelf = event.target.value)}> */}
-        <select>
+        <select value = {book.shelf} onChange={this.handleSubmit}>
           <option value="none" disabled>Move to...</option>
           <option value="currentlyReading">Currently Reading</option>
           <option value="wantToRead">Want to Read</option>

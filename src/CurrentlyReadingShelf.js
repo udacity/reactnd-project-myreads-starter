@@ -6,9 +6,7 @@ class CurrentlyReadingShelf extends Component {
     currentShelf: 'currentlyReading'
   }
   render() {
-    const { books } = this.props
-    books.map((book) => (
-      console.log(book.shelf + ": " + book.title)))
+    const { books, toChangeShelf } = this.props
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">Currently Reading</h2>
@@ -16,7 +14,7 @@ class CurrentlyReadingShelf extends Component {
           <ol className="books-grid">
             {books.map((book) => (
               <li key={book.id}>
-                <Book book={book}/>
+                <Book book={book} toChangeShelf={toChangeShelf}/>
               </li>
             ))}
           </ol>

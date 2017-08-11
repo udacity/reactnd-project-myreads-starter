@@ -3,12 +3,12 @@ import BookShelfChanger from './BookShelfChanger'
 
 class Book extends Component {
   render() {
-    const { book } = this.props
+    const { book, toChangeShelf } = this.props
     return (
       <div className="book">
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${(book.imageLinks || {}).smallThumbnail})` }}></div>
-          <BookShelfChanger book={book}/>
+          <BookShelfChanger book={book} toChangeShelf={toChangeShelf}/>
         </div>
         <div className="book-title">{book.title}</div>
         {(book.authors || []).map((author) => (
