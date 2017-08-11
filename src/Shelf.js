@@ -10,10 +10,9 @@ function Shelf(props) {
                     {props.books.map((book, index) => (
                         (book.shelf === props.id) && (
                             <Book
-                                key={book.title}
-                                imageURL={book.imageLinks.thumbnail}
-                                author={book.authors[0]}
-                                title={book.title}
+                                book={book}
+                                handleSelect={props.handleSelect}
+                                key={index}
                             />
                         )
                     ))}
