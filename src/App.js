@@ -6,6 +6,13 @@ import './App.css'
 
 class BooksApp extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      books: []
+    }
+  }
+
   render() {
     return (
       <div className="app">
@@ -32,7 +39,9 @@ class BooksApp extends React.Component {
             </div>
           </div>
         )}/>
-        <Route exact path="/" component={Bookshelves}/>
+        <Route exact path="/" render={() => (
+          <Bookshelves books={this.state.books} />
+        )}/>
       </div>
     )
   }
