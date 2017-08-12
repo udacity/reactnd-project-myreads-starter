@@ -6,10 +6,6 @@ import * as BooksAPI from './BooksAPI';
 import Book from './Book';
 import './App.css';
 
-function stop(books) {
-  debugger;
-}
-
 class BookSearch extends Component {
 
   // static propTypes = {
@@ -19,6 +15,7 @@ class BookSearch extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      query: '',
       results: []
     };
 
@@ -26,13 +23,15 @@ class BookSearch extends Component {
 
   }
 
+  /*
+   * TODO: Add visual feedback while waiting for response
+   */
   handleChange(event) {
-    const query = event.target.value;
-    if (query.length) {
-      BooksAPI.search(event.target.value, 20)
-      .then(books => this.setState({results: books}));
-    } else {
-      this.setState({results: []});
+    const query = event.target.value || '';
+    if (this.state.query !== query) {
+      this.setState({query});
+      query.length && BooksAPI.search(query, 10).then(books =>
+        this.setState({results: books}));
     }
   }
 
