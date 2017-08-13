@@ -11,9 +11,15 @@ class SearchPage extends Component {
     fetchBooks = (event) => {
         (event.target.value !== '')?
         BooksAPI.search(event.target.value, 20).then((books) => {
-            this.setState({
-                books: books
+          let booksWithShelf = []
+          for(let i = 0; i < books.length; i++) {
+            BooksAPI.get(books[i].id).then((book) => {
+              booksWithShelf.push(book);
+              (books.length === booksWithShelf.length)?
+                this.setState({books: booksWithShelf})
+                : this.setState({books: []})
             })
+          }
         }): this.setState({
             books: []
         })
