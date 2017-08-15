@@ -21,7 +21,7 @@ class ShowShelves extends Component {
           </div>
         </div>
         <div className="open-search">
-          <Link to='/add'></Link>
+          <Link to='/search'></Link>
         </div>
       </div >
     )
