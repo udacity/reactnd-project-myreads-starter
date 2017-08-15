@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Book from './Book'
-import {debounce} from 'throttle-debounce'
+import { debounce } from 'throttle-debounce'
 
 class AddBooks extends Component {
   state = {
@@ -34,7 +34,7 @@ class AddBooks extends Component {
           <ol className="books-grid">
             {books.map((book) => (
               <li key={book.id}>
-                <Book book={book} toChangeShelf={toChangeShelf}/>
+                <Book book={book} toChangeShelf={toChangeShelf} />
               </li>
             ))}
           </ol>
