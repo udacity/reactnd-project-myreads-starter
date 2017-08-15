@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Book from './Book'
+import {debounce} from 'throttle-debounce'
 
 class AddBooks extends Component {
   state = {
@@ -25,7 +26,7 @@ class AddBooks extends Component {
           <div className="search-books-input-wrapper">
             <input type="text" placeholder="Search books by title or author"
               value={query}
-              onChange={(event) => this.updateQuery(event.target.value)} />
+              onChange={(event) => debounce(5000, this.updateQuery(event.target.value))} />
             {query}
           </div>
         </div>
