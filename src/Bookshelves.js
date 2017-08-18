@@ -18,10 +18,16 @@ class Bookshelves extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <Bookshelf title="Currently Reading" books={
-              this.props.books.filter(book => book.shelf === 'currentlyReading')} />
-            <Bookshelf title="Want to Read" books={this.props.books.filter(book => book.shelf === 'wantToRead')} />
-            <Bookshelf title="Read" books={this.props.books.filter(book => book.shelf === 'read')} />
+            <Bookshelf title="Currently Reading"
+              books={this.props.books.filter(book => book.shelf === 'currentlyReading')}
+              onUpdate={this.props.onUpdate} />
+            <Bookshelf title="Want to Read"
+              books={this.props.books.filter(book => book.shelf === 'wantToRead')}
+              onUpdate={this.props.onUpdate} />
+            <Bookshelf title="Read"
+              books={this.props.books.filter(book => book.shelf === 'read')}
+              onUpdate={this.props.onUpdate} />
+
           </div>
         </div>
         <div className="open-search">
