@@ -8,14 +8,14 @@ class AddBooks extends Component {
     query: ''
   }
   updateQuery = (query) => {
+    if (query) {
+      this.props.toSearchBooks(query)
+    }
     this.setState({ query: query.trim() })
   }
   render() {
     const { query } = this.state
     const { books, toSearchBooks, toChangeShelf } = this.props
-    if (query) {
-      toSearchBooks(query)
-    }
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -27,7 +27,6 @@ class AddBooks extends Component {
             <input type="text" placeholder="Search books by title or author"
               value={query}
               onChange={(event) => debounce(5000, this.updateQuery(event.target.value))} />
-            {query}
           </div>
         </div>
         <div className="search-books-results">
