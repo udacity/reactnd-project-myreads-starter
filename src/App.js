@@ -57,9 +57,20 @@ class BooksApp extends React.Component {
     showSearchPage: true
   }
 
+  updateShelf = (selectedShelf,selectedBook) =>{
+    const newArray = this.state.books.filter((c) => c.title !== selectedBook.title)
+    const newBook = selectedBook;
+    newBook.shelf = selectedShelf;
+      this.setState((state) => ({
+      books: [...newArray,newBook]
+  }))
+
+}
+
   render() {
     return (
       <ListBooks
+        onUpdateShelf={this.updateShelf}
         books = {this.state.books}
         />
     )

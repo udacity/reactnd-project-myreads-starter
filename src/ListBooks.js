@@ -1,12 +1,26 @@
 import React,{Component} from 'react'
+import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
+import sortBy from 'sort-by'
 
 class ListBooks extends Component{
 	static propTypes = {
 		books: PropTypes.array.isRequired,
+		onUpdateShelf: PropTypes.func.isRequired
 	}
 
+	changeFunc =(selectedValue,title) => {
+
+		// let selectedValue = (selectBox.target.value);
+		console.log(selectedValue);
+		console.log(title);
+
+	}
+
+
+
 	render(){
+		this.props.books.sort(sortBy('title'));
 		return(
 			<div className="app">
 		          <div className="list-books">
@@ -26,10 +40,10 @@ class ListBooks extends Component{
 										<div className="book-top">
 				                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.coverURL})` }}></div>
 				                            <div className="book-shelf-changer">
-												<select>
+												<select onChange={(event) => this.props.onUpdateShelf(event.target.value,book)}>
 					                                <option value="none" disabled>Move to...</option>
-					                                <option value="currentlyReading">Currently Reading</option>
-					                                <option value="wantToRead">Want to Read</option>
+					                                <option value="current" selected="selected">Currently Reading</option>
+					                                <option value="marked">Want to Read</option>
 					                                <option value="read">Read</option>
 					                                <option value="none">None</option>
 				                              	</select>
@@ -53,10 +67,10 @@ class ListBooks extends Component{
 										<div className="book-top">
 				                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.coverURL})` }}></div>
 				                            <div className="book-shelf-changer">
-												<select>
+												<select onChange={(event) => this.props.onUpdateShelf(event.target.value,book)}>
 					                                <option value="none" disabled>Move to...</option>
-					                                <option value="currentlyReading">Currently Reading</option>
-					                                <option value="wantToRead">Want to Read</option>
+					                                <option value="current">Currently Reading</option>
+					                                <option value="marked" selected="selected">Want to Read</option>
 					                                <option value="read">Read</option>
 					                                <option value="none">None</option>
 				                              	</select>
@@ -80,11 +94,11 @@ class ListBooks extends Component{
 										<div className="book-top">
 				                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.coverURL})` }}></div>
 				                            <div className="book-shelf-changer">
-												<select>
+												<select onChange={(event) => this.props.onUpdateShelf(event.target.value,book)}>
 					                                <option value="none" disabled>Move to...</option>
-					                                <option value="currentlyReading">Currently Reading</option>
-					                                <option value="wantToRead">Want to Read</option>
-					                                <option value="read">Read</option>
+					                                <option value="current">Currently Reading</option>
+					                                <option value="marked">Want to Read</option>
+					                                <option value="read" selected="selected">Read</option>
 					                                <option value="none">None</option>
 				                              	</select>
 				                            </div>
@@ -100,7 +114,7 @@ class ListBooks extends Component{
 		              </div>
 		            </div>
 		            <div className="open-search">
-		              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+		              <a Link to="/add" onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
 		            </div>
 		          </div>
 		        )}
