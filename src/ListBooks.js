@@ -21,16 +21,20 @@ class ListBooks extends Component{
 		            </div>
 		            <div className="list-books-content">
 		              <div>
-		                <div className="bookshelf">
+						<div className="bookshelf">
 		                  <h2 className="bookshelf-title">Currently Reading</h2>
 		                  <div className="bookshelf-books">
 		                    <ol className="books-grid">
-
-		                    {this.props.books.filter(book => book.shelf ==="currentlyReading").map((book) => (
+		                      {this.props.books.filter(book => book.shelf ==="currentlyReading").map((book) => (
 								<li key={book.title} className='contact-list-item'>
 									<div className="book">
 										<div className="book-top">
-				                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+											{book.imageLinks ?(
+												<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+												):(
+												<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: "https://developers.google.com/maps/documentation/streetview/images/error-image-generic.png" }}></div>
+												)
+											}
 				                            <div className="book-shelf-changer">
 												<select value= {book.shelf} onChange={(event) => this.props.onUpdateShelf(event.target.value,book)}>
 					                                <option value="none" disabled>Move to...</option>
@@ -42,7 +46,9 @@ class ListBooks extends Component{
 				                            </div>
 				                            </div>
 				                        <div className="book-title">{book.title}</div>
-				                        <div className="book-authors">{book.authors}</div>
+				                        {book.authors &&
+				                        	<div className="book-authors">{book.authors && book.authors.join(', ')}</div>
+				                        }
 			                        </div>
 								</li>
 							))}
@@ -57,7 +63,12 @@ class ListBooks extends Component{
 								<li key={book.title} className='contact-list-item'>
 									<div className="book">
 										<div className="book-top">
-				                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+											{book.imageLinks ?(
+												<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+												):(
+												<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: "https://developers.google.com/maps/documentation/streetview/images/error-image-generic.png" }}></div>
+												)
+											}
 				                            <div className="book-shelf-changer">
 												<select value= {book.shelf} onChange={(event) => this.props.onUpdateShelf(event.target.value,book)}>
 					                                <option value="none" disabled>Move to...</option>
@@ -69,7 +80,9 @@ class ListBooks extends Component{
 				                            </div>
 				                            </div>
 				                        <div className="book-title">{book.title}</div>
-				                        <div className="book-authors">{book.authors}</div>
+				                        {book.authors &&
+				                        	<div className="book-authors">{book.authors && book.authors.join(', ')}</div>
+				                        }
 			                        </div>
 								</li>
 							))}
@@ -84,7 +97,12 @@ class ListBooks extends Component{
 								<li key={book.title} className='contact-list-item'>
 									<div className="book">
 										<div className="book-top">
-				                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+											{book.imageLinks ?(
+												<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+												):(
+												<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: "https://developers.google.com/maps/documentation/streetview/images/error-image-generic.png" }}></div>
+												)
+											}
 				                            <div className="book-shelf-changer">
 												<select value= {book.shelf} onChange={(event) => this.props.onUpdateShelf(event.target.value,book)}>
 					                                <option value="none" disabled>Move to...</option>
@@ -96,7 +114,9 @@ class ListBooks extends Component{
 				                            </div>
 				                            </div>
 				                        <div className="book-title">{book.title}</div>
-				                        <div className="book-authors">{book.authors}</div>
+				                        {book.authors &&
+				                        	<div className="book-authors">{book.authors && book.authors.join(', ')}</div>
+				                        }
 			                        </div>
 								</li>
 							))}
@@ -106,7 +126,7 @@ class ListBooks extends Component{
 		              </div>
 		            </div>
 		            <div className="open-search">
-		              <Link to="/search" onClick={() => this.setState({ showSearchPage: true })}>Add a book</Link>
+		              <Link to="/search">Add a book</Link>
 		            </div>
 		          </div>
 		    </div>
