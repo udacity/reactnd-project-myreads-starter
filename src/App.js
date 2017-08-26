@@ -3,6 +3,7 @@ import {Switch,Route} from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import ListBooks from'./ListBooks'
 import AddBook from './AddBook'
+import EmptyPage from './EmptyPage'
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -51,6 +52,11 @@ class BooksApp extends React.Component {
             <AddBook
               onAddBook={this.addBook}
               books = {this.state.books}
+            />
+          )}/>
+          <Route  render={({history}) =>(
+            <EmptyPage
+
             />
           )}/>
         </Switch>
