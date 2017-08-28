@@ -24,13 +24,13 @@ class BooksApp extends React.Component {
       this.setState({currentlyReadingBooks : data } );
     });
     */
-    /*
-    BooksAPI.update ('nggnmAEACAAJ',   'wantToRead').then((data) =>{
-      console.log('update ' , data);
-    });
-    */
+    this.init();
+   
+  }
+  
+  init() {
     BooksAPI.getAll().then((data) => {
-      
+      console.log('all ' , data);
       var currentlyReading = data.filter( (book) => book.shelf === 'currentlyReading' );
       var wantToRead =data.filter( (book) => book.shelf === 'wantToRead' );
       var read =data.filter( (book) => book.shelf === 'read' );
@@ -38,7 +38,14 @@ class BooksApp extends React.Component {
                      wantToReadBooks : wantToRead , 
                      readBooks : read });
     });
-    
+  }
+
+  updateBook = ( bookId , shelf  ) => {
+    console.log('updating book ' + bookId + " to shelf " + shelf  );
+    BooksAPI.update ( {id:bookId } ,   shelf).then((data) =>{
+      console.log('data ', data);
+      this.init();
+    });
   }
 
   render() {
@@ -72,9 +79,18 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <BookShelf title="Currently Reading" data={this.state.currentlyReadingBooks} />
-                <BookShelf title="Want to Read" data={this.state.wantToReadBooks} />
-                <BookShelf title="Read" data={this.state.readBooks} />
+                <BookShelf title="Currently Reading" 
+                  data={this.state.currentlyReadingBooks} 
+                  onUpdate={this.updateBook}
+                />
+                <BookShelf title="Want to Read" 
+                  data={this.state.wantToReadBooks} 
+                  onUpdate={this.updateBook}
+                />
+                <BookShelf title="Read" 
+                  data={this.state.readBooks} 
+                  onUpdate={this.updateBook}
+                />
               </div>
             </div>
             <div className="open-search">
