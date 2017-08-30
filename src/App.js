@@ -41,6 +41,13 @@ class BooksApp extends React.Component {
     const currentlyReadingBooks = this.state.books.filter( (book) => book.shelf === 'currentlyReading' );
     const wantToReadBooks = this.state.books.filter( (book) => book.shelf === 'wantToRead' );
     const readBooks = this.state.books.filter( (book) => book.shelf === 'read' );
+    this.state.searchedBooks.forEach( (element) => {
+        var filteredBooks = this.state.books.filter((book) => book.id === element.id);
+        if ( filteredBooks.length === 1  ){
+            var filteredBook = filteredBooks[0];
+            element.shelf = filteredBook.shelf;
+        }
+    });
 
     return (
       <div className="app">
