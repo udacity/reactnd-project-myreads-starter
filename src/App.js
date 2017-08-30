@@ -8,9 +8,7 @@ import './App.css';
 
 class BooksApp extends React.Component {
   state = {
-    currentlyReadingBooks : [], 
-    wantToReadBooks : [], 
-    readBooks : [], 
+    books : [],
     searchedBooks : []
   }
 
@@ -20,13 +18,7 @@ class BooksApp extends React.Component {
   
   init() {
     BooksAPI.getAll().then((data) => {
-     
-      var currentlyReading = data.filter( (book) => book.shelf === 'currentlyReading' );
-      var wantToRead =data.filter( (book) => book.shelf === 'wantToRead' );
-      var read =data.filter( (book) => book.shelf === 'read' );
-      this.setState({currentlyReadingBooks : currentlyReading , 
-                     wantToReadBooks : wantToRead , 
-                     readBooks : read });
+      this.setState({books : data});
     });
   }
 
@@ -45,6 +37,11 @@ class BooksApp extends React.Component {
   }
 
   render() {
+
+    const currentlyReadingBooks = this.state.books.filter( (book) => book.shelf === 'currentlyReading' );
+    const wantToReadBooks = this.state.books.filter( (book) => book.shelf === 'wantToRead' );
+    const readBooks = this.state.books.filter( (book) => book.shelf === 'read' );
+
     return (
       <div className="app">
         <Route exact path='/search' render={ () => (
@@ -60,15 +57,15 @@ class BooksApp extends React.Component {
             <div className="list-books-content">
               <div>
                 <BookShelf title="Currently Reading" 
-                  data={this.state.currentlyReadingBooks} 
+                  data={currentlyReadingBooks} 
                   onUpdate={this.updateBook}
                 />
                 <BookShelf title="Want to Read" 
-                  data={this.state.wantToReadBooks} 
+                  data={wantToReadBooks} 
                   onUpdate={this.updateBook}
                 />
                 <BookShelf title="Read" 
-                  data={this.state.readBooks} 
+                  data={readBooks} 
                   onUpdate={this.updateBook}
                 />
               </div>
