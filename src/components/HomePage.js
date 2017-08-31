@@ -1,6 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
+import { Link } from 'react-router-dom'
 
 class HomePage extends React.Component {
   render() {
@@ -161,16 +160,12 @@ class HomePage extends React.Component {
           </div>
         </div>
         <div className="open-search">
-          <a onClick={() => this.props.navigateToSearchPage()}>Add a book</a>
+          <Link to="/search">Add a book</Link>
         </div>
       </div>
     )
   }
 
 }
-
-HomePage.propTypes = {
-  navigateToSearchPage: PropTypes.func.isRequired,
-};
 
 export default HomePage;

@@ -1,6 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
+import { Link } from 'react-router-dom'
 
 class SearchPage extends React.Component {
 
@@ -8,7 +7,7 @@ class SearchPage extends React.Component {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <a className="close-search" onClick={() => this.props.navigateToHomePage()}>Close</a>
+          <Link className="close-search" to="/">Close</Link>
           <div className="search-books-input-wrapper">
             {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -29,9 +28,5 @@ class SearchPage extends React.Component {
     )
   }
 }
-
-SearchPage.propTypes = {
-  navigateToHomePage: PropTypes.func.isRequired,
-};
 
 export default SearchPage;
