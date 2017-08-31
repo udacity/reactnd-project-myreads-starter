@@ -4,8 +4,8 @@ import {
   Route
 } from 'react-router-dom'
 
-import HomePage from './components/HomePage'
-import SearchPage from './components/SearchPage'
+import HomePage from './components/home/HomePage'
+import SearchPage from './components/search/SearchPage'
 
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
@@ -15,7 +15,7 @@ import './App.css'
 class BooksApp extends React.Component {
   state = {
 
-  } 
+  }
 
   render() {
     return (
