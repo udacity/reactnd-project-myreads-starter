@@ -25,14 +25,25 @@ class BooksApp extends React.Component {
   }
 
   updateCategory = (book, category) => {
-    let shelfMove = this.state.books[book.shelf]
-    console.log(shelfMove, category)
-    console.log('updateCategory Fired')
-    this.setState({books: shelfMove.shelf = category})
+    let books = this.state.books;
+    let shelfMove = this.state.books.findIndex((b) => b.id === book.id);
+    console.log(books[shelfMove].shelf)
+    books[shelfMove].shelf = category
+    let newBook = books[shelfMove]
+    books.splice(shelfMove, 1)
+    books.push(newBook)
     console.log(this.state.books)
+    this.setState({
+      books: newBook
+    })
+
+    //console.log('updateCategory Fired')
+    //this.setState({books: shelfMove.shelf = category})
+    //console.log(this.state.books)
   }
 
   render() {
+    console.log(this.state.books)
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -63,17 +74,17 @@ class BooksApp extends React.Component {
             </div>
             <ListBooks 
               shelfName="Currently Reading" 
-              availableBooks={this.state.books.filter((books) => books.shelf === 'currentlyReading')}
+              availableBooks={this.state.books.filter((b) => b.shelf === 'currentlyReading')}
               update={this.updateCategory}
             />
             <ListBooks 
               shelfName="Want to Read" 
-              availableBooks={this.state.books.filter((books) => books.shelf === 'wantToRead')}
+              availableBooks={this.state.books.filter((b) => b.shelf === 'wantToRead')}
               update={this.updateCategory}
             />
             <ListBooks 
               shelfName="Read" 
-              availableBooks={this.state.books.filter((books) => books.shelf === 'read')}
+              availableBooks={this.state.books.filter((b) => b.shelf === 'read')}
               update={this.updateCategory}
             />
 
