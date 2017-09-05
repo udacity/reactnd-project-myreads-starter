@@ -1,6 +1,7 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import ListBooks from './ListBooks'
+import Search from './search'
 
 
 import './App.css'
@@ -58,7 +59,9 @@ class BooksApp extends React.Component {
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+                <Search update={this.updateCategory} />
+              </ol>
             </div>
           </div>
         ) : (
