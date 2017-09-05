@@ -3,18 +3,12 @@ import React, { Component } from 'react'
 
 class Book extends Component {
   state = {
-    category: ''
-  }
-
-  componentDidMount(){
-    this.setState({
-      category: `${this.props.book.shelf}`
-    })
+    shelf: `${this.props.book.shelf}`
   }
 
   handleChange = (e) => {
     const values = e.target.value
-    this.setState({category: values})
+    this.setState({shelf: values})
     this.props.newCategory(this.props.book, values)
     //console.log(values)
   }
@@ -27,7 +21,7 @@ class Book extends Component {
             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
             <div className="book-shelf-changer">
             <form>
-              <select onChange={this.handleChange}>
+              <select value={this.state.shelf} onChange={this.handleChange}>
                 <option value="none" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
