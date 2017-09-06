@@ -1,30 +1,37 @@
 import React, { Component } from 'react'
-import * as BooksAPI from './BooksAPI'
 import ListBooks from './ListBooks'
 import { Link } from 'react-router-dom'
-
+import escapeRegExp from 'escape-string-regexp'
+import { search } from './BooksAPI';
+import sortBy from 'sort-by'
 
 class Search extends Component{
   state = {
     books: [],
-    query: ''
+    query: '',
+    error: '',
   }
 
-  componentDidMount(){
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books })
-    })
-  }
-
-  updateQuery = (query) => {
-    this.setState({query: query.trim()})
+  searchBooks(query) {
+    this.setState({query})
+    search(query, 20).then(books => {
+      this.setState({ books });
+    });
   }
 
   clearQuery = () => {
-    this.setState({query: ''})
-  }
+	  this.setState({ query: '' })
+	}
 
   render(){
+    const { books, query, error } = this.state
+    let showBooks
+    if (query){
+      const match = RegExp(escapeRegExp(query), 'i')
+      showBooks = books.filter((book) => match.test(book.title))
+    } else{
+      showBooks = books
+    }
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -38,18 +45,28 @@ class Search extends Component{
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
             */}
-            <input type="text" placeholder="Search by title or author"/>
+            <input 
+              value={query} 
+              type="text" 
+              placeholder="Search by title or author"
+              onChange={(event) => this.searchBooks(event.target.value)}
+              />
 
           </div>
         </div>
           <div className="search-books-results">
-          <ol className="books-grid">
-          <ListBooks 
-          shelfName="Available Books" 
-          availableBooks={this.state.books}
-          update={this.props.update}
-          />
-          </ol>
+          {error !== '' ? (
+            <h2>{error}</h2>
+           ) : 
+           <ol className="books-grid">
+              <ListBooks 
+              shelfName="Available Books" 
+              availableBooks={showBooks}
+              update={this.props.update}
+              />
+            </ol>
+          }
+          
           </div>
       </div>
     )
