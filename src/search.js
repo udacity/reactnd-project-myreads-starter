@@ -1,36 +1,39 @@
 import React, { Component } from 'react'
-import ListBooks from './ListBooks'
+import Book from './Book'
 import { Link } from 'react-router-dom'
 import escapeRegExp from 'escape-string-regexp'
 import { search } from './BooksAPI';
-import sortBy from 'sort-by'
+//import sortBy from 'sort-by'
 
 class Search extends Component{
   state = {
-    books: [],
+    availableBooks: [],
     query: '',
     error: '',
   }
 
   searchBooks(query) {
-    this.setState({query})
+    this.setState({query: query.trim()})
     search(query, 20).then(books => {
-      this.setState({ books });
+      if (!books || books.error){
+        console.log(books.error)
+        this.setState({
+          availableBooks: ['No Books Found']
+        })
+      } else {
+        this.setState({ availableBooks: books });
+      }
     });
   }
 
-  clearQuery = () => {
-	  this.setState({ query: '' })
-	}
-
   render(){
-    const { books, query, error } = this.state
+    let { availableBooks, query, error } = this.state
     let showBooks
     if (query){
       const match = RegExp(escapeRegExp(query), 'i')
-      showBooks = books.filter((book) => match.test(book.title))
+      showBooks = availableBooks.filter((book) => match.test(book.title))
     } else{
-      showBooks = books
+      showBooks = availableBooks
     }
     return (
       <div className="search-books">
@@ -46,7 +49,7 @@ class Search extends Component{
               you don't find a specific author or title. Every search is limited by search terms.
             */}
             <input 
-              value={query} 
+              value={ query } 
               type="text" 
               placeholder="Search by title or author"
               onChange={(event) => this.searchBooks(event.target.value)}
@@ -59,11 +62,9 @@ class Search extends Component{
             <h2>{error}</h2>
            ) : 
            <ol className="books-grid">
-              <ListBooks 
-              shelfName="Available Books" 
-              availableBooks={showBooks}
-              update={this.props.update}
-              />
+           {showBooks.map((book) =>
+                <Book key={book.id} book={book} newCategory={this.props.update} />
+              )}
             </ol>
           }
           
