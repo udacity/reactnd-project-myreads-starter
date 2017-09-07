@@ -25,24 +25,10 @@ class BooksApp extends React.Component {
   }
 
   updateCategory = (book, category) => {
-    let books=this.state.books;
-    if (books.includes(book)){
-      let shelfMove=this.state.books.findIndex((b) => b.id === book.id);
-      books[shelfMove].shelf = category
-      let newBook = books[shelfMove]
-      books.splice(shelfMove, 1)
-      books.push(newBook)
-      this.setState({
-        books: books
-      })
-      BooksAPI.update(newBook, category)
-    } else {
-      book.shelf = category
-      books.push(book)
-      console.log(book, category)
-      BooksAPI.update(book, category)
-      console.log(BooksAPI.get(book.id))
-    }
+    BooksAPI.update(book, category)
+  
+    book.shelf = category
+    this.setState({ books: this.state.books.filter(b => b.id !== book.id).concat([ book ]) })
   }
 
   render() {

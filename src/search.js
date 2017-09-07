@@ -16,12 +16,12 @@ class Search extends Component{
     this.setState({query: query.trim()})
     search(query, 20).then(books => {
       if (!books || books.error){
-        console.log(books.error)
+        console.log(books)
         this.setState({
-          availableBooks: ['No Books Found']
+          availableBooks: []
         })
       } else {
-        this.setState({ availableBooks: books });
+        this.setState({ availableBooks: books.map(b => { b.shelf = 'none'; return b}) });
       }
     });
   }
