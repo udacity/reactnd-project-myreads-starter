@@ -31,7 +31,9 @@ class Search extends Component{
                 b.shelf = 'none'
               }
             }
-          })      
+            return cb
+          })
+          return books      
         })
         books.sort(sortBy('title'))
         this.setState({ availableBooks: books });
