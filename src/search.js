@@ -3,7 +3,7 @@ import Book from './Book'
 import { Link } from 'react-router-dom'
 import escapeRegExp from 'escape-string-regexp'
 import { search } from './BooksAPI';
-//import sortBy from 'sort-by'
+import sortBy from 'sort-by'
 
 class Search extends Component{
   state = {
@@ -16,12 +16,25 @@ class Search extends Component{
     this.setState({query: query.trim()})
     search(query, 20).then(books => {
       if (!books || books.error){
-        console.log(books)
+        //console.log(books)
         this.setState({
           availableBooks: []
         })
       } else {
-        this.setState({ availableBooks: books.map(b => { b.shelf = 'none'; return b}) });
+        books.map((b) => {
+          this.props.currentBooks.map((cb) => {
+            if(b.id === cb.id){
+              books.splice(books.indexOf(b), 1)
+              books.push(cb)
+            } else {
+              if(!b.shelf){
+                b.shelf = 'none'
+              }
+            }
+          })      
+        })
+        books.sort(sortBy('title'))
+        this.setState({ availableBooks: books });
       }
     });
   }

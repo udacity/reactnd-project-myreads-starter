@@ -26,7 +26,6 @@ class BooksApp extends React.Component {
 
   updateCategory = (book, category) => {
     BooksAPI.update(book, category)
-  
     book.shelf = category
     this.setState({ books: this.state.books.filter(b => b.id !== book.id).concat([ book ]) })
   }
@@ -42,7 +41,7 @@ class BooksApp extends React.Component {
               <Bookshelf update={this.updateCategory} books={this.state.books} />
             )}/>
             <Route path='/search' render={() => (
-              <Search update={this.updateCategory}/>
+              <Search update={this.updateCategory} currentBooks={this.state.books}/>
             )} />
 
             <div className="open-search">
