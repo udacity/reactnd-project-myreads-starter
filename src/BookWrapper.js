@@ -5,23 +5,33 @@ import Book from './Book'
 import SearchButton from './SearchButton'
 
 class BookWrapper extends Component {
+  renderBook(book){
+    return (<Book 
+      key={book.id}
+      cover={book.imageLinks.thumbnail}
+      title={book.title}
+      authors={book.authors}
+    />)
+  }
+
   render(){
-    const {books} = this.props;
-    const Books = books.map((book) => 
-      <Book 
-        key={book.id}
-        cover={book.imageLinks.thumbnail}
-        title={book.title}
-        authors={book.authors}
-      />
-    )
-    console.log(books);
+    const {currentlyReading, wantToRead, read} = this.props;
+    const CurrentlyReading = currentlyReading.map(this.renderBook);
+    const WantToRead = wantToRead.map(this.renderBook);
+    const Read = read.map(this.renderBook);
+    
     return(
       <div className="list-books">
         <Header />
         <div className="list-books-content">
-          <BookShelf>
-            {Books}
+          <BookShelf shelfName="Currently Reading">
+            {CurrentlyReading}
+          </BookShelf>
+          <BookShelf shelfName="Want To Read">
+            {WantToRead}
+          </BookShelf>          
+          <BookShelf shelfName="Read">
+            {Read}
           </BookShelf>
         </div>
         <SearchButton />
