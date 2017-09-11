@@ -9,7 +9,7 @@ class AddToBookList extends Component {
   state = {
     books: [],
     query: '',
-  }
+  };
 
   updateQuery = (query) => {
     // reset state if no query exists
@@ -18,17 +18,17 @@ class AddToBookList extends Component {
       return;
     }
 
-    search(query, 10).then((books) => {
+    search(query, 5).then((books) => {
       this.setState({query: query.trim()});
       if(books.length > 0) {
         this.setState({books});
       } else {
-        this.setState({books: []})
+        this.setState({books: []});
       }
     })
   }
 
-  render(){
+  render() {
     let showingBooks;
     const {books} = this.state;
     
@@ -48,7 +48,8 @@ class AddToBookList extends Component {
         title={book.title}
         authors={book.authors}
       />
-    )
+    );
+
     return(
       <div className="search-books">
         <div className="search-books-bar">

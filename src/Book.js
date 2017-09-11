@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 class Book extends Component {
-  render(){
+  render() {
     const {cover, title, authors} = this.props;
 
     return(

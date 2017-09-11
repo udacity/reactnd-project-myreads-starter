@@ -5,16 +5,16 @@ import Book from './Book'
 import SearchButton from './SearchButton'
 
 class BookWrapper extends Component {
-  renderBook(book){
+  renderBook(book) {
     return (<Book 
       key={book.id}
       cover={book.imageLinks.thumbnail}
       title={book.title}
       authors={book.authors}
-    />)
+    />);
   }
 
-  render(){
+  render() {
     const {currentlyReading, wantToRead, read} = this.props;
     const CurrentlyReading = currentlyReading.map(this.renderBook);
     const WantToRead = wantToRead.map(this.renderBook);

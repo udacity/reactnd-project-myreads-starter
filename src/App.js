@@ -17,7 +17,8 @@ class BooksApp extends React.Component {
     currentlyReading: [],
     wantToRead: [],
     read: [],
-  }
+  };
+
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
@@ -26,13 +27,13 @@ class BooksApp extends React.Component {
       let read = [];
 
       books.map((book) => {
-        if(book.shelf === "currentlyReading"){
+        if(book.shelf === "currentlyReading") {
           currentlyReading.push(book);
         }
-        if(book.shelf === "wantToRead"){
+        if(book.shelf === "wantToRead") {
           wantToRead.push(book);
         }
-        if(book.shelf === "read"){
+        if(book.shelf === "read") {
           read.push(book);
         }
         return book;
