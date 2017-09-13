@@ -44,9 +44,11 @@ class AddToBookList extends Component {
     const Books = showingBooks.map((book) => 
       <Book 
         key={book.id}
+        id={book.id}
         cover={book.imageLinks.thumbnail}
         title={book.title}
         authors={book.authors}
+        updateShelf={this.props.updateShelf}
       />
     );
 

@@ -16,6 +16,30 @@ class BooksApp extends React.Component {
     read: [],
   };
 
+  updateShelf = (book,shelf) => {
+    BooksAPI.get(book).then((bookObj) => {
+      bookObj.shelf = shelf;
+
+      BooksAPI.update(bookObj,shelf).then((bookStatus) => {
+        this.updateState(shelf, bookObj, "currentlyReading");
+        this.updateState(shelf, bookObj, "wantToRead");
+        this.updateState(shelf, bookObj, "read");
+      })
+    })
+  }
+
+  updateState(shelf,book,existingShelf){
+    let readStatus = this.state[existingShelf];
+
+    readStatus = readStatus.filter(a => a.id !== book.id);
+    if (shelf === existingShelf) readStatus = readStatus.concat(book);
+    
+    const key = existingShelf;
+    const readStatusObj = {};
+    readStatusObj[key] = readStatus;
+
+    this.setState(readStatusObj);
+  }
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
@@ -48,11 +72,14 @@ class BooksApp extends React.Component {
             currentlyReading={this.state.currentlyReading}
             wantToRead={this.state.wantToRead}
             read={this.state.read}
+            updateShelf={this.updateShelf}
           />
         )}/>
 
         <Route exact path="/search" render={() => (
-          <AddToBookList/>
+          <AddToBookList
+            updateShelf={this.updateShelf}
+          />
         )}/>
       </div>
     )

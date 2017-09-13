@@ -5,12 +5,15 @@ import Book from './Book'
 import SearchButton from './SearchButton'
 
 class BookWrapper extends Component {
-  renderBook(book) {
+
+  renderBook = (book) => {
     return (<Book 
       key={book.id}
+      id={book.id}
       cover={book.imageLinks.thumbnail}
       title={book.title}
       authors={book.authors}
+      updateShelf={this.props.updateShelf}
     />);
   }
 
