@@ -14,30 +14,31 @@ class BooksApp extends React.Component {
     books: [],
   };
 
-  // updateShelf = (book,shelf) => {
-  //   BooksAPI.get(book).then((bookObj) => {
-  //     bookObj.shelf = shelf;
+  updateShelf = (book,shelf) => {
+    BooksAPI.get(book).then((bookObj) => {
+      bookObj.shelf = shelf;
 
-  //     BooksAPI.update(bookObj,shelf).then((bookStatus) => {
-  //       this.updateState(shelf, bookObj, "currentlyReading");
-  //       this.updateState(shelf, bookObj, "wantToRead");
-  //       this.updateState(shelf, bookObj, "read");
-  //     })
-  //   })
-  // }
+      BooksAPI.update(bookObj,shelf).then((bookStatus) => {
+        this.updateState(shelf, bookObj, "currentlyReading");
+        this.updateState(shelf, bookObj, "wantToRead");
+        this.updateState(shelf, bookObj, "read");
+      })
+    })
+  }
 
-  // updateState(shelf,book,existingShelf){
-  //   let readStatus = this.state[existingShelf];
+  updateState(shelf,book,existingShelf){
+    console.log(shelf,book);
+    let readStatus = this.state.books;
 
-  //   readStatus = readStatus.filter(a => a.id !== book.id);
-  //   if (shelf === existingShelf) readStatus = readStatus.concat(book);
+    readStatus = readStatus.filter(a => a.id !== book.id);
+    if (shelf === existingShelf) readStatus = readStatus.concat(book);
     
-  //   const key = existingShelf;
-  //   const readStatusObj = {};
-  //   readStatusObj[key] = readStatus;
+    const key = existingShelf;
+    const readStatusObj = {};
+    readStatusObj[key] = readStatus;
 
-  //   this.setState(readStatusObj);
-  // }
+    this.setState(readStatusObj);
+  }
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
