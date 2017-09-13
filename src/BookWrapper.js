@@ -13,15 +13,16 @@ class BookWrapper extends Component {
       cover={book.imageLinks.thumbnail}
       title={book.title}
       authors={book.authors}
+      shelf={book.shelf}
       updateShelf={this.props.updateShelf}
     />);
   }
 
   render() {
-    const {currentlyReading, wantToRead, read} = this.props;
-    const CurrentlyReading = currentlyReading.map(this.renderBook);
-    const WantToRead = wantToRead.map(this.renderBook);
-    const Read = read.map(this.renderBook);
+    const books = this.props.myBooks;
+    const CurrentlyReading = books.filter((book => book.shelf === "currentlyReading")).map(this.renderBook)
+    const WantToRead = books.filter((book => book.shelf === "wantToRead")).map(this.renderBook)
+    const Read = books.filter((book => book.shelf === "read")).map(this.renderBook)
     
     return(
       <div className="list-books">

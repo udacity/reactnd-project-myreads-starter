@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Book from './Book'
 import { search } from './BooksAPI'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
+
 
 class AddToBookList extends Component {
   state = {
@@ -29,17 +28,10 @@ class AddToBookList extends Component {
   }
 
   render() {
-    let showingBooks;
+    const myBooks = this.props.myBooks;
     const {books} = this.state;
-    
-    if(this.state.query) {
-      const match = new RegExp(escapeRegExp(this.state.query),'i');
-      showingBooks = books.filter((book) => match.test(book.title));
-    } else {
-      showingBooks = books;
-    }
-
-    showingBooks.sort(sortBy('title'));
+    let showingBooks = books;
+  
     
     const Books = showingBooks.map((book) => 
       <Book 

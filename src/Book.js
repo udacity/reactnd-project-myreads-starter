@@ -9,7 +9,7 @@ class Book extends Component {
   }
 
   render() {
-    const {cover, title, authors} = this.props;
+    const {cover, title, authors, shelf} = this.props;
 
     return(
       <li>
@@ -17,7 +17,7 @@ class Book extends Component {
           <div className="book-top">
             <div className="book-cover" style={{backgroundImage: `url(${cover})` }}></div>
             <div className="book-shelf-changer">
-              <select onChange={this.handleChange}>
+              <select value={shelf} onChange={this.handleChange}>
                 <option value="none" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
