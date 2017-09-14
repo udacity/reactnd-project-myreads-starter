@@ -17,27 +17,12 @@ class BooksApp extends React.Component {
   updateShelf = (book,shelf) => {
     BooksAPI.get(book).then((bookObj) => {
       bookObj.shelf = shelf;
+      const books = this.state.books.filter(a => a.id !== book).concat(bookObj);
 
       BooksAPI.update(bookObj,shelf).then((bookStatus) => {
-        this.updateState(shelf, bookObj, "currentlyReading");
-        this.updateState(shelf, bookObj, "wantToRead");
-        this.updateState(shelf, bookObj, "read");
+        this.setState({books})
       })
     })
-  }
-
-  updateState(shelf,book,existingShelf){
-    console.log(shelf,book);
-    let readStatus = this.state.books;
-
-    readStatus = readStatus.filter(a => a.id !== book.id);
-    if (shelf === existingShelf) readStatus = readStatus.concat(book);
-    
-    const key = existingShelf;
-    const readStatusObj = {};
-    readStatusObj[key] = readStatus;
-
-    this.setState(readStatusObj);
   }
 
   componentDidMount() {
