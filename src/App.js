@@ -6,9 +6,6 @@ import BookWrapper from './BookWrapper'
 import './App.css'
 
 class BooksApp extends React.Component {
-  /**
-   * TODO: Create controlled select box on Book component
-   */
   
   state = {
     books: [],
@@ -27,6 +24,13 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
+      books.map((book) => {
+        if(book.authors.length > 1) {
+          book.authors = book.authors.join(", ");
+        }
+        return book.authors;
+      })
+      
       this.setState({books});
     });
   }

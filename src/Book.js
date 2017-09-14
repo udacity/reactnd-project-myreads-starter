@@ -8,6 +8,7 @@ class Book extends Component {
     }
   }
 
+
   render() {
     const {cover, title, authors, shelf} = this.props;
 

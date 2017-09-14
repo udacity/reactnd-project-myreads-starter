@@ -31,7 +31,6 @@ class AddToBookList extends Component {
     const {books} = this.state;
     const {myBooks} = this.props;
     let showingBooks = books;
-  
     
     const Books = showingBooks.map((book) => { 
       let myShelf = "none";
@@ -65,7 +64,6 @@ class AddToBookList extends Component {
               value={this.state.query}
               onChange={(event) => this.updateQuery(event.target.value)}
             />
-
           </div>
         </div>
         <div className="search-books-results">
