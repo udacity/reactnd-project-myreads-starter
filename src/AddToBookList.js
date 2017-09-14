@@ -28,7 +28,7 @@ class AddToBookList extends Component {
   }
 
   render() {
-    const {books} = this.state;
+    const {books, myBooks} = this.state;
     let showingBooks = books;
   
     
