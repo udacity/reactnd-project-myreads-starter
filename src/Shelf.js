@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Book from './Book'
 
 const Shelf = ({ shelf, books}) => {
@@ -22,6 +23,11 @@ const Shelf = ({ shelf, books}) => {
       </div>
     </div>
   )
+}
+
+Shelf.propTypes = {
+  shelf: PropTypes.object.isRequired,
+  books: PropTypes.array.isRequired
 }
 
 export default Shelf

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const Book = props => {
   return (
@@ -19,6 +20,12 @@ const Book = props => {
       <div className="book-authors">{ props.authors }</div>
     </div>
   )
+}
+
+Book.propTypes = {
+  image: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  authors: PropTypes.string.isRequired
 }
 
 export default Book
