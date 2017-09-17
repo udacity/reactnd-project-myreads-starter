@@ -13,7 +13,7 @@ const Shelf = ({ shelf, books}) => {
                 <Book
                   image={ book.imageLinks.thumbnail }
                   title={ book.title }
-                  authors={ book.authors }
+                  authors={ book.authors.join(", ") }
                 />
               </li>
             ))
