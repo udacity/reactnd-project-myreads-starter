@@ -2,6 +2,8 @@ import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Bookshelf from './components/Bookshelf'
+import * as BooksAPI from './BooksAPI'
+
 
 class BooksApp extends React.Component {
   state = {
@@ -11,10 +13,29 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: false
+    showSearchPage: false,
+    books: []
   }
 
+  updateBookData(books) {
+    this.setState({ books })
+    console.log(books)
+  }
+
+
+  componentDidMount() {
+    BooksAPI.getAll().then((result) => this.updateBookData(result))
+  }
   render() {
+    const currentReadingBooks = this.state.books.filter((book) => {
+      return book.shelf === 'currentlyReading';
+    });
+    const wantToReadBooks = this.state.books.filter((book) => {
+      return book.shelf === 'wantToRead';
+    });
+    const readBooks = this.state.books.filter((book) => {
+      return book.shelf === 'read';
+    });
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -23,12 +44,6 @@ class BooksApp extends React.Component {
               <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
               <div className="search-books-input-wrapper">
                 {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
                 */}
                 <input type="text" placeholder="Search by title or author"/>
 
@@ -44,7 +59,11 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-              <Bookshelf shelfName="Currently Reading"/>
+              <div>
+                <Bookshelf shelfName="Currently Reading" books={currentReadingBooks}/>
+                <Bookshelf shelfName="Want to read" books={wantToReadBooks}/>
+                <Bookshelf shelfName="Read" books={readBooks}/>
+              </div>
             </div>
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
@@ -54,6 +73,7 @@ class BooksApp extends React.Component {
       </div>
     )
   }
+
 }
 
 export default BooksApp
