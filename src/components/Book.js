@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 class Book extends Component {
 
     static propTypes = {
-      url: PropTypes.string.isRequired,
+      previewLink: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       author: PropTypes.string.isRequired
     }
@@ -13,7 +13,7 @@ class Book extends Component {
 
             <div className="book">
               <div className="book-top">
-                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${ this.props.url }")` }}></div>
+                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${ this.props.previewLink }")` }}></div>
                 <div className="book-shelf-changer">
                   <select>
                     <option value="none" disabled>Move to...</option>
