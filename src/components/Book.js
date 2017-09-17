@@ -4,16 +4,16 @@ import PropTypes from 'prop-types'
 class Book extends Component {
 
     static propTypes = {
-      previewLink: PropTypes.string.isRequired,
+      smallThumbnail: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      author: PropTypes.string.isRequired
+      authors: PropTypes.array.isRequired
     }
     render () {
         return (
 
             <div className="book">
               <div className="book-top">
-                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${ this.props.previewLink }")` }}></div>
+                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${ this.props.smallThumbnail }")` }}></div>
                 <div className="book-shelf-changer">
                   <select>
                     <option value="none" disabled>Move to...</option>
@@ -25,7 +25,7 @@ class Book extends Component {
                 </div>
               </div>
               <div className="book-title">{this.props.title}</div>
-              <div className="book-authors">{this.props.author}</div>
+              <div className="book-authors">{this.props.authors}</div>
             </div>
 
         )
