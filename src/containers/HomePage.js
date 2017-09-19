@@ -12,7 +12,6 @@ class HomePage extends Component {
         console.log(books)
     }
 
-
     componentDidMount() {
         BooksAPI.getAll().then((result) => this.updateBookData(result))
     }
