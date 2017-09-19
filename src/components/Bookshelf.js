@@ -8,9 +8,6 @@ class Bookshelf extends Component {
   static propTypes = {
     shelfName: PropTypes.string.isRequired
   }
-  state = {
-    books: []
-  }
   render () {
     const books = this.props.books
     return (
