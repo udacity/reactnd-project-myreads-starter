@@ -44,7 +44,7 @@ class HomePage extends Component {
                 <div className="list-books-content">
                     <div>
                         {this.shelves.map(shelf => (
-                            <Bookshelf shelfName={shelf.title} books={this.getShelfBooks(shelf.key)}/>
+                            <Bookshelf key={shelf.key} shelfName={shelf.title} books={this.getShelfBooks(shelf.key)}/>
                         ))}
                     </div>
                 </div>
