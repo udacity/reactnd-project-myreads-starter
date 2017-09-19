@@ -26,9 +26,14 @@ class HomePage extends Component {
             return book.shelf === key;
         })
     }
-
+    onMoveBook(book, shelf) {
+        BooksAPI.update(book, shelf)
+    }
+    loadBooks(books) {
+      this.setState({ books})
+    }
     componentDidMount() {
-        BooksAPI.getAll().then((result) => this.setState({ result }))
+        BooksAPI.getAll().then((result) => this.loadBooks(result))
     }
     render () {
 
@@ -40,7 +45,11 @@ class HomePage extends Component {
                 <div className="list-books-content">
                     <div>
                         {this.shelves.map(shelf => (
-                            <Bookshelf key={shelf.key} shelfName={shelf.title} books={this.getShelfBooks(shelf.key)}/>
+                            <Bookshelf key={shelf.key}
+                                       shelfName={shelf.title}
+                                       books={this.getShelfBooks(shelf.key)}
+                                       onMoveBook={this.onMoveBook}
+                            />
                         ))}
                     </div>
                 </div>

@@ -6,7 +6,8 @@ class Book extends Component {
     static propTypes = {
       smallThumbnail: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      authors: PropTypes.array.isRequired
+      authors: PropTypes.array.isRequired,
+      onMoveBook: PropTypes.func.isRequired
     }
     render () {
         return (
@@ -17,9 +18,9 @@ class Book extends Component {
                 <div className="book-shelf-changer">
                   <select>
                     <option value="none" disabled>Move to...</option>
-                    <option value="currentlyReading">Currently Reading</option>
-                    <option value="wantToRead">Want to Read</option>
-                    <option value="read">Read</option>
+                    <option value="currentlyReading" onChange={(event) => this.props.onMoveBook(event.target.value)}>Currently Reading</option>
+                    <option value="wantToRead" onChange={(event) => this.props.onMoveBook(event.target.value)}>Want to Read</option>
+                    <option value="read" onChange={(event) => this.props.onMoveBook(event.target.value)}>Read</option>
                     <option value="none">None</option>
                   </select>
                 </div>
