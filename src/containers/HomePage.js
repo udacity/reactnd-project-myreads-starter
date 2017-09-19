@@ -26,13 +26,9 @@ class HomePage extends Component {
             return book.shelf === key;
         })
     }
-    updateBooksData(books) {
-        this.setState({ books })
-        console.log(books)
-    }
 
     componentDidMount() {
-        BooksAPI.getAll().then((result) => this.updateBooksData(result))
+        BooksAPI.getAll().then((result) => this.setState({ result }))
     }
     render () {
 
