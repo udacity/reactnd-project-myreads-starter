@@ -7,25 +7,35 @@ class HomePage extends Component {
     state = {
         books: []
     }
-
-    updateBookData(books) {
+    shelves = [
+        {
+            key: "currentlyReading",
+            title: "Currently Reading"
+        },
+        {
+            key: "wantToRead",
+            title: "Want to Read"
+        },
+        {
+            key: "read",
+            title: "Read"
+      }
+    ]
+    getShelfBooks(key) {
+        return this.state.books.filter((book) => {
+            return book.shelf === key;
+        })
+    }
+    updateBooksData(books) {
         this.setState({ books })
         console.log(books)
     }
 
     componentDidMount() {
-        BooksAPI.getAll().then((result) => this.updateBookData(result))
+        BooksAPI.getAll().then((result) => this.updateBooksData(result))
     }
     render () {
-        const currentReadingBooks = this.state.books.filter((book) => {
-            return book.shelf === 'currentlyReading';
-        });
-        const wantToReadBooks = this.state.books.filter((book) => {
-            return book.shelf === 'wantToRead';
-        });
-        const readBooks = this.state.books.filter((book) => {
-            return book.shelf === 'read';
-        });
+
         return (
             <div className="list-books">
                 <div className="list-books-title">
@@ -33,9 +43,9 @@ class HomePage extends Component {
                 </div>
                 <div className="list-books-content">
                     <div>
-                        <Bookshelf shelfName="Currently Reading" books={currentReadingBooks}/>
-                        <Bookshelf shelfName="Want to read" books={wantToReadBooks}/>
-                        <Bookshelf shelfName="Read" books={readBooks}/>
+                        {this.shelves.map(shelf => (
+                            <Bookshelf shelfName={shelf.title} books={this.getShelfBooks(shelf.key)}/>
+                        ))}
                     </div>
                 </div>
                 <div className="open-search">
@@ -44,6 +54,8 @@ class HomePage extends Component {
             </div>
         )
     }
+
+
 }
 
 export default HomePage
