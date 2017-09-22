@@ -5,12 +5,20 @@
     "react-dom": "^15.5.4"
   },
   "devDependencies": {
+    "commitizen": "^2.9.6",
+    "cz-conventional-changelog": "^2.0.0",
     "react-scripts": "0.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "commit": "git-cz",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
