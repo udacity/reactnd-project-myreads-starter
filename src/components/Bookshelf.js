@@ -18,9 +18,7 @@ class Bookshelf extends Component {
                       {books.map((book) => (
                           <li key={book.title}>
                               <Book
-                                  title={book.title}
-                                  smallThumbnail={book.imageLinks.smallThumbnail}
-                                  authors={book.authors}
+                                  book={book}
                                   onMoveBook={this.props.onMoveBook}
                               />
                         </li>
