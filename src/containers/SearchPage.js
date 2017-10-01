@@ -17,13 +17,16 @@ class SearchPage extends Component {
     searchBooks = (e) => {
         const query = e.target.value.trim()
         BooksAPI.search(query, 40).then((results) => {
-            if (results) {
+            if (results.length) {
                 console.log(results)
                 this.setState({books: results})
             }
+            else {
+                console.log('Error results')
+            }
         }).catch((data) => {
-  					console.log('Unable to search "' + query + '"' + data);
-				})
+            console.log('Unable to search "' + query + '"' + data);
+        })
     };
 
     constructor() {
@@ -39,17 +42,17 @@ class SearchPage extends Component {
                 <div className="search-books-bar">
                     <Link className="close-search" to="/">Close</Link>
                     <div className="search-books-input-wrapper">
-                        <input type="text" onChange={this.searchBooks} placeholder="Search by title or author"/>
+                        <Debounce time='300' handler='onChange'>
+                            <input type="text" onChange={this.searchBooks} placeholder="Search by title or author"/>
+                        </Debounce>
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <Debounce time='400' handler='onChange'>
-                        <Bookshelf key="results"
-                                   shelfName="Search Results"
-                                   books={this.state.books}
-                                   onMoveBook={this.props.onMoveBook}
-                        />
-							      </Debounce>
+                    <Bookshelf key="results"
+                               shelfName="Search Results"
+                               books={this.state.books}
+                               onMoveBook={this.props.onMoveBook}
+                    />
                 </div>
             </div>
 
