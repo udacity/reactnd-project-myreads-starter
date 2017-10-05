@@ -10,9 +10,24 @@ class BooksApp extends React.Component {
     constructor() {
         super();
         this.state = {
-            books: []
+            books: [],
+            results: []
         };
 
+    }
+    searchBooks = (e) => {
+        const query = e.target.value.trim()
+        BooksAPI.search(query, 40).then((results) => {
+            if (results.length) {
+                console.log(results)
+                this.setState({results: results})
+            }
+            else {
+                console.log('Error results')
+            }
+        }).catch((data) => {
+            console.log('Unable to search "' + query + '"' + data);
+        })
     }
     onMoveBook = (book, shelf) => {
         console.log(book, shelf)
@@ -28,20 +43,6 @@ class BooksApp extends React.Component {
             })
         })
     }
-    shelves = [
-        {
-            key: "currentlyReading",
-            title: "Currently Reading"
-        },
-        {
-            key: "wantToRead",
-            title: "Want to Read"
-        },
-        {
-            key: "read",
-            title: "Read"
-        }
-    ]
     componentDidMount() {
         BooksAPI.getAll().then((result) => this.saveBooks(result))
     }
@@ -55,13 +56,13 @@ class BooksApp extends React.Component {
             <div className="app">
                 <Route exact path='/search' render={() => (
                     <SearchPage
-                        shelves={this.shelves}
                         onMoveBook={this.onMoveBook}
+                        searchBooks={this.searchBooks}
+                        results={this.state.results}
                     />
                 )} />
                 <Route exact path='/' render={() => (
                     <HomePage
-                        shelves={this.shelves}
                         onMoveBook={this.onMoveBook}
                         books={this.state.books}
                     />

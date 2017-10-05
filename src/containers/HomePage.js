@@ -7,7 +7,6 @@ import PropTypes from 'prop-types'
 class HomePage extends Component {
     static propTypes = {
         onMoveBook: PropTypes.func.isRequired,
-        shelves: PropTypes.array.isRequired,
         books: PropTypes.array.isRequired
     };
 
@@ -16,7 +15,20 @@ class HomePage extends Component {
             return book.shelf === key;
         })
     }
-
+    shelves = [
+        {
+            key: "currentlyReading",
+            title: "Currently Reading"
+        },
+        {
+            key: "wantToRead",
+            title: "Want to Read"
+        },
+        {
+            key: "read",
+            title: "Read"
+        }
+    ]
 
     render () {
 
@@ -28,7 +40,7 @@ class HomePage extends Component {
                 </div>
                 <div className="list-books-content">
                     <div>
-                        {this.props.shelves.map(shelf => (
+                        {this.shelves.map(shelf => (
                             <Bookshelf key={shelf.key}
                                        shelfName={shelf.title}
                                        books={this.getShelfBooks(shelf.key)}
