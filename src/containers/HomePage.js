@@ -10,11 +10,6 @@ class HomePage extends Component {
         books: PropTypes.array.isRequired
     };
 
-    getShelfBooks(key) {
-        return this.props.books.filter((book) => {
-            return book.shelf === key;
-        })
-    }
     shelves = [
         {
             key: "currentlyReading",
@@ -43,7 +38,9 @@ class HomePage extends Component {
                         {this.shelves.map(shelf => (
                             <Bookshelf key={shelf.key}
                                        shelfName={shelf.title}
-                                       books={this.getShelfBooks(shelf.key)}
+                                       books={this.props.books.filter((book) => {
+                                          return book.shelf === shelf.key;
+                                       })}
                                        onMoveBook={onMoveBook}
                             />
                         ))}
