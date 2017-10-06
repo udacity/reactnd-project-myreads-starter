@@ -1,0 +1,62 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "parser": "babel-eslint",
+    "rules": {
+        "curly": "error",
+        "comma-dangle": ["error", "never"],
+        "comma-spacing": "error",
+        "dot-location": ["error", "property"],
+        "eol-last": "error",
+        "eqeqeq": ["error", "allow-null"],
+        "key-spacing": ["error", { "beforeColon": false }],
+        "no-dupe-keys": "error",
+        "no-trailing-spaces": "error",
+        "no-undef": "error",
+        "no-unused-expressions": "error",
+        "no-unused-vars": "warn",
+        "object-curly-spacing": ["error", "always"],
+        "prefer-template": "warn",
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"],
+        "space-before-blocks": ["error", "always"],
+        "space-before-function-paren": ["error", "always"],
+        "jsx-quotes": "error",
+        "react/jsx-uses-react": "warn",
+        "react/jsx-uses-vars": "warn",
+        "react/jsx-curly-spacing": ["error", "always"],
+        "react/jsx-max-props-per-line": ["error", { "maximum": 4 }],
+        "react/jsx-no-duplicate-props": "error",
+        "react/jsx-no-undef": "error"
+    },
+    "ecmaFeatures": {
+        "arrowFunctions": "error",
+        "blockBindings": "error",
+        "jsx": true,
+        "modules": true,
+        "classes": true
+    },
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "globals": {
+        "featureFile": true,
+        "scenarios": true,
+        "steps": true,
+        "after": true,
+        "$recv": true,
+        "$send": true,
+        "$print": true,
+        "dataLayer": true
+    },
+    "plugins": [
+        "react"
+    ],
+    "extends": "react-app"
+}
