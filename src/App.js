@@ -1,29 +1,19 @@
-import React from "react";
-import "./App.css";
-import HomePage from "./containers/HomePage";
-import SearchPage from "./containers/SearchPage";
-import * as BooksAPI from "./BooksAPI";
-import {Route} from "react-router-dom";
+import React from "react"
+import "./App.css"
+import HomePage from "./containers/HomePage"
+import SearchPage from "./containers/SearchPage"
+import * as BooksAPI from "./BooksAPI"
+import {Route} from "react-router-dom"
 
 
 class BooksApp extends React.Component {
     constructor() {
-        super();
+        super()
         this.state = {
             books: [],
             results: []
-        };
-
-    }
-    findBookInShelves = (book, books) => {
-        let bookListToReturn = books.filter((bookInShelf) => {
-            return book.id === bookInShelf.id
-        })
-        if (bookListToReturn.length >= 1) {
-            return bookListToReturn[0]
         }
 
-        return false
     }
     searchBooks = (e) => {
         const query = e.target.value.trim()
@@ -45,7 +35,7 @@ class BooksApp extends React.Component {
                 console.log('Error results')
             }
         }).catch((data) => {
-            console.log('Unable to search "' + query + '"' + data);
+            console.log('Unable to search "' + query + '"' + data)
         })
     }
     onMoveBook = (book, shelf) => {
