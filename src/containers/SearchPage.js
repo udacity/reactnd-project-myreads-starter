@@ -8,7 +8,6 @@ import { Debounce } from 'react-throttle'
 
 class SearchPage extends Component {
 
-
     static propTypes = {
         onMoveBook: PropTypes.func.isRequired,
         searchBooks: PropTypes.func.isRequired,

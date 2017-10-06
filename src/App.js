@@ -15,35 +15,31 @@ class BooksApp extends React.Component {
         };
 
     }
-    findBookInShelves = (book) => {
-        let bookListToReturn = this.state.books.filter((bookInShelf) => {
-                                  return book.id === bookInShelf.id
-                          })
-        if (bookListToReturn !== null) {
-            if (bookListToReturn.length >= 1) {
-
-                return bookListToReturn[0]
-            }
+    findBookInShelves = (book, books) => {
+        let bookListToReturn = books.filter((bookInShelf) => {
+            return book.id === bookInShelf.id
+        })
+        if (bookListToReturn.length >= 1) {
+            return bookListToReturn[0]
         }
 
-      return false
+        return false
     }
     searchBooks = (e) => {
         const query = e.target.value.trim()
+        console.log('fazendo pesquisa')
         BooksAPI.search(query, 40).then((results) => {
             if (results.length) {
-                this.setState({
-                    results: results.map((resultBook) => {
-                        let bookInShelf = this.findBookInShelves(resultBook)
-                        if (bookInShelf) {
-                            if (bookInShelf !== undefined) {
-                                resultBook.shelf = bookInShelf.shelf
-                            }
-                        }
-                        return resultBook
-                    })
+                this.setState((prevState) => {
+                    return {
+                        results: results.map((resultBook) => {
+                                let bookInShelf =  this.state.books.find((bookInShelf) => resultBook.id === bookInShelf.id)
+                                resultBook.shelf = bookInShelf ? bookInShelf.shelf : 'none'
+                                return resultBook
+                            },
+                        )
+                    }
                 })
-
             }
             else {
                 console.log('Error results')
@@ -55,15 +51,27 @@ class BooksApp extends React.Component {
     onMoveBook = (book, shelf) => {
         console.log(book, shelf)
         BooksAPI.update(book, shelf).then((bookId) =>{
-
-
             this.setState((prevState) => {
-                return {books: prevState.books.map((findBook) => {
-                    if (book.id === findBook.id) {
-                      findBook.shelf = shelf
-                    }
-                    return findBook;
+                let bookInShelf = prevState.books.filter((prevBook) => {
+                    return prevBook.id === book.id
                 })
+                if (bookInShelf.length === 0) {
+                    book.shelf = shelf
+                    prevState.books.push(book)
+                }
+                return {
+                    books: prevState.books.map((findBook) => {
+                        if (book.id === findBook.id) {
+                            findBook.shelf = shelf
+                        }
+                        return findBook
+                    }),
+                    results: prevState.results.map((findBook) => {
+                        if (book.id === findBook.id) {
+                            findBook.shelf = shelf
+                        }
+                        return findBook
+                    })
                 }
             })
         })
