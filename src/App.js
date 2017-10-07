@@ -3,7 +3,7 @@ import "./App.css"
 import HomePage from "./containers/HomePage"
 import SearchPage from "./containers/SearchPage"
 import * as BooksAPI from "./BooksAPI"
-import {Route} from "react-router-dom"
+import {  BrowserRouter as Router, Route} from "react-router-dom"
 
 
 class BooksApp extends React.Component {
@@ -76,22 +76,24 @@ class BooksApp extends React.Component {
 
     render() {
         return (
-            <div className="app">
-                <Route exact path='/search' render={() => (
-                    <SearchPage
-                        onMoveBook={this.onMoveBook}
-                        searchBooks={this.searchBooks}
-                        results={this.state.results}
+            <Router>
+                <div className="app">
+                    <Route exact path='/search' render={() => (
+                        <SearchPage
+                            onMoveBook={this.onMoveBook}
+                            searchBooks={this.searchBooks}
+                            results={this.state.results}
+                        />
+                    )} />
+                    <Route exact path='/' render={() => (
+                        <HomePage
+                            onMoveBook={this.onMoveBook}
+                            books={this.state.books}
+                        />
+                    )}
                     />
-                )} />
-                <Route exact path='/' render={() => (
-                    <HomePage
-                        onMoveBook={this.onMoveBook}
-                        books={this.state.books}
-                    />
-                )}
-                />
-            </div>
+                </div>
+            </Router>
         )
     }
 

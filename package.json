@@ -1,20 +1,38 @@
 {
   "dependencies": {
     "prop-types": "^15.5.10",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
+    "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-throttle": "^0.3.0"
   },
   "devDependencies": {
+    "enzyme": "^3.1.0",
+    "enzyme-to-json": "^3.1.2",
     "eslint": "^4.8.0",
     "eslint-plugin-react": "^7.4.0",
-    "react-scripts": "0.9.5"
+    "react-addons-test-utils": "^15.6.2",
+    "react-scripts": "^1.0.14",
+    "react-test-renderer": "^15.6.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test --env=jsdom --setupFiles='./src/setupTest.js'",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,sx}",
+      "!src/index.js",
+      "!src/registerServiceWorker.js",
+      "!src/components/teste.js",
+      "!src/setupTests.js",
+      "!src/api/*"
+    ]
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   }
 }
