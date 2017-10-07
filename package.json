@@ -30,7 +30,7 @@
       "!src/components/teste.js",
       "!src/setupTests.js",
       "!src/api/*"
-    ]
+    ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ]
