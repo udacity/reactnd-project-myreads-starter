@@ -9,9 +9,11 @@
   },
   "devDependencies": {
     "enzyme": "^3.1.0",
+    "enzyme-adapter-react-15": "^1.0.1",
     "enzyme-to-json": "^3.1.2",
     "eslint": "^4.8.0",
     "eslint-plugin-react": "^7.4.0",
+    "fetch-mock": "^5.13.0",
     "react-addons-test-utils": "^15.6.2",
     "react-scripts": "^1.0.14",
     "react-test-renderer": "^15.6.2"
@@ -19,7 +21,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom --setupFiles='./src/setupTest.js'",
+    "test": "react-scripts test --env=jsdom --setupFiles='./src/setupTest.js' ",
+    "test:coverage": "react-scripts test --env=jsdom --coverage --setupFiles='./src/setupTest.js' ",
     "eject": "react-scripts eject"
   },
   "jest": {
@@ -27,9 +30,9 @@
       "src/**/*.{js,sx}",
       "!src/index.js",
       "!src/registerServiceWorker.js",
-      "!src/components/teste.js",
-      "!src/setupTests.js",
-      "!src/api/*"
+      "!src/setupTest.js",
+      "!src/api/*",
+      "!src/BooksAPI.js"
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
