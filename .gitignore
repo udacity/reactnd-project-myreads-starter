@@ -3,3 +3,5 @@ yarn.lock
 .DS_Store
 .idea/
 package-lock.json
+coverage
+src/__snapshots__
