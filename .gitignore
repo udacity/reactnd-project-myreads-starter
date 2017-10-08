@@ -5,3 +5,4 @@ yarn.lock
 package-lock.json
 coverage
 src/__snapshots__
+src/*/__snapshots__
