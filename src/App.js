@@ -6,6 +6,24 @@ import * as BooksAPI from "./BooksAPI"
 import {  BrowserRouter as Router, Route} from "react-router-dom"
 
 
+export function updateBooks(books, book) {
+    books.map((findBook) => {
+        if (book.id === findBook.id) {
+            findBook.shelf = book.shelf
+        }
+        return findBook
+    })
+    return books
+}
+
+export function pushBook(books, book) {
+    let bookInShelf = books.find((prevBook) => prevBook.id === book.id)
+    if (bookInShelf === undefined) {
+        books.push(book)
+    }
+    return books
+}
+
 class BooksApp extends React.Component {
     constructor() {
         super()
@@ -39,33 +57,19 @@ class BooksApp extends React.Component {
         })
     }
     onMoveBook = (book, shelf) => {
-        console.log(book, shelf)
         BooksAPI.update(book, shelf).then((bookId) =>{
             this.setState((prevState) => {
-                let bookInShelf = prevState.books.filter((prevBook) => {
-                    return prevBook.id === book.id
-                })
-                if (bookInShelf.length === 0) {
-                    book.shelf = shelf
-                    prevState.books.push(book)
-                }
+                book.shelf = shelf
+                pushBook(prevState.books, book)
                 return {
-                    books: prevState.books.map((findBook) => {
-                        if (book.id === findBook.id) {
-                            findBook.shelf = shelf
-                        }
-                        return findBook
-                    }),
-                    results: prevState.results.map((findBook) => {
-                        if (book.id === findBook.id) {
-                            findBook.shelf = shelf
-                        }
-                        return findBook
-                    })
+                    books: updateBooks(prevState.books, book, shelf),
+                    results: updateBooks(prevState.results, book, shelf)
                 }
             })
         })
     }
+
+
     componentDidMount() {
         BooksAPI.getAll().then((result) => this.saveBooks(result))
     }
