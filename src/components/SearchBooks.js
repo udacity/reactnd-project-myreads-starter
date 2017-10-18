@@ -7,10 +7,12 @@ import * as BooksAPI from '../BooksAPI';
 class SearchBooks extends React.Component {
 
   state = {
-    searchResults: []
+    searchResults: [],
+    searchValue: ''
   }
 
   searchBooks = (e) => {
+    this.setState({searchValue: e.target.value});
     if (e.target.value.length < 1) {
       this.setState({searchResults: []});
     }
@@ -34,13 +36,15 @@ class SearchBooks extends React.Component {
             <Link className="close-search" to="/">Close</Link>
             <div className="search-books-input-wrapper">
 
-              <input type="text" placeholder="Search by title or author" onChange={this.searchBooks} />
+              <input type="text" placeholder="Search by title or author"
+                     value={this.state.searchValue}
+                     onChange={this.searchBooks} />
 
             </div>
           </div>
           <div className="search-books-results">
             <ol className="books-grid">
-            	{searchResults.map((book) => (
+              {searchResults.map((book) => (
                 <li>
                   <Book key={book.id} book={book} changeBookShelf={this.props.onSelectShelf} />
                 </li>
