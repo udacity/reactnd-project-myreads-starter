@@ -12,7 +12,7 @@ class SearchBooks extends React.Component {
 
   searchBooks = (e) => {
     if (e.target.value.length < 1) {
-      return true;
+      this.setState({searchResults: []});
     }
     BooksAPI.search(e.target.value, 10).then((books) => {
       if (books.error === undefined) {

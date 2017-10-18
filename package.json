@@ -1,4 +1,6 @@
 {
+  "name": "myreads",
+  "version": "0.2.0",
   "dependencies": {
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
