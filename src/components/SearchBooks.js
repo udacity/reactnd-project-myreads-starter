@@ -17,9 +17,10 @@ class SearchBooks extends React.Component {
       this.setState({searchResults: []});
     }
     BooksAPI.search(e.target.value, 10).then((books) => {
-      if (books.error === undefined) {
+      if (books && books.error === undefined) {
         this.setState({searchResults: books});
       } else {
+        console.log('error throw')
         this.setState({searchResults: []});
       }
     });
@@ -45,8 +46,8 @@ class SearchBooks extends React.Component {
           <div className="search-books-results">
             <ol className="books-grid">
               {searchResults.map((book) => (
-                <li>
-                  <Book key={book.id} book={book} changeBookShelf={this.props.onSelectShelf} />
+                <li key={book.id}>
+                  <Book book={book} changeBookShelf={this.props.onSelectShelf} />
                 </li>
               ))}
             </ol>

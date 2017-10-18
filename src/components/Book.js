@@ -6,7 +6,7 @@ class Book extends React.Component {
   static propTypes = {
     book: PropTypes.shape({
       id: PropTypes.string,
-      imageLinks: PropTypes.object.isRequired,
+      imageLinks: PropTypes.object,
       title: PropTypes.string.isRequired,
       authors: PropTypes.array,
       shelf: PropTypes.string,
@@ -20,7 +20,11 @@ class Book extends React.Component {
     return (
         <div className="book">
           <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+            {book.imageLinks ?
+              <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+              : <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url('http://via.placeholder.com/128x193?text=No%20Cover')` }}></div>
+            }
+
             <div className="book-shelf-changer">
               <select id={book.id} value={book.shelf || 'None'} onChange={changeBookShelf}>
                 <option value="none" disabled>Move to...</option>

@@ -2,33 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Book from './Book'
 
-class BookShelf extends React.Component {
-
-  static propTypes = {
+// stateless fucntional component as it does not handle state or lifecycle methods
+  BookShelf.propTypes = {
     shelfName: PropTypes.string.isRequired,
     books: PropTypes.array
   }
 
-  render() {
-
-    const { shelfName, books, changeBookShelf } = this.props;
-
-    return (
+ function BookShelf({shelfName, books, changeBookShelf}){
+  return (
         <div className="bookshelf">
           <h2 className="bookshelf-title">{shelfName}</h2>
           <div className="bookshelf-books">
             <ol className="books-grid">
               {books.map((book) => (
-                <li>
-                <Book key={book.id} book={book} changeBookShelf={changeBookShelf} />
+                <li key={book.id}>
+                <Book book={book} changeBookShelf={changeBookShelf} />
                 </li>
               ))}
             </ol>
           </div>
         </div>
     );
-  }
-}
+ }
+
 
 export default BookShelf;
 
