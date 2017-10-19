@@ -15,3 +15,14 @@ Node
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
 
+
+
+To do:
+
+1. Apps.js: update state without needing to call the API again
+2. Apps.js: 404 Switch
+3. stay on the search page after you add a book so that you can add multiple books
+4. SearchBooks: Books in search results should have the shelf they're on selected in the dropdown for that book, and if a book is not on a shelf then it should not have any shelf (or a "None" shelf) selected.
+5. Readme cleanup
+6. App.js: Separate list-books component
+

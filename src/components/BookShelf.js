@@ -14,11 +14,17 @@ import Book from './Book'
           <h2 className="bookshelf-title">{shelfName}</h2>
           <div className="bookshelf-books">
             <ol className="books-grid">
-              {books.map((book) => (
-                <li key={book.id}>
-                <Book book={book} changeBookShelf={changeBookShelf} />
-                </li>
-              ))}
+              {
+                books.length > 0 ? (
+                  books.map((book) => (
+                    <li key={book.id}>
+                      <Book book={book} changeBookShelf={changeBookShelf} />
+                    </li>
+                  ))
+                ) : (
+                <p className="empty-notice">You have no books on this shelf.</p>
+                )
+              }
             </ol>
           </div>
         </div>

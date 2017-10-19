@@ -16,7 +16,7 @@ class BooksApp extends React.Component {
     });
   }
 
-  changeBookShelf = (e) => {
+ changeBookShelf = (e) => {
     console.log(e);
     BooksAPI.update({id: e.target.id}, e.target.value).then((response) => {
        BooksAPI.getAll().then((books) => {
@@ -25,6 +25,17 @@ class BooksApp extends React.Component {
     });
   }
 
+/*
+changeBookShelf = (book, shelf) => {
+  BooksAPI.update(book, shelf).then(() => {
+    book.shelf = shelf
+
+    this.setState(previousState => ({
+      books: previousState.Books.filter(b => b.id !== book.id).concat(book)
+    }))
+  })
+}
+*/
 
   render() {
 
@@ -57,7 +68,7 @@ class BooksApp extends React.Component {
             <SearchBooks onSelectShelf={(e) => {
                 this.changeBookShelf(e)
                 /* to redirect to list page after adding contact */
-                history.push('/')
+               // history.push('/')
               }}
              />
           )} />
