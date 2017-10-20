@@ -1,4 +1,5 @@
-# MyReads by Smarajit Dasgupta
+# MyReads
+by Smarajit Dasgupta
 
 A library management app. Assignment #1 for Udacity React nanodegree program.
 
@@ -6,16 +7,18 @@ The project involves building the React components to populate the main page and
 
 ## Pre-requisite
 
-Git
-Node
+* [Git](https://git-scm.com/)
+* [Node](https://nodejs.org/en/)
 
 ## Setting up
 
-* download / clone repository `git clone https://github.com/smarajitdasgupta/reactnd-project-myreads-starter.git`
+* [Download](https://github.com/smarajitdasgupta/reactnd-project-myreads-starter/archive/master.zip) / Clone repository `git clone https://github.com/smarajitdasgupta/reactnd-project-myreads-starter.git`
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
 
+## Search Limitation
 
+The backend API uses a fixed set of search results and is limited to a set of search terms, which can be found in [SEARCH_TERMS.md](https://github.com/smarajitdasgupta/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md).
 
 To do:
 
