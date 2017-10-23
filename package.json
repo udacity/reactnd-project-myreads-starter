@@ -5,6 +5,7 @@
     "react-dom": "^15.5.4"
   },
   "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
     "react-scripts": "0.9.5"
   },
   "scripts": {
