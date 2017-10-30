@@ -1,8 +1,63 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import * as BooksAPI from './BooksAPI'
 
 class SearchBooks extends Component{
-	render() {
+	
+  state = {
+    query: '',
+    books: [],
+
+
+  }
+
+
+
+  searchBooks = (query) => {
+    this.setState({query: query.trim()})
+
+    if (query){
+          BooksAPI.search(query, 1).then((books) => {
+            if (!books.error){
+              books.map((book) => {
+                return (book.shelf ? book.shelf : 'none')
+               })
+
+            }
+            
+            this.setState({ books: !books.error ? books : []})
+
+  
+    })
+    }
+    else {
+      this.setState({books: []})
+    }
+  }
+
+
+
+  updateNewBook = (book, shelf) => {
+  
+  const results = this.state.books.filter(currentbook => currentbook.id === book.id);
+      results[0].shelf = shelf
+
+  this.setState((state) => {
+    state: results
+      
+  }
+    )
+
+BooksAPI.update(book, shelf)
+
+}
+
+
+
+  render() {
+    const { onUpdateBook } = this.props
+    const { books } = this.state
+
 
 		return(
           <div className="search-books">
@@ -13,20 +68,37 @@ class SearchBooks extends Component{
 
               >Close</Link>
               <div className="search-books-input-wrapper">
-                {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
 
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
-                <input type="text" placeholder="Search by title or author"/>
+                <input onChange={(event) => this.searchBooks(event.target.value)} type="text" placeholder="Search by title or author"/>
 
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+              {books.map((book) => ( 
+
+                     <li key={book.id}>
+                        <div  className="book">
+                          <div className="book-top">
+                           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:  `url(${book.imageLinks.thumbnail}`}}></div>
+                            <div className="book-shelf-changer">
+                              <select value={book.shelf} onChange={(event) => this.updateNewBook(book, event.target.value)}>
+                                <option value="na" disabled>Move to...</option>
+                                <option value="currentlyReading">Currently Reading</option>
+                                <option value="wantToRead">Want to Read</option>
+                                <option value="read">Read</option>
+                                <option value="none">None</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div className="book-title">{book.title}</div>
+                          <div className="book-authors">{book.authors ? book.authors.join(", ") : ""}</div>
+                        </div>
+                      </li>
+                  )
+                  )}
+
+              </ol>
             </div>
           </div>
     
