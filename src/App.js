@@ -17,14 +17,14 @@ class BooksApp extends React.Component {
 
   }
 
-
   updateBook = (book, shelf) => {
     
-  this.setState((state) => {
-      const results = this.state.books.filter(currentbook => currentbook.id === book.id);
-      results[0].shelf = shelf
-  }
-    )
+    book.shelf = shelf
+    var results = this.state.books.filter(currentbook => currentbook.id !== book.id);
+    results.push(book)
+
+
+  this.setState({ books: results  })
 
 BooksAPI.update(book, shelf)
 
@@ -45,7 +45,9 @@ BooksAPI.update(book, shelf)
         <Route exact path='/search' render={() => (
           <SearchBooks
           onUpdateBook={this.updateBook}
+          workingBooks={this.state.books}
            />
+          
         )}/>
     
       </div>
