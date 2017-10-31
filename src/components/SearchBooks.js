@@ -17,7 +17,27 @@ class SearchBooks extends React.Component {
       this.setState({searchResults: []});
     }
     BooksAPI.search(e.target.value, 10).then((books) => {
+
+
       if (books && books.error === undefined) {
+
+
+
+           console.log(this.props.booksInshelf.slice(0))
+
+                   books = books.map((book) => {
+          // Make a copy of this.props.shelvedBooks, since it may be modified.
+          let booksInshelf = this.props.booksInshelf.slice(0);
+          booksInshelf.forEach((bookInshelf, index) => {
+            if (bookInshelf.id === book.id) {
+              book.shelf = bookInshelf.shelf;
+              // Splice book out of shelvedBooks, to speed up future searches.
+              booksInshelf.splice(index, 1);
+            }
+          });
+          return book;
+        });
+
         this.setState({searchResults: books});
       } else {
         console.log('error throw')
@@ -47,7 +67,7 @@ class SearchBooks extends React.Component {
             <ol className="books-grid">
               {searchResults.map((book) => (
                 <li key={book.id}>
-                  <Book book={book} changeBookShelf={this.props.onSelectShelf} />
+                  <Book book={book} changeBookShelf={this.props.changeBookShelf} />
                 </li>
               ))}
             </ol>

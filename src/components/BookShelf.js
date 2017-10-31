@@ -22,7 +22,7 @@ import Book from './Book'
                     </li>
                   ))
                 ) : (
-                <p className="empty-notice">You have no books on this shelf.</p>
+                <p className="empty-notice">No books on this shelf.</p>
                 )
               }
             </ol>

@@ -15,6 +15,10 @@ class Book extends React.Component {
     changeBookShelf: PropTypes.func.isRequired
   }
 
+  handleBookShelfChange = (e) => {
+    this.props.changeBookShelf(this.props.book, e.target.value);
+  }
+
   render() {
     const { book, changeBookShelf } = this.props;
     return (
@@ -26,7 +30,7 @@ class Book extends React.Component {
             }
 
             <div className="book-shelf-changer">
-              <select id={book.id} value={book.shelf || 'none'} onChange={changeBookShelf}>
+              <select id={book.id} value={book.shelf || 'none'} onChange={this.handleBookShelfChange}>
                 <option value="none" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
