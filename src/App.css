@@ -132,6 +132,13 @@ body, .app {
 .book-authors {
   color: #999;
 }
+.book-categories{
+  font-size: 0.6em;
+  background-color: black;
+  color: white;
+  padding: 2px 4px;
+  display: inline-block;
+}
 
 .book-top {
   position: relative;
