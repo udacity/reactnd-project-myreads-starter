@@ -20,18 +20,11 @@ class SearchBooks extends React.Component {
 
 
       if (books && books.error === undefined) {
-
-
-
-           console.log(this.props.booksInshelf.slice(0))
-
-                   books = books.map((book) => {
-          // Make a copy of this.props.shelvedBooks, since it may be modified.
+        books = books.map((book) => {
           let booksInshelf = this.props.booksInshelf.slice(0);
           booksInshelf.forEach((bookInshelf, index) => {
             if (bookInshelf.id === book.id) {
               book.shelf = bookInshelf.shelf;
-              // Splice book out of shelvedBooks, to speed up future searches.
               booksInshelf.splice(index, 1);
             }
           });
@@ -40,7 +33,6 @@ class SearchBooks extends React.Component {
 
         this.setState({searchResults: books});
       } else {
-        console.log('error throw')
         this.setState({searchResults: []});
       }
     });
