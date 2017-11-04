@@ -1,4 +1,9 @@
 import React, {Component} from 'react'
+import escapeRegExp from 'escape-string-regexp'
+import sortBy from 'sort-by'
+import * as BooksAPI from '../BooksAPI'
+
+
 
 /**
  * Component for book searching input field
@@ -6,8 +11,14 @@ import React, {Component} from 'react'
 class SearchBar extends Component {
 
     state = {
-        query: ''
+        query: '',
+        books: []
     };
+
+    componentDidMount() {
+        BooksAPI.getAll().then((books) =>
+            this.setState({ books }))
+    }
 
     updateQuery = (query) => {
         this.setState({query: query.trim()})
@@ -22,7 +33,7 @@ class SearchBar extends Component {
                     <div className="search-books-input-wrapper">
                         {
 
-                            JSON.stringify(this.state)}
+                            JSON.stringify(this.state)
                         }
                         <input
                             type="text"
@@ -34,7 +45,13 @@ class SearchBar extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <ol className="books-grid"></ol>
+                    <ol className="books-grid">
+
+
+
+
+
+                    </ol>
                 </div>
             </div>
         )
