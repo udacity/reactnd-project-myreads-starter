@@ -16,6 +16,7 @@ class SearchBar extends Component {
     };
 
     componentDidMount() {
+        //on initial load, add all books from API to state.books
         BooksAPI.getAll().then((books) =>
             this.setState({ books }))
     }
@@ -25,7 +26,11 @@ class SearchBar extends Component {
     };
 
     render() {
+        //get array from state
+        const showingBooks = this.state.books;
+
         return(
+
             <div className="search-books">
                 <div className="search-books-bar">
 
@@ -33,7 +38,6 @@ class SearchBar extends Component {
                     <div className="search-books-input-wrapper">
                         {
 
-                            JSON.stringify(this.state)
                         }
                         <input
                             type="text"
@@ -46,11 +50,27 @@ class SearchBar extends Component {
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-
-
-
-
-
+                        {showingBooks.map((books) => (
+                        <li key={books.id}>
+                            <div className="book">
+                                <div className="book-top">
+                                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${books.imageLinks.smallThumbnail}` }}>
+                                        <div className="book-shelf-changer">
+                                            <select>
+                                                <option value="none" disabled>Move to...</option>
+                                                <option value="currentlyReading">Currently Reading</option>
+                                                <option value="wantToRead">Want to Read</option>
+                                                <option value="read">Read</option>
+                                                <option value="none">None</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="book-title">To Kill a Mockingbird</div>
+                                <div className="book-authors">Harper Lee</div>
+                            </div>
+                        </li>
+                        ))}
                     </ol>
                 </div>
             </div>
