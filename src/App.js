@@ -59,22 +59,24 @@ class BooksApp extends React.Component {
             </div>
           </div>
         ) : (
-          <div>
-            <Bookshelf
-              shelf='read'
-              books={books.filter(book=>book.shelf === 'read')}
-              updateBooksInShelf={this.update}/>
-            <Bookshelf
-              shelf="wantToRead"
-              books={books.filter(book=>book.shelf === 'wantToRead')}
-              updateBooksInShelf={this.update}
-            />
-            <Bookshelf
-              shelf="currentlyReading"
-              books={books.filter(book=>book.shelf === 'currentlyReading')}
-              updateBooksInShelf={this.update}
-            />
-          </div>
+          books.length > 0 ?
+            <div className='shelfs'>
+              <Bookshelf
+                shelf='read'
+                books={books.filter(book=>book.shelf === 'read')}
+                updateBooksInShelf={this.update}/>
+              <Bookshelf
+                shelf="wantToRead"
+                books={books.filter(book=>book.shelf === 'wantToRead')}
+                updateBooksInShelf={this.update}
+              />
+              <Bookshelf
+                shelf="currentlyReading"
+                books={books.filter(book=>book.shelf === 'currentlyReading')}
+                updateBooksInShelf={this.update}
+              />
+            </div>:
+            <div className='loading'>Loading...</div>
         )}
       </div>
 
