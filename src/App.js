@@ -45,7 +45,7 @@ changeBookShelf = (book, shelf) => {
   BooksAPI.update(book, shelf).then(() => {
       book.shelf = shelf;
       this.setState(state => ({
-          books: state.mainPageBooks.filter(shelfBook => shelfBook.id !== book.id).concat([ book ])
+        mainPageBooks : state.mainPageBooks.filter(shelfBook => shelfBook.id !== book.id).concat([ book ])
       }));
   });
 };
