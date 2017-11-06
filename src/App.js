@@ -5,13 +5,34 @@ import * as BooksAPI from './BooksAPI';
 
 class BooksApp extends React.Component {
   state = {
-    showSearchPage: false
+    books: [],
+    showSearchPage: false,
+  }
+
+  getBooks = () => {
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books });
+    })
+  }
+
+  update = (id,newShelf) => {
+    for(let book of this.state.books){
+      if(book.id === id) book.shelf = newShelf;
+    }
+    this.setState({
+      books: this.state.books
+    });
+  }
+
+  componentDidMount = () => {
+    this.getBooks();
   }
 
   render() {
+    const books = this.state.books;
+
     return (
       <div className="app">
-
         <div className="list-books-title">
           <h1>MyReads</h1>
         </div>
@@ -39,9 +60,20 @@ class BooksApp extends React.Component {
           </div>
         ) : (
           <div>
-            <Bookshelf shelf="read"/>
-            <Bookshelf shelf="wantToRead"/>
-            <Bookshelf shelf="currentlyReading"/>
+            <Bookshelf
+              shelf='read'
+              books={books.filter(book=>book.shelf === 'read')}
+              updateBooksInShelf={this.update}/>
+            <Bookshelf
+              shelf="wantToRead"
+              books={books.filter(book=>book.shelf === 'wantToRead')}
+              updateBooksInShelf={this.update}
+            />
+            <Bookshelf
+              shelf="currentlyReading"
+              books={books.filter(book=>book.shelf === 'currentlyReading')}
+              updateBooksInShelf={this.update}
+            />
           </div>
         )}
       </div>
