@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 
 class ListBooks extends Component{
 
 	render() {
-    const { books, onUpdateBook } = this.props
+    const { books, onUpdateBook } = this.props;
     
 
     let currentShelf = books.filter((book) => (
-        book.shelf === 'currentlyReading' ))
+        book.shelf === 'currentlyReading' ));
     
     let wantShelf = books.filter((book) => (
-        book.shelf === 'wantToRead'))
+        book.shelf === 'wantToRead'));
 
     let readShelf = books.filter((book) => (
-        book.shelf === 'read'))
+        book.shelf === 'read'));
 
 		return(
 	   <div className="list-books">

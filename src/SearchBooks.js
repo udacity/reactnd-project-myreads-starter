@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
-import * as BooksAPI from './BooksAPI'
+import { Link } from 'react-router-dom';
+import * as BooksAPI from './BooksAPI';
 
 class SearchBooks extends Component{
 	
@@ -9,20 +9,27 @@ class SearchBooks extends Component{
     returnedbooks: []
   }
 
+
+
+
   searchBooks = (query) => {
     
-    this.setState({query: query.trim()})
+    this.setState({query: query.trim()});
+
     if (query){
           BooksAPI.search(query, 10).then((newbooks) => {
             if (!newbooks.error){
-              const results = newbooks.map((book) => {
-                book.shelf = 'none'
-                return book
-               })
-              // console.log(this.props.workingBooks[0])
-             // results = results.filter(currentbook => this.props.workingBooks.indexOf(currentbook) === -1);
+                for (let key1 in newbooks) {
+                  newbooks[key1].shelf = 'none';
+                  let foundbooks = this.props.books;
+                  for (let key in foundbooks) {
+                      if (newbooks[key1].id === foundbooks[key].id){
+                           newbooks[key1].shelf = foundbooks[key].shelf;
+                      }
+                  }
+                }
 
-             this.setState({ returnedbooks: !newbooks.error ? results : []})
+             this.setState({ returnedbooks: !newbooks.error ? newbooks : []});
         
             }
 
@@ -31,14 +38,14 @@ class SearchBooks extends Component{
 
     }
     else {
-      this.setState({ returnedbooks: [] })
+      this.setState({ returnedbooks: [] });
     }
   }
 
 
   render() {
-    const { onUpdateBook, workingBooks } = this.props
-    const { returnedbooks } = this.state
+    const { returnedbooks } = this.state;
+    const { onUpdateBook } = this.props;
 
 
 		return(
@@ -51,14 +58,14 @@ class SearchBooks extends Component{
               >Close</Link>
               <div className="search-books-input-wrapper">
 
-                <input onChange={(event) => this.searchBooks(event.target.value)} type="text" placeholder="Search by title or author"/>
+                <input value={returnedbooks.shelf} onChange={(event) => this.searchBooks(event.target.value)} type="text" placeholder="Search by title or author"/>
 
               </div>
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
               {returnedbooks.map((book) => ( 
-                  <li key={book.id}>
+                        <li key={book.id}>
                         <div  className="book">
                           <div className="book-top">
                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:  `url(${book.imageLinks.thumbnail}`}}></div>
@@ -76,6 +83,7 @@ class SearchBooks extends Component{
                           <div className="book-authors">{(book.authors ? book.authors.join(", ") : '')}</div>
                         </div>
                       </li>
+                  
                   )
                   )}
 
