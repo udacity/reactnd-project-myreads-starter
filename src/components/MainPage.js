@@ -1,24 +1,11 @@
 import React , { Component } from 'react';
+import Shelf from './Shelf';
 
 class MainPage extends React.Component {
 
-  state = {
-    MainPagebooks: [],
-  };
-
   getCurrentShelfBooks(shelfName){
-    return this.state.MainPagebooks.filter((book) => book.shelf === shelfName)
+    return this.props.books.filter((book) => book.shelf === shelfName)
   }  
-
-componentDidMount() {
-    this.getAllBooks();
-}
-
-getAllBooks() {
-    BooksAPI.getAll().then((books) => {
-        this.setState({books});
-    });
-}
 
     render() {
         return (
@@ -27,17 +14,17 @@ getAllBooks() {
                                 <Shelf
                                     shelfName="Currently Reading"
                                     books={this.getCurrentShelfBooks("currentlyReading")}
-                                    changeShelf={this.props.changeBookShelf}
+                                    changeBookShelf={this.props.changeBookShelf}
                                 />
                                 <Shelf
                                     shelfName="Want to Read"
                                     books={this.getCurrentShelfBooks("wantToRead")}
-                                    changeShelf={this.props.changeBookShelf}
+                                    changeBookShelf={this.props.changeBookShelf}
                                 />
                                 <Shelf
                                     shelfName="Read"
                                     books={this.getCurrentShelfBooks("read")}
-                                    changeShelf={this.props.changeBookShelf}
+                                    changeBookShelf={this.props.changeBookShelf}
                                 />
                             </div>
                         </div>
@@ -45,3 +32,4 @@ getAllBooks() {
     }
 
 }
+export default MainPage;

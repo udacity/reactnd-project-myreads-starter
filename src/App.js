@@ -2,13 +2,28 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import { Link, Route } from "react-router-dom";
+import MainPage from "./components/MainPage";
+import SearchPage from "./components/SearchPage";
 
 class BooksApp extends React.Component {
   MAX_BOOKS_ON_SEARCH_PAGE = 30;
   
   state = {
-          searchPageBooks: []
+          mainPageBooks : [],
+          searchPageBooks : []
   };
+
+componentDidMount() {
+    this.getAllBooks();
+}
+
+getAllBooks() {
+    BooksAPI.getAll().then((books) => {
+        this.setState({
+          mainPageBooks : books
+        });
+    });
+}
 
 searchQuery = (query) => {
   if(query){
@@ -30,7 +45,7 @@ changeBookShelf = (book, shelf) => {
   BooksAPI.update(book, shelf).then(() => {
       book.shelf = shelf;
       this.setState(state => ({
-          books: state.books.filter(shelfBook => shelfBook.id !== book.id).concat([ book ])
+          books: state.mainPageBooks.filter(shelfBook => shelfBook.id !== book.id).concat([ book ])
       }));
   });
 };
@@ -43,7 +58,7 @@ changeBookShelf = (book, shelf) => {
                         <div className="list-books-title">
                             <h1>MyReads</h1>
                         </div>
-                        <MainPage changeBookShelf={this.changeBookShelf} />
+                        <MainPage books = { this.state.mainPageBooks } changeBookShelf={this.changeBookShelf} />
                         <div className="open-search">
                             <Link to="/search">Add a book</Link>
                         </div>
