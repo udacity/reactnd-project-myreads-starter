@@ -1,23 +1,34 @@
 import React from 'react';
-//import * as BooksAPI from './BooksAPI';
 import Book from './Book';
+import * as BooksAPI from './BooksAPI';
 
 class Bookshelf extends React.Component {
+  state = {
+    books:[],
+    shelf: ''
+  }
+
+  componentDidMount(){
+    BooksAPI.getAll().then((books) => {
+      console.log("Resgatando lista de livros");
+      console.log(books);
+      this.setState({
+        shelf: this.props.shelf,
+        books: books.filter(book => book.shelf === this.props.shelf)
+      });
+      console.log("Lista de livros recuperada com SUCESSO\n");
+    })
+  }
 
   render(){
-    const shelf = this.props.shelf;
-    const books = this.props.books;
     return (
-
       <div className="bookshelf">
-        ESTANTE
-        <h2 className="bookshelf-title">{shelf}</h2>
+        <h2 className="bookshelf-title">{this.state.shelf}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            { books.map((book) => (
+            { this.state.books.map((book) => (
               <li key={book.id}>
                 <Book
-                  changeShelf={this.updateShelf}
                   id={book.id}
                   title={book.title}
                   authors={book.authors}

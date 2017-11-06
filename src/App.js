@@ -4,17 +4,8 @@ import Bookshelf from './Bookshelf';
 import * as BooksAPI from './BooksAPI';
 
 class BooksApp extends React.Component {
-
   state = {
-    books: [],
     showSearchPage: false
-  }
-
-  componentDidMount(){
-    BooksAPI.getAll().then((books) => {
-      this.setState({books});
-      console.log(books);
-    })
   }
 
   render() {
@@ -48,9 +39,9 @@ class BooksApp extends React.Component {
           </div>
         ) : (
           <div>
-            <Bookshelf books={this.state.books} shelf="read"/>
-            <Bookshelf books={this.state.books} shelf="wantToRead"/>
-            <Bookshelf books={this.state.books} shelf="currentlyReading"/>
+            <Bookshelf shelf="read"/>
+            <Bookshelf shelf="wantToRead"/>
+            <Bookshelf shelf="currentlyReading"/>
           </div>
         )}
       </div>
