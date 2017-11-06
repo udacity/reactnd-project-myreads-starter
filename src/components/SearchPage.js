@@ -14,11 +14,11 @@ class SearchPage extends React.Component {
                 <div className="search-books-bar">
                     <Link className="close-search" to="/">Close</Link>
                     <div className="search-books-input-wrapper">
-                        <Debounce time="600" handler="onTextChange">
+                        <Debounce time="600" handler="onChange">
                             <input
                                 type="text"
                                 placeholder="Search by title or author"
-                                onTextChange={(event) => this.props.searchQuery(event.target.value)}
+                                onChange={(event) => this.props.searchQuery(event.target.value)}
                             />
                         </Debounce>
                     </div>
