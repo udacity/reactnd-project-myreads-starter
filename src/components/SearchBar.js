@@ -20,15 +20,21 @@ class SearchBar extends Component {
         BooksAPI.getAll().then((books) =>
             this.setState({ books }))
     }
-    //if user updates query, do a search with query and max returned results.
-    // If input string is empty, show no books
+
+
     updateQuery = (query) => {
         this.setState({query: query.trim()});
 
+        //if user updates query, do a search with query and max returned results.
         if(query) {
-            BooksAPI.search(query, 20).then((books) =>
-                this.setState({books}))
+            BooksAPI.search(query, 20).then((books) => {
+                //only change state if books are actually found
+                if(books.length > 0) {
+                    this.setState({books})
+                }
+            })
         } else {
+            // If input string is empty, show no books
             this.setState({books: []})
         }
     };
