@@ -15,14 +15,17 @@ class SearchBar extends Component {
         books: []
     };
 
+    //on initial load, add all books from API to state.books
     componentDidMount() {
-        //on initial load, add all books from API to state.books
         BooksAPI.getAll().then((books) =>
             this.setState({ books }))
     }
-
+    //if user updates query, do a search with query and max returned results
     updateQuery = (query) => {
-        this.setState({query: query.trim()})
+        this.setState({query: query.trim()});
+        BooksAPI.search(query, 20).then((books) =>
+        this.setState({books}))
+
     };
 
     render() {
