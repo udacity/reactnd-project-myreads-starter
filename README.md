@@ -1,3 +1,3 @@
 # MyReads Project
 
-Projeto MyReads, um weapp gerenciador de livros feito com React.
+MyReads, um webapp gerenciador de livros feito com React.
