@@ -16,7 +16,19 @@ class Bookshelf extends Component {
     }
 
     render() {
-        console.log(this.state.books)
+
+        let currentlyReading = this.state.books.filter(function (book) {
+            return book.shelf === "currentlyReading";
+        });
+
+        let wantToRead = this.state.books.filter(function (book) {
+            return book.shelf === "wantToRead";
+        });
+
+        let read = this.state.books.filter(function (book) {
+            return book.shelf === "read";
+        });
+
         return (
             <div className="list-books">
                 <div className="list-books-title">
@@ -28,7 +40,7 @@ class Bookshelf extends Component {
                             <h2 className="bookshelf-title">Currently Reading</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                    {this.state.books.map((book) => (
+                                    {currentlyReading.map((book) => (
                                         <li key={book.id}>
                                             <div className="book">
                                                 <div className="book-top">
@@ -56,7 +68,7 @@ class Bookshelf extends Component {
                             <h2 className="bookshelf-title">Want to Read</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                    {this.state.books.map((book) => (
+                                    {wantToRead.map((book) => (
                                         <li key={book.id}>
                                             <div className="book">
                                                 <div className="book-top">
@@ -84,7 +96,7 @@ class Bookshelf extends Component {
                             <h2 className="bookshelf-title">Read</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                    {this.state.books.map((book) => (
+                                    {read.map((book) => (
                                         <li key={book.id}>
                                             <div className="book">
                                                 <div className="book-top">
