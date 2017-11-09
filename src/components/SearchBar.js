@@ -52,7 +52,6 @@ class SearchBar extends Component {
                         to="/"
                         className="close-search"
                     >Close</Link>
-                    {/*<a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>*/}
                     <div className="search-books-input-wrapper">
                         {
 
