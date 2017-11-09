@@ -4,7 +4,6 @@ import sortBy from 'sort-by'
 import * as BooksAPI from '../BooksAPI'
 
 
-
 /**
  * Component for book searching input field
  */
