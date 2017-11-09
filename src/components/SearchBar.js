@@ -1,7 +1,8 @@
-import React, {Component} from 'react'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
-import * as BooksAPI from '../BooksAPI'
+import React, {Component} from 'react';
+import escapeRegExp from 'escape-string-regexp';
+import sortBy from 'sort-by';
+import * as BooksAPI from '../BooksAPI';
+import {Link} from 'react-router-dom';
 
 
 /**
@@ -47,7 +48,11 @@ class SearchBar extends Component {
             <div className="search-books">
                 <div className="search-books-bar">
 
-                    <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+                    <Link
+                        to="/"
+                        className="close-search"
+                    >Close</Link>
+                    {/*<a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>*/}
                     <div className="search-books-input-wrapper">
                         {
 
