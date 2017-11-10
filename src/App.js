@@ -47,24 +47,24 @@ class BooksApp extends React.Component {
   /*Refresh the books on search after moving
   a book to a different shelf*/
   refreshSearchPageContent = (id,newShelf) => {
-    let shelfBook = this.state.books.find(b => b.id === id);
-    let queryBook = this.state.queryBooks.find(b => b.id === id);
+    this.setState(function() {
+      let shelfBook = this.state.books.find(b => b.id === id);
+      let queryBook = this.state.queryBooks.find(b => b.id === id);
 
-    if(shelfBook) shelfBook.shelf = newShelf;
-    if(queryBook) queryBook.shelf = newShelf;
-
-    this.forceUpdate();
+      if(shelfBook) shelfBook.shelf = newShelf;
+      if(queryBook) queryBook.shelf = newShelf;
+    })
   }
 
   /*Update the content of the bookshelf
   after a books moving betwen bookshelfs */
   refreshBookshelfs = (id,newShelf) => {
-    for(let book of this.state.books){
-      if(book.id === id) book.shelf = newShelf;
-    }
-    this.setState({
-      books: this.state.books
-    });
+    this.setState(function(){
+      for(let book of this.state.books){
+        if(book.id === id) book.shelf = newShelf;
+      }
+    })
+
   }
 
   componentDidMount = () => {
