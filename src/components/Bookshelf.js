@@ -4,8 +4,16 @@ import * as BooksAPI from '../BooksAPI';
 
 class Bookshelf extends Component {
 
+
+    //<select onChange={(e) => this.handleChange(e, book)}>
+
+
     state= {
-        books: [],
+        books: []
+    };
+
+    changeShelf = (book, shelf) => {
+        BooksAPI.update(book, shelf);
     };
 
     //on initial load, add all books from API to state.books
@@ -46,7 +54,7 @@ class Bookshelf extends Component {
                                                 <div className="book-top">
                                                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${book.imageLinks.smallThumbnail}` }}>
                                                         <div className="book-shelf-changer">
-                                                            <select>
+                                                            <select value={book.shelf} onChange={(event) => this.changeShelf(book, event.target.value)}>
                                                                 <option value="none" disabled>Move to...</option>
                                                                 <option value="currentlyReading">Currently Reading</option>
                                                                 <option value="wantToRead">Want to Read</option>
@@ -74,7 +82,7 @@ class Bookshelf extends Component {
                                                 <div className="book-top">
                                                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${book.imageLinks.smallThumbnail}` }}>
                                                         <div className="book-shelf-changer">
-                                                            <select>
+                                                            <select value={book.shelf} onChange={(event) => this.changeShelf(book, event.target.value)}>
                                                                 <option value="none" disabled>Move to...</option>
                                                                 <option value="currentlyReading">Currently Reading</option>
                                                                 <option value="wantToRead">Want to Read</option>
@@ -102,7 +110,7 @@ class Bookshelf extends Component {
                                                 <div className="book-top">
                                                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${book.imageLinks.smallThumbnail}` }}>
                                                         <div className="book-shelf-changer">
-                                                            <select>
+                                                            <select value={book.shelf} onChange={(event) => this.changeShelf(book, event.target.value)}>
                                                                 <option value="none" disabled>Move to...</option>
                                                                 <option value="currentlyReading">Currently Reading</option>
                                                                 <option value="wantToRead">Want to Read</option>
