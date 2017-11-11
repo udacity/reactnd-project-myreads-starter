@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import If from './If';
 
+
 class BooksApp extends React.Component {
   state = {
     query: '',
@@ -23,12 +24,28 @@ class BooksApp extends React.Component {
   }
 
   //Search for the books when input is given
-  searchForBooks = (evt) => {
+  searchForBooks = (evt,history) => {
     const query = evt.target.value;
-    this.setState({query});
 
+    this.setState((prev) => {
+      if(prev.query.length > 0 && query.length === 0)
+        history.push('/');
+      return {query};
+    })
+
+    if(!query || query.length === 0)return;
     BooksAPI.search(query,20).then(
       (queryBooks) => {
+
+        console.log(query);
+        console.log(queryBooks.error === "empty query")
+        console.log(queryBooks);
+        if(queryBooks.items <= 0 ){
+          this.setState({ queryBooks:[]});
+          return;
+        }
+        //if(queryBooks.length === undefined || query.length <= 0) return;
+
         queryBooks.map(qbook => {
           qbook.shelf = 'none';
           for(const book of this.state.books){
@@ -67,6 +84,11 @@ class BooksApp extends React.Component {
 
   }
 
+  submit = function(evt){
+    evt.preventDefault();
+    alert('it works!');
+  }
+
   componentDidMount = () => {
     this.getBooks();
   }
@@ -75,30 +97,54 @@ class BooksApp extends React.Component {
     const books = this.state.books;
     return (
       <div className="app">
+        <nav className="navbar navbar-expand-md navbar-light bg-light">
+          <a href="/" className="navbar-brand">MyReads</a>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar5">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="navbar-collapse collapse justify-content-stretch" id="navbar5">
+            <ul className="navbar-nav">
+              <li className="nav-item active">
+                <a className="nav-link" href="https://github.com/victorl2/reactnd-project-myreads-starter">
+                  Github
+                </a>
+              </li>
+            </ul>
+            <form className="ml-3 my-auto d-inline w-100">
+              <div className="input-group">
+
+                <Route path="/" render={({history}) => (
+                  <input type="text"
+                    className="form-control border-right-0"
+                    placeholder="Search by title or author"
+                    onSubmit={(evt) => {
+                      evt.preventDefault();
+                      return false;
+                    }}
+                    onChange={(evt) => {
+                      history.push('/search');
+                      this.searchForBooks(evt,history);
+                    }}
+                    value={this.state.query}
+                  />
+                )}
+                />
+
+                <span className="input-group-btn">
+                  <button className="btn btn-outline-primary border-left-0" type="button">GO</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </nav>
+
+
         <Route exact path="/search" render={() => (
           <div className="search-books">
-            <div className="search-books-bar">
-              <Link
-                to="/"
-                className="close-search" onClick={() => {
-                  this.setState({ showSearchPage: false});
-                  this.getBooks();
-                }}>Close</Link>
-              <div className="search-books-input-wrapper">
-                <input
-                  value={this.state.query}
-                  type="text"
-                  placeholder="Search by title or author"
-                  onChange={this.searchForBooks}
-                />
-              </div>
-            </div>
-            <div className="search-books-results">
-              <Bookshelf
-                books={this.state.queryBooks}
-                updateBooksInShelf={this.refreshSearchPageContent}
-              />
-            </div>
+            <Bookshelf
+              books={this.state.queryBooks}
+              updateBooksInShelf={this.refreshSearchPageContent}
+            />
           </div>
         )}/>
 
@@ -107,9 +153,7 @@ class BooksApp extends React.Component {
           <If test={books && books.length > 0}
             main={
               <div className='shelfs'>
-                <div className="list-books-title">
-                  <h1>MyReads</h1>
-                </div>
+
                 <Bookshelf
                   title="Currently Reading"
                   shelf="currentlyReading"
@@ -133,7 +177,7 @@ class BooksApp extends React.Component {
                   <Link
                     to="/search"
                     onClick={() =>
-                      this.setState({ showSearchPage: true, query: '',queryBooks:[] })}
+                      this.setState({ query: '',queryBooks:[] })}
                   >Add a book</Link>
                 </div>
               </div>

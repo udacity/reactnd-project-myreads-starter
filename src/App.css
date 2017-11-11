@@ -38,6 +38,7 @@ body, .app {
 
 .bookshelf-title {
   border-bottom: 1px solid #dedede;
+  padding-bottom:5px;
 }
 .bookshelf-books {
   text-align: center;
@@ -171,4 +172,16 @@ body, .app {
   padding: 20px 10px 0;
   text-align: center;
   font-size: 0.8em;
+}
+
+.abs-center-x {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bg-light{
+  position:fixed;
+  color:red;
+  margin-bottom: 20px;
 }
