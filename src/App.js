@@ -36,15 +36,10 @@ class BooksApp extends React.Component {
     if(!query || query.length === 0)return;
     BooksAPI.search(query,20).then(
       (queryBooks) => {
-
-        console.log(query);
-        console.log(queryBooks.error === "empty query")
-        console.log(queryBooks);
         if(queryBooks.items <= 0 ){
           this.setState({ queryBooks:[]});
           return;
         }
-        //if(queryBooks.length === undefined || query.length <= 0) return;
 
         queryBooks.map(qbook => {
           qbook.shelf = 'none';
@@ -97,11 +92,9 @@ class BooksApp extends React.Component {
     const books = this.state.books;
     return (
       <div className="app">
-        <nav className="navbar navbar-expand-md navbar-light bg-light">
+        <nav className="navbar navbar-expand navbar-light bg-light">
           <a href="/" className="navbar-brand">MyReads</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar5">
-            <span className="navbar-toggler-icon"></span>
-          </button>
+
           <div className="navbar-collapse collapse justify-content-stretch" id="navbar5">
             <ul className="navbar-nav">
               <li className="nav-item active">
@@ -140,12 +133,23 @@ class BooksApp extends React.Component {
 
 
         <Route exact path="/search" render={() => (
-          <div className="search-books">
-            <Bookshelf
-              books={this.state.queryBooks}
-              updateBooksInShelf={this.refreshSearchPageContent}
-            />
-          </div>
+          <If test={this.state.queryBooks.length > 0}
+            main={
+              <div className="search-books">
+                <Bookshelf
+                  books={this.state.queryBooks}
+                  updateBooksInShelf={this.refreshSearchPageContent}
+                />
+              </div>
+            }
+            secondary={
+              <div className="alert alert-warning" role="alert">
+                {this.state.query !== ''?
+                `No results for the query ${this.state.query}`:
+                'No results'}
+              </div>
+            }
+          />
         )}/>
 
 

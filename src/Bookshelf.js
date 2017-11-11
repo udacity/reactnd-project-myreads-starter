@@ -6,6 +6,7 @@ class Bookshelf extends React.Component {
   render(){
     return (
       <div className="bookshelf">
+
         {this.props.title && <h2 className="bookshelf-title">{this.props.title}</h2>}
         <div className="bookshelf-books">
           <ol className="books-grid">
@@ -17,7 +18,7 @@ class Bookshelf extends React.Component {
                   id={book.id}
                   authors={book.authors}
                   shelf={book.shelf}
-                  cover={book.imageLinks.thumbnail}
+                  cover={book.imageLinks?book.imageLinks.thumbnail:''}
                 />
               </li>
             ))}

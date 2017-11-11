@@ -185,3 +185,19 @@ body, .app {
   color:red;
   margin-bottom: 20px;
 }
+
+.navbar-expand-md{
+  display: flex;
+    -ms-flex-flow: row nowrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-flow: row nowrap;
+    -ms-flex-pack: start;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+}
+
+.alert{
+  width:50%;
+  margin-left:25%;
+}
