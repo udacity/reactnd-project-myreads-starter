@@ -4,39 +4,39 @@ import * as BooksAPI from '../BooksAPI';
 
 class Bookshelf extends Component {
 
-
-    //<select onChange={(e) => this.handleChange(e, book)}>
-
-
     state= {
-        books: []
+        currentlyReading: [],
+        wantToRead: [],
+        read: []
     };
 
     changeShelf = (book, shelf) => {
         BooksAPI.update(book, shelf);
     };
 
-    //on initial load, add all books from API to state.books
+    //on initial load, add all books from API and filter them to their respective shelf
     componentDidMount() {
         BooksAPI.getAll().then((books) => {
-            this.setState({books});
+
+            const currentlyReading = books.filter((book) => {
+               return book.shelf === "currentlyReading";
+            });
+
+            const wantToRead = books.filter((book) => {
+                return book.shelf === "wantToRead";
+            });
+
+            const read = books.filter((book) => {
+                return book.shelf === "read";
+            });
+
+            this.setState({currentlyReading});
+            this.setState({wantToRead});
+            this.setState({read});
         });
     }
 
     render() {
-
-        let currentlyReading = this.state.books.filter(function (book) {
-            return book.shelf === "currentlyReading";
-        });
-
-        let wantToRead = this.state.books.filter(function (book) {
-            return book.shelf === "wantToRead";
-        });
-
-        let read = this.state.books.filter(function (book) {
-            return book.shelf === "read";
-        });
-
         return (
             <div className="list-books">
                 <div className="list-books-title">
@@ -48,7 +48,7 @@ class Bookshelf extends Component {
                             <h2 className="bookshelf-title">Currently Reading</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                    {currentlyReading.map((book) => (
+                                    {this.state.currentlyReading.map((book) => (
                                         <li key={book.id}>
                                             <div className="book">
                                                 <div className="book-top">
@@ -76,7 +76,7 @@ class Bookshelf extends Component {
                             <h2 className="bookshelf-title">Want to Read</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                    {wantToRead.map((book) => (
+                                    {this.state.wantToRead.map((book) => (
                                         <li key={book.id}>
                                             <div className="book">
                                                 <div className="book-top">
@@ -104,7 +104,7 @@ class Bookshelf extends Component {
                             <h2 className="bookshelf-title">Read</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                    {read.map((book) => (
+                                    {this.state.read.map((book) => (
                                         <li key={book.id}>
                                             <div className="book">
                                                 <div className="book-top">
