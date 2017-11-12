@@ -12,14 +12,14 @@ class Bookshelf extends Component {
 
     changeShelf = (book, shelf) => {
         BooksAPI.update(book, shelf);
+        this.refreshBookList();
     };
 
-    //on initial load, add all books from API and filter them to their respective shelf
-    componentDidMount() {
+     refreshBookList = () => {
         BooksAPI.getAll().then((books) => {
 
             const currentlyReading = books.filter((book) => {
-               return book.shelf === "currentlyReading";
+                return book.shelf === "currentlyReading";
             });
 
             const wantToRead = books.filter((book) => {
@@ -34,6 +34,12 @@ class Bookshelf extends Component {
             this.setState({wantToRead});
             this.setState({read});
         });
+    };
+
+
+    //on initial load, add all books from API and filter them to their respective shelf
+    componentDidMount() {
+        this.refreshBookList();
     }
 
     render() {
