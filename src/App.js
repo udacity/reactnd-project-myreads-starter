@@ -1,5 +1,4 @@
 import React from 'react';
-// import * as BooksAPI from './BooksAPI';
 import './App.css';
 import SearchBar from "./components/SearchBar";
 import Bookshelf from "./components/Bookshelf";
