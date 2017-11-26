@@ -9,7 +9,23 @@ import AlertContainer from 'react-alert'
 
 class BooksApp extends React.Component {
 
-  componentWillMount() {
+  constructor(props) {
+    super(props)
+    this.state = {
+       books: [],
+       queryBooks: [],
+       searchQuery: "",
+       alertOptions: {
+          offset: 14,
+          position: 'top right',
+          theme: 'light',
+          time: 7000,
+          transition: 'scale'
+        }
+    }
+  }
+
+  componentDidMount() {
     this.setState({ queryBooks: [] })
     this.getAllBooks()
   }
@@ -35,7 +51,13 @@ class BooksApp extends React.Component {
     BooksAPI.search(searchQuery)
     .then(resp => {
       console.log(resp)
-      const queryBooks = Array.isArray(resp) ? resp : []
+      let queryBooks = []
+      if(Array.isArray(resp)) {
+        queryBooks = resp
+        this.state.books.forEach(book => {
+          queryBooks = queryBooks.map(_ => _.id === book.id ? book : _)
+        })
+      }
       this.setState({ queryBooks })
     })
   }
@@ -43,19 +65,6 @@ class BooksApp extends React.Component {
   getAllBooks = () => {
     BooksAPI.getAll()
     .then(books => this.setState({ books }))
-  }
-
-  state = {
-     books: [],
-     queryBooks: [],
-     searchQuery: "",
-     alertOptions: {
-        offset: 14,
-        position: 'top right',
-        theme: 'light',
-        time: 7000,
-        transition: 'scale'
-      }
   }
 
   render() {
