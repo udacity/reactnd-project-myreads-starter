@@ -6,12 +6,27 @@
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^6.0.0",
+    "prettier": "^1.8.2",
     "react-scripts": "0.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "lint": "eslint .",
+    "prettier": "prettier --single-quote --trailing-comma es5 --write '{src,__{tests,mocks}__}/**/*.js'",
+    "precommit": "lint-staged",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "lint-staged": {
+    "*.js": ["prettier", "git add"]
   }
 }
