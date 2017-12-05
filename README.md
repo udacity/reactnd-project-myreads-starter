@@ -71,12 +71,11 @@ update(book, shelf)
 Method Signature:
 
 ```js
-search(query, maxResults)
+search(query)
 ```
 
 * query: `<String>`
-* maxResults: `<Integer>` Due to the nature of the backend server, search results are capped at 20, even if this is set higher.
-* Returns a Promise which resolves to a JSON object containing a collection of book objects.
+* Returns a Promise which resolves to a JSON object containing a collection of a maximum of 20 book objects.
 * These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
 
 ## Important
