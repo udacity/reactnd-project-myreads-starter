@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
 import BookSection from './BookSection';
-import * as BooksAPI from '../BooksAPI'
+import { getAll } from '../BooksAPI'
 
 export default class ListOfBooks extends Component {
 
@@ -13,16 +12,22 @@ export default class ListOfBooks extends Component {
 
   componentDidMount() {
     this.setState({ isLoading: true })
-    BooksAPI
-      .getAll()
-      .then(books => {
-        this.setState({ books })
-        this.setState({ isLoading: false })
-      })
+    getAll()
+      .then(books =>
+        this.setState({
+          books, isLoading: false
+        }))
   }
 
   render() {
     const { books, isLoading } = this.state;
+    const CURRENTLYREADING = 'currentlyReading';
+    const WANTTOREAD = 'wantToRead';
+    const READ = 'read';
+
+    const currentlyReading = books.filter(book => book.shelf === CURRENTLYREADING);
+    const wantToRead = books.filter(book => book.shelf === WANTTOREAD);
+    const read = books.filter(book => book.shelf === READ);
 
     return (
       <div className="list-books">
@@ -30,13 +35,13 @@ export default class ListOfBooks extends Component {
           <h1>My Reads</h1>
         </div>
 
-      {isLoading !== true && (
-        <div className="list-books-content">
-            <BookSection title="Currently Reading" books={books} />
-            <BookSection title="Want to Read" books={books} />
-            <BookSection title="Read" books={books} />
-        </div>
-      )}
+        {isLoading !== true && (
+          <div className="list-books-content">
+            <BookSection title="Currently Reading" books={currentlyReading} />
+            <BookSection title="Want to Read" books={wantToRead} />
+            <BookSection title="Read" books={read} />
+          </div>
+        )}
         <div className="open-search">
           <Link to="/add">
             Add a book
@@ -45,9 +50,4 @@ export default class ListOfBooks extends Component {
       </div>
     )
   }
-}
-
-ListOfBooks.proptypes = {
-  books: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool.isRequired
 }
