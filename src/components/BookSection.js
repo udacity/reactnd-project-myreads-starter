@@ -10,12 +10,11 @@ const BookSection = ({
     <div className="bookshelf-books">
       <ol className="books-grid">
         {books.map(book => (
-          <li key={book.title}>
+          <li key={book.id}>
             <Book
               bookId={book.id}
               title={book.title}
               imagens={book.imageLinks}
-              status={book.shelf}
               authors={book.authors}/>
           </li>
         ))}

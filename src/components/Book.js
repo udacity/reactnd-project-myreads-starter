@@ -1,5 +1,6 @@
 import React from 'react';
 import BookChanger from './BookChanger';
+import PropTypes from 'prop-types';
 
 const Book = ({
   bookId,
@@ -33,5 +34,21 @@ const Book = ({
     </div>
   </div>
   )
+
+
+Book.propTypes = {
+  bookId: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  imagens: PropTypes.object.isRequired,
+  status: PropTypes.string,
+  authors: PropTypes.array
+}
+
+Book.defaultProps = {
+  bookId: '',
+  title: '',
+  imagens: {},
+  authors: [],
+}
 
 export default Book;

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import Loading from 'react-loading'
 import BookSection from './BookSection';
 import { getAll } from '../BooksAPI'
 
@@ -35,13 +36,14 @@ export default class ListOfBooks extends Component {
           <h1>My Reads</h1>
         </div>
 
-        {isLoading !== true && (
-          <div className="list-books-content">
+        {isLoading === true
+        ? <Loading delay={200} type='bubbles' color='#222' />
+        : <div className="list-books-content">
             <BookSection title="Currently Reading" books={currentlyReading} />
             <BookSection title="Want to Read" books={wantToRead} />
             <BookSection title="Read" books={read} />
           </div>
-        )}
+        }
         <div className="open-search">
           <Link to="/add">
             Add a book
