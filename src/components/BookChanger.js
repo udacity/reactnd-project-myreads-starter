@@ -1,31 +1,37 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { update } from '../BooksAPI';
 
-export default class BookChanger extends Component {
+const BookChanger = ({ status, bookId, bookShelfUpdate }) => {
 
-  static propTypes = {
-    status: PropTypes.string.isRequired,
-    bookId: PropTypes.string.isRequired
+  const onChangeHandler = (bookId, status) => {
+    update(bookId, status)
+      .then(book => bookShelfUpdate(book))
   }
 
-  onChangeHandler = (bookId, status) => {
-    debugger
-    console.log(status)
-  }
-
-  render() {
-    const { status, bookId } = this.props;
-
-    return (
-      <div className="book-shelf-changer">
-        <select value={status} onChange={(event) => this.onChangeHandler(bookId, event.target.value, )}>
-          <option value="none" disabled>Move to...</option>
-          <option value="currentlyReading" >Currently Reading</option>
-          <option value="wantToRead" >Want to Read</option>
-          <option value="read" >Read</option>
-          <option value="none" >None</option>
-        </select>
-      </div>
-    )
-  }
+  return (
+    <div className="book-shelf-changer">
+      <select value={status} onChange={(event) => onChangeHandler(bookId, event.target.value)}>
+        <option value="none" disabled>Move to...</option>
+        <option value="currentlyReading" >Currently Reading</option>
+        <option value="wantToRead" >Want to Read</option>
+        <option value="read" >Read</option>
+        <option value="none" >None</option>
+      </select>
+    </div>
+  )
 }
+
+BookChanger.propTypes = {
+  status: PropTypes.string.isRequired,
+  bookId: PropTypes.string.isRequired,
+  bookShelfUpdate: PropTypes.func.isRequired
+}
+
+BookChanger.defaulProps = {
+  status: '',
+  bookId: '',
+  bookShelfUpdate: () => {}
+}
+
+export default BookChanger;
