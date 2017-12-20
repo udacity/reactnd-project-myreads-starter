@@ -30,21 +30,19 @@ export default class AddBook extends Component {
       if (result.error) {
         return this.setState({ books: [], error: result.error, isLoading: false })
       }
-      // // books.filter(book => book.id)
-      // const myBooks = this.state.myBooks;
 
-      // const books = result
-      //   .filter((book, index) => {
-      //     debugger
-      //   if (myBooks[index] !== undefined
-      //   && book.id === myBooks[index].id) {
-      //     debugger
-      //     return book.shelf = myBooks[index].shelf
-      //   }
-      //   return book
-      //   })
+      const books = result
+      .map((book, index, array) => {
+        const my = this.state.myBooks.filter(myBook => myBook.id === book.id)[0];
 
-      this.setState({ books: result, isLoading: false, error: '' })
+        if (my !== undefined) {
+          return array[index] = my;
+        }
+
+        return array[index] = book;
+      })
+
+      this.setState({ books, isLoading: false, error: '' })
     })
   }
 
