@@ -1,9 +1,11 @@
 import React from 'react';
 import Book from './Book';
+import PropTypes from 'prop-types';
 
 const BookSection = ({
   title,
-  books
+  books,
+  bookShelfUpdate
 }) => (
   <div className="bookshelf">
     <h2 className="bookshelf-title">{ title }</h2>
@@ -14,13 +16,28 @@ const BookSection = ({
             <Book
               bookId={book.id}
               title={book.title}
+              status={book.shelf}
               imagens={book.imageLinks}
-              authors={book.authors}/>
+              authors={book.authors}
+              bookShelfUpdate={bookShelfUpdate}
+            />
           </li>
         ))}
       </ol>
     </div>
   </div>
   )
+
+BookSection.propTypes = {
+  title: PropTypes.string.isRequired,
+  books: PropTypes.arrayOf(PropTypes.object).isRequired,
+  bookShelfUpdate: PropTypes.func.isRequired
+}
+
+BookSection.defaultProps = {
+  title: '',
+  books: [],
+  bookShelfUpdate: () => {}
+}
 
 export default BookSection;
