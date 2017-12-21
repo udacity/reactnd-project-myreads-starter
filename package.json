@@ -7,12 +7,17 @@
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
-    "react-scripts": "0.9.5"
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-15": "^1.0.5",
+    "jest-localstorage-mock": "^2.1.0",
+    "react-scripts": "0.9.5",
+    "react-test-renderer": "^15.6.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "coverage": "react-scripts test --env=jsdom --coverage",
     "eject": "react-scripts eject"
   }
 }

@@ -28,7 +28,7 @@ BookChanger.propTypes = {
   bookShelfUpdate: PropTypes.func.isRequired
 }
 
-BookChanger.defaulProps = {
+BookChanger.defaultProps = {
   status: '',
   bookId: '',
   bookShelfUpdate: () => {}

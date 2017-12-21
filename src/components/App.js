@@ -1,8 +1,9 @@
 import React from 'react'
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import '../App.css'
 import ListOfBooks from './ListOfBooks';
 import AddBook from './AddBook';
+import { getAll } from '../BooksAPI'
 
 const BooksApp = () =>
   (
@@ -10,7 +11,7 @@ const BooksApp = () =>
       <Route
         exact
         path="/"
-        component={ListOfBooks}
+        render={() => <ListOfBooks getAll={getAll} Link={Link} />}
       />
 
       <Route

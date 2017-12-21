@@ -1,10 +1,17 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import Loading from 'react-loading'
-import BookSection from './BookSection';
-import { getAll } from '../BooksAPI'
+import PropTypes from 'prop-types'
+import BookSection from './BookSection'
 
 export default class ListOfBooks extends Component {
+
+  static propTypes = {
+    getAll: PropTypes.func.isRequired
+  }
+  static defaultProps = {
+    getAll: () => {}
+  }
 
   state = {
     books: [],
@@ -19,15 +26,15 @@ export default class ListOfBooks extends Component {
     const WANTTOREAD = 'wantToRead';
     const READ = 'read';
 
-    getAll()
-      .then(books =>
+    this.props.getAll()
+      .then(books => {
         this.setState({
           currentlyReading: books.filter(book => book.shelf === CURRENTLYREADING),
           wantToRead: books.filter(book => book.shelf === WANTTOREAD),
           read : books.filter(book => book.shelf === READ),
           isLoading: false
         })
-      )
+      })
   }
 
   bookShelfUpdate = (book) => {
