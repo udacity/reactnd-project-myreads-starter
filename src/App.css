@@ -12,8 +12,9 @@ body, .app {
 
 .list-books-title {
   padding: 10px 0;
-  background: #2e7c31;
+  background-color: #07b;
   text-align: center;
+  font-family: cursive;
 }
 .list-books-title h1 {
   font-weight: 400;
@@ -27,17 +28,14 @@ body, .app {
 }
 
 .bookshelf {
-  padding: 0 10px 20px;
+  border: solid #07b 13px;
+  background-color: #fff;
 }
 
-@media (min-width: 600px) {
-  .bookshelf {
-    padding: 0 20px 40px;
-  }
-}
 
 .bookshelf-title {
-  border-bottom: 1px solid #dedede;
+  text-align: center;
+  border-bottom: solid #07b 5px;
 }
 .bookshelf-books {
   text-align: center;
@@ -53,7 +51,7 @@ body, .app {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #2e7d32;
+  background: #07b;
   background-image: url('./icons/add.svg');
   background-repeat: no-repeat;
   background-position: center;
@@ -147,7 +145,7 @@ body, .app {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #60ac5d;
+  background: #07b;
   background-image: url('./icons/arrow-drop-down.svg');
   background-repeat: no-repeat;
   background-position: center;
