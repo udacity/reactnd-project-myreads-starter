@@ -2,6 +2,7 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookShelf from './BookShelf'
+import BooksGrid from './BooksGrid'
 
 class BooksApp extends React.Component {
   state = {
@@ -12,28 +13,63 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
-    books: []
+    books: [],
+    query: '',
+    searchedBooks: [],
+    shelfs: {}
   }
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
+      this.setBookShelfsState(this.state.books)
     })
   }
 
-  mapBook(id, book, shelf) {
-    if (id === book.id){
-      book.shelf = shelf
-    }
-    return book
+  setBookShelfsState(books) {
+    var currentShelfs = {}
+    books.forEach((book) => {
+      currentShelfs[book.id] = book.shelf
+    })
+
+    this.setState({ shelfs: currentShelfs })
+  }
+
+  updateShelf(book, shelfs){
+    shelfs[book.id] = book.shelf
+    return shelfs
   }
 
   selectBookShelf = (book, shelf) => {
-    this.setState(() => ({
-      books: this.state.books.map((b) => this.mapBook(book.id, b, shelf))
+    book.shelf = shelf
+    this.setState(state => ({
+      books: state.books.filter((b) => b.id !== book.id).concat([book]),
+      shelfs: this.updateShelf(book, state.shelfs)
     }))
 
     BooksAPI.update(book, shelf)
+  }
+
+  addShelf(book){
+    if(this.state.shelfs[book.id]){
+      book.shelf = this.state.shelfs[book.id]
+    }
+    return book
+  }
+  
+  searchQuery = (query) => {
+    if(query){
+      BooksAPI.search(query).then((searchedBooks) => {
+        if (searchedBooks.error) {
+          this.setState({ searchedBooks: [] })
+        } else{
+          this.setState({ searchedBooks: searchedBooks.map((book) => this.addShelf(book)) })
+        }
+      })
+    } else {
+      this.setState({ searchedBooks: [] })
+    }
+    this.setState({ query: query.trim() })
   }
 
 
@@ -53,12 +89,19 @@ class BooksApp extends React.Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author"/>
-
+                <input 
+                  type="text" 
+                  placeholder="Search by title or author"
+                  value={this.state.query}
+                  onChange={(event) => this.searchQuery(event.target.value)}
+                />
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <BooksGrid
+                books={this.state.searchedBooks}
+                onUpdateBookShelf={this.selectBookShelf}
+              />
             </div>
           </div>
         ) : (
