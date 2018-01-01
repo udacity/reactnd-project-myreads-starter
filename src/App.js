@@ -64,7 +64,7 @@ class BooksApp extends React.Component {
     } else {
       this.setState({ searchedBooks: [] })
     }
-    this.setState({ query: query.trim() })
+    this.setState({ query: query })
   }
 
 
