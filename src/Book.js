@@ -7,7 +7,7 @@ class Book extends React.Component{
 		return(
 			<div className="book">
 			  <div className="book-top">
-			   <img className="book-cover" src={this.props.image} style={{ width: 128, height: 188 }}/>
+			   <img className="book-cover" src={this.props.image} alt="book" style={{ width: 128, height: 188 }}/>
 			    <Selector/>
 			  </div>
 			  <div className="book-title">{this.props.title}</div>

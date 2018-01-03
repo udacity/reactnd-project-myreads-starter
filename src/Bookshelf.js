@@ -19,7 +19,7 @@ class Bookshelf extends React.Component{
 	fillShelf() {
 		return(<ol className="books-grid">
 			{this.state.shelfContents.map(book => (
-				<li><Book title={book.title} author={book.authors} image={book.imageLinks.thumbnail}/></li>
+				<li><Book key={book.id} title={book.title} author={book.authors} image={book.imageLinks.thumbnail}/></li>
 				))}
 		</ol>)
 	}
