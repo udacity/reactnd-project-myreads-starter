@@ -1,7 +1,6 @@
 import React from 'react'
 import SearchPage from './SearchPage.js'
 import ShelfScreen from './ShelfScreen.js'
-import Bookshelf from './Bookshelf.js'
 import {Route} from 'react-router-dom'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'

@@ -13,7 +13,6 @@ class Bookshelf extends React.Component{
 	componentDidMount(){
 		BookAPI.getAll().then((shelfContents) => {
 			this.setState({ shelfContents })
-			console.log(shelfContents)
 		})
 	}
 
