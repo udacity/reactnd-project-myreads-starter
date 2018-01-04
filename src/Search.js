@@ -17,6 +17,7 @@ class Search extends React.Component {
 
   onSearch = (query) => {
     BooksAPI.search(query).then((books) => {
+      books.map(book => (this.props.booksInShelf.filter((b) => b.id === book.id).map(b => book.shelf = b.shelf)))
       this.setState({query: query, booksFromSearch: books})
     })
   }
