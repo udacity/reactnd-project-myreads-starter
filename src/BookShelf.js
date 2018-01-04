@@ -22,7 +22,7 @@ class BooksShelf extends Component {
                 <h2 className="bookshelf-title">{this.state.shelveNames[index]}</h2>
                 <div className="bookshelf-books">
                   <ol className="books-grid">
-                    { this.props.booksInShelf.filter(book => book.shelf === shelf).map(bookInfo => {return <Book bookInfo={bookInfo} key={bookInfo.id} onBookUpdate={this.props.onBookUpdate}/>})
+                    { this.props.booksInShelf.filter(book => book.shelf === shelf).map(bookInfo =>  <Book bookInfo={bookInfo} key={bookInfo.id} onBookUpdate={this.props.onBookUpdate}/>)
                     }
                   </ol>
                 </div>
