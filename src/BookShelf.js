@@ -15,6 +15,7 @@ class BookShelf extends Component {
         <BooksGrid
           books={this.filterBooksInShelf(this.props.books, this.props.shelf)}
           onUpdateBookShelf={this.props.onUpdateBookShelf}
+          removeIcon={true}
         />
       </div>
     )
