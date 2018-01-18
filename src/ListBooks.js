@@ -16,13 +16,21 @@ class ListBooks extends Component {
     this.setState({query: query.trim() })
   }
 
+    clearQuery = () => {
+    this.setState({ query: '' })
+  }
+
+
   render() {
+    const { books, onDeleteBook } = this.props
+    const { query } = this.state
+
     let showingBooks
-    if (this.state.query) {
-      const match = new RegExp(escapeRegExp(this.state.query), 'i')
-      showingBooks = this.props.books.filter((book) => match.test(book.title))
+    if (query) {
+      const match = new RegExp(escapeRegExp(query), 'i')
+      showingBooks = books.filter((book) => match.test(book.title))
     } else {
-      showingBooks = this.props.books
+      showingBooks = books
     }
     showingBooks.sort(sortBy('name'))
     return (
@@ -32,10 +40,18 @@ class ListBooks extends Component {
           className='search-contacts'
           type='text'
           placeholder='Search contacts'
-          value={this.state.query}
+          value={query}
            onChange={(event) => this.updateQuery(event.target.value)}
           />
         </div>
+
+       {showingBooks.length !== books.length && (
+          <div className='showing-contacts'>
+            <span>Now showing {showingBooks.length} of {books.length} total</span>
+            <button onClick={this.clearQuery}>Show all</button>
+         </div>
+      )}
+
       <ol className="books-grid">
       {showingBooks.map((book) =>(
           <li key={book.id}>
@@ -48,7 +64,7 @@ class ListBooks extends Component {
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
                       <option value="read">Read</option>
-                      <option onClick={() => this.props.onDeleteBook(book)} value="none">None</option>
+                      <option onClick={() => onDeleteBook(book)} value="none">None</option>
                     </select>
                   </div>
                 </div>
