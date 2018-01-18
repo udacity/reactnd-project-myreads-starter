@@ -1,29 +1,40 @@
 import React, { Component } from 'react'
 import ListBooks from './ListBooks'
 
-const books = [
-  {
-    "id": "1",
-    "title": "Fatmagulun sucu ne?",
-    "author": "Vargul Durgul"
-  },
-  {
-    "id": "2",
-    "title": "Fatmagul Pazarda",
-    "author": "Hilmi Cokyemez"
-  },
-  {
-    "id": "3",
-    "title": "Fatsanin yollari tasli",
-    "author": "Ozgun Balaban"
-  }
-]
 
 class App extends Component {
+  state = {
+    books: [
+      {
+        "id": "1",
+        "title": "Fatmagulun sucu ne?",
+        "author": "Vargul Durgul"
+      },
+      {
+        "id": "2",
+        "title": "Fatmagul Pazarda",
+        "author": "Hilmi Cokyemez"
+      },
+      {
+        "id": "3",
+        "title": "Fatsanin yollari tasli",
+        "author": "Ozgun Balaban"
+      }
+    ]
+  }
+
+  removeBook = (book) => {
+    this.setState((state) => ({
+      books: state.books.filter((b) => b.id !== book.id)
+    }))
+  }
+
   render() {
     return (
       <div>
-      <ListBooks books={books} />
+      <ListBooks
+        onDeleteBook={this.removeBook}
+        books={this.state.books} />
       </div>
     )
   }

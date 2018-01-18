@@ -1,10 +1,43 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import escapeRegExp from 'escape-string-regexp'
+import sortBy from 'sort-by'
 
 class ListBooks extends Component {
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    onDeleteBook: PropTypes.func.isRequired
+  }
+
+  state = {
+    query: ''
+  }
+  updateQuery = (query) => {
+    this.setState({query: query.trim() })
+  }
+
   render() {
+    let showingBooks
+    if (this.state.query) {
+      const match = new RegExp(escapeRegExp(this.state.query), 'i')
+      showingBooks = this.props.books.filter((book) => match.test(book.title))
+    } else {
+      showingBooks = this.props.books
+    }
+    showingBooks.sort(sortBy('name'))
     return (
+            <div className='list-contacts'>
+      <div className='list-contacts-top'>
+         <input
+          className='search-contacts'
+          type='text'
+          placeholder='Search contacts'
+          value={this.state.query}
+           onChange={(event) => this.updateQuery(event.target.value)}
+          />
+        </div>
       <ol className="books-grid">
-        {this.props.books.map((book) => (
+      {showingBooks.map((book) =>(
           <li key={book.id}>
             <div className="book">
               <div className="book-top">
@@ -15,7 +48,7 @@ class ListBooks extends Component {
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
                       <option value="read">Read</option>
-                      <option value="none">None</option>
+                      <option onClick={() => this.props.onDeleteBook(book)} value="none">None</option>
                     </select>
                   </div>
                 </div>
@@ -25,9 +58,11 @@ class ListBooks extends Component {
           </li>
         ))}
       </ol>
+      </div>
     )
-
   }
 }
+
+
 
 export default ListBooks
