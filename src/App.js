@@ -1,26 +1,16 @@
 import React, { Component } from 'react'
+import * as BooksAPI from './BooksAPI'
 import ListBooks from './ListBooks'
 
 
 class App extends Component {
   state = {
-    books: [
-      {
-        "id": "1",
-        "title": "Fatmagulun sucu ne?",
-        "author": "Vargul Durgul"
-      },
-      {
-        "id": "2",
-        "title": "Fatmagul Pazarda",
-        "author": "Hilmi Cokyemez"
-      },
-      {
-        "id": "3",
-        "title": "Fatsanin yollari tasli",
-        "author": "Ozgun Balaban"
-      }
-    ]
+    books: []
+  }
+    componentDidMount() {
+    BooksAPI.getAll().then((books) => {
+     this.setState({ books })
+    })
   }
 
   removeBook = (book) => {
