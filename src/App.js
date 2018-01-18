@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import ListBooks from './ListBooks'
+import CreateBook from './CreateBook'
 
 
 class App extends Component {
@@ -17,14 +19,19 @@ class App extends Component {
     this.setState((state) => ({
       books: state.books.filter((b) => b.id !== book.id)
     }))
+    // BooksAPI.removeBook(book)
   }
 
   render() {
     return (
       <div>
-      <ListBooks
-        onDeleteBook={this.removeBook}
-        books={this.state.books} />
+      <Route exact path="/" render={() => (
+        <ListBooks
+          onDeleteBook={this.removeBook}
+          books={this.state.books}
+/>
+)}/>
+<Route path="/create" component={CreateBook}/>
       </div>
     )
   }
