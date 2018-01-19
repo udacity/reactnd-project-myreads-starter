@@ -26,6 +26,14 @@ class ListBooks extends Component {
     const { books, onDeleteBook } = this.props
     const { query } = this.state
 
+    let currentlyReading
+    let wantToRead
+    let read
+
+    currentlyReading = books.filter((book) => book.shelf === 'currentlyReading')
+    wantToRead = books.filter((book) => book.shelf === 'wantToRead')
+    read = books.filter((book) => book.shelf === 'read')
+
     // let showingBooks
     // if (query) {
     //   const match = new RegExp(escapeRegExp(query), 'i')
@@ -66,7 +74,7 @@ class ListBooks extends Component {
             <h2 className="bookshelf-title">Currently Reading</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
-                {books.map((book) =>(
+                {currentlyReading.map((book) =>(
                   <li key={book.id}>
                     <div className="book">
                       <div className="book-top">
@@ -94,6 +102,70 @@ class ListBooks extends Component {
                 </ol>
               </div>  {/* bookshelf-books*/}
             </div>  {/* book-shelf*/}
+            <div className="bookshelf">
+              <h2 className="bookshelf-title">Want To Read</h2>
+              <div className="bookshelf-books">
+                <ol className="books-grid">
+                  {wantToRead.map((book) =>(
+                    <li key={book.id}>
+                      <div className="book">
+                        <div className="book-top">
+                          <div className="book-cover">
+                            <img src={book.imageLinks.thumbnail}
+                              style={{ width: 128,
+                              height: 193}}>
+                            </img>
+                          </div>
+                          <div className="book-shelf-changer">
+                            <select>
+                              <option value="none" disabled>Move to...</option>
+                              <option value="currentlyReading">Currently Reading</option>
+                              <option value="wantToRead">Want to Read</option>
+                              <option value="read">Read</option>
+                              <option onClick={() => onDeleteBook(book)} value="none">None</option>
+                            </select>
+                          </div>  {/*book-shelf-changer*/}
+                        </div> {/* book-top*/}
+                        <div className="book-title">{book.title}</div>
+                        <div className="book-authors">{book.authors[0]}</div>
+                      </div>  {/* book*/}
+                    </li>
+                    ))}
+                  </ol>
+                </div>  {/* bookshelf-books*/}
+              </div>  {/* book-shelf*/}
+              <div className="bookshelf">
+                <h2 className="bookshelf-title">Read</h2>
+                <div className="bookshelf-books">
+                  <ol className="books-grid">
+                    {read.map((book) =>(
+                      <li key={book.id}>
+                        <div className="book">
+                          <div className="book-top">
+                            <div className="book-cover">
+                              <img src={book.imageLinks.thumbnail}
+                                style={{ width: 128,
+                                height: 193}}>
+                              </img>
+                            </div>
+                            <div className="book-shelf-changer">
+                              <select>
+                                <option value="none" disabled>Move to...</option>
+                                <option value="currentlyReading">Currently Reading</option>
+                                <option value="wantToRead">Want to Read</option>
+                                <option value="read">Read</option>
+                                <option onClick={() => onDeleteBook(book)} value="none">None</option>
+                              </select>
+                            </div>  {/*book-shelf-changer*/}
+                          </div> {/* book-top*/}
+                          <div className="book-title">{book.title}</div>
+                          <div className="book-authors">{book.authors[0]}</div>
+                        </div>  {/* book*/}
+                      </li>
+                      ))}
+                    </ol>
+                  </div>  {/* bookshelf-books*/}
+                </div>  {/* book-shelf*/}
           </div>
           </div>
     )
