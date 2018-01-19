@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import ListBooks from './ListBooks'
 import CreateBook from './CreateBook'
+import './App.css'
 
 
 class App extends Component {
@@ -24,14 +25,15 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className='app'>
       <Route exact path="/" render={() => (
         <ListBooks
           onDeleteBook={this.removeBook}
-          books={this.state.books}
-/>
+          books={this.state.books}/>
+
 )}/>
 <Route path="/create" component={CreateBook}/>
+
       </div>
     )
   }

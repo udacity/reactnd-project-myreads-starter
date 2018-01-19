@@ -26,39 +26,44 @@ class ListBooks extends Component {
     const { books, onDeleteBook } = this.props
     const { query } = this.state
 
-    let showingBooks
-    if (query) {
-      const match = new RegExp(escapeRegExp(query), 'i')
-      showingBooks = books.filter((book) => match.test(book.title))
-    } else {
-      showingBooks = books
-    }
-    showingBooks.sort(sortBy('name'))
-    return (
-            <div className='list-contacts'>
-      <div className='list-contacts-top'>
-         <input
-          className='search-contacts'
-          type='text'
-          placeholder='Search contacts'
-          value={query}
-           onChange={(event) => this.updateQuery(event.target.value)}
-          />
-                   <Link
-                     to='/create'
-            className='add-contact'
-          >Add Contact</Link>
-        </div>
-
-       {showingBooks.length !== books.length && (
-          <div className='showing-contacts'>
-            <span>Now showing {showingBooks.length} of {books.length} total</span>
-            <button onClick={this.clearQuery}>Show all</button>
-         </div>
-      )}
-
+    // let showingBooks
+    // if (query) {
+    //   const match = new RegExp(escapeRegExp(query), 'i')
+    //   showingBooks = books.filter((book) => match.test(book.title))
+    // } else {
+    //   showingBooks = books
+    // }
+    // showingBooks.sort(sortBy('name'))
+    // return (
+    //         <div className='list-contacts'>
+    //   <div className='list-contacts-top'>
+    //      <input
+    //       className='search-contacts'
+    //       type='text'
+    //       placeholder='Search contacts'
+    //       value={query}
+    //        onChange={(event) => this.updateQuery(event.target.value)}
+    //       />
+    //                <Link
+    //                  to='/create'
+    //         className='add-contact'>
+    //         Add Contact</Link>
+    //     </div>
+    //
+    //    {showingBooks.length !== books.length && (
+    //       <div className='showing-contacts'>
+    //         <span>Now showing {showingBooks.length} of {books.length} total</span>
+    //         <button onClick={this.clearQuery}>Show all</button>
+    //      </div>
+    //   )}
+return (
+  <div className="list-books">
+              <div className="list-books-title">
+                <h1>MyReads</h1>
+              </div>
+  <div className='list-contacts'>
       <ol className="books-grid">
-      {showingBooks.map((book) =>(
+      {books.map((book) =>(
           <li key={book.id}>
             <div className="book">
               <div className="book-top">
@@ -79,6 +84,7 @@ class ListBooks extends Component {
           </li>
         ))}
       </ol>
+      </div>
       </div>
     )
   }
