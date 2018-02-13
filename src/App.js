@@ -17,7 +17,9 @@ class BooksApp extends React.Component {
   }
 
   onChangeShelf= (e, book) => {
-    BooksAPI.update(book, e.target.value).then(
+    BooksAPI
+    .update(book, e.target.value)
+    .then(
       result => {
         BooksAPI
           .getAll()
