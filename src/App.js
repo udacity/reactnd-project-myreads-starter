@@ -29,7 +29,8 @@ class App extends Component {
       <Route exact path="/" render={() => (
         <ListBooks
           onDeleteBook={this.removeBook}
-          books={this.state.books}/>
+          books={this.state.books}
+          shelf={['currentlyReading', 'read', 'wantToRead']}/>
 
 )}/>
 <Route path="/create" component={CreateBook}/>
