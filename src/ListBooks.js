@@ -108,7 +108,7 @@ return (
     {props.shelf.map(shelf =>(
       <Bookshelf
       key={shelf}
-      
+      onChangeShelf={props.onChangeShelf}
       books={props.books.filter((book) => book.shelf === shelf)} name={shelf}/>
     ))}
   </div>

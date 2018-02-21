@@ -12,12 +12,12 @@ return (
         </img>
         </div>
         <div className="book-shelf-changer">
-        <select /*onChange={() => onChangeShelf(props.book)}*/ value={props.book.shelf}>
+        <select onChange={(e) => props.onChangeShelf(props.book, e.target.value)} value={props.book.shelf}>
             <option value="none" disabled>Move to...</option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>
             <option value="read">Read</option>
-            <option /*onClick={() => onDeleteBook(props.book)}*/ value="none">None</option>
+            <option value="none">None</option>
         </select>
         </div>
     </div>
@@ -28,4 +28,4 @@ return (
   };
 
 
-export default books;
+export default books
