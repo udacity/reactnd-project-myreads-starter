@@ -3,6 +3,9 @@ import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
 
+
+
+
 class BooksApp extends React.Component {
   state = {
     /**
@@ -17,6 +20,7 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
+
         {this.state.showSearchPage ? (
           <div className="search-books">
             <div className="search-books-bar">
@@ -53,8 +57,8 @@ class BooksApp extends React.Component {
                         <div className="book">
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")' }}></div>
-                            // Add onclick here
                             <div className="book-shelf-changer">
+
                               <select>
                               // set different setState depending the option value
                                 <option value="none" disabled>Move to...</option>
@@ -63,6 +67,7 @@ class BooksApp extends React.Component {
                                 <option value="read">Read</option>
                                 <option value="none">None</option>
                               </select>
+
                             </div>
                           </div>
                           <div className="book-title">To Kill a Mockingbird</div>
@@ -126,7 +131,7 @@ class BooksApp extends React.Component {
                               </select>
                             </div>
                           </div>
-                          <div className="book-title">Harry Potter and the Sorcerer's Stone</div>
+                          <div className="book-title">Harry Potter and the Sorcerers Stone</div>
                           <div className="book-authors">J.K. Rowling</div>
                         </div>
                       </li>
@@ -169,7 +174,7 @@ class BooksApp extends React.Component {
                               </select>
                             </div>
                           </div>
-                          <div className="book-title">Oh, the Places You'll Go!</div>
+                          <div className="book-title">Oh, the Places Youll Go!</div>
                           <div className="book-authors">Seuss</div>
                         </div>
                       </li>
