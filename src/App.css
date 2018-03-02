@@ -11,7 +11,7 @@ body, .app {
 }
 
 #components-layout-demo .logo {
-    width: 150px;
+    width: 160px;
     height: 120px;
     background: url('icons/logo.png') no-repeat;
     margin: 10px 24px 10px 0;
@@ -20,7 +20,11 @@ body, .app {
 
 /* main page */
 .ant-layout-header {
-    height: 150px !important;
+    background: #C2CFEA !important;
+    height: 140px !important;
+    -webkit-box-shadow: -4px 10px 27px -13px rgba(0,0,0,0.75);
+    -moz-box-shadow: -4px 10px 27px -13px rgba(0,0,0,0.75);
+    box-shadow: -4px 10px 27px -13px rgba(0,0,0,0.75);
 }
 
 .list-books-title {
@@ -81,7 +85,6 @@ body, .app {
 /* search page */
 
 .search-books-bar {
-    position: fixed;
     width: 100%;
     top: 0;
     left: 0;
