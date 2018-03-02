@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import * as BooksAPI from "../../BooksAPI";
 import PropTypes from 'prop-types';
 import {Spin} from 'antd';
 
@@ -16,7 +15,7 @@ class OurSelection extends Component {
         showBooks = books;
 
         if (!showBooks.length) {
-            return <div class="spinner"><Spin/></div>;
+            return <div className="spinner"><Spin/></div>;
         }
         return (
             <div className="bookshelf">
@@ -29,8 +28,8 @@ class OurSelection extends Component {
                                 <div className="book">
                                     <div className="book-top">
                                         <div className="book-cover" style={{
-                                            width: 128,
-                                            height: 192,
+                                            width: '100%',
+                                            height: '100%',
                                             backgroundImage: `url(${book.imageLinks.smallThumbnail})`
                                         }}></div>
                                         <div className="book-shelf-changer">

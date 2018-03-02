@@ -11,7 +11,7 @@ import Read from "./components/Read";
 import Search from "./components/Search";
 import OurSelection from "./components/OurSelection";
 
-const operations = <Button>Extra Action</Button>;
+const operations = <Link to="/search"><Button type="primary" shape="circle" icon="plus"/></Link>;
 const TabPane = Tabs.TabPane;
 const {Content} = Layout;
 
@@ -33,15 +33,28 @@ class BooksApp extends React.Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */
-        books: []
+        currentlyReading: [],
+        wantToRead: [],
+        readBook: []
 
     };
 
     componentDidMount() {
         BooksAPI.getAll().then((books) => {
-            console.log(books, "books");
-            this.setState({books})
+
+            this.setState(books);
+            const wantToRead = books.filter((c) => c.shelf === 'wantToRead');
+            const currentlyReading = books.filter((c) => c.shelf === 'currentlyReading');
+            const read = books.filter((c) => c.shelf === 'read');
+
+            console.log(wantToRead, "want")
+            this.setState(({
+                wantToRead: wantToRead,
+                readBook: read,
+                currentlyReading: currentlyReading
+            }));
         });
+
     }
 
     render() {
@@ -55,17 +68,14 @@ class BooksApp extends React.Component {
                     <Layout style={{margin: '24px 16px 0', marginTop: '20px'}}>
                         <Content>
                             <Tabs tabBarExtraContent={operations} type="card">
-                                <TabPane tab="Our Selection" key="1">
-                                    <OurSelection  books={this.state.books}/>
-                                </TabPane>
                                 <TabPane tab="Currently Reading" key="2">
-                                    <CurrentlyReading/>
+                                    <CurrentlyReading  currentlyReading={this.props.currentlyReading}/>
                                 </TabPane>
                                 <TabPane tab="Want to Read" key="3">
-                                    <WantToRead/>
+                                    <WantToRead wantToRead={this.props.wantToRead}/>
                                 </TabPane>
                                 <TabPane tab="Read" key="4">
-                                    <Read/>
+                                    <Read  readBook={this.props.readBook}/>
                                 </TabPane>
                                 <TabPane tab="Ratings" key="5">Ratings</TabPane>
                             </Tabs>
@@ -74,7 +84,7 @@ class BooksApp extends React.Component {
                     </Layout>
                 )}/>
                 <div className="open-search">
-                    <Link to="/search">Add a book</Link>
+
                 </div>
 
             </div>
