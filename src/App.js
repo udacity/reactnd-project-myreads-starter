@@ -16,34 +16,21 @@ const {Content} = Layout;
 
 class BooksApp extends React.Component {
     state = {
-
-
-        /**
-         * TODO: Instead of using this state variable to keep track of which page
-         * we're on, use the URL in the browser's address bar. This will ensure that
-         * users can use the browser's back and forward buttons to navigate between
-         * pages, as well as provide a good URL they can bookmark and share.
-         */
-        /*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */
-       books:[]
-
+        books: []
     };
 
     componentDidMount() {
+
         BooksAPI.getAll().then((books) => {
             this.setState({books});
         });
-
     }
 
+    
+
     render() {
+
+        console.log("oi", this.state.books);
         return (
             <div className="app">
                 <HeaderComponent/>
@@ -55,7 +42,7 @@ class BooksApp extends React.Component {
                         <Content>
                             <Tabs tabBarExtraContent={operations} type="card">
                                 <TabPane tab="Currently Reading" key="1">
-                                    <CurrentlyReading  books={this.state.books}/>
+                                    <CurrentlyReading books={this.state.books}/>
                                 </TabPane>
                                 <TabPane tab="Want to Read" key="2">
                                     <WantToRead books={this.state.books}/>
