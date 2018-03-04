@@ -9,7 +9,6 @@ import CurrentlyReading from "./components/CurrentlyReading";
 import WantToRead from "./components/WantToRead";
 import Read from "./components/Read";
 import Search from "./components/Search";
-import OurSelection from "./components/OurSelection";
 
 const operations = <Link to="/search"><Button type="primary" shape="circle" icon="plus"/></Link>;
 const TabPane = Tabs.TabPane;
@@ -33,26 +32,13 @@ class BooksApp extends React.Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */
-        currentlyReading: [],
-        wantToRead: [],
-        readBook: []
+       books:[]
 
     };
 
     componentDidMount() {
         BooksAPI.getAll().then((books) => {
-
-            this.setState(books);
-            const wantToRead = books.filter((c) => c.shelf === 'wantToRead');
-            const currentlyReading = books.filter((c) => c.shelf === 'currentlyReading');
-            const read = books.filter((c) => c.shelf === 'read');
-
-            console.log(wantToRead, "want")
-            this.setState(({
-                wantToRead: wantToRead,
-                readBook: read,
-                currentlyReading: currentlyReading
-            }));
+            this.setState({books});
         });
 
     }
@@ -62,31 +48,25 @@ class BooksApp extends React.Component {
             <div className="app">
                 <HeaderComponent/>
                 <Route path="/search" exact render={() => (
-                    <Search/>
+                    <Search books={this.state.books}/>
                 )}/>
                 <Route path="/" exact render={() => (
                     <Layout style={{margin: '24px 16px 0', marginTop: '20px'}}>
                         <Content>
                             <Tabs tabBarExtraContent={operations} type="card">
-                                <TabPane tab="Currently Reading" key="2">
-                                    <CurrentlyReading  currentlyReading={this.props.currentlyReading}/>
+                                <TabPane tab="Currently Reading" key="1">
+                                    <CurrentlyReading  books={this.state.books}/>
                                 </TabPane>
-                                <TabPane tab="Want to Read" key="3">
-                                    <WantToRead wantToRead={this.props.wantToRead}/>
+                                <TabPane tab="Want to Read" key="2">
+                                    <WantToRead books={this.state.books}/>
                                 </TabPane>
-                                <TabPane tab="Read" key="4">
-                                    <Read  readBook={this.props.readBook}/>
+                                <TabPane tab="Read" key="3">
+                                    <Read books={this.state.books}/>
                                 </TabPane>
-                                <TabPane tab="Ratings" key="5">Ratings</TabPane>
                             </Tabs>
-
                         </Content>
                     </Layout>
                 )}/>
-                <div className="open-search">
-
-                </div>
-
             </div>
         )
     }

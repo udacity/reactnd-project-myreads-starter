@@ -18,13 +18,26 @@ body, .app {
     float: left;
 }
 
+li.ant-rate-star {
+    padding: 0 !important;
+}
+.spinner{
+    text-align: center;
+    background: rgba(0,0,0,0.05);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 30px 50px;
+    margin: 20px 0;
+}
+
+
 /* main page */
 .ant-layout-header {
     background: #C2CFEA !important;
     height: 140px !important;
-    -webkit-box-shadow: -4px 10px 27px -13px rgba(0,0,0,0.75);
-    -moz-box-shadow: -4px 10px 27px -13px rgba(0,0,0,0.75);
-    box-shadow: -4px 10px 27px -13px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -4px 10px 27px -13px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -4px 10px 27px -13px rgba(0, 0, 0, 0.75);
+    box-shadow: -4px 10px 27px -13px rgba(0, 0, 0, 0.75);
 }
 
 .list-books-title {
