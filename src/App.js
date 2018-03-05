@@ -26,11 +26,9 @@ class BooksApp extends React.Component {
         });
     }
 
-    
 
     render() {
 
-        console.log("oi", this.state.books);
         return (
             <div className="app">
                 <HeaderComponent/>
@@ -42,13 +40,13 @@ class BooksApp extends React.Component {
                         <Content>
                             <Tabs tabBarExtraContent={operations} type="card">
                                 <TabPane tab="Currently Reading" key="1">
-                                    <CurrentlyReading books={this.state.books}/>
+                                    <CurrentlyReading books={this.state.books.filter((b) => b.shelf === "Currently Reading")}/>
                                 </TabPane>
                                 <TabPane tab="Want to Read" key="2">
-                                    <WantToRead books={this.state.books}/>
+                                    <WantToRead books={this.state.books.filter((b) => b.shelf === "Want to Read")}/>
                                 </TabPane>
                                 <TabPane tab="Read" key="3">
-                                    <Read books={this.state.books}/>
+                                    <Read books={this.state.books.filter((b) => b.shelf === "Read")}/>
                                 </TabPane>
                             </Tabs>
                         </Content>
