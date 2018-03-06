@@ -8,15 +8,14 @@ class Book extends Component {
 		book: PropTypes.object.isRequired,
 		books: PropTypes.array.isRequired,
 		changeShelf: PropTypes.func.isRequired,
-	}
+	};
 
 	render() {	
-		const { books,  book, changeShelf } = this.props
-		console.log(book)
+		const { books,  book, changeShelf } = this.props;
 		return (
 			<li>
-				<div className='book'>
-					<div className='book-top'>
+				<div className="book">
+					<div className="book-top">
 					<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
 					<ShelfChanger
 						book={ book }
@@ -24,8 +23,8 @@ class Book extends Component {
 						changeShelf={ changeShelf }
 						/>
 					</div>
-					<div className='book-title'>{book.title}</div>
-					<div className='book-authors'>{book.authors}</div>
+					<div className="book-title">{book.title}</div>
+					<div className="book-authors">{book.authors}</div>
 				</div>
 			</li>
 		);

@@ -7,16 +7,16 @@ class ShelfChanger extends Component {
     book: PropTypes.object.isRequired,
     books: PropTypes.array.isRequired,
     changeShelf: PropTypes.func.isRequired,
-  }
+  };
 
   render() {
-    const { book, books, changeShelf } = this.props
-    let currentShelf = 'none'
+    const { book, books, changeShelf } = this.props;
+    let currentShelf = 'none';
 
     for (let item of books ) {
       if (item.id === book.id)  {
-        currentShelf = item.shelf
-        break
+        currentShelf = item.shelf;
+        break;
       }
     }
 
@@ -33,7 +33,6 @@ class ShelfChanger extends Component {
       </div>
     )
   }
-
 }
 
 export default ShelfChanger

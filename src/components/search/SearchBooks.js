@@ -24,7 +24,8 @@ class SearchBooks extends Component {
 			return {query: query}
 		});
 		this.searchBooks(query)
-	}
+  };
+  
 	searchBooks = (query) => {
 		if (query.length !== 0) {
 			BooksAPI.search(query, 10).then((books) => {
@@ -41,11 +42,11 @@ class SearchBooks extends Component {
 		} else {
 			this.setState({newBooks: [], query: ''})
 		}
-	}
+	};
 
 	render() {
-		const { books, changeShelf } = this.props
-		const {newBooks, query} = this.state
+		const { books, changeShelf } = this.props;
+		const {newBooks, query} = this.state;
 		return (
 			<div className="search-books">
 				<div className="search-books-bar">
