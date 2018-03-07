@@ -3,7 +3,10 @@ import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
 
-
+/* First step
+Create a static version with simple components: they will render the data model.
+To build the static version => need to build components that reuse other
+components and pass data using props */
 
 
 class BooksApp extends React.Component {
