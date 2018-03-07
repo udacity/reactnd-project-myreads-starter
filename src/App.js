@@ -2,6 +2,7 @@
 import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
+import BookShelf from './BookShelf'
 
 /* First step
 Create a static version with simple components: they will render the data model.
