@@ -1,21 +1,41 @@
 import React from "react";
-// import * as BooksAPI from './BooksAPI'
+import { Switch, Route } from "react-router-dom";
+// // import * as BooksAPI from './BooksAPI'
 import ListBooks from "./ListBooks";
 import SearchBook from "./SearchBook";
 import "./App.css";
 
-class BooksApp extends React.Component {
-  state = {};
+const App = () => (
+  <Switch>
+    <Route exact path='/' component={ListBooks} />
+    <Route path='/search' component={SearchBook} />
+  </Switch>
+);
 
-  render() {
-    return (
-      <div className="app">
-        <SearchBook />
+export default App
 
-        <ListBooks />
-      </div>
-    );
-  }
-}
 
-export default BooksApp;
+
+
+
+// import React from "react";
+// // import * as BooksAPI from './BooksAPI'
+// import ListBooks from "./ListBooks";
+// import SearchBook from "./SearchBook";
+// import "./App.css";
+
+// class BooksApp extends React.Component {
+//   state = {};
+
+//   render() {
+//     return (
+//       <div className="app">
+//         <SearchBook />
+
+//         <ListBooks />
+//       </div>
+//     );
+//   }
+// }
+
+// export default BooksApp;
