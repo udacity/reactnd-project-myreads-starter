@@ -1,0 +1,55 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js start
+
+PATH: 
+  C:\Program Files (x86)\Common Files\Intel\Shared Files\cpp\bin\Intel64;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\HashiCorp\Vagrant\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\MongoDB\Server\3.6\bin;;C:\Program Files\kubectl;C:\Program Files\helm\windows-amd64;C:\Program Files (x86)\Yarn\bin\;C:\Users\Allan\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Microsoft VS Code\bin;C:\Users\Allan\AppData\Roaming\npm;C:\Users\Allan\AppData\Local\Yarn\bin
+
+Yarn version: 
+  1.5.1
+
+Node version: 
+  8.9.3
+
+Platform: 
+  win32 x64
+
+npm manifest: 
+  {
+    "dependencies": {
+      "prop-types": "^15.5.8",
+      "react": "^15.5.4",
+      "react-dom": "^15.5.4",
+      "react-router-dom": "^4.2.2"
+    },
+    "devDependencies": {
+      "react-scripts": "0.9.5"
+    },
+    "scripts": {
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test --env=jsdom",
+      "eject": "react-scripts eject"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: Command failed.
+  Exit code: 1
+  Command: C:\Windows\system32\cmd.exe
+  Arguments: /d /s /c react-scripts start
+  Directory: C:\Users\Allan\Desktop\reactnd-project-myreads-starter
+  Output:
+  
+      at ProcessTermError.MessageError (C:\Program Files (x86)\Yarn\lib\cli.js:186:110)
+      at new ProcessTermError (C:\Program Files (x86)\Yarn\lib\cli.js:226:113)
+      at ChildProcess.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:30281:17)
+      at emitTwo (events.js:126:13)
+      at ChildProcess.emit (events.js:214:7)
+      at maybeClose (internal/child_process.js:925:16)
+      at Process.ChildProcess._handle.onexit (internal/child_process.js:209:5)
