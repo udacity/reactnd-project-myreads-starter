@@ -16,6 +16,22 @@ class App extends Component {
     });
   }
 
+  updateShelf = (e, book) => {
+    const { books } = this.state
+    const shelf = e.target.value
+
+    BooksAPI.update(book, shelf).then(() => {
+      const newBooks = this.state.books.map(item => {
+        if (item.id === book.id) {
+          item.shelf = shelf;
+        }
+        return item;
+      });
+
+      this.setState({ books: newBooks })
+    });
+  }
+
   render() {
     const { books } = this.state;
 
@@ -23,7 +39,7 @@ class App extends Component {
       <div className="app">
         <Switch>
           <Route exact path="/" render={() => (
-            <ListBooks books={books} />
+            <ListBooks books={books} updateShelf={this.updateShelf} />
           )} />
           <Route path="/search" component={SearchBook} />
         </Switch>
