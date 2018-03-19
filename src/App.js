@@ -7,7 +7,9 @@ import "./App.css";
 
 class App extends Component {
   state = {
-    books: []
+    books: [],
+    results: [],
+    query: ''
   };
 
   componentDidMount() {
@@ -32,19 +34,64 @@ class App extends Component {
     });
   }
 
-  render() {
-    const { books } = this.state;
+  searchBook = (query) => {
+    if (query) {
+      this.setState({
+        query
+      }, () => {
+        BooksAPI.search(this.state.query).then(
+          results => {
+            this.setState({ results })
+          }
+        )
+      })
+    }
+    
+    
+    // this.setState(query[() => {
+    //   BooksAPI.search(query).then(results => {
+    //     this.setState({ results })
+    //   })
+    // }])
+    
+    // this.setState(state => ({
+    //   query
+    // }))
+    // console.log(this.state.query)
 
-    return (
-      <div className="app">
+    
+    
+    // this.setState({ query })
+    // BooksAPI.search(this.state.query).then(results => {
+    //   this.setState({ results });
+    // });
+ 
+
+  //   const { books } = this.state;
+  //   let query = e.target.value
+  //   this.setState({ query })
+
+  //   if(query) {
+  //     BooksAPI.search(this.state.query).then((books) => {
+  //       this.setState({ books })
+  //     })
+  //   } else {
+  //     console.log("no query")
+  //   }
+
+  }
+
+  
+  render() {
+    const { books, results } = this.state;
+
+    return <div className="app">
         <Switch>
-          <Route exact path="/" render={() => (
-            <ListBooks books={books} updateShelf={this.updateShelf} />
-          )} />
-          <Route path="/search" component={SearchBook} />
+          <Route exact path="/" render={() => <ListBooks books={books} updateShelf={this.updateShelf} />} />
+
+          <Route path="/search" render={() => <SearchBook results={results} updateShelf={this.updateShelf} searchBook={this.searchBook} />} />
         </Switch>
-      </div>
-    );
+      </div>;
   }
 }
 
