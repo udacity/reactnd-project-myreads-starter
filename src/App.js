@@ -7,7 +7,9 @@ import "./App.css";
 
 class App extends Component {
   state = {
-    books: []
+    books: [],
+    results: [],
+    query: ''
   };
 
   componentDidMount() {
@@ -32,19 +34,39 @@ class App extends Component {
     });
   }
 
-  render() {
-    const { books } = this.state;
+  searchBook = (query) => {
+    if (query) {
+      this.setState({
+        query
+      }, () => {
+        BooksAPI.search(this.state.query).then(
+          results => {
+            console.log(results)
+            if (!results.error) {
+              results.forEach((book, index) => {
+                let myBook = this.state.books.find((b) => b.id === book.id )
+                book.shelf = myBook ? myBook.shelf : 'none'
+                results[index] = book;
+              });
+              this.setState({ results })
+            }
+          }, this.setState({ results: [] })
+        )
+      })
+    }
+  }
 
-    return (
-      <div className="app">
+
+  render() {
+    const { books, results } = this.state;
+
+    return <div className="app">
         <Switch>
-          <Route exact path="/" render={() => (
-            <ListBooks books={books} updateShelf={this.updateShelf} />
-          )} />
-          <Route path="/search" component={SearchBook} />
+          <Route exact path="/" render={() => <ListBooks books={books} updateShelf={this.updateShelf} />} />
+
+          <Route path="/search" render={() => <SearchBook results={results} updateShelf={this.updateShelf} searchBook={this.searchBook} />} />
         </Switch>
-      </div>
-    );
+      </div>;
   }
 }
 
