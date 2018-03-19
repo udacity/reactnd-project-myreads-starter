@@ -41,13 +41,16 @@ class App extends Component {
       }, () => {
         BooksAPI.search(this.state.query).then(
           results => {
-            results.forEach((book, index) => {
-              let myBook = this.state.books.find((b) => b.id === book.id )
-              book.shelf = myBook ? myBook.shelf : 'none'
-              results[index] = book;
-            });
-            this.setState({ results })
-          }
+            console.log(results)
+            if (!results.error) {
+              results.forEach((book, index) => {
+                let myBook = this.state.books.find((b) => b.id === book.id )
+                book.shelf = myBook ? myBook.shelf : 'none'
+                results[index] = book;
+              });
+              this.setState({ results })
+            }
+          }, this.setState({ results: [] })
         )
       })
     }
