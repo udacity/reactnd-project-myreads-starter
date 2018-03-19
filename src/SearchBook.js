@@ -41,7 +41,7 @@ class SearchBook extends Component {
                         style={{
                           width: 128,
                           height: 188,
-                          backgroundImage: `url(${book.imageLinks.thumbnail})`
+                          backgroundImage: `url(${book.imageLinks.thumbnail || ''})`
                         }}
                       />
                       <div className="book-shelf-changer">
