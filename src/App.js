@@ -19,7 +19,6 @@ class App extends Component {
   }
 
   updateShelf = (e, book) => {
-    const { books } = this.state
     const shelf = e.target.value
 
     BooksAPI.update(book, shelf).then(() => {

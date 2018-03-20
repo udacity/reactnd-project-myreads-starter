@@ -12,7 +12,7 @@ class SearchBook extends Component {
   };
 
   render() {
-    const { books, updateShelf, searchBook, results } = this.props;
+    const { updateShelf, searchBook, results } = this.props;
 
     return <div className="search-books">
         <div className="search-books-bar">
