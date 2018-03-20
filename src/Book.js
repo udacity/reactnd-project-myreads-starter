@@ -4,11 +4,12 @@ import PropTypes from "prop-types";
 class Book extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired,
-		updateShelf: PropTypes.func.isRequired
+    updateShelf: PropTypes.func.isRequired
   };
 
   render() {
-		let { updateShelf, book } = this.props;
+    let { updateShelf, book } = this.props;
+    console.log(book);
 
     return (
       <div className="book">
@@ -43,7 +44,9 @@ class Book extends Component {
           </div>
         </div>
         <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.authors.join(", ")}</div>
+        <div className="book-authors">
+          {book.authors ? book.authors.join(", ") : ""}
+        </div>
       </div>
     );
   }
