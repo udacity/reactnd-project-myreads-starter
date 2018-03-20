@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { PropTypes } from "prop-types";
-// import escapeRegExp from 'escape-string-regexp';
-// import sortby from 'sort-by';
 import { Link } from "react-router-dom";
+import Book from "./Book";
 
 class SearchBook extends Component {
   static propTypes = {
@@ -14,7 +13,8 @@ class SearchBook extends Component {
   render() {
     const { updateShelf, searchBook, results } = this.props;
 
-    return <div className="search-books">
+    return (
+      <div className="search-books">
         <div className="search-books-bar">
           <Link className="close-search" to="/">
             Close
@@ -28,13 +28,20 @@ class SearchBook extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-            <input type="text" placeholder="Search by title or author" onChange={e => searchBook(e.target.value)} />
+            <input
+              type="text"
+              placeholder="Search by title or author"
+              onChange={e => searchBook(e.target.value)}
+            />
           </div>
         </div>
         <div className="search-books-results">
-          {results.length > 0 ? <ol className="books-grid">
-              {results.map(book => <li key={book.id}>
-                  <div className="book">
+          {results.length > 0 ? (
+            <ol className="books-grid">
+              {results.map(book => (
+                <li key={book.id}>
+                  <Book book={book} updateShelf={updateShelf} />
+                  {/* <div className="book">
                     <div className="book-top">
                       <div
                         className="book-cover"
@@ -63,13 +70,18 @@ class SearchBook extends Component {
                     <div className="book-title">{book.title}</div>
                     <div className="book-authors">
                       {book.authors}
-                      {/* {book.authors.join(", ")} */}
+                      {book.authors.join(", ")}
                     </div>
-                  </div>
-                </li>)}
-            </ol> : <h1 style={{ textAlign: "center" }}>No results</h1>}
+                  </div> */}
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <h1 style={{ textAlign: "center" }}>No results</h1>
+          )}
         </div>
-      </div>;
+      </div>
+    );
   }
 }
 
