@@ -18,18 +18,13 @@ class App extends Component {
     });
   }
 
-  updateShelf = (e, book) => {
-    const shelf = e.target.value
-
+  updateShelf = (shelf, book) => {
     BooksAPI.update(book, shelf).then(() => {
-      const newBooks = this.state.books.map(item => {
-        if (item.id === book.id) {
-          item.shelf = shelf;
-        }
-        return item;
-      });
+      book.shelf = shelf;
 
-      this.setState({ books: newBooks })
+      this.setState(state => ({
+        books: state.books.filter(b => b.id !== book.id).concat([ book ])
+      }))
     });
   }
 

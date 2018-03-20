@@ -29,7 +29,7 @@ class Book extends Component {
             <select
               defaultValue={book.shelf}
               onChange={e => {
-                updateShelf(e, book);
+                updateShelf(e.target.value, book);
               }}
             >
               <option value="none" disabled>
