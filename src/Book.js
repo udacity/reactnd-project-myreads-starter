@@ -9,7 +9,6 @@ class Book extends Component {
 
   render() {
     let { updateShelf, book } = this.props;
-    console.log(book);
 
     return (
       <div className="book">
