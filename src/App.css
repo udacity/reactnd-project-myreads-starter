@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+
 html, body, .root {
   height: 100%;
 }
@@ -12,13 +14,14 @@ body, .app {
 
 .list-books-title {
   padding: 10px 0;
-  background: #2e7c31;
+  background: #fff;
   text-align: center;
 }
 .list-books-title h1 {
+  font-family: 'Lobster', cursive;
   font-weight: 400;
   margin: 0;
-  color: white;
+  color: #000;
 }
 
 .list-books-content {
@@ -53,7 +56,7 @@ body, .app {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #2e7d32;
+  background: #000;
   background-image: url('./icons/add.svg');
   background-repeat: no-repeat;
   background-position: center;
@@ -147,7 +150,7 @@ body, .app {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #60ac5d;
+  background: #333;
   background-image: url('./icons/arrow-drop-down.svg');
   background-repeat: no-repeat;
   background-position: center;
