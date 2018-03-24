@@ -8,8 +8,7 @@ import "./App.css";
 class App extends Component {
   state = {
     books: [],
-    results: [],
-    query: ''
+    results: []
   };
 
   componentDidMount() {
@@ -28,24 +27,25 @@ class App extends Component {
     });
   }
 
-  searchBook = (query) => {
+  searchBook = query => {
     if (query) {
+      BooksAPI.search(query).then((books) => {
+        if (books.length) {
+          books.forEach((book, index) => {
+            let myBook = this.state.books.find((b) => b.id === book.id);
+            book.shelf = myBook ? myBook.shelf : 'none';
+            books[index] = book;
+          });
+
+          this.setState({
+            results: books
+          });
+        }
+      });
+    } else {
       this.setState({
-        query
-      }, () => {
-        BooksAPI.search(this.state.query).then(
-          results => {
-            if (!results.error) {
-              results.forEach((book, index) => {
-                let myBook = this.state.books.find((b) => b.id === book.id )
-                book.shelf = myBook ? myBook.shelf : 'none'
-                results[index] = book;
-              });
-              this.setState({ results })
-            }
-          }, this.setState({ results: [] })
-        )
-      })
+        results: []
+      });
     }
   }
 
@@ -57,7 +57,15 @@ class App extends Component {
         <Switch>
           <Route exact path="/" render={() => <ListBooks books={books} updateShelf={this.updateShelf} />} />
 
-          <Route path="/search" render={() => <SearchBook results={results} updateShelf={this.updateShelf} searchBook={this.searchBook} />} />
+          <Route
+            path="/search"
+            render={() => 
+              <SearchBook
+                results={results}
+                updateShelf={this.updateShelf}
+                searchBook={this.searchBook}
+              />}
+            />
         </Switch>
       </div>;
   }
