@@ -12,14 +12,14 @@ const ListBooks = ({ books, updateShelf }) => {
 
       <div className="list-books-content">
         <Shelf
-          title="Currently Reading"
+          title="Currently reading"
           shelf="currentlyReading"
           books={books}
           updateShelf={updateShelf}
         />
 
         <Shelf
-          title="Want to Read"
+          title="Want to read"
           shelf="wantToRead"
           books={books}
           updateShelf={updateShelf}
