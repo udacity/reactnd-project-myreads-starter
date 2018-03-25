@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js install --save sort-by escape-string-regexp
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js start
 
 PATH: 
   C:\Program Files (x86)\Common Files\Intel\Shared Files\cpp\bin\Intel64;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\HashiCorp\Vagrant\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\MongoDB\Server\3.6\bin;;C:\Program Files\kubectl;C:\Program Files\helm\windows-amd64;C:\Program Files (x86)\Yarn\bin\;C:\Users\Allan\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Microsoft VS Code\bin;C:\Users\Allan\AppData\Roaming\npm;C:\Users\Allan\AppData\Local\Yarn\bin
@@ -16,10 +16,12 @@ Platform:
 npm manifest: 
   {
     "dependencies": {
+      "escape-string-regexp": "^1.0.5",
       "prop-types": "^15.5.8",
       "react": "^15.5.4",
       "react-dom": "^15.5.4",
-      "react-router-dom": "^4.2.2"
+      "react-router-dom": "^4.2.2",
+      "sort-by": "^1.2.0"
     },
     "devDependencies": {
       "react-scripts": "0.9.5"
@@ -5701,10 +5703,17 @@ Lockfile:
       window-size "0.1.0"
 
 Trace: 
-  Error: `install` has been replaced with `add` to add new dependencies. Run "yarn add sort-by escape-string-regexp" instead.
-      at new MessageError (C:\Program Files (x86)\Yarn\lib\cli.js:186:110)
-      at Object.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:21987:13)
-      at Generator.next (<anonymous>)
-      at step (C:\Program Files (x86)\Yarn\lib\cli.js:98:30)
-      at C:\Program Files (x86)\Yarn\lib\cli.js:109:13
-      at <anonymous>
+  Error: Command failed.
+  Exit code: 1
+  Command: C:\Windows\system32\cmd.exe
+  Arguments: /d /s /c react-scripts start
+  Directory: C:\Users\Allan\Desktop\reactnd-project-myreads-starter
+  Output:
+  
+      at ProcessTermError.MessageError (C:\Program Files (x86)\Yarn\lib\cli.js:186:110)
+      at new ProcessTermError (C:\Program Files (x86)\Yarn\lib\cli.js:226:113)
+      at ChildProcess.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:30281:17)
+      at emitTwo (events.js:126:13)
+      at ChildProcess.emit (events.js:214:7)
+      at maybeClose (internal/child_process.js:925:16)
+      at Process.ChildProcess._handle.onexit (internal/child_process.js:209:5)

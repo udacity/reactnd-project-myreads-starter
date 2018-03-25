@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
 import ListBooks from "./ListBooks";
+import ModalBook from "./ModalBook";
 import SearchBook from "./SearchBook";
 import "./App.css";
 
@@ -22,18 +23,18 @@ class App extends Component {
       book.shelf = nextShelf;
 
       this.setState(state => ({
-        books: state.books.filter(b => b.id !== book.id).concat([ book ])
-      }))
+        books: state.books.filter(b => b.id !== book.id).concat([book])
+      }));
     });
-  }
+  };
 
   searchBook = query => {
     if (query) {
-      BooksAPI.search(query).then((books) => {
+      BooksAPI.search(query).then(books => {
         if (books.length) {
           books.forEach((book, index) => {
-            let myBook = this.state.books.find((b) => b.id === book.id);
-            book.shelf = myBook ? myBook.shelf : 'none';
+            let myBook = this.state.books.find(b => b.id === book.id);
+            book.shelf = myBook ? myBook.shelf : "none";
             books[index] = book;
           });
 
@@ -47,27 +48,37 @@ class App extends Component {
         results: []
       });
     }
-  }
-
+  };
 
   render() {
     const { books, results } = this.state;
 
-    return <div className="app">
+    return (
+      <div className="app">
         <Switch>
-          <Route exact path="/" render={() => <ListBooks books={books} updateShelf={this.updateShelf} />} />
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <ListBooks books={books} updateShelf={this.updateShelf} />
+            )}
+          />
+
+          {/* <Route path="/book/:id" render={() => <ModalBook />} modalOpen={this.state.modalOpen} handleClose={this.handleClose} /> */}
 
           <Route
             path="/search"
-            render={() => 
+            render={() => (
               <SearchBook
                 results={results}
                 updateShelf={this.updateShelf}
                 searchBook={this.searchBook}
-              />}
-            />
+              />
+            )}
+          />
         </Switch>
-      </div>;
+      </div>
+    );
   }
 }
 
