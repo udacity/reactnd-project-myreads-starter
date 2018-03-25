@@ -24,12 +24,10 @@ class Book extends Component {
             onClick={this.handleOpen}
             className="book-cover"
             style={{
-              width: 128,
-              height: 188,
               backgroundImage: `url(${
                 book.imageLinks
                   ? book.imageLinks.thumbnail
-                  : "http://via.placeholder.com/128x188?text=no+image"
+                  : "http://via.placeholder.com/128x188?text=no+available"
               })`
             }}
           />
