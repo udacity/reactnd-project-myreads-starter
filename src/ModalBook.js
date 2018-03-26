@@ -7,6 +7,7 @@ import {
   Button,
   Label,
   Rating,
+  Icon,
   Header,
   Image
 } from "semantic-ui-react";
@@ -22,44 +23,27 @@ class SingleBook extends Component {
     const { book } = this.props;
     console.log(book);
 
-    return (
-      <Modal open={this.props.modalOpen} onClose={this.props.handleClose}>
+    return <Modal open={this.props.modalOpen} onClose={this.props.handleClose}>
         <Modal.Content image>
-          <Image
-            className="cover-book"
-            rounded
-            size="small"
-            src={
-              book.imageLinks
-                ? book.imageLinks.thumbnail
-                : "http://via.placeholder.com/128x188?text=no+available"
-            }
-          />
+          <Image className="cover-book" rounded size="small" src={book.imageLinks ? book.imageLinks.thumbnail : "http://via.placeholder.com/128x188?text=no+available"} />
           <Modal.Description className="book-description">
             <Header>
               <Header as="h2" content={book.title} subheader={book.subtitle} />
 
               <small>{book.ratingsCount}</small>
-              <Rating
-                icon="star"
-                size="huge"
-                defaultRating={book.averageRating}
-                maxRating={5}
-              />
+              <Rating icon="star" size="huge" defaultRating={book.averageRating} maxRating={5} />
             </Header>
 
-            {book.categories
-              ? book.categories.map((category, i) => (
+            {book.categories ? book.categories.map((category, i) => (
                   <Label as="a" key={i}>
                     {category}
                   </Label>
-                ))
-              : ""}
+                )) : ""}
 
             <h3>Description</h3>
             <p>{book.description || "No description available"}</p>
 
-            <Button as={Link} to={book.previewLink} target="noblank" positive>Preview book</Button>
+            <Button as={Link} to={book.previewLink} target="noblank" icon="external" positive content="Open external" />
 
             <h3>More details</h3>
             <Table basic="very" celled collapsing>
@@ -75,11 +59,15 @@ class SingleBook extends Component {
 
               <Table.Body>
                 <Table.Row>
-                  <Table.Cell>{book.publisher || "No available"}</Table.Cell>
+                  <Table.Cell>
+                    {book.publisher || "No available"}
+                  </Table.Cell>
                   <Table.Cell>
                     {book.publishedDate || "No available"}
                   </Table.Cell>
-                  <Table.Cell>{book.pageCount || "No available"}</Table.Cell>
+                  <Table.Cell>
+                    {book.pageCount || "No available"}
+                  </Table.Cell>
                   <Table.Cell>{book.language || "No available"}</Table.Cell>
                   <Table.Cell>
                     {book.industryIdentifiers.map(id => (
@@ -93,8 +81,7 @@ class SingleBook extends Component {
             </Table>
           </Modal.Description>
         </Modal.Content>
-      </Modal>
-    );
+      </Modal>;
   }
 }
 
