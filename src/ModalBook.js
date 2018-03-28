@@ -69,7 +69,7 @@ class SingleBook extends Component {
                     {book.pageCount || "No available"}
                   </Table.Cell>
                   <Table.Cell>{book.language || "No available"}</Table.Cell>
-                  <Table.Cell>
+                  <Table.Cell style={{'listStyle': 'inside'}}>
                     {book.industryIdentifiers.map(id => (
                       <li key={id.identifier}>
                         {id.type} {id.identifier}
