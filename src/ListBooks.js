@@ -5,9 +5,9 @@ import Shelf from "./Shelf";
 
 const ListBooks = ({ books, updateShelf }) => {
   const shelves = [
-    { title: 'Currently reading', shelf: 'currentlyReading', books, updateShelf },
-    { title: 'Want to read', shelf: 'wantToRead', books, updateShelf },
-    { title: 'Read', shelf: 'read', books, updateShelf }
+    { title: '🤩Currently reading', shelf: 'currentlyReading', books, updateShelf },
+    { title: '🤗Want to read', shelf: 'wantToRead', books, updateShelf },
+    { title: '😎Read', shelf: 'read', books, updateShelf }
   ]
   
   return (
