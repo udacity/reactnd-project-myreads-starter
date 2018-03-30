@@ -20,21 +20,6 @@ const Shelf = ({ title, shelf, books, updateShelf }) => {
         </ol>
     </Container>
   )
-  
-  // return (
-  //   <div className="bookshelf">
-  //     <h2 className="bookshelf-title">{title}</h2>
-  //     <div className="bookshelf-books">
-  //       <ol className="books-grid">
-  //         {currentBooks.map((book) => (
-  //           <li key={book.id}>
-  //             <Book book={book} updateShelf={updateShelf} />
-  //           </li>
-  //         ))}
-  //       </ol>
-  //     </div>
-  //   </div>
-  // )
 }
 
 Shelf.propTypes = {
