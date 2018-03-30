@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
 import ListBooks from "./ListBooks";
-import ModalBook from "./ModalBook";
 import SearchBook from "./SearchBook";
 import "./App.css";
 
@@ -63,8 +62,6 @@ class App extends Component {
               <ListBooks books={books} updateShelf={this.updateShelf} />
             )}
           />
-
-          {/* <Route path="/book/:id" render={() => <ModalBook />} modalOpen={this.state.modalOpen} handleClose={this.handleClose} /> */}
 
           <Route
             path="/search"

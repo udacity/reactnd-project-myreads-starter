@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const ShelfChanger = ({updateShelf, currentShelf, book}) => {
+const ShelfChanger = ({ updateShelf, currentShelf, book }) => {
   return (
     <div className="book-shelf-changer">
       <select

@@ -7,7 +7,6 @@ import {
   Button,
   Label,
   Rating,
-  Icon,
   Header,
   Image
 } from "semantic-ui-react";
@@ -21,7 +20,6 @@ class SingleBook extends Component {
 
   render() {
     const { book } = this.props;
-    console.log(book);
 
     return <Modal open={this.props.modalOpen} onClose={this.props.handleClose}>
         <Modal.Content image>
