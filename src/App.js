@@ -12,14 +12,14 @@ class App extends Component {
   };
 
   componentDidMount() {
-    BooksAPI.getAll().then(book => {
-      this.setState({ books: book });
-    });
+    BooksAPI.getAll().then(books => {
+      this.setState({ books });
+    })
   }
 
-  updateShelf = (nextShelf, book) => {
-    BooksAPI.update(book, nextShelf).then(() => {
-      book.shelf = nextShelf;
+  updateShelf = (shelf, book) => {
+    BooksAPI.update(book, shelf).then(() => {
+      book.shelf = shelf;
 
       this.setState(state => ({
         books: state.books.filter(b => b.id !== book.id).concat([book])
