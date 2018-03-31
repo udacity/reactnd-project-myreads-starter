@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Lobster');
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
 
 html, body, .root {
   height: 100%;
@@ -8,6 +10,12 @@ body {
 }
 body, .app {
   background: white;
+}
+
+/* Slick */
+.slick-prev:before, .slick-next:before {
+  color: #000 !important;
+  font-size: 24px !important;
 }
 
 /* main page */
@@ -168,7 +176,8 @@ body, .app {
 
 .book-cover {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  /* background: #eee; */
+  border-radius: 2px 5px 5px 2px;
+  background: #eee;
   width: 128px;
   height: 188px;
   cursor: pointer;

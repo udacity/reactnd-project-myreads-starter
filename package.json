@@ -5,7 +5,9 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-router-dom": "^4.2.2",
+    "react-slick": "^0.22.3",
     "semantic-ui-react": "^0.79.0",
+    "slick-carousel": "^1.8.1",
     "sort-by": "^1.2.0"
   },
   "devDependencies": {
