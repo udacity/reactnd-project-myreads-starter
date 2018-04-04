@@ -22,10 +22,11 @@ class BookList extends Component {
                     <BookShelf title='Want to Read' books={wantToReadBooks} />
                     <BookShelf title='Read' books={readBooks} />
                 </div>
-                <Link
-                    className='open-search'
-                    to='/search'
-                >Search</Link>
+                <div className='open-search'>
+                    <Link
+                        to='/search'
+                    >Search</Link>
+                </div>
             </div>
         );
     }

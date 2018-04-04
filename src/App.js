@@ -10,6 +10,7 @@ class BooksApp extends React.Component {
     currReadingBooks: [],
     wantToReadBooks: [],
     readBooks: [],
+    searchResults: [],
   }
   componentWillMount() {
     BooksAPI.getAll().then((books) => {
@@ -24,10 +25,23 @@ class BooksApp extends React.Component {
 
     })
   }
+
+  searchBook = (query) => {
+    BooksAPI.search(query).then((results)=>{
+      const searchResults = Array.isArray(results) ? results : [];
+      this.setState(()=>({searchResults}))
+
+    })
+  }
+  
   render() {
+    console.log(this.state.currReadingBooks);
     return (
       <div className="app">
-        <Route path='/search' render={() => (<Search />)}/>
+        <Route path='/search' render={() => (<Search 
+          searchBook={this.searchBook}
+          searchResults={this.state.searchResults}
+        />)}/>
         <Route exact path='/' render={() => (<BookList 
           currReadingBooks={this.state.currReadingBooks} 
           wantToReadBooks={this.state.wantToReadBooks}

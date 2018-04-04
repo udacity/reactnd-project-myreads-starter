@@ -7,7 +7,7 @@ class Book extends Component {
     };
     render() {
         const { bookDetails } = this.props;
-        return (
+        return bookDetails.length !== 0 ? (
             <div className="book">
                 <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${bookDetails.imageLinks.thumbnail})` }}></div>
@@ -22,8 +22,10 @@ class Book extends Component {
                     </div>
                 </div>
                 <div className="book-title">{bookDetails.title}</div>
-                <div className="book-authors">{bookDetails.authors.map((author)=>(<span key={author}>{author}<br/></span>))}</div>
+                <div className="book-authors">{bookDetails.authors ? bookDetails.authors.map((author)=>(<span key={author}>{author}<br/></span>)) : (<div></div>)}</div>
             </div>
+        ) : (
+            <div className="book"></div>
         );
     }
 }
