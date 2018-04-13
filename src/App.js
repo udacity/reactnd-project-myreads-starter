@@ -1,7 +1,9 @@
 import React,{Component} from 'react';
+import { Route } from 'react-router-dom';
 // import * as BooksAPI from './BooksAPI'
 import FrontPage from './FrontPage.js'
 import SearchPage from './SearchPage.js'
+
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -18,7 +20,16 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    return ( <FrontPage/> ) // add <SearchPage/> too see search
+    return (
+
+  <div className="app">
+
+
+  <Route exact path='/' component={FrontPage}/>
+
+ </div>
+) //end return... add <SearchPage/> too see search render={() => (<FrontPage/>)}
+
 }
 }
 
