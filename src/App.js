@@ -26,6 +26,7 @@ class BooksApp extends React.Component {
 
 
   <Route exact path='/' component={FrontPage}/>
+  <Route path='/search' component={SearchPage}/>
 
  </div>
 ) //end return... add <SearchPage/> too see search render={() => (<FrontPage/>)}
