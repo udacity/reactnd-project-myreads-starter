@@ -7,7 +7,8 @@ import './App.css'
 class SearchPage extends React.Component {
     state = {
         value: '',
-        books: []
+        books: [],
+        booksState: {currentlyReading: [], read: [], wantToRead: []}
     }
 
     handleChange(event) {
@@ -36,16 +37,29 @@ class SearchPage extends React.Component {
     switchBookShelf(book, event) {
         const that = this;
         if (book.shelf !== event.target.value) {
+            console.log('moveToBookShelf')
             BooksAPI.update({id: book.id}, event.target.value).then((res) => {
-                
-            }).catch(() => {
-                console.error('fail to switch BookShelf!')
+                that.setState({
+                    booksState: res
+                })
             })
         }
         
     }
 
     render() {
+        const {books, booksState} = this.state;
+        const keys = ['currentlyReading', 'read', 'wantToRead']
+        keys.map((key) => {
+            for (let i = 0, len = booksState[key].length; i < len; i++) {
+                for (let j =0, len1 = books.length; j < len1; j++) {
+                    if (booksState[key][i] == books[j].id) {
+                        books[j].shelf = key;
+                        break;
+                    }     
+                }
+            }
+        })
         return (
             <div className="search-books">
             <div className="search-books-bar">
@@ -57,7 +71,7 @@ class SearchPage extends React.Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                <BookShelf books={this.state.books} switchBookShelf={this.switchBookShelf}/>
+                <BookShelf books={books} moveToBookShelf={this.switchBookShelf.bind(this)}/>
               </ol>
             </div>
           </div>
