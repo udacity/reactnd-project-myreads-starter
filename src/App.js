@@ -6,21 +6,12 @@ import SearchPage from './Search'
 import './App.css'
 
 class BooksApp extends React.Component {
-  state = {
-    booksState: {currentlyReading: [], read: [], wantToRead: []}
-  }
-
-  updateBookState(states) {
-    this.setState({
-        booksState: states
-    })   
-  }
 
   render() {
     return (
         <Switch>
-            <Route exact path='/' component={HomePage} updateBookState={this.updateBookState.bind(this)}/>
-            <Route path='/search' component={SearchPage} booksState={this.state.booksState}/>
+            <Route exact path='/' component={HomePage} />
+            <Route path='/search' component={SearchPage} />
         </Switch>
     )
   }

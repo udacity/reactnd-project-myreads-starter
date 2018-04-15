@@ -3,9 +3,6 @@ import Select from './Select'
 import './App.css'
 
 class BookShelf extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         const books= this.props.books;

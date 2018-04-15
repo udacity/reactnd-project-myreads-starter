@@ -47,13 +47,30 @@ class SearchPage extends React.Component {
         
     }
 
+    componentDidMount() {
+        BooksAPI.getAll().then((data) => {
+            let booksState = {};
+            data.forEach((book) => {
+                if (booksState[book.shelf]) {
+                    booksState[book.shelf].push(book.id);
+                } else {
+                    booksState[book.shelf] = [];
+                    booksState[book.shelf].push(book.id);
+                }
+            })
+            this.setState({
+                booksState: booksState
+            })
+        })
+    }
+
     render() {
         const {books, booksState} = this.state;
         const keys = ['currentlyReading', 'read', 'wantToRead']
-        keys.map((key) => {
+        keys.forEach((key) => {
             for (let i = 0, len = booksState[key].length; i < len; i++) {
                 for (let j =0, len1 = books.length; j < len1; j++) {
-                    if (booksState[key][i] == books[j].id) {
+                    if (booksState[key][i] === books[j].id) {
                         books[j].shelf = key;
                         break;
                     }     
