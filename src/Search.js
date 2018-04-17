@@ -47,6 +47,22 @@ class SearchPage extends React.Component {
         
     }
 
+    updateBookSelect(checked, bookId) {
+
+        this.setState((prevState) => {
+            let len = this.state.books.length;
+            while (len--) {
+                if (prevState.books[len].id === bookId) {
+                    prevState.books[len].selected = checked;
+                    return {
+                        books: prevState.books
+                    }
+                }
+            }
+            
+        })
+    }
+
     componentDidMount() {
         BooksAPI.getAll().then((data) => {
             let booksState = {};
@@ -87,9 +103,7 @@ class SearchPage extends React.Component {
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid">
-                <BookShelf books={books} moveToBookShelf={this.switchBookShelf.bind(this)}/>
-              </ol>
+              <BookShelf updateBookSelect={this.updateBookSelect.bind(this)} books={books} moveToBookShelf={this.switchBookShelf.bind(this)}/>
             </div>
           </div>
         )

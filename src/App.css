@@ -43,6 +43,7 @@ body, .app {
 }
 .bookshelf-books {
   text-align: center;
+  position: relative;
 }
 
 .open-search {
@@ -164,6 +165,54 @@ body, .app {
   height: 100%;
   opacity: 0;
   cursor: pointer;
+}
+
+.book-shelf-selecter {
+  position: absolute;
+  right: 0;
+  bottom: -10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #555;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.book-shelf-selecter input {
+  width: 0;
+  height: 0;
+  cursor: pointer;
+}
+.book-shelf-selecter input::after {
+  display: inline-block;
+    content: '\221A';
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #fff;
+    background: transparent;
+}
+.book-shelf-selecter input:checked::after {
+  color: #45db36;
+  background: #fff;
+}
+
+.book-shelf-multiSelect {
+  position: absolute;
+    left: 0px;
+    background: #666;
+    color: #fff;
+    font-style: normal;
+    padding: 5px;
+    border-radius: 0.2em;
+    z-index: 2;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 /* book cover */

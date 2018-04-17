@@ -8,6 +8,7 @@ class HomePage extends React.Component {
     constructor() {
         super();
         this.switchBookShelf = this.switchBookShelf.bind(this);
+        this.updateBookSelect = this.updateBookSelect.bind(this);
     }
     state = {
         books: []
@@ -24,6 +25,22 @@ class HomePage extends React.Component {
                     books: data
                  });
             })
+    }
+
+    updateBookSelect(checked, bookId) {
+
+        this.setState((prevState) => {
+            let len = this.state.books.length;
+            while (len--) {
+                if (prevState.books[len].id === bookId) {
+                    prevState.books[len].selected = checked;
+                    return {
+                        books: prevState.books
+                    }
+                }
+            }
+            
+        })
     }
 
     switchBookShelf(book, event) {
@@ -76,17 +93,17 @@ class HomePage extends React.Component {
               <div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books"><BookShelf booksState={this.state.booksState}  books={currentlyReadingBooks} moveToBookShelf={this.switchBookShelf}/></div>
+                  <BookShelf updateBookSelect={this.updateBookSelect} books={currentlyReadingBooks} moveToBookShelf={this.switchBookShelf}/>
                 </div>
 
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Want to Read</h2>
-                  <div className="bookshelf-books"><BookShelf booksState={this.state.booksState} books={wantToReadBooks} moveToBookShelf={this.switchBookShelf}/></div>
+                  <BookShelf updateBookSelect={this.updateBookSelect} books={wantToReadBooks} moveToBookShelf={this.switchBookShelf}/>
                 </div>
 
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books"><BookShelf booksState={this.state.booksState} books={readBooks} moveToBookShelf={this.switchBookShelf}/></div>
+                  <BookShelf updateBookSelect={this.updateBookSelect} books={readBooks} moveToBookShelf={this.switchBookShelf}/>
                 </div>
               </div>
             </div>
