@@ -12,13 +12,13 @@ body, .app {
 
 .list-books-title {
   padding: 10px 0;
-  background: #2e7c31;
+  background: #555;
   text-align: center;
 }
 .list-books-title h1 {
   font-weight: 400;
   margin: 0;
-  color: white;
+  color: #eee;
 }
 
 .list-books-content {
@@ -37,10 +37,13 @@ body, .app {
 }
 
 .bookshelf-title {
-  border-bottom: 1px solid #dedede;
+  background: #eee;
+  padding: 0 5px;
+  color: #666;
 }
 .bookshelf-books {
   text-align: center;
+  position: relative;
 }
 
 .open-search {
@@ -53,7 +56,7 @@ body, .app {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #2e7d32;
+  background: #666;
   background-image: url('./icons/add.svg');
   background-repeat: no-repeat;
   background-position: center;
@@ -115,8 +118,11 @@ body, .app {
   flex-wrap: wrap;
 }
 .books-grid li {
-  padding: 10px 15px;
-  text-align: left;
+  padding: 5px 10px;
+    margin: 5px;
+    text-align: left;
+    background: rgba(238, 245, 140, 0.6);
+    border-radius: 0.2em;
 }
 
 .book {
@@ -130,7 +136,7 @@ body, .app {
   margin-top: 10px;
 }
 .book-authors {
-  color: #999;
+  color: #8459a3;
 }
 
 .book-top {
@@ -147,7 +153,7 @@ body, .app {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #60ac5d;
+  background: #555;
   background-image: url('./icons/arrow-drop-down.svg');
   background-repeat: no-repeat;
   background-position: center;
@@ -159,6 +165,54 @@ body, .app {
   height: 100%;
   opacity: 0;
   cursor: pointer;
+}
+
+.book-shelf-selecter {
+  position: absolute;
+  right: 0;
+  bottom: -10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #555;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.book-shelf-selecter input {
+  width: 0;
+  height: 0;
+  cursor: pointer;
+}
+.book-shelf-selecter input::after {
+  display: inline-block;
+    content: '\221A';
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #fff;
+    background: transparent;
+}
+.book-shelf-selecter input:checked::after {
+  color: #45db36;
+  background: #fff;
+}
+
+.book-shelf-multiSelect {
+  position: absolute;
+    left: 0px;
+    background: #666;
+    color: #fff;
+    font-style: normal;
+    padding: 5px;
+    border-radius: 0.2em;
+    z-index: 2;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 /* book cover */
