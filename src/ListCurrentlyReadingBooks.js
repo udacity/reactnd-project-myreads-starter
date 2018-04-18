@@ -1,6 +1,28 @@
 import React, {Component} from 'react';
 
 class ListCurrentlyReadingBooks extends Component{
+    updateBookShelf(e, book) {
+        console.log("Selected", e.target.value);
+        const bookShelf = e.target.value;
+        //insert the book to a different bookshelf
+        //remove the book from the old bookshelf
+        this.props.addToRead(book);
+        this.props.removeFromCurrentlyReading(book);
+
+        switch (bookShelf){
+            case "currentlyReading":
+                this.props.addToCurrentlyReading(book);
+                break;
+            case "wantToRead":
+                break;
+            case "read" :
+                this.props.addToCurrentlyReading(book);
+                break;
+            default:
+                break;
+        }
+    }
+
     render() {
         return (
             <div>
@@ -22,7 +44,7 @@ class ListCurrentlyReadingBooks extends Component{
                                                                 backgroundImage: `url(${book.imageLinks.smallThumbnail})`
                                                             }}/>
                                                             <div className="book-shelf-changer">
-                                                                <select>
+                                                                <select onChange={(event) => this.updateBookShelf(event, book)}>
                                                                     <option value="none" disabled>Move to...</option>
                                                                     <option value="currentlyReading">Currently Reading
                                                                     </option>

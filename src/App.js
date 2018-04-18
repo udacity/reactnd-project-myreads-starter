@@ -14,13 +14,56 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    //TODO: Move the book from One Category to the other
+    //TODO: Save the current shelf state of the book, move the book from old shelf state to selected state
       showSearchPage: false,
       books: [],
       currentlyReading: [],
       wantToRead: [],
       read: []
   };
+
+  addToCurrentlyReading = (book) => {
+      this.setState((state) => ({
+          currentlyReading: state.currentlyReading.concat([book])
+      }));
+      console.log("New currently Reading books:")
+      this.state.currentlyReading.map(book => console.log(book.title));
+  };
+
+  addToWantToRead = (book) => {
+      this.setState((state) => ({
+          wantToRead: state.wantToRead.concat([book])
+      }))
+      console.log("New want to read books:")
+      this.state.wantToRead.map(book => console.log(book.title));
+  };
+
+  addToRead = (book) => {
+      this.setState((state) => ({
+          read: state.read.concat([book])
+      }))
+      console.log("New read books:")
+      this.state.read.map(book => console.log(book.title));
+  };
+
+  removeFromCurrentlyReading = (book) => {
+      this.setState((state) => ({
+          currentlyReading: state.currentlyReading.filter(cBook => cBook !== book)
+      }))
+  };
+
+  removeFromWantToRead = (book) => {
+      this.setState((state) => ({
+          wantToRead: state.wantToRead.filter(cBook => cBook !== book)
+      }))
+  };
+
+  removeFromRead = (book) => {
+      this.setState((state) => ({
+          read: state.read.filter(cBook => cBook !== book)
+      }))
+  };
+
 
   componentDidMount() {
       BooksAPI.getAll().then((books) => {
@@ -77,11 +120,17 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-              <ListCurrentlyReadingBooks currentlyReadingBooks={this.state.currentlyReading}/>
+              <ListCurrentlyReadingBooks currentlyReadingBooks={this.state.currentlyReading}
+                                         addToCurrentlyReading={(book) => this.addToCurrentlyReading(book)}
+                                         addToWantToRead={(book) => this.addToWantToRead(book)}
+                                         addToRead={(book) => this.addToRead(book)}
+                                         removeFromCurrentlyReading={(book) => this.removeFromCurrentlyReading(book)}
+                                         removeFromWantToRead={(book) => this.removeFromWantToRead(book)}
+                                         removeFromRead={(book) => this.removeFromRead(book)}/>
               <ListWantToReadBooks wantToReadBooks={this.state.wantToRead}/>
               <ListReadBooks readBooks={this.state.read}/>
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+              <a onClick={() => this.setState({showSearchPage: true})}>Add a book</a>
             </div>
           </div>
         )}
