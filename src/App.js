@@ -14,7 +14,8 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    //TODO: Save the current shelf state of the book, move the book from old shelf state to selected state
+    //TODO: Make a state for each component separately and use that state as the default value for that component
+    //TODO: Search Books
       showSearchPage: false,
       books: [],
       currentlyReading: [],
@@ -120,6 +121,7 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
+              <button onClick={this.updateBook}>Test</button>
               <ListCurrentlyReadingBooks currentlyReadingBooks={this.state.currentlyReading}
                                          addToCurrentlyReading={(book) => this.addToCurrentlyReading(book)}
                                          addToWantToRead={(book) => this.addToWantToRead(book)}
@@ -127,7 +129,13 @@ class BooksApp extends React.Component {
                                          removeFromCurrentlyReading={(book) => this.removeFromCurrentlyReading(book)}
                                          removeFromWantToRead={(book) => this.removeFromWantToRead(book)}
                                          removeFromRead={(book) => this.removeFromRead(book)}/>
-              <ListWantToReadBooks wantToReadBooks={this.state.wantToRead}/>
+              <ListWantToReadBooks wantToReadBooks={this.state.wantToRead}
+                                   addToCurrentlyReading={(book) => this.addToCurrentlyReading(book)}
+                                   addToWantToRead={(book) => this.addToWantToRead(book)}
+                                   addToRead={(book) => this.addToRead(book)}
+                                   removeFromCurrentlyReading={(book) => this.removeFromCurrentlyReading(book)}
+                                   removeFromWantToRead={(book) => this.removeFromWantToRead(book)}
+                                   removeFromRead={(book) => this.removeFromRead(book)}/>
               <ListReadBooks readBooks={this.state.read}/>
             <div className="open-search">
               <a onClick={() => this.setState({showSearchPage: true})}>Add a book</a>
@@ -137,6 +145,19 @@ class BooksApp extends React.Component {
       </div>
     )
   }
+
+    updateBook() {
+        // const book = {id: "nggnmAEACAAJ"};
+        // const shelf = "currentlyReading";
+        // BooksAPI.update(book, shelf);
+
+        BooksAPI.getAll().then((books) => {
+            books.map((book) =>
+                console.log("New Book -" + book.title + book.shelf)
+            )
+        })
+
+    }
 }
 
 export default BooksApp
