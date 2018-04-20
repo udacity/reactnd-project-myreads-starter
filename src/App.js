@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import { Route } from 'react-router-dom';
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import FrontPage from './FrontPage.js'
 import SearchPage from './SearchPage.js'
 
@@ -19,12 +19,30 @@ class BooksApp extends React.Component {
     //showSearchPage: false
   }
 
+  getAllBooks(){
+    BooksAPI.getAll().then(books => this.state({books}))
+  }
+
+  updateBooks(){
+
+  }
+
+  getShelfBooks(shelfName){
+        return this.state.books.filter((b) => b.shelf === shelfName)
+    }
+
+    componentDidMount() {
+        BooksAPI.getAll().then((books) => {
+          this.setState({ books })
+       })}
+
+
   render() {
     return (
 
   <div className="app">
 
-
+this.log(this.state.books())
   <Route exact path='/' component={FrontPage}/>
   <Route path='/search' component={SearchPage}/>
 
