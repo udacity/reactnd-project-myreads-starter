@@ -70,7 +70,8 @@ class ListWantToReadBooks extends Component{
                                                                 backgroundImage: `url(${book.imageLinks.smallThumbnail})`
                                                             }}/>
                                                             <div className="book-shelf-changer">
-                                                                <select value = "wantToRead" onChange={(event) => this.updateBookShelf(event, book)}>
+                                                                <select value="wantToRead"
+                                                                        onChange={(event) => this.updateBookShelf(event, book)}>
                                                                     <option value="none" disabled>Move to...</option>
                                                                     <option value="currentlyReading">Currently Reading
                                                                     </option>

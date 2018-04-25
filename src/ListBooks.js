@@ -1,48 +1,43 @@
 import React, {Component} from 'react';
+import ListCurrentlyReadingBooks from './ListCurrentlyReadingBooks';
+import ListWantToReadBooks from './ListWantToReadBooks';
+import ListReadBooks from './ListReadBooks';
+import {Link} from 'react-router-dom';
 
-class ListBooks extends Component{
-    render(){
-        return(
-            <div>
-                <ol>
-                    {this.props.books.map((book) =>
-                        <li key = {book.title}>
-                            {book.shelf === "currentlyReading" && (
-                                <div className="list-books-content">
-                                    <div>
-                                        <div className="bookshelf">
-                                            <h2 className="bookshelf-title">Currently Reading</h2>
-                                            <div className="bookshelf-books">
-                                                <ol className="books-grid">
-                                                    <li>
-                                                        <div className="book">
-                                                            <div className="book-top">
-                                                                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}/>
-                                                                <div className="book-shelf-changer">
-                                                                    <select>
-                                                                        <option value="none" disabled>Move to...</option>
-                                                                        <option value="currentlyReading">Currently Reading</option>
-                                                                        <option value="wantToRead">Want to Read</option>
-                                                                        <option value="read">Read</option>
-                                                                        <option value="none">None</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div className="book-title">{book.title}</div>
-                                                            <div className="book-authors">{book.authors[0]}</div>
-                                                        </div>
-                                                    </li>
-                                                </ol>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                        </li>
-                    )}
-                </ol>
+class ListBooks extends Component {
+
+    render() {
+        return (
+            <div className="list-books">
+                <div className="list-books-title">
+                    <h1>MyReads</h1>
+                </div>
+                <Link
+                    to='/search'
+                >Test Search Link</Link>
+
+                <ListCurrentlyReadingBooks currentlyReadingBooks={this.props.currentlyReading}
+                                           addToCurrentlyReading={(book) => this.addToCurrentlyReading(book)}
+                                           addToWantToRead={(book) => this.addToWantToRead(book)}
+                                           addToRead={(book) => this.addToRead(book)}
+                                           removeFromCurrentlyReading={(book) => this.removeFromCurrentlyReading(book)}
+                                           removeFromWantToRead={(book) => this.removeFromWantToRead(book)}
+                                           removeFromRead={(book) => this.removeFromRead(book)}/>
+                <ListWantToReadBooks wantToReadBooks={this.props.wantToRead}
+                                     addToCurrentlyReading={(book) => this.addToCurrentlyReading(book)}
+                                     addToWantToRead={(book) => this.addToWantToRead(book)}
+                                     addToRead={(book) => this.addToRead(book)}
+                                     removeFromCurrentlyReading={(book) => this.removeFromCurrentlyReading(book)}
+                                     removeFromWantToRead={(book) => this.removeFromWantToRead(book)}
+                                     removeFromRead={(book) => this.removeFromRead(book)}/>
+                <ListReadBooks readBooks={this.props.read}/>
+
+                <div className="open-search">
+                    <Link to='/search'>Add a book</Link>
+                </div>
             </div>
         )
     }
 }
+
 export default ListBooks;

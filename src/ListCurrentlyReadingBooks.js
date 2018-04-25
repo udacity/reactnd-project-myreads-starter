@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
 import * as BooksAPI from "./BooksAPI";
 
-class ListCurrentlyReadingBooks extends Component{
+class ListCurrentlyReadingBooks extends Component {
     currentlyReadingShelf = "currentlyReading";
     wantToReadShelf = "wantToRead";
     readShelf = "read";
+
     updateBookShelf(e, book) {
         console.log("Selected", e.target.value + " current value: " + book.shelf);
         //insert book to a new bookshelf
         //remove book from the old bookshelf
         const bookShelf = e.target.value;
-        switch (bookShelf){
+        switch (bookShelf) {
             case this.currentlyReadingShelf:
                 this.props.addToCurrentlyReading(book);
                 this.removeFromShelf(book);
@@ -30,9 +31,10 @@ class ListCurrentlyReadingBooks extends Component{
                 break;
         }
     }
+
     //Remove book from old book shelf
     removeFromShelf = (book) => {
-        switch (book.shelf){
+        switch (book.shelf) {
             case "currentlyReading":
                 this.props.removeFromCurrentlyReading(book);
                 break;
@@ -68,7 +70,8 @@ class ListCurrentlyReadingBooks extends Component{
                                                                 backgroundImage: `url(${book.imageLinks.smallThumbnail})`
                                                             }}/>
                                                             <div className="book-shelf-changer">
-                                                                <select value = "currentlyReading" onChange={(event) => this.updateBookShelf(event, book)}>
+                                                                <select value="currentlyReading"
+                                                                        onChange={(event) => this.updateBookShelf(event, book)}>
                                                                     <option value="none" disabled>Move to...</option>
                                                                     <option value="currentlyReading">Currently Reading
                                                                     </option>
