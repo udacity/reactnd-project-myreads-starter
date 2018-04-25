@@ -13,7 +13,13 @@ return(
   {console.log(this.props.books)}
 <div className="bookshelf-books">
 <ol className="books-grid">
-<Book />
+{this.props.books.map(book =>
+(
+
+  <Book key={book.id} title= {book.title} image={book.imageLinks.thumbnail}/>
+
+))}
+
 
 </ol>
 </div>
