@@ -7,8 +7,27 @@ class FrontPage extends Component {
 
 
 
+
+
   render(){
+
+    const shelfs = [
+    {
+    id: 'currentlyReading',
+    name: 'Currently Reading'
+  },
+  {
+    id: 'wantToRead',
+  name: 'Want to Read'
+  },
+  {
+    id: 'read',
+  name: 'Read'
+  }
+  ]
     return(
+
+
       <div>
         <div className="list-books">
         <div className="list-books-title">
@@ -16,7 +35,16 @@ class FrontPage extends Component {
         </div>
         </div>
         <div className="list-books-content">
-        <BookShelf />
+        {/*console.log(this.props.books)*/}
+        {
+
+          shelfs.map((shelfs) =>
+          (
+
+          <BookShelf key={shelfs.id} name={shelfs.name} books={this.props.books.filter(
+            (book) => (shelfs.id === book.shelf )
+          )}/>
+          ))}
 
 
           </div>
@@ -34,6 +62,7 @@ class FrontPage extends Component {
 
   }
 
+//export default FrontPage
 
 //   <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a> link
 

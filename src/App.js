@@ -14,7 +14,6 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-
      books: []
     //showSearchPage: false
   }
@@ -23,18 +22,22 @@ class BooksApp extends React.Component {
     BooksAPI.getAll().then(books => this.state({books}))
   }
 
-  updateBooks = (book, Nshelf) => BooksAPI.update(book,Nshelf).then(() => {
+  updateShelf = (book, Nshelf) => BooksAPI.update(book,Nshelf).then(() => {
     this.setState({book}) // here filter out book from state and then add new book to state
   })
 
-  getShelfBooks(shelfName){
-        return this.state.books.filter((b) => b.shelf === shelfName)
-    }
 
-    componentDidMount() {
+
+    componentDidMount(){
         BooksAPI.getAll().then((books) => {
           this.setState({ books })
+            console.log(this.state.books);
+
        })}
+
+       ComponentDidUpdate() {
+    //console.log(this.state.books);
+}
 
 
   render() {
@@ -42,9 +45,14 @@ class BooksApp extends React.Component {
 
   <div className="app">
 
-this.log(this.state.books())
-  <Route exact path='/' component={FrontPage}/>
-  <Route path='/search' component={SearchPage}/>
+
+
+  <Route exact path='/' render={() =>(
+    <FrontPage books = {this.state.books} updateShelf = {this.updateShelf}  />
+  )}/>
+  <Route path='/search' render={() =>(
+    <SearchPage />
+  )}/>
 
  </div>
 ) //end return... add <SearchPage/> too see search render={() => (<FrontPage/>)}
