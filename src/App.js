@@ -18,7 +18,8 @@ class BooksApp extends React.Component {
          * pages, as well as provide a good URL they can bookmark and share.
          */
         //TODO: Make a state for each component separately and use that state as the default value for that component
-        //TODO: Search Books
+        //TODO: Check for books with no thumbnails
+        //TODO: Categorize books on search page
         books: [],
         currentlyReading: [],
         wantToRead: [],
@@ -114,9 +115,11 @@ class BooksApp extends React.Component {
     render() {
         return (
             <div className="app">
-                <button onClick={this.updateLinuxBook}> Reset Linux </button>
-                <Route path='/search' component={Search}/>
-                <Route path='/' render={() => (
+                <Link to="/search"> Search </Link>
+                <Route exact path='/search' render={() => (
+                    <Search books={this.state.books}/>
+                )}/>
+                <Route exact path='/' render={() => (
                     <ListBooks currentlyReading={this.state.currentlyReading}
                                wantToRead={this.state.wantToRead}
                                read={this.state.read}
