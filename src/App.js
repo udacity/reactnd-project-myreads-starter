@@ -6,6 +6,10 @@ import ListBooks from './ListBooks';
 import Search from './Search';
 
 class BooksApp extends React.Component {
+    CURRENTLY_READING = "currentlyReading";
+    WANT_TO_READ = "wantToRead";
+    READ = "read";
+
     state = {
         /**
          * TODO: Instead of using this state variable to keep track of which page
@@ -21,6 +25,7 @@ class BooksApp extends React.Component {
         read: []
     };
 
+
     addToCurrentlyReading = (book) => {
         this.setState((state) => ({
             currentlyReading: state.currentlyReading.concat([book])
@@ -32,7 +37,7 @@ class BooksApp extends React.Component {
     addToWantToRead = (book) => {
         this.setState((state) => ({
             wantToRead: state.wantToRead.concat([book])
-        }))
+        }));
         console.log("New want to read books:")
         this.state.wantToRead.map(book => console.log(book.title));
     };
@@ -46,14 +51,16 @@ class BooksApp extends React.Component {
     };
 
     removeFromCurrentlyReading = (book) => {
+        console.log("removeFromCurrentlyReading: ", book.title);
         this.setState((state) => ({
-            currentlyReading: state.currentlyReading.filter(cBook => cBook !== book)
+            currentlyReading: state.currentlyReading.filter(cBook => cBook.title !== book.title)
         }))
     };
 
     removeFromWantToRead = (book) => {
+        console.log("removeFromWantToRead: ", book.title);
         this.setState((state) => ({
-            wantToRead: state.wantToRead.filter(cBook => cBook !== book)
+            wantToRead: state.wantToRead.filter(cBook => cBook.title !== book.title)
         }))
     };
 
@@ -61,6 +68,18 @@ class BooksApp extends React.Component {
         this.setState((state) => ({
             read: state.read.filter(cBook => cBook !== book)
         }))
+    };
+
+    updateBookShelf = (book, shelf) => {
+        book.shelf = shelf;
+    };
+
+    updateLinuxBook = () => {
+        this.state.books.map((book) => {
+            if(book.title === "The Linux Command Line"){
+                BooksAPI.update(book, "currentlyReading");
+            }
+        })
     };
 
 
@@ -95,11 +114,19 @@ class BooksApp extends React.Component {
     render() {
         return (
             <div className="app">
+                <button onClick={this.updateLinuxBook}> Reset Linux </button>
                 <Route path='/search' component={Search}/>
                 <Route path='/' render={() => (
                     <ListBooks currentlyReading={this.state.currentlyReading}
                                wantToRead={this.state.wantToRead}
-                               read={this.state.read}/>
+                               read={this.state.read}
+                               addToCurrentlyReading={(book) => this.addToCurrentlyReading(book)}
+                               addToWantToRead={(book) => this.addToWantToRead(book)}
+                               addToRead={(book) => this.addToRead(book)}
+                               removeFromCurrentlyReading={(book) => this.removeFromCurrentlyReading(book)}
+                               removeFromWantToRead={(book) => this.removeFromWantToRead(book)}
+                               removeFromRead={(book) => this.removeFromRead(book)}
+                               updateBookShelf={(book, shelf) => this.updateBookShelf(book, shelf)}/>
                 )}/>
             </div>
         )

@@ -2,30 +2,36 @@ import React, {Component} from 'react';
 import * as BooksAPI from "./BooksAPI";
 
 class ListCurrentlyReadingBooks extends Component {
-    currentlyReadingShelf = "currentlyReading";
-    wantToReadShelf = "wantToRead";
-    readShelf = "read";
+    //TODO: Replace select tag default value with component state value
+
+    CURRENTLY_READING_SHELF = "currentlyReading";
+    WANT_TO_READ_SHELF = "wantToRead";
+    READ_SHELF = "read";
 
     updateBookShelf(e, book) {
-        console.log("Selected", e.target.value + " current value: " + book.shelf);
+        console.log(" Current shelf " + book.shelf + " New shelf", e.target.value);
+        //update the book
         //insert book to a new bookshelf
         //remove book from the old bookshelf
         const bookShelf = e.target.value;
         switch (bookShelf) {
-            case this.currentlyReadingShelf:
+            case this.CURRENTLY_READING_SHELF:
+                this.props.updateBookShelf(book, this.CURRENTLY_READING_SHELF);
                 this.props.addToCurrentlyReading(book);
+                BooksAPI.update(book, this.CURRENTLY_READING_SHELF);
                 this.removeFromShelf(book);
-                BooksAPI.update(book, this.currentlyReadingShelf);
                 break;
-            case this.wantToReadShelf:
+            case this.WANT_TO_READ_SHELF:
+                this.props.updateBookShelf(book, this.WANT_TO_READ_SHELF);
                 this.props.addToWantToRead(book);
+                BooksAPI.update(book, this.WANT_TO_READ_SHELF);
                 this.removeFromShelf(book);
-                BooksAPI.update(book, this.wantToReadShelf);
                 break;
-            case this.readShelf :
+            case this.READ_SHELF:
+                this.props.updateBookShelf(book, this.READ_SHELF);
                 this.props.addToRead(book);
+                BooksAPI.update(book, this.READ_SHELF);
                 this.removeFromShelf(book);
-                BooksAPI.update(book, this.readShelf);
                 break;
             default:
                 break;
@@ -34,19 +40,7 @@ class ListCurrentlyReadingBooks extends Component {
 
     //Remove book from old book shelf
     removeFromShelf = (book) => {
-        switch (book.shelf) {
-            case "currentlyReading":
-                this.props.removeFromCurrentlyReading(book);
-                break;
-            case "wantToRead":
-                this.props.removeFromWantToRead(book);
-                break;
-            case "read" :
-                this.props.removeFromRead(book);
-                break;
-            default:
-                break;
-        }
+        this.props.removeFromCurrentlyReading(book);
     };
 
     render() {
