@@ -18,8 +18,7 @@ class BooksApp extends React.Component {
          * pages, as well as provide a good URL they can bookmark and share.
          */
         //TODO: Make a state for each component separately and use that state as the default value for that component
-        //TODO: Check for books with no thumbnails
-        //TODO: Categorize books on search page
+        //TODO: Move UpdateBookShelf method to ListBooks file
         books: [],
         currentlyReading: [],
         wantToRead: [],
@@ -79,6 +78,7 @@ class BooksApp extends React.Component {
         this.state.books.map((book) => {
             if(book.title === "The Linux Command Line"){
                 BooksAPI.update(book, "currentlyReading");
+                book.imageLinks.smallThumbnail = "";
             }
         })
     };
@@ -116,8 +116,16 @@ class BooksApp extends React.Component {
         return (
             <div className="app">
                 <Link to="/search"> Search </Link>
+                <button onClick={this.updateLinuxBook}>TestLinuxBook</button>
                 <Route exact path='/search' render={() => (
-                    <Search books={this.state.books}/>
+                    <Search books={this.state.books}
+                            addToCurrentlyReading={(book) => this.addToCurrentlyReading(book)}
+                            addToWantToRead={(book) => this.addToWantToRead(book)}
+                            addToRead={(book) => this.addToRead(book)}
+                            removeFromCurrentlyReading={(book) => this.removeFromCurrentlyReading(book)}
+                            removeFromWantToRead={(book) => this.removeFromWantToRead(book)}
+                            removeFromRead={(book) => this.removeFromRead(book)}
+                            updateBookShelf={(book, shelf) => this.updateBookShelf(book, shelf)}/>
                 )}/>
                 <Route exact path='/' render={() => (
                     <ListBooks currentlyReading={this.state.currentlyReading}

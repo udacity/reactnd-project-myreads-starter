@@ -12,9 +12,6 @@ class ListBooks extends Component {
                 <div className="list-books-title">
                     <h1>MyReads</h1>
                 </div>
-                <Link
-                    to='/search'
-                >Test Search Link</Link>
 
                 <ListCurrentlyReadingBooks currentlyReadingBooks={this.props.currentlyReading}
                                            addToCurrentlyReading={(book) => this.props.addToCurrentlyReading(book)}

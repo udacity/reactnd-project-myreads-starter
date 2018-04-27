@@ -2,9 +2,15 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import escapeRegExpression from 'escape-string-regexp';
 import sortBy from 'sort-by';
+import * as BooksAPI from "./BooksAPI";
 
 class Search extends Component{
+    CURRENTLY_READING_SHELF = "currentlyReading";
+    WANT_TO_READ_SHELF = "wantToRead";
+    READ_SHELF = "read";
+
     //Saving query as a state to retrieved matched books on the fly
+    //The query will cause re-render which will update the UI by displaying only the books that matched the pattern
     state = {
         query: ""
     };
@@ -13,6 +19,53 @@ class Search extends Component{
         this.setState({
             query: e.target.value
         });
+    };
+
+    updateBookShelf(e, book) {
+        console.log(" Current shelf " + book.shelf + " New shelf", e.target.value);
+        //update the book
+        //insert book to a new bookshelf
+        //remove book from the old bookshelf
+        const oldBookShelf = book.shelf;
+        const newBookShelf = e.target.value;
+        switch (newBookShelf) {
+            case this.CURRENTLY_READING_SHELF:
+                this.props.updateBookShelf(book, this.CURRENTLY_READING_SHELF);
+                this.props.addToCurrentlyReading(book);
+                BooksAPI.update(book, this.CURRENTLY_READING_SHELF);
+                this.removeFromShelf(book, oldBookShelf);
+                break;
+            case this.WANT_TO_READ_SHELF:
+                this.props.updateBookShelf(book, this.WANT_TO_READ_SHELF);
+                this.props.addToWantToRead(book);
+                BooksAPI.update(book, this.WANT_TO_READ_SHELF);
+                this.removeFromShelf(book, oldBookShelf);
+                break;
+            case this.READ_SHELF:
+                this.props.updateBookShelf(book, this.READ_SHELF);
+                this.props.addToRead(book);
+                BooksAPI.update(book, this.READ_SHELF);
+                this.removeFromShelf(book, oldBookShelf);
+                break;
+            default:
+                break;
+        }
+    }
+
+    removeFromShelf = (book, shelf) => {
+      switch(shelf){
+          case this.CURRENTLY_READING_SHELF:
+              this.props.removeFromCurrentlyReading(book);
+              break;
+          case this.WANT_TO_READ_SHELF:
+              this.props.removeFromWantToRead(book);
+              break;
+          case this.READ_SHELF:
+              this.props.removeFromRead(book);
+              break;
+          default:
+              break;
+      }
     };
 
     render(){
@@ -54,17 +107,35 @@ class Search extends Component{
                     </div>
                 </div>
                 <div className="search-books-results">
-                    {this.state.query.toString()}
+                    {`Hello ${this.state.query}`}
                     <ol className="books-grid">
                         {showBooks.map((book) => (
-                            <li key={book.title} className="books-grid">
-                                <div className="book-cover"
-                                     style={{
-                                         width: 128,
-                                         height: 192,
-                                         backgroundImage: `url(${book.imageLinks.smallThumbnail})`
-                                     }}/>
-                                <div className="book-title">{book.title + book.shelf}</div></li>
+                            <li key={book.title}>
+                                <div className="book">
+                                    <div className="book-top">
+                                        {book.imageLinks.smallThumbnail && (
+                                            <div className="book-cover" style={{
+                                                width: 128,
+                                                height: 193,
+                                                backgroundImage: `url(${book.imageLinks.smallThumbnail})`
+                                            }}/>
+                                        )}
+                                        <div className="book-shelf-changer">
+                                            <select value={book.shelf}
+                                                    onChange={(event) => this.updateBookShelf(event, book)}>
+                                                <option value="none" disabled>Move to...</option>
+                                                <option value="currentlyReading">Currently Reading
+                                                </option>
+                                                <option value="wantToRead">Want to Read</option>
+                                                <option value="read">Read</option>
+                                                <option value="none">None</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="book-title">{book.title}</div>
+                                    <div className="book-authors">{book.authors[0]}</div>
+                                </div>
+                            </li>
                         ))}
                     </ol>
                 </div>
