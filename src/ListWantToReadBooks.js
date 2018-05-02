@@ -4,44 +4,44 @@ import * as BooksAPI from "./BooksAPI";
 class ListWantToReadBooks extends Component{
     //TODO: Replace select tag default value with component state value
 
-    CURRENTLY_READING_SHELF = "currentlyReading";
-    WANT_TO_READ_SHELF = "wantToRead";
-    READ_SHELF = "read";
-
-    updateBookShelf(e, book) {
-        console.log(" Current shelf " + book.shelf + " New shelf", e.target.value);
-        //update the book
-        //insert book to a new bookshelf
-        //remove book from the old bookshelf
-        const bookShelf = e.target.value;
-        switch (bookShelf) {
-            case this.CURRENTLY_READING_SHELF:
-                this.props.updateBookShelf(book, this.CURRENTLY_READING_SHELF);
-                this.props.addToCurrentlyReading(book);
-                BooksAPI.update(book, this.CURRENTLY_READING_SHELF);
-                this.removeFromShelf(book);
-                break;
-            case this.WANT_TO_READ_SHELF:
-                this.props.updateBookShelf(book, this.WANT_TO_READ_SHELF);
-                this.props.addToWantToRead(book);
-                BooksAPI.update(book, this.WANT_TO_READ_SHELF);
-                this.removeFromShelf(book);
-                break;
-            case this.READ_SHELF:
-                this.props.updateBookShelf(book, this.READ_SHELF);
-                this.props.addToRead(book);
-                BooksAPI.update(book, this.READ_SHELF);
-                this.removeFromShelf(book);
-                break;
-            default:
-                break;
-        }
-    }
-
-    //Remove book from old book shelf
-    removeFromShelf = (book) => {
-        this.props.removeFromWantToRead(book);
-    };
+    // CURRENTLY_READING_SHELF = "currentlyReading";
+    // WANT_TO_READ_SHELF = "wantToRead";
+    // READ_SHELF = "read";
+    //
+    // updateBookShelf(e, book) {
+    //     console.log(" Current shelf " + book.shelf + " New shelf", e.target.value);
+    //     //update the book
+    //     //insert book to a new bookshelf
+    //     //remove book from the old bookshelf
+    //     const bookShelf = e.target.value;
+    //     switch (bookShelf) {
+    //         case this.CURRENTLY_READING_SHELF:
+    //             this.props.updateBook(book, this.CURRENTLY_READING_SHELF);
+    //             this.props.addToCurrentlyReading(book);
+    //             BooksAPI.update(book, this.CURRENTLY_READING_SHELF);
+    //             this.removeFromShelf(book);
+    //             break;
+    //         case this.WANT_TO_READ_SHELF:
+    //             this.props.updateBook(book, this.WANT_TO_READ_SHELF);
+    //             this.props.addToWantToRead(book);
+    //             BooksAPI.update(book, this.WANT_TO_READ_SHELF);
+    //             this.removeFromShelf(book);
+    //             break;
+    //         case this.READ_SHELF:
+    //             this.props.updateBook(book, this.READ_SHELF);
+    //             this.props.addToRead(book);
+    //             BooksAPI.update(book, this.READ_SHELF);
+    //             this.removeFromShelf(book);
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }
+    //
+    // //Remove book from old book shelf
+    // removeFromShelf = (book) => {
+    //     this.props.removeFromWantToRead(book);
+    // };
 
     render() {
         return (
@@ -64,8 +64,8 @@ class ListWantToReadBooks extends Component{
                                                                 backgroundImage: `url(${book.imageLinks.smallThumbnail})`
                                                             }}/>
                                                             <div className="book-shelf-changer">
-                                                                <select value="wantToRead"
-                                                                        onChange={(event) => this.updateBookShelf(event, book)}>
+                                                                <select value={book.shelf}
+                                                                        onChange={(event) => this.props.updateBookShelf(event, book)}>
                                                                     <option value="none" disabled>Move to...</option>
                                                                     <option value="currentlyReading">Currently Reading
                                                                     </option>

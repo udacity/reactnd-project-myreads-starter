@@ -22,7 +22,9 @@ class ListReadBooks extends Component{
                                                                 backgroundImage: `url(${book.imageLinks.smallThumbnail})`
                                                             }}/>
                                                             <div className="book-shelf-changer">
-                                                                <select>
+                                                                <select
+                                                                    value={book.shelf}
+                                                                    onChange={(event) => this.props.updateBookShelf(event, book)}>
                                                                     <option value="none" disabled>Move to...</option>
                                                                     <option value="currentlyReading">Currently Reading
                                                                     </option>

@@ -18,7 +18,12 @@ class BooksApp extends React.Component {
          * pages, as well as provide a good URL they can bookmark and share.
          */
         //TODO: Make a state for each component separately and use that state as the default value for that component
-        //TODO: Move UpdateBookShelf method to ListBooks file
+        //TODO: Check if book has author
+        //TODO: Create background component and send searchBooks as props and map over the searchBooks array
+        //TODO: rename property Thumbnail
+        //TODO: Recheck specifications
+        //TODO: Code clean up
+        //TODO: Review Whole project
         books: [],
         currentlyReading: [],
         wantToRead: [],
@@ -30,7 +35,7 @@ class BooksApp extends React.Component {
         this.setState((state) => ({
             currentlyReading: state.currentlyReading.concat([book])
         }));
-        console.log("New currently Reading books:")
+        console.log("New currently Reading books:");
         this.state.currentlyReading.map(book => console.log(book.title));
     };
 
@@ -38,15 +43,15 @@ class BooksApp extends React.Component {
         this.setState((state) => ({
             wantToRead: state.wantToRead.concat([book])
         }));
-        console.log("New want to read books:")
+        console.log("New want to read books:");
         this.state.wantToRead.map(book => console.log(book.title));
     };
 
     addToRead = (book) => {
         this.setState((state) => ({
             read: state.read.concat([book])
-        }))
-        console.log("New read books:")
+        }));
+        console.log("New read books:");
         this.state.read.map(book => console.log(book.title));
     };
 
@@ -70,8 +75,9 @@ class BooksApp extends React.Component {
         }))
     };
 
-    updateBookShelf = (book, shelf) => {
+    updateBook = (book, shelf) => {
         book.shelf = shelf;
+        console.log("Book updated to  " + book.shelf)
     };
 
     updateLinuxBook = () => {
@@ -92,17 +98,17 @@ class BooksApp extends React.Component {
             //categorizing the books pulled from the server
             books.map((book) => {
                 console.log(book);
-                if (book.shelf === "currentlyReading") {
+                if (book.shelf === this.CURRENTLY_READING) {
                     this.setState({
                         currentlyReading: this.state.currentlyReading.concat([book])
                     });
                 }
-                if (book.shelf === "wantToRead") {
+                if (book.shelf === this.WANT_TO_READ) {
                     this.setState({
                         wantToRead: this.state.wantToRead.concat([book])
                     });
                 }
-                if (book.shelf === "read") {
+                if (book.shelf === this.READ) {
                     this.setState({
                         read: this.state.read.concat([book])
                     });
@@ -125,7 +131,7 @@ class BooksApp extends React.Component {
                             removeFromCurrentlyReading={(book) => this.removeFromCurrentlyReading(book)}
                             removeFromWantToRead={(book) => this.removeFromWantToRead(book)}
                             removeFromRead={(book) => this.removeFromRead(book)}
-                            updateBookShelf={(book, shelf) => this.updateBookShelf(book, shelf)}/>
+                            updateBook={(book, shelf) => this.updateBook(book, shelf)}/>
                 )}/>
                 <Route exact path='/' render={() => (
                     <ListBooks currentlyReading={this.state.currentlyReading}
@@ -137,7 +143,7 @@ class BooksApp extends React.Component {
                                removeFromCurrentlyReading={(book) => this.removeFromCurrentlyReading(book)}
                                removeFromWantToRead={(book) => this.removeFromWantToRead(book)}
                                removeFromRead={(book) => this.removeFromRead(book)}
-                               updateBookShelf={(book, shelf) => this.updateBookShelf(book, shelf)}/>
+                               updateBook={(book, shelf) => this.updateBook(book, shelf)}/>
                 )}/>
             </div>
         )
