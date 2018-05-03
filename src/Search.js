@@ -13,7 +13,7 @@ class Search extends Component{
     //Saving query as a state to retrieved matched books on the fly
     //The query will cause re-render which will update the UI by displaying only the books that matched the pattern
     state = {
-        query: "android",
+        query: "learning",
         searchBooks: []
     };
 

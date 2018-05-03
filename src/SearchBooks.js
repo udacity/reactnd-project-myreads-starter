@@ -7,6 +7,7 @@ class SearchBooks extends Component{
     READ_SHELF = "read";
 
     state = {
+        nextQuery: "",
         prevQuery: "",
         searchBooks: []
     };
@@ -58,37 +59,33 @@ class SearchBooks extends Component{
                 break;
         }
     };
+    //I don't understand why the nextQuery state is not updated below in the setState
+    componentWillReceiveProps(nextProps) {
+        console.log("ComponentWillReceiveProps called");
+        console.log("this.props.query: "+this.props.query, " nextprops: "+ nextProps.query);
+        if(this.props.query !== nextProps.query){
+            console.log("setState called");
+            this.setState({
+                nextQuery: nextProps.query
+            });
+            console.log("nextQuery: "+this.state.nextQuery)
+        }
+
+    }
 
     componentDidMount(){
-        BooksAPI.search(this.props.query).then((books) => {
-            this.setState({
-                searchBooks: books
-            });
-
-            // console.log("SearchBooks Component mounted");
-            // this.state.searchBooks.map((book) => {
-            //     console.log("ComponentDidMount", book.title)
-            // });
+        console.log("ComponentDidMount called");
+        //Set current query as prevQuery for next Component call
+        this.setState({
+            prevQuery: this.props.query
         });
-    }
 
-    shouldComponentUpdate() {
-        if(this.state.prevQuery === this.props.query || this.props === ""){
-            return false;
-        }
-        //Set current query as previous query for next update
-        return true;
-    }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("ComponentDidUpdate called");
         BooksAPI.search(this.props.query).then((books) => {
-            if(books !== undefined) {
+            if(Array.isArray(books)) {
                 this.setState({
                     searchBooks: books
                 });
-                this.setState({
-                    prevQuery: this.props.query
-                });
+
                 console.log(books[0]);
                 books.map((book) => {
                     console.log(book.title)
@@ -96,6 +93,65 @@ class SearchBooks extends Component{
                 // this.state.searchBooks.map((book) => {
                 //     console.log("ComponentDidUpdate", book.title)
                 // });
+            }
+            else{
+                console.log("Not array", books.toString());
+                for(let property in books){
+                    console.log(property +" = "+ books[property].toString())
+                }
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        console.log("ComponentWillUnmount called");
+    }
+
+    shouldComponentUpdate(nextProps) {
+        console.log("ShouldComponentUpdate called");
+        console.log("this.state.nextQuery: "+ this.state.nextQuery + " this.props.query: "+this.props.query);
+        console.log("this.state.prevQuery: "+ this.state.prevQuery + " this.props.query: "+this.props.query);
+        console.log("nextProps.query "+ nextProps.query);
+        //Do not update when the queries are the same
+        if(nextProps.query === this.state.prevQuery){
+            console.log("Update" + false);
+            return false;
+        }
+        console.log("Update" + true);
+        //Set current query as previous query for next update
+        return true;
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("ComponentDidUpdate called");
+        console.log("this.state.nextQuery:"+ this.state.nextQuery);
+        console.log("this.props.query:"+ this.props.query);
+        console.log("prevProps.query:"+ prevProps.query);
+
+        //Set the current query as prevQuery for next Component call
+        this.setState({
+            prevQuery: this.props.query
+        });
+
+        BooksAPI.search(this.props.query).then((books) => {
+            if(Array.isArray(books)) {
+                this.setState({
+                    searchBooks: books
+                });
+
+                console.log(books[0]);
+                books.map((book) => {
+                    console.log(book.title)
+                });
+                this.state.searchBooks.map((book) => {
+                    console.log("ComponentDidUpdate", book.title)
+                });
+            }
+            else{
+                console.log("Not array", books.toString());
+                for(let property in books){
+                    console.log(property +" = "+ books[property].toString())
+                }
             }
         });
     }
