@@ -4,6 +4,7 @@ import escapeRegExpression from 'escape-string-regexp';
 import sortBy from 'sort-by';
 import * as BooksAPI from "./BooksAPI";
 import SearchBooks from "./SearchBooks";
+import FooComponent from "./FooComponent";
 
 class Search extends Component{
     CURRENTLY_READING_SHELF = "currentlyReading";
@@ -13,7 +14,7 @@ class Search extends Component{
     //Saving query as a state to retrieved matched books on the fly
     //The query will cause re-render which will update the UI by displaying only the books that matched the pattern
     state = {
-        query: "learning",
+        query: "android",
         searchBooks: []
     };
 
@@ -69,6 +70,7 @@ class Search extends Component{
                              removeFromWantToRead={(book) => this.props.removeFromWantToRead(book)}
                              removeFromRead={(book) => this.props.removeFromRead(book)}
                              updateBook={(book, shelf) => this.props.updateBook(book, shelf)}/>
+                {/*<FooComponent name={this.state.query}/>*/}
             </div>
         );
     }

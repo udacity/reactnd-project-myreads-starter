@@ -13,6 +13,7 @@ class SearchBooks extends Component{
     };
 
     updateBookShelf(e, book) {
+        console.log("Selected Book: "+book);
         console.log(" Current shelf " + book.shelf + " New shelf", e.target.value);
         //update the book
         //insert book to a new bookshelf
@@ -23,7 +24,8 @@ class SearchBooks extends Component{
             case this.CURRENTLY_READING_SHELF:
                 this.props.updateBook(book, this.CURRENTLY_READING_SHELF);
                 this.props.addToCurrentlyReading(book);
-                BooksAPI.update(book, this.CURRENTLY_READING_SHELF);
+                // BooksAPI.update(book, this.CURRENTLY_READING_SHELF);
+                this.updateOnlineBook(book, this.CURRENTLY_READING_SHELF);
                 this.removeFromShelf(book, oldBookShelf);
                 break;
             case this.WANT_TO_READ_SHELF:
@@ -41,6 +43,13 @@ class SearchBooks extends Component{
             default:
                 break;
         }
+    }
+
+    updateOnlineBook(book, shelf){
+        BooksAPI.update(book, shelf);
+        BooksAPI.get(book.id).then(book => {
+            console.log("updateBookOnline Book: "+book.title, book.shelf)
+        })
     }
 
     removeFromShelf = (book, shelf) => {
@@ -62,7 +71,7 @@ class SearchBooks extends Component{
     //I don't understand why the nextQuery state is not updated below in the setState
     componentWillReceiveProps(nextProps) {
         console.log("ComponentWillReceiveProps called");
-        console.log("this.props.query: "+this.props.query, " nextprops: "+ nextProps.query);
+        console.log("this.props.query: "+this.props.query, " this.state.prevQuery:" + this.state.prevQuery, " nextprops: "+ nextProps.query);
         if(this.props.query !== nextProps.query){
             console.log("setState called");
             this.setState({
@@ -80,27 +89,27 @@ class SearchBooks extends Component{
             prevQuery: this.props.query
         });
 
-        BooksAPI.search(this.props.query).then((books) => {
-            if(Array.isArray(books)) {
-                this.setState({
-                    searchBooks: books
-                });
-
-                console.log(books[0]);
-                books.map((book) => {
-                    console.log(book.title)
-                })
-                // this.state.searchBooks.map((book) => {
-                //     console.log("ComponentDidUpdate", book.title)
-                // });
-            }
-            else{
-                console.log("Not array", books.toString());
-                for(let property in books){
-                    console.log(property +" = "+ books[property].toString())
-                }
-            }
-        });
+        // BooksAPI.search(this.props.query).then((books) => {
+        //     if(Array.isArray(books)) {
+        //         this.setState({
+        //             searchBooks: books
+        //         });
+        //
+        //         console.log(books[0]);
+        //         books.map((book) => {
+        //             console.log(book.title)
+        //         })
+        //         // this.state.searchBooks.map((book) => {
+        //         //     console.log("ComponentDidUpdate", book.title)
+        //         // });
+        //     }
+        //     else{
+        //         console.log("Not array", books.toString());
+        //         for(let property in books){
+        //             console.log(property +" = "+ books[property].toString())
+        //         }
+        //     }
+        // });
     }
 
     componentWillUnmount() {
@@ -133,61 +142,61 @@ class SearchBooks extends Component{
             prevQuery: this.props.query
         });
 
-        BooksAPI.search(this.props.query).then((books) => {
-            if(Array.isArray(books)) {
-                this.setState({
-                    searchBooks: books
-                });
+        //Do not search for empty queries
+        if(this.props.query){
+            BooksAPI.search(this.props.query).then((books) => {
+                if(Array.isArray(books)) {
+                    this.setState({
+                        searchBooks: books
+                    });
 
-                console.log(books[0]);
-                books.map((book) => {
-                    console.log(book.title)
-                });
-                this.state.searchBooks.map((book) => {
-                    console.log("ComponentDidUpdate", book.title)
-                });
-            }
-            else{
-                console.log("Not array", books.toString());
-                for(let property in books){
-                    console.log(property +" = "+ books[property].toString())
+                    // books.map((book) => {
+                    //     console.log(book.title)
+                    // });
                 }
-            }
-        });
+                else{
+                    console.log("Not array", books);
+                    for(let property in books){
+                        console.log(property +" = "+ books[property].toString())
+                    }
+                }
+            });
+        }
     }
 
     render(){
         return (
             <div className="search-books-results">
                 <ol className="books-grid">
-                    {/*{this.state.searchBooks !== undefined && (this.state.searchBooks.map((book) => (*/}
-                        {/*<li key={book.id}>*/}
-                            {/*<div className="book">*/}
-                                {/*<div className="book-top">*/}
-                                    {/*{book.imageLinks && (*/}
-                                        {/*<div className="book-cover" style={{*/}
-                                            {/*width: 128,*/}
-                                            {/*height: 193,*/}
-                                            {/*backgroundImage: `url(${book.imageLinks.thumbnail})`*/}
-                                        {/*}}/>*/}
-                                    {/*)}*/}
-                                    {/*<div className="book-shelf-changer">*/}
-                                        {/*<select value={book.shelf === undefined ? "none" : book.shelf}*/}
-                                                {/*onChange={(event) => this.updateBookShelf(event, book)}>*/}
-                                            {/*<option value="none" disabled>Move to...</option>*/}
-                                            {/*<option value="currentlyReading">Currently Reading*/}
-                                            {/*</option>*/}
-                                            {/*<option value="wantToRead">Want to Read</option>*/}
-                                            {/*<option value="read">Read</option>*/}
-                                            {/*<option value="none">None</option>*/}
-                                        {/*</select>*/}
-                                    {/*</div>*/}
-                                {/*</div>*/}
-                                {/*<div className="book-title">{book.title}</div>*/}
-                                {/*<div className="book-authors">{book.authors}</div>*/}
-                            {/*</div>*/}
-                        {/*</li>*/}
-                    {/*)))}*/}
+                    {this.state.searchBooks.map((book) => (
+                        <li key={book.id}>
+                            <div className="book">
+                                <div className="book-top">
+                                    {book.imageLinks && (
+                                        <div className="book-cover" style={{
+                                            width: 128,
+                                            height: 193,
+                                            backgroundImage: `url(${book.imageLinks.thumbnail})`
+                                        }}/>
+                                    )}
+                                    <div className="book-shelf-changer">
+                                        {console.log(book.title, book.shelf)}
+                                        <select value={book.shelf === undefined ? "notAssigned" : book.shelf}
+                                                onChange={(event) => this.updateBookShelf(event, book)}>
+                                            <option value="none" disabled>Move to...</option>
+                                            <option value="currentlyReading">Currently Reading
+                                            </option>
+                                            <option value="wantToRead">Want to Read</option>
+                                            <option value="read">Read</option>
+                                            <option value="notAssigned">None</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="book-title">{book.title}</div>
+                                <div className="book-authors">{book.authors}</div>
+                            </div>
+                        </li>
+                    ))}
                 </ol>
             </div>
         )

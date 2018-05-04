@@ -4,6 +4,7 @@ import * as BooksAPI from './BooksAPI';
 import './App.css';
 import ListBooks from './ListBooks';
 import Search from './Search';
+import FooComponent from "./FooComponent";
 
 class BooksApp extends React.Component {
     CURRENTLY_READING = "currentlyReading";
