@@ -41,7 +41,7 @@ class FrontPage extends Component {
           shelfs.map((shelfs) =>
           (
 
-          <BookShelf key={shelfs.id} name={shelfs.name} books={this.props.books.filter(
+          <BookShelf key={shelfs.id} name={shelfs.name} onUpdateShelf={this.props.onUpdateShelf} books={this.props.books.filter(
             (book) => (shelfs.id === book.shelf )
           )}/>
           ))}

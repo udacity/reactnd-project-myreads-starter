@@ -22,9 +22,24 @@ class BooksApp extends React.Component {
     BooksAPI.getAll().then(books => this.state({books}))
   }
 
-  updateShelf = (book, Nshelf) => BooksAPI.update(book,Nshelf).then(() => {
+   /*updateShelf = (book, Nshelf) => BooksAPI.update(book,Nshelf).then(() => {
     this.setState({book}) // here filter out book from state and then add new book to state
-  })
+  }) */
+
+  updateShelf = (book, shelf ) => {
+    alert(shelf);
+  //  BooksAPI.update(book, shelf).then(this.getAllBooks);
+    /*
+    this.setState( (state) => ( {
+      books: state.books.filter((b) => b.shelf === books.shelf )
+    }
+
+
+    )
+    )
+*/
+  //  alert(this.state.books.className)
+  }
 
 
 
@@ -48,7 +63,7 @@ class BooksApp extends React.Component {
 
 
   <Route exact path='/' render={() =>(
-    <FrontPage books = {this.state.books} updateShelf = {this.updateShelf}  />
+    <FrontPage books = {this.state.books} onUpdateShelf = {this.updateShelf}  />
   )}/>
   <Route path='/search' render={() =>(
     <SearchPage />

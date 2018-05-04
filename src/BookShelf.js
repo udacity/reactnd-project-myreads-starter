@@ -16,7 +16,7 @@ return(
 {this.props.books.map(book =>
 (
 
-  <Book key={book.id} title= {book.title} image={book.imageLinks.thumbnail}/>
+  <Book key={book.id} title= {book.title} image={book.imageLinks.thumbnail} onUpdateShelf={this.props.onUpdateShelf} shelf={this.props.name}/>
 
 ))}
 
