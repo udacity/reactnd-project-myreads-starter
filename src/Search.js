@@ -11,13 +11,17 @@ class Search extends React.Component {
   }
 
   updateQuery = (event) => {
-    const query = event.target.value.trim()
+    const query = event.target.value;
     this.setState({ query: query })
 
     if (query) {
-      BooksAPI.search(query,10).then((books) => { 
+      BooksAPI.search(query,20).then((books) => { 
+        const searchBooks = books.map(queryBooks => {
+          const findBook = this.props.books.find( book => book.id === queryBooks.id);
+          queryBooks.shelf = findBook ? findBook : 'none';
+        })
         books.length > 0 ? this.setState({all_books: books, search_error: false}) : 
-        this.setState({all_books: [], search_error:true });
+        this.setState({all_books: [], search_error: true });
       })
     } else this.setState({all_books: [], search_error: false})
   }
@@ -44,13 +48,18 @@ class Search extends React.Component {
           </div>
         </div>
         <div className="search-books-results">
+          {all_books.length > 0 && (
+            <div>
+              <h3>{`Search results: ${all_books.length} books`}</h3>
+            </div>
+          )}
           <ol className="books-grid">
             {all_books.map(book => (
-              <Book book={book} books={books} key={book.id} onChangeSelf={(shelf) => {this.handleUpdate(book,shelf)}}/>
+              <Book book={book} key={book.id} onChangeSelf={(shelf) => {this.handleUpdate(book,shelf)}}/>
             ))}
             {search_error && (
               <div>
-                <h3>A busca retornou 0 resultados! tente novamente</h3>
+                <h3>Search results: 0 books</h3>
               </div>
             )}
           </ol>

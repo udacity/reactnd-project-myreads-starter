@@ -1,5 +1,7 @@
 import React from 'react'
 
+import notImage from './icons/image-not-found.png'
+
 class Book extends React.Component {
 
   handleChangeShelf = (e) => {
@@ -7,25 +9,18 @@ class Book extends React.Component {
   }
 
   render () {
-    const { book, books } = this.props
-    let currentShelf = 'none';
-
-    for (let new_book of books) {
-      if(new_book.id === book.id) {
-        currentShelf = new_book.shelf
-      }
-    }
+    const { book } = this.props
+    const imageBook = book.imageLinks && book.imageLinks.thumbnail ? book.imageLinks.thumbnail : notImage;
     return (
-
         <li>
           <div className="book">
             <div className="book-top">
               <div className="book-cover"
                 style={{ width: 128,
                   height: 193,
-                  backgroundImage: `url("${book.imageLinks.thumbnail}")`}}></div>
+                  backgroundImage: `url("${imageBook}")`}}></div>
               <div className="book-shelf-changer">
-                  <select onChange={this.handleChangeShelf} value={currentShelf}>
+                  <select onChange={this.handleChangeShelf} defaultValue={book.shelf}>
                     <option value="none" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
