@@ -9,7 +9,7 @@ handleUpdate = (book,shelf) => {
 }
 
   render() {
-    const {books} = this.props
+    const { books } = this.props
     return (
       
       <div className="bookshelf">
@@ -17,7 +17,7 @@ handleUpdate = (book,shelf) => {
         <div className="bookshelf-books">
           <ol className="books-grid">
             {books.map((book,index) => (
-              <Book book={book} key={index} onChangeSelf={(shelf) => {this.handleUpdate(book,shelf)}}/>
+              <Book book={book} books={books} key={index} onChangeSelf={(shelf) => {this.handleUpdate(book,shelf)}}/>
             ))}
           </ol>
         </div>

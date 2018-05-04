@@ -1,16 +1,20 @@
 import React from 'react'
 
 class Book extends React.Component {
-  state = {
-    
-  }
 
   handleChangeShelf = (e) => {
     this.props.onChangeSelf(e.target.value);
   }
 
   render () {
-    const { book } = this.props
+    const { book, books } = this.props
+    let currentShelf = 'none';
+
+    for (let new_book of books) {
+      if(new_book.id === book.id) {
+        currentShelf = new_book.shelf
+      }
+    }
     return (
 
         <li>
@@ -21,7 +25,7 @@ class Book extends React.Component {
                   height: 193,
                   backgroundImage: `url("${book.imageLinks.thumbnail}")`}}></div>
               <div className="book-shelf-changer">
-                  <select onChange={this.handleChangeShelf} value={book.shelf}>
+                  <select onChange={this.handleChangeShelf} value={currentShelf}>
                     <option value="none" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
