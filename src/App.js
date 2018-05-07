@@ -31,7 +31,7 @@ class BooksApp extends React.Component {
 
 var book = Object.assign( book, { shelf: shelfName }); // update shelf of new book.
 
-    BooksAPI.update({ id: book.id }, shelfName).then(response => {
+    BooksAPI.update({ id: book.id }, shelfName).then(() => {
 
       this.setState({
         books: [
