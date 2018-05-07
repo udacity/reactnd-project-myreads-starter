@@ -10,13 +10,13 @@ return(
   <div>
   <div className="bookshelf">
   <h2 className="bookshelf-title">{this.props.name}</h2>
-  {console.log(this.props.books)}
+
 <div className="bookshelf-books">
 <ol className="books-grid">
 {this.props.books.map(book =>
 (
 
-  <Book key={book.id} title= {book.title} image={book.imageLinks.thumbnail} onUpdateShelf={this.props.onUpdateShelf} shelf={this.props.name}/>
+  <Book key={book.id} id={book.id} book={book} title= {book.title} image={book.imageLinks.thumbnail} onUpdateShelf={this.props.onUpdateShelf} shelf={this.props.name}/>
 
 ))}
 

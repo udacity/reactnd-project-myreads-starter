@@ -7,6 +7,7 @@ import SearchPage from './SearchPage.js'
 import './App.css'
 
 class BooksApp extends React.Component {
+
   state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
@@ -26,19 +27,20 @@ class BooksApp extends React.Component {
     this.setState({book}) // here filter out book from state and then add new book to state
   }) */
 
-  updateShelf = (book, shelf ) => {
-    alert(shelf);
-  //  BooksAPI.update(book, shelf).then(this.getAllBooks);
-    /*
-    this.setState( (state) => ( {
-      books: state.books.filter((b) => b.shelf === books.shelf )
-    }
+  updateShelf = (shelfName, book) => {
 
+var book = Object.assign( book, { shelf: shelfName }); // update shelf of new book.
 
-    )
-    )
-*/
+    BooksAPI.update({ id: book.id }, shelfName).then(response => {
+
+      this.setState({
+        books: [
+        ...this.state.books.filter(b => b.id !== book.id),book
+
+      ]})
+    })
   //  alert(this.state.books.className)
+
   }
 
 
@@ -46,7 +48,7 @@ class BooksApp extends React.Component {
     componentDidMount(){
         BooksAPI.getAll().then((books) => {
           this.setState({ books })
-            console.log(this.state.books);
+          //  console.log(this.state.books);
 
        })}
 

@@ -5,10 +5,12 @@ import './App.css'
 class Book extends Component{
 
 
-  handleChange( test) {
+  handleChange( shelfName) {
       //this.setState({value: event.target.value});
-     alert(test)
-  this.props.onUpdateShelf(test)
+
+  //console.log(shelfName)
+  //console.log(this.props.book.shelf);
+  this.props.onUpdateShelf(shelfName,this.props.book)
     }
 
 
@@ -18,6 +20,8 @@ return(
 <li>
 <div className="book">
 <div className="book-top">
+
+
            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.image})` }}></div>
            <div className="book-shelf-changer">
              <select value={this.props.shelf} onChange={change => this.handleChange( change.target.value)}>
