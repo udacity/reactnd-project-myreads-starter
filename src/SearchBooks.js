@@ -116,6 +116,7 @@ class SearchBooks extends Component{
         console.log("ComponentWillUnmount called");
     }
 
+    //Should ComponentUpdate will return true the first render as prevQuery is empty the first render
     shouldComponentUpdate(nextProps) {
         console.log("ShouldComponentUpdate called");
         console.log("this.state.nextQuery: "+ this.state.nextQuery + " this.props.query: "+this.props.query);
@@ -165,10 +166,21 @@ class SearchBooks extends Component{
     }
 
     render(){
+        //Add books from searchBooks then replace books in showSearchBooks with books that are already present on the shelves
+        const showSearchBooks = this.state.searchBooks;
+        this.props.books.map((shelfBook) => {
+            this.state.searchBooks.map((searchBook, index) => {
+                if(shelfBook.title === searchBook.title){
+                    console.log("Replaced ", searchBook.title,  " with ", shelfBook.title);
+                    showSearchBooks.splice(index, 1, shelfBook)
+                }
+            })
+        });
+
         return (
             <div className="search-books-results">
                 <ol className="books-grid">
-                    {this.state.searchBooks.map((book) => (
+                    {showSearchBooks.map((book) => (
                         <li key={book.id}>
                             <div className="book">
                                 <div className="book-top">
@@ -180,7 +192,6 @@ class SearchBooks extends Component{
                                         }}/>
                                     )}
                                     <div className="book-shelf-changer">
-                                        {console.log(book.title, book.shelf)}
                                         <select value={book.shelf === undefined ? "notAssigned" : book.shelf}
                                                 onChange={(event) => this.updateBookShelf(event, book)}>
                                             <option value="none" disabled>Move to...</option>

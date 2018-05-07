@@ -22,6 +22,7 @@ class BooksApp extends React.Component {
         //TODO: Check if book has author
         //TODO: Create background component and send searchBooks as props and map over the searchBooks array
         //TODO: rename property Thumbnail
+        //TODO: move BooksUpdateApi to updateBook in App.js
         //TODO: Recheck specifications
         //TODO: Code clean up
         //TODO: Review Whole project

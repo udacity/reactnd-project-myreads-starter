@@ -63,6 +63,7 @@ class Search extends Component{
                     </div>
                 </div>
                 <SearchBooks query = { this.state.query }
+                             books = { this.props.books }
                              addToCurrentlyReading={(book) => this.props.addToCurrentlyReading(book)}
                              addToWantToRead={(book) => this.props.addToWantToRead(book)}
                              addToRead={(book) => this.props.addToRead(book)}
