@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 
 class ListReadBooks extends Component{
-    render(){
+    //TODO: Replace select tag default value with component state value
+
+    render() {
         return (
             <div>
                 <ol>
                     <div className="list-books-content">
                         <div>
                             <div className="bookshelf">
-                                <h2 className="bookshelf-title">Read</h2>
+                                <h2 className="bookshelf-title">Currently Reading</h2>
                                 {this.props.readBooks.map((book) =>
                                     <li key={book.title}>
                                         <div className="bookshelf-books">
@@ -16,16 +18,17 @@ class ListReadBooks extends Component{
                                                 <li>
                                                     <div className="book">
                                                         <div className="book-top">
-                                                            <div className="book-cover" style={{
-                                                                width: 128,
-                                                                height: 193,
-                                                                backgroundImage: `url(${book.imageLinks.smallThumbnail})`
-                                                            }}/>
+                                                            {book.imageLinks && book.authors[0] && (
+                                                                <div className="book-cover" style={{
+                                                                    width: 128,
+                                                                    height: 193,
+                                                                    backgroundImage: `url(${book.imageLinks.thumbnail})`
+                                                                }}/>
+                                                            )}
                                                             <div className="book-shelf-changer">
-                                                                <select
-                                                                    value={book.shelf}
-                                                                    onChange={(event) => this.props.updateBookShelf(event, book)}>
-                                                                    <option value="none" disabled>Move to...</option>
+                                                                <select value={book.shelf === undefined ? "none" : book.shelf}
+                                                                        onChange={(event) => this.props.updateBookShelf(event, book)}>
+                                                                    <option value="notAssigned" disabled>Move to...</option>
                                                                     <option value="currentlyReading">Currently Reading
                                                                     </option>
                                                                     <option value="wantToRead">Want to Read</option>

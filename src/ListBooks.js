@@ -10,6 +10,7 @@ class ListBooks extends Component {
     CURRENTLY_READING_SHELF = "currentlyReading";
     WANT_TO_READ_SHELF = "wantToRead";
     READ_SHELF = "read";
+    NONE_SHELF = "none";
 
 
     updateBookShelf(e, book) {
@@ -23,20 +24,20 @@ class ListBooks extends Component {
             case this.CURRENTLY_READING_SHELF:
                 this.props.updateBook(book, newBookShelf);
                 this.props.addToCurrentlyReading(book);
-                BooksAPI.update(book, newBookShelf);
                 this.removeFromShelf(book, oldBookShelf); //remove book from old shelf
                 break;
             case this.WANT_TO_READ_SHELF:
-                console.log("case: wantToRead");
                 this.props.updateBook(book, newBookShelf);
                 this.props.addToWantToRead(book);
-                BooksAPI.update(book, newBookShelf);
                 this.removeFromShelf(book, oldBookShelf);
                 break;
             case this.READ_SHELF:
                 this.props.updateBook(book, newBookShelf);
                 this.props.addToRead(book);
-                BooksAPI.update(book, newBookShelf);
+                this.removeFromShelf(book, oldBookShelf);
+                break;
+            case this.NONE_SHELF:
+                this.props.updateBook(book, this.NONE_SHELF);
                 this.removeFromShelf(book, oldBookShelf);
                 break;
             default:

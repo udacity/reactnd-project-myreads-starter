@@ -1,0 +1,59 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/bin/yarn start
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Developer/Panda3D/bin:/Users/anto004/Library/android/sdk/tools:/Users/anto004/Library/android/sdk/platform-tools:/usr/bin
+
+Yarn version: 
+  1.5.1
+
+Node version: 
+  6.9.1
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  {
+    "dependencies": {
+      "@types/react": "^16.3.12",
+      "escape-string-regexp": "^1.0.5",
+      "prop-types": "^15.5.8",
+      "react": "^15.5.4",
+      "react-dom": "^15.5.4",
+      "react-router-dom": "^4.2.2",
+      "sort-by": "^1.2.0"
+    },
+    "devDependencies": {
+      "react-scripts": "0.9.5"
+    },
+    "scripts": {
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test --env=jsdom",
+      "eject": "react-scripts eject"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: Command failed.
+  Exit signal: SIGHUP
+  Command: sh
+  Arguments: -c react-scripts start
+  Directory: /Users/anto004/React/reactnd-project-myreads-starter
+  Output:
+  
+      at ProcessTermError.Error (native)
+      at ProcessTermError.MessageError (/usr/local/lib/node_modules/yarn/lib/cli.js:186:110)
+      at new ProcessTermError (/usr/local/lib/node_modules/yarn/lib/cli.js:226:113)
+      at ChildProcess.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:30281:17)
+      at emitTwo (events.js:106:13)
+      at ChildProcess.emit (events.js:191:7)
+      at maybeClose (internal/child_process.js:877:16)
+      at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)

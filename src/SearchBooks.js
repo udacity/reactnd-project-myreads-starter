@@ -5,11 +5,12 @@ class SearchBooks extends Component{
     CURRENTLY_READING_SHELF = "currentlyReading";
     WANT_TO_READ_SHELF = "wantToRead";
     READ_SHELF = "read";
+    NONE_SHELF = "none";
 
     state = {
         nextQuery: "",
         prevQuery: "",
-        searchBooks: []
+        searchBooks: [],
     };
 
     updateBookShelf(e, book) {
@@ -24,32 +25,25 @@ class SearchBooks extends Component{
             case this.CURRENTLY_READING_SHELF:
                 this.props.updateBook(book, this.CURRENTLY_READING_SHELF);
                 this.props.addToCurrentlyReading(book);
-                // BooksAPI.update(book, this.CURRENTLY_READING_SHELF);
-                this.updateOnlineBook(book, this.CURRENTLY_READING_SHELF);
                 this.removeFromShelf(book, oldBookShelf);
                 break;
             case this.WANT_TO_READ_SHELF:
                 this.props.updateBook(book, this.WANT_TO_READ_SHELF);
                 this.props.addToWantToRead(book);
-                BooksAPI.update(book, this.WANT_TO_READ_SHELF);
                 this.removeFromShelf(book, oldBookShelf);
                 break;
             case this.READ_SHELF:
                 this.props.updateBook(book, this.READ_SHELF);
                 this.props.addToRead(book);
-                BooksAPI.update(book, this.READ_SHELF);
+                this.removeFromShelf(book, oldBookShelf);
+                break;
+            case this.NONE_SHELF:
+                this.props.updateBook(book, this.NONE_SHELF);
                 this.removeFromShelf(book, oldBookShelf);
                 break;
             default:
                 break;
         }
-    }
-
-    updateOnlineBook(book, shelf){
-        BooksAPI.update(book, shelf);
-        BooksAPI.get(book.id).then(book => {
-            console.log("updateBookOnline Book: "+book.title, book.shelf)
-        })
     }
 
     removeFromShelf = (book, shelf) => {
@@ -68,101 +62,103 @@ class SearchBooks extends Component{
                 break;
         }
     };
-    //I don't understand why the nextQuery state is not updated below in the setState
-    componentWillReceiveProps(nextProps) {
-        console.log("ComponentWillReceiveProps called");
-        console.log("this.props.query: "+this.props.query, " this.state.prevQuery:" + this.state.prevQuery, " nextprops: "+ nextProps.query);
-        if(this.props.query !== nextProps.query){
-            console.log("setState called");
-            this.setState({
-                nextQuery: nextProps.query
-            });
-            console.log("nextQuery: "+this.state.nextQuery)
-        }
-
-    }
 
     componentDidMount(){
         console.log("ComponentDidMount called");
-        //Set current query as prevQuery for next Component call
-        this.setState({
-            prevQuery: this.props.query
+
+        BooksAPI.search(this.props.query).then((books) => {
+            if(Array.isArray(books)) {
+                this.setState({
+                    searchBooks: books
+                });
+
+                // books.map((book) => {
+                //     console.log(book.title)
+                // })
+            }
+            else{
+                console.log("Not array", books.toString());
+                for(let property in books){
+                    console.log(property +" = "+ books[property].toString())
+                }
+            }
         });
 
-        // BooksAPI.search(this.props.query).then((books) => {
-        //     if(Array.isArray(books)) {
-        //         this.setState({
-        //             searchBooks: books
-        //         });
-        //
-        //         console.log(books[0]);
-        //         books.map((book) => {
-        //             console.log(book.title)
-        //         })
-        //         // this.state.searchBooks.map((book) => {
-        //         //     console.log("ComponentDidUpdate", book.title)
-        //         // });
-        //     }
-        //     else{
-        //         console.log("Not array", books.toString());
-        //         for(let property in books){
-        //             console.log(property +" = "+ books[property].toString())
-        //         }
-        //     }
-        // });
+        // Set current query as prevQuery for next Component call
+        this.setState({
+            nextQuery: this.props.query
+        });
+
+        this.setState({
+            prevQuery: this.state.nextQuery
+        });
     }
 
-    componentWillUnmount() {
-        console.log("ComponentWillUnmount called");
+    componentWillReceiveProps(nextProps) {
+        console.log("ComponentWillReceiveProps called");
+        console.log("this.props.query: "+this.props.query, " this.state.prevQuery:" + this.state.prevQuery, " nextprops: "+ nextProps.query);
+
+        this.setState({
+            nextQuery: this.props.query
+        });
+
+        this.setState({
+            prevQuery: this.state.nextQuery
+        });
+
+        console.log("nextQuery: "+this.state.nextQuery);
     }
 
     //Should ComponentUpdate will return true the first render as prevQuery is empty the first render
     shouldComponentUpdate(nextProps) {
         console.log("ShouldComponentUpdate called");
-        console.log("this.state.nextQuery: "+ this.state.nextQuery + " this.props.query: "+this.props.query);
-        console.log("this.state.prevQuery: "+ this.state.prevQuery + " this.props.query: "+this.props.query);
-        console.log("nextProps.query "+ nextProps.query);
-        //Do not update when the queries are the same
-        if(nextProps.query === this.state.prevQuery){
+        console.log("this.state.nextQuery: "+ this.state.nextQuery + " this.props.query: "+this.props.query,
+            " this.state.prevQuery: "+ this.state.prevQuery + " this.props.query: "+this.props.query,
+            " nextProps.query "+ nextProps.query);
+        //Do not update when the queries are the same and No change made to searchBooks array
+        if(this.state.prevQuery === this.state.nextQuery){
             console.log("Update" + false);
             return false;
         }
         console.log("Update" + true);
-        //Set current query as previous query for next update
         return true;
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log("ComponentDidUpdate called");
-        console.log("this.state.nextQuery:"+ this.state.nextQuery);
-        console.log("this.props.query:"+ this.props.query);
-        console.log("prevProps.query:"+ prevProps.query);
+        console.log("this.state.nextQuery:"+ this.state.nextQuery,
+            "this.state.prevQuery:"+ this.state.prevQuery,
+            " this.props.query:"+ this.props.query,
+            " prevProps.query:"+ prevProps.query );
+
+
+        console.log("Making Search API call");
+        BooksAPI.search(this.props.query).then((books) => {
+            if(Array.isArray(books)) {
+                this.setState({
+                    searchBooks: books
+                });
+
+                // books.map((book) => {
+                //     console.log(book.title)
+                // });
+            }
+            else{
+                console.log("Not array", books);
+                for(let property in books){
+                    console.log(property +" = "+ books[property].toString())
+                }
+            }
+        });
 
         //Set the current query as prevQuery for next Component call
         this.setState({
-            prevQuery: this.props.query
+            nextQuery: this.props.query
         });
 
-        //Do not search for empty queries
-        if(this.props.query){
-            BooksAPI.search(this.props.query).then((books) => {
-                if(Array.isArray(books)) {
-                    this.setState({
-                        searchBooks: books
-                    });
-
-                    // books.map((book) => {
-                    //     console.log(book.title)
-                    // });
-                }
-                else{
-                    console.log("Not array", books);
-                    for(let property in books){
-                        console.log(property +" = "+ books[property].toString())
-                    }
-                }
-            });
-        }
+        this.setState({
+            prevQuery: this.state.nextQuery
+        });
     }
 
     render(){
@@ -176,6 +172,12 @@ class SearchBooks extends Component{
                 }
             })
         });
+
+        console.log("SearchBooks Render called'");
+
+        // showSearchBooks.map((book) => {
+        //     console.log("ShowSearchBooks", book.title);
+        // });
 
         return (
             <div className="search-books-results">

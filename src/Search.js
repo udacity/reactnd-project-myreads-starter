@@ -2,19 +2,13 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import escapeRegExpression from 'escape-string-regexp';
 import sortBy from 'sort-by';
-import * as BooksAPI from "./BooksAPI";
 import SearchBooks from "./SearchBooks";
-import FooComponent from "./FooComponent";
 
 class Search extends Component{
-    CURRENTLY_READING_SHELF = "currentlyReading";
-    WANT_TO_READ_SHELF = "wantToRead";
-    READ_SHELF = "read";
-
     //Saving query as a state to retrieved matched books on the fly
     //The query will cause re-render which will update the UI by displaying only the books that matched the pattern
     state = {
-        query: "android",
+        query: "",
         searchBooks: []
     };
 
@@ -26,9 +20,9 @@ class Search extends Component{
 
 
     render(){
+        console.log("Search Render called");
         let showBooks = [];
         if(this.state.query) {
-
             //Use reg expression to match the query against books.title
             //filter books that matches the expression
             const exp = new RegExp(escapeRegExpression(this.state.query), "i");
@@ -47,13 +41,6 @@ class Search extends Component{
                 <div className="search-books-bar">
                     <Link className="close-search"
                           to='/'>Close</Link>
-                    {/*
-                          NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                          You can find these search terms here:
-                          https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-                          However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                          you don't find a specific author or title. Every search is limited by search terms.
-                     */}
                     <div className="search-books-input-wrapper">
                         <input type="text"
                                placeholder="Search by title or author"
@@ -62,6 +49,8 @@ class Search extends Component{
 
                     </div>
                 </div>
+                {/*Un-mount the component when there is no query*/}
+                {this.state.query &&
                 <SearchBooks query = { this.state.query }
                              books = { this.props.books }
                              addToCurrentlyReading={(book) => this.props.addToCurrentlyReading(book)}
@@ -71,7 +60,7 @@ class Search extends Component{
                              removeFromWantToRead={(book) => this.props.removeFromWantToRead(book)}
                              removeFromRead={(book) => this.props.removeFromRead(book)}
                              updateBook={(book, shelf) => this.props.updateBook(book, shelf)}/>
-                {/*<FooComponent name={this.state.query}/>*/}
+                }
             </div>
         );
     }

@@ -44,7 +44,7 @@ class FooComponent extends Component{
     render(){
         {console.log("render called")}
         return (
-            <div>Hello Foo!</div>
+            <div className="search-books-results">Hello Foo Here!</div>
         )
     }
 }

@@ -7,24 +7,12 @@ import Search from './Search';
 import FooComponent from "./FooComponent";
 
 class BooksApp extends React.Component {
-    CURRENTLY_READING = "currentlyReading";
-    WANT_TO_READ = "wantToRead";
-    READ = "read";
+    CURRENTLY_READING_SHELF = "currentlyReading";
+    WANT_TO_READ_SHELF = "wantToRead";
+    READ_SHELF = "read";
 
     state = {
-        /**
-         * TODO: Instead of using this state variable to keep track of which page
-         * we're on, use the URL in the browser's address bar. This will ensure that
-         * users can use the browser's back and forward buttons to navigate between
-         * pages, as well as provide a good URL they can bookmark and share.
-         */
-        //TODO: Make a state for each component separately and use that state as the default value for that component
-        //TODO: Check if book has author
-        //TODO: Create background component and send searchBooks as props and map over the searchBooks array
-        //TODO: rename property Thumbnail
-        //TODO: move BooksUpdateApi to updateBook in App.js
-        //TODO: Recheck specifications
-        //TODO: Code clean up
+        //TODO: Code clean up, remove all logs
         //TODO: Review Whole project
         books: [],
         currentlyReading: [],
@@ -78,19 +66,12 @@ class BooksApp extends React.Component {
     };
 
     updateBook = (book, shelf) => {
+        //update locally
         book.shelf = shelf;
+        //update to server
+        BooksAPI.update(book, shelf);
         console.log("Book updated to  " + book.shelf)
     };
-
-    updateLinuxBook = () => {
-        this.state.books.map((book) => {
-            if(book.title === "The Linux Command Line"){
-                BooksAPI.update(book, "currentlyReading");
-                book.imageLinks.smallThumbnail = "";
-            }
-        })
-    };
-
 
     componentDidMount() {
         BooksAPI.getAll().then((books) => {
@@ -100,17 +81,17 @@ class BooksApp extends React.Component {
             //categorizing the books pulled from the server
             books.map((book) => {
                 console.log(book);
-                if (book.shelf === this.CURRENTLY_READING) {
+                if (book.shelf === this.CURRENTLY_READING_SHELF) {
                     this.setState({
                         currentlyReading: this.state.currentlyReading.concat([book])
                     });
                 }
-                if (book.shelf === this.WANT_TO_READ) {
+                if (book.shelf === this.WANT_TO_READ_SHELF) {
                     this.setState({
                         wantToRead: this.state.wantToRead.concat([book])
                     });
                 }
-                if (book.shelf === this.READ) {
+                if (book.shelf === this.READ_SHELF) {
                     this.setState({
                         read: this.state.read.concat([book])
                     });
@@ -123,8 +104,6 @@ class BooksApp extends React.Component {
     render() {
         return (
             <div className="app">
-                <Link to="/search"> Search </Link>
-                <button onClick={this.updateLinuxBook}>TestLinuxBook</button>
                 <Route exact path='/search' render={() => (
                     <Search books={this.state.books}
                             addToCurrentlyReading={(book) => this.addToCurrentlyReading(book)}
