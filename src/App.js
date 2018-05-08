@@ -29,8 +29,27 @@ class BooksApp extends React.Component {
 
   updateShelf = (shelfName, book) => {
 
-var book = Object.assign( book, { shelf: shelfName }); // update shelf of new book.
+  BooksAPI.update({ id: book.id }, shelfName).then(() => {
 
+    this.setState(({ books }) => {
+           return {
+             books: books.filter(b =>
+               b.id === book.id ? b.shelf = shelfName : b
+             )
+           }
+         });})
+
+    /*this.setState({
+      books: [
+        this.state.books.filter(b=> b.id === book.id )
+
+      ]}
+    )
+  }) */
+}
+
+    /* // :working update
+    var book = Object.assign( book, { shelf: shelfName }); // update shelf of new book.
     BooksAPI.update({ id: book.id }, shelfName).then(() => {
 
       this.setState({
@@ -40,8 +59,10 @@ var book = Object.assign( book, { shelf: shelfName }); // update shelf of new bo
       ]})
     })
   //  alert(this.state.books.className)
+*/
 
-  }
+
+
 
 
 
