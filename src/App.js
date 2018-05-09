@@ -34,32 +34,14 @@ class BooksApp extends React.Component {
     this.setState(({ books }) => {
            return {
              books: books.filter(b =>
-               b.id === book.id ? b.shelf = shelfName : b
+               b.id === book.id ? b.shelf = shelfName : b // go through books if
+               // the changed book is in the state
+               // change the shelf name, if not then just return the book
              )
            }
          });})
-
-    /*this.setState({
-      books: [
-        this.state.books.filter(b=> b.id === book.id )
-
-      ]}
-    )
-  }) */
 }
 
-    /* // :working update
-    var book = Object.assign( book, { shelf: shelfName }); // update shelf of new book.
-    BooksAPI.update({ id: book.id }, shelfName).then(() => {
-
-      this.setState({
-        books: [
-        ...this.state.books.filter(b => b.id !== book.id),book
-
-      ]})
-    })
-  //  alert(this.state.books.className)
-*/
 
 
 
@@ -89,7 +71,7 @@ class BooksApp extends React.Component {
     <FrontPage books = {this.state.books} onUpdateShelf = {this.updateShelf}  />
   )}/>
   <Route path='/search' render={() =>(
-    <SearchPage />
+    <SearchPage books={this.state.books} onUpdateShelf = {this.updateShelf} />
   )}/>
 
  </div>
