@@ -4,7 +4,6 @@ import * as BooksAPI from './BooksAPI';
 import './App.css';
 import ListBooks from './ListBooks';
 import Search from './Search';
-import FooComponent from "./FooComponent";
 
 class BooksApp extends React.Component {
     CURRENTLY_READING_SHELF = "currentlyReading";
@@ -13,6 +12,7 @@ class BooksApp extends React.Component {
 
     state = {
         //TODO: Code clean up, remove all logs
+        //TODO: Rename Component Title WantToRead and Read
         //TODO: Review Whole project
         books: [],
         currentlyReading: [],
@@ -20,6 +20,27 @@ class BooksApp extends React.Component {
         read: []
     };
 
+    addToBooks = (book) => {
+        //Check if the book is already present in the shelves
+        //if not present add to shelf
+        //update book to provided shelf
+        //categorize all the books to appropriate shelves
+        let isPresent = false;
+        for(let i = 0; i < this.state.books.length; i++){
+            if(this.state.books[i].title === book.title){
+                isPresent = true;
+                console.log("Already Present: ", book.title)
+            }
+        }
+
+        if(!isPresent){
+            console.log("Adding new book", book.title);
+            this.setState((state) => ({
+                books: state.books.concat([book])
+            }));
+        }
+
+    };
 
     addToCurrentlyReading = (book) => {
         this.setState((state) => ({
@@ -102,10 +123,12 @@ class BooksApp extends React.Component {
 
 
     render() {
+        console.log("Called Render")
         return (
             <div className="app">
                 <Route exact path='/search' render={() => (
                     <Search books={this.state.books}
+                            addToBooks={(book) => this.addToBooks(book)}
                             addToCurrentlyReading={(book) => this.addToCurrentlyReading(book)}
                             addToWantToRead={(book) => this.addToWantToRead(book)}
                             addToRead={(book) => this.addToRead(book)}
@@ -125,8 +148,11 @@ class BooksApp extends React.Component {
                                removeFromWantToRead={(book) => this.removeFromWantToRead(book)}
                                removeFromRead={(book) => this.removeFromRead(book)}
                                updateBook={(book, shelf) => this.updateBook(book, shelf)}/>
+
                 )}/>
+
             </div>
+
         )
     }
 }

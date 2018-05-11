@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import escapeRegExpression from 'escape-string-regexp';
 import sortBy from 'sort-by';
-import SearchBooks from "./SearchBooks";
+import ListSearchBooks from "./ListSearchBooks";
 
 class Search extends Component{
     //Saving query as a state to retrieved matched books on the fly
@@ -22,7 +22,7 @@ class Search extends Component{
     render(){
         console.log("Search Render called");
         let showBooks = [];
-        if(this.state.query) {
+        if(this.state.query){
             //Use reg expression to match the query against books.title
             //filter books that matches the expression
             const exp = new RegExp(escapeRegExpression(this.state.query), "i");
@@ -49,17 +49,18 @@ class Search extends Component{
 
                     </div>
                 </div>
-                {/*Un-mount the component when there is no query*/}
+                {/* Un-mount the component when there is no query */}
                 {this.state.query &&
-                <SearchBooks query = { this.state.query }
-                             books = { this.props.books }
-                             addToCurrentlyReading={(book) => this.props.addToCurrentlyReading(book)}
-                             addToWantToRead={(book) => this.props.addToWantToRead(book)}
-                             addToRead={(book) => this.props.addToRead(book)}
-                             removeFromCurrentlyReading={(book) => this.props.removeFromCurrentlyReading(book)}
-                             removeFromWantToRead={(book) => this.props.removeFromWantToRead(book)}
-                             removeFromRead={(book) => this.props.removeFromRead(book)}
-                             updateBook={(book, shelf) => this.props.updateBook(book, shelf)}/>
+                <ListSearchBooks query={this.state.query}
+                                 books={this.props.books}
+                                 addToBooks={(book) => this.props.addToBooks(book)}
+                                 addToCurrentlyReading={(book) => this.props.addToCurrentlyReading(book)}
+                                 addToWantToRead={(book) => this.props.addToWantToRead(book)}
+                                 addToRead={(book) => this.props.addToRead(book)}
+                                 removeFromCurrentlyReading={(book) => this.props.removeFromCurrentlyReading(book)}
+                                 removeFromWantToRead={(book) => this.props.removeFromWantToRead(book)}
+                                 removeFromRead={(book) => this.props.removeFromRead(book)}
+                                 updateBook={(book, shelf) => this.props.updateBook(book, shelf)}/>
                 }
             </div>
         );
