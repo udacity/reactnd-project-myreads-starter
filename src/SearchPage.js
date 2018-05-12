@@ -11,9 +11,8 @@ state = {
 }
   // searches the API for a search term, then updates the search starter
   search = (event) => {
-
-
-
+    console.log(event.target.value)
+    
 
   }
 
@@ -38,12 +37,14 @@ state = {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author" onChange={this.search()}/>
+                <input type="text" placeholder="Search by title or author" onChange={this.search}/>
 
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+              // displays books in state with updated search/
+              </ol>
             </div>
           </div>
 
