@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import {Link} from 'react-router-dom'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 
@@ -11,10 +12,20 @@ state = {
 }
   // searches the API for a search term, then updates the search starter
   search = (event) => {
-    console.log(event.target.value)
-    
+  //  update(event.target.value.trim())
+  var test = event.target.value
+  alert(test)
+
+  //what to do? code: find difference between last onCHange call, if over 1.5 seconds then do a 
+  // BooksAPI query with the finished input result. Exmple: art, wait 1.5 then API call.
 
   }
+
+update = (query) => {
+
+  BooksAPI.search(query).then()
+}
+
 
 
   render(){
@@ -43,7 +54,7 @@ state = {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-              // displays books in state with updated search/
+              //  displays books in state with updated search/
               </ol>
             </div>
           </div>
