@@ -1,73 +1,13 @@
 import React, {Component} from 'react';
 import * as BooksAPI from "./BooksAPI";
+import SelectBook from './SelectBook';
 
 class ListSearchBooks extends Component{
-    CURRENTLY_READING_SHELF = "currentlyReading";
-    WANT_TO_READ_SHELF = "wantToRead";
-    READ_SHELF = "read";
-    NONE_SHELF = "none";
-
     state = {
         nextQuery: "",
         prevQuery: "",
         searchBooks: [],
-        bookShelf: "default shelf" //saving select value as a state for re-rendering to show selected value after shelf selected
-    };
-
-    updateBookShelf = (e, book) => {
-        console.log("UpdateBookShelf called");
-
-        //update the book
-        //insert book to a new bookshelf
-        //remove book from the old bookshelf
-        // const oldBookShelf = book.shelf;
-        // const newBookShelf = e.target.value;
-        // switch (newBookShelf) {
-        //     case this.CURRENTLY_READING_SHELF:
-        //         this.props.addToBooks(book);
-        //         this.props.updateBook(book, this.CURRENTLY_READING_SHELF);
-        //         this.props.addToCurrentlyReading(book);
-        //         this.removeFromShelf(book, oldBookShelf);
-        //         break;
-        //     case this.WANT_TO_READ_SHELF:
-        //         this.props.addToBooks(book);
-        //         this.props.updateBook(book, this.WANT_TO_READ_SHELF);
-        //         this.props.addToWantToRead(book);
-        //         this.removeFromShelf(book, oldBookShelf);
-        //         break;
-        //     case this.READ_SHELF:
-        //         this.props.updateBook(book, this.READ_SHELF);
-        //         this.props.addToRead(book);
-        //         this.removeFromShelf(book, oldBookShelf);
-        //         break;
-        //     case this.NONE_SHELF:
-        //         this.props.updateBook(book, this.NONE_SHELF);
-        //         this.removeFromShelf(book, oldBookShelf);
-        //         break;
-        //     default:
-        //         break;
-        // }
-
-        this.setState({
-            bookShelf: e.target.value
-        })
-    }
-
-    removeFromShelf = (book, shelf) => {
-        switch(shelf){
-            case this.CURRENTLY_READING_SHELF:
-                this.props.removeFromCurrentlyReading(book);
-                break;
-            case this.WANT_TO_READ_SHELF:
-                this.props.removeFromWantToRead(book);
-                break;
-            case this.READ_SHELF:
-                this.props.removeFromRead(book);
-                break;
-            default:
-                //Book is not in shelf
-                break;
-        }
+        // bookShelf: "default shelf" //saving select value as a state for re-rendering to show selected value after shelf selected
     };
 
     componentDidMount(){
@@ -157,7 +97,6 @@ class ListSearchBooks extends Component{
         return (
             <div className="search-books-results">
                 <ol className="books-grid">
-                    <div>{this.state.bookShelf}</div>
                     {showSearchBooks.map((book) => (
                         <li key={book.id}>
                             <div className="book">
@@ -169,16 +108,15 @@ class ListSearchBooks extends Component{
                                             backgroundImage: `url(${book.imageLinks.thumbnail})`
                                         }}/>
                                     )}
-                                    <div className="book-shelf-changer">
-                                        <select value={book.shelf === undefined ? "none" : book.shelf}
-                                                onChange={(event) => this.updateBookShelf(event, book)}>
-                                            <option value="notAssigned" disabled>Move to...</option>
-                                            <option value="currentlyReading">Currently Reading</option>
-                                            <option value="wantToRead">Want to Read</option>
-                                            <option value="read">Read</option>
-                                            <option value="none">None</option>
-                                        </select>
-                                    </div>
+                                    <SelectBook book={book}
+                                                addToBooks={(book) => this.props.addToBooks(book)}
+                                                addToCurrentlyReading={(book) => this.props.addToCurrentlyReading(book)}
+                                                addToWantToRead={(book) => this.props.addToWantToRead(book)}
+                                                addToRead={(book) => this.props.addToRead(book)}
+                                                removeFromCurrentlyReading={(book) => this.props.removeFromCurrentlyReading(book)}
+                                                removeFromWantToRead={(book) => this.props.removeFromWantToRead(book)}
+                                                removeFromRead={(book) => this.props.removeFromRead(book)}
+                                                updateBook={(book, shelf) => this.props.updateBook(book, shelf)}/>
                                 </div>
                                 <div className="book-title">{book.title}</div>
                                 <div className="book-authors">{book.authors}</div>
