@@ -6,18 +6,37 @@ import './App.css'
 
 class SearchPage extends Component{
 
+constructor(props){
+  super(props)
+  this.timeout = 0;
+}
 
 state = {
   books:[]
 }
+
   // searches the API for a search term, then updates the search starter
+
+
+
   search = (event) => {
   //  update(event.target.value.trim())
   var test = event.target.value
-  alert(test)
+  if(this.timeout) clearTimeout(this.timeout);
+  this.timeout = setTimeout(() => {
+alert(test)
+  BooksAPI.search(test).then(responce => {console.log(responce)})
 
-  //what to do? code: find difference between last onCHange call, if over 1.5 seconds then do a 
-  // BooksAPI query with the finished input result. Exmple: art, wait 1.5 then API call.
+  }, 3000)
+
+  //alert(this.timeout)
+
+  //this.setInterval(alert(test), 3000)
+
+
+  //alert(test)
+
+
 
   }
 
@@ -29,6 +48,8 @@ update = (query) => {
 
 
   render(){
+
+
     return(
 
 
