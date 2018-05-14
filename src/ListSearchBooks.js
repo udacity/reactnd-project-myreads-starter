@@ -7,11 +7,9 @@ class ListSearchBooks extends Component{
         nextQuery: "",
         prevQuery: "",
         searchBooks: [],
-        // bookShelf: "default shelf" //saving select value as a state for re-rendering to show selected value after shelf selected
     };
 
     componentDidMount(){
-
         BooksAPI.search(this.props.query).then((books) => {
             if(Array.isArray(books)) {
                 this.setState({
@@ -69,7 +67,6 @@ class ListSearchBooks extends Component{
                 })
             }
         });
-
         //Set the current query as prevQuery for next Component call
         this.setState({
             nextQuery: this.props.query
@@ -81,19 +78,15 @@ class ListSearchBooks extends Component{
     }
 
     render(){
-        console.log("ListSearchBooks Render called");
         //Add books from searchBooks then replace books in showSearchBooks with books that are already present on the shelves
         const showSearchBooks = this.state.searchBooks;
         this.props.books.map((shelfBook) => {
-            console.log("Shelf Books:",shelfBook.title, " shelf ", shelfBook.shelf);
             this.state.searchBooks.map((searchBook, index) => {
                 if(shelfBook.title === searchBook.title){
-                    // console.log("Replacing", searchBook.title);
                     showSearchBooks.splice(index, 1, shelfBook)
                 }
             })
         });
-
         return (
             <div className="search-books-results">
                 <ol className="books-grid">

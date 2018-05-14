@@ -11,9 +11,6 @@ class BooksApp extends React.Component {
     READ_SHELF = "read";
 
     state = {
-        //TODO: Code clean up, remove all logs
-        //TODO: Rename Component Title WantToRead and Read
-        //TODO: Review Whole project
         books: [],
         currentlyReading: [],
         wantToRead: [],
@@ -29,12 +26,10 @@ class BooksApp extends React.Component {
         for(let i = 0; i < this.state.books.length; i++){
             if(this.state.books[i].title === book.title){
                 isPresent = true;
-                console.log("Already Present: ", book.title)
             }
         }
 
         if(!isPresent){
-            console.log("Adding new book", book.title);
             this.setState((state) => ({
                 books: state.books.concat([book])
             }));
@@ -46,35 +41,27 @@ class BooksApp extends React.Component {
         this.setState((state) => ({
             currentlyReading: state.currentlyReading.concat([book])
         }));
-        console.log("New currently Reading books:");
-        this.state.currentlyReading.map(book => console.log(book.title));
     };
 
     addToWantToRead = (book) => {
         this.setState((state) => ({
             wantToRead: state.wantToRead.concat([book])
         }));
-        console.log("New want to read books:");
-        this.state.wantToRead.map(book => console.log(book.title));
     };
 
     addToRead = (book) => {
         this.setState((state) => ({
             read: state.read.concat([book])
         }));
-        console.log("New read books:");
-        this.state.read.map(book => console.log(book.title));
     };
 
     removeFromCurrentlyReading = (book) => {
-        console.log("removeFromCurrentlyReading: ", book.title);
         this.setState((state) => ({
             currentlyReading: state.currentlyReading.filter(cBook => cBook.title !== book.title)
         }))
     };
 
     removeFromWantToRead = (book) => {
-        console.log("removeFromWantToRead: ", book.title);
         this.setState((state) => ({
             wantToRead: state.wantToRead.filter(cBook => cBook.title !== book.title)
         }))
@@ -91,7 +78,6 @@ class BooksApp extends React.Component {
         book.shelf = shelf;
         //update to server
         BooksAPI.update(book, shelf);
-        console.log("Book updated to  " + book.shelf)
     };
 
     componentDidMount() {
@@ -101,7 +87,6 @@ class BooksApp extends React.Component {
             });
             //categorizing the books pulled from the server
             books.map((book) => {
-                console.log(book);
                 if (book.shelf === this.CURRENTLY_READING_SHELF) {
                     this.setState({
                         currentlyReading: this.state.currentlyReading.concat([book])
@@ -123,7 +108,6 @@ class BooksApp extends React.Component {
 
 
     render() {
-        console.log("Called Render")
         return (
             <div className="app">
                 <Route exact path='/search' render={() => (
@@ -150,9 +134,7 @@ class BooksApp extends React.Component {
                                updateBook={(book, shelf) => this.updateBook(book, shelf)}/>
 
                 )}/>
-
             </div>
-
         )
     }
 }

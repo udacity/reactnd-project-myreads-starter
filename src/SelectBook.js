@@ -7,12 +7,11 @@ class SelectBook extends Component{
     NONE_SHELF = "none";
 
     state = {
+        //saving select value as a state for re-rendering to show selected value after shelf selected
         bookShelf: ""
     };
 
     updateBookShelf = (e, book) => {
-        console.log("UpdateBookShelf called");
-
         // update the book
         // insert book to a new bookshelf
         // remove book from the old bookshelf
@@ -69,7 +68,6 @@ class SelectBook extends Component{
     render(){
         return(
             <div className="book-shelf-changer">
-                <div>{this.state.bookShelf}</div>
                 <select value={this.props.book.shelf === undefined ? "none" : this.props.book.shelf}
                         onChange={(event) => this.updateBookShelf(event, this.props.book)}>
                     <option value="notAssigned" disabled>Move to...</option>

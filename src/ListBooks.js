@@ -14,7 +14,6 @@ class ListBooks extends Component {
 
 
     updateBookShelf(e, book) {
-        console.log(" Current shelf " + book.shelf + " New shelf", e.target.value);
         //update the book
         //insert book to a new bookshelf
         //remove book from the old bookshelf
@@ -67,7 +66,6 @@ class ListBooks extends Component {
                 <div className="list-books-title">
                     <h1>MyReads</h1>
                 </div>
-
                 <ListCurrentlyReadingBooks currentlyReadingBooks={this.props.currentlyReading}
                                            addToCurrentlyReading={(book) => this.props.addToCurrentlyReading(book)}
                                            addToWantToRead={(book) => this.props.addToWantToRead(book)}
@@ -92,7 +90,6 @@ class ListBooks extends Component {
                                removeFromWantToRead={(book) => this.props.removeFromWantToRead(book)}
                                removeFromRead={(book) => this.props.removeFromRead(book)}
                                updateBookShelf={(event, book) => this.updateBookShelf(event, book)}/>
-
                 <div className="open-search">
                     <Link to='/search'>Add a book</Link>
                 </div>

@@ -11,7 +11,7 @@ class ListWantToReadBooks extends Component{
                     <div className="list-books-content">
                         <div>
                             <div className="bookshelf">
-                                <h2 className="bookshelf-title">Currently Reading</h2>
+                                <h2 className="bookshelf-title">Want To Read</h2>
                                 {this.props.wantToReadBooks.map((book) =>
                                     <li key={book.title}>
                                         <div className="bookshelf-books">

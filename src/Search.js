@@ -18,9 +18,7 @@ class Search extends Component{
         });
     };
 
-
     render(){
-        console.log("Search Render called");
         let showBooks = [];
         if(this.state.query){
             //Use reg expression to match the query against books.title
