@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import {Link} from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
+import Book from './Book.js'
 import './App.css'
 
 
@@ -12,12 +13,15 @@ constructor(props){
 }
 
 state = {
-  books:[]
+  books:[{"hi":"hello"}]
 }
 
   // searches the API for a search term, then updates the search starter
 
 
+  clearArray = (array) => {
+    this.setState({books:[]})
+  }
 
   search = (event) => {
   //  update(event.target.value.trim())
@@ -25,7 +29,19 @@ state = {
   if(this.timeout) clearTimeout(this.timeout);
   this.timeout = setTimeout(() => {
 alert(test)
-  BooksAPI.search(test).then(responce => {console.log(responce)})
+  BooksAPI.search(test, 20).then(response => {
+
+    this.clearArray()
+
+    this.setState({
+    ...response}
+    )
+/*
+      this.setState({
+        books:
+      })
+*/
+  console.log(this.state)})
 
   }, 3000)
 
@@ -42,7 +58,9 @@ alert(test)
 
 update = (query) => {
 
-  BooksAPI.search(query).then()
+  BooksAPI.search(query).then(
+
+  )
 }
 
 
