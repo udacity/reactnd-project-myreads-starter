@@ -13,7 +13,7 @@ constructor(props){
 }
 
 state = {
-  books:[{"hi":"hello"}]
+  books:[]
 }
 
   // searches the API for a search term, then updates the search starter
@@ -28,22 +28,18 @@ state = {
   var test = event.target.value
   if(this.timeout) clearTimeout(this.timeout);
   this.timeout = setTimeout(() => {
-alert(test)
+
   BooksAPI.search(test, 20).then(response => {
 
-    this.clearArray()
 
-    this.setState({
-    ...response}
+
+    this.setState( {
+    books: [...response]}
     )
-/*
-      this.setState({
-        books:
-      })
-*/
-  console.log(this.state)})
 
-  }, 3000)
+})
+
+}, 1000)
 
   //alert(this.timeout)
 
@@ -93,7 +89,13 @@ update = (query) => {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-              //  displays books in state with updated search/
+{
+              this.state.books.map(book => (
+                <Book key={book.id} id={book.id} book={book} title= {book.title} image={book.imageLinks.thumbnail} onUpdateShelf={this.props.onUpdateShelf} shelf={this.props.books.shelf} />
+
+              ) )
+}
+
               </ol>
             </div>
           </div>
