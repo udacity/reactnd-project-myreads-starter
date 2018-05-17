@@ -30,7 +30,28 @@ class BooksApp extends React.Component {
   updateShelf = (shelfName, book) => {
 
   BooksAPI.update({ id: book.id }, shelfName).then(() => {
-    console.log(book)
+    console.log(shelfName)
+    if(book.shelf == null)
+    {
+
+      console.log("Shelf attribute does not exist");
+      book.shelf = shelfName;
+      console.log(JSON.stringify(book))
+      var joined = this.state.books.concat(book);
+      console.log(joined + "joined state")
+  this.setState({ books: joined })
+
+
+  }/*  this.setState(({books}) =>{
+        books: [...books]
+
+
+      }  )  */
+
+      /*this.setState({
+      books: [...books]})
+*/
+  console.log(this.state.books)})
 
     this.setState(({ books }) => {
 
@@ -40,8 +61,8 @@ class BooksApp extends React.Component {
                // change the shelf name, if not then just return the book
              )
 
-         });
-       console.log(this.state.books)})
+         }); 
+
 }
 
 

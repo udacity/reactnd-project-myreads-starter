@@ -25,6 +25,7 @@ state = {
 
   search = (event) => {
   //  update(event.target.value.trim())
+  
   var test = event.target.value
   if(this.timeout) clearTimeout(this.timeout);
   this.timeout = setTimeout(() => {
