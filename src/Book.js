@@ -4,6 +4,10 @@ import './App.css'
 
 class Book extends Component{
 
+  constructor(props){
+    super(props)
+  var  UpdatedShelf = 'none';
+  }
 
   handleChange( shelfName) {
       //this.setState({value: event.target.value});
@@ -24,7 +28,7 @@ return(
 
            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.image})` }}></div>
            <div className="book-shelf-changer">
-             <select value={'none'} onChange={change => this.handleChange( change.target.value)}>
+             <select value={this.UpdatedShelf} onChange={change => this.handleChange( change.target.value)}>
                <option value="none" disabled>Move to...</option>
                <option value="currentlyReading">Currently Reading</option>
                <option value="wantToRead">Want to Read</option>
