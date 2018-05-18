@@ -38,11 +38,11 @@ class FrontPage extends Component {
         {/*console.log(this.props.books)*/}
         {
 
-          shelfs.map((shelfs) =>
+          shelfs.map((shelf) =>
           (
 
-          <BookShelf key={shelfs.id} name={shelfs.name} onUpdateShelf={this.props.onUpdateShelf} books={this.props.books.filter(
-            (book) => (shelfs.id === book.shelf )
+          <BookShelf key={shelf.id} name={shelf.name} onUpdateShelf={this.props.onUpdateShelf} books={this.props.books.filter(
+            (book) => (shelf.id === book.shelf )
           )}/>
           ))}
 

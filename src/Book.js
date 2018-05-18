@@ -6,7 +6,7 @@ class Book extends Component{
 
   constructor(props){
     super(props)
-  var  UpdatedShelf = 'none';
+
   }
 
   handleChange( shelfName) {
@@ -14,9 +14,15 @@ class Book extends Component{
 
   //console.log(shelfName)
   //console.log(this.props.book.shelf);
-  this.props.onUpdateShelf(shelfName,this.props.book)
+  alert(shelfName +" this is the changed shelf name")
+  this.props.onUpdateShelf(shelfName, this.props.book)
+
     }
 
+
+updateShelf(){
+
+}
 
 render(){
 return(
@@ -28,7 +34,7 @@ return(
 
            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.image})` }}></div>
            <div className="book-shelf-changer">
-             <select value={this.UpdatedShelf} onChange={change => this.handleChange( change.target.value)}>
+             <select value={this.props.book.shelf || 'none' } onChange={change => this.handleChange( change.target.value)}>
                <option value="none" disabled>Move to...</option>
                <option value="currentlyReading">Currently Reading</option>
                <option value="wantToRead">Want to Read</option>

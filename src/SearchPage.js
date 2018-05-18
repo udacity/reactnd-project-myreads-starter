@@ -25,14 +25,33 @@ state = {
 
   search = (event) => {
   //  update(event.target.value.trim())
-  
+
   var test = event.target.value
   if(this.timeout) clearTimeout(this.timeout);
   this.timeout = setTimeout(() => {
 
   BooksAPI.search(test, 20).then(response => {
 
+    //console.log(response);
+    //console.log(this.props.books)
+    var frontBooks = this.props.books;
+    console.log(response)
+    console.log(this.props.books)
+    //var i = 0
+     this.props.books.forEach(function(rElement){
+      // console.log(JSON.stringify(rElement))
 
+       response.forEach(function(fElement){
+          if(rElement.id == fElement.id)
+          {
+          //  alert("we have a match!")
+            fElement.shelf = rElement.shelf
+          }
+       }
+     )
+
+    }
+  );
 
     this.setState( {
     books: [...response]}
@@ -53,11 +72,9 @@ state = {
 
   }
 
-update = (query) => {
+onUpdateShelfupdate = (query) => {
+//alert("do this instead")
 
-  BooksAPI.search(query).then(
-
-  )
 }
 
 
@@ -92,7 +109,7 @@ update = (query) => {
               <ol className="books-grid">
 {
               this.state.books.map(book => (
-                <Book key={book.id} id={book.id} book={book} title= {book.title} image={book.imageLinks.thumbnail} onUpdateShelf={this.props.onUpdateShelf} shelf={this.props.books.shelf} />
+  <Book key={book.id} id={book.id} book={book} title= {book.title} image={book.imageLinks.thumbnail} onUpdateShelf={this.props.onUpdateShelf} shelf={book.shelf} />
 
               ) )
 }
