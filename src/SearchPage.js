@@ -42,18 +42,16 @@ state = {
     )
 
 
-    //alert('blank!')
+
   BooksAPI.search(test, 20).then(response => {
 
 
-    //console.log(response);
-    //console.log(this.props.books)
+
     var frontBooks = this.props.books;
-    console.log(response)
-    console.log(this.props.books)
-    //var i = 0
+
+
      this.props.books.forEach(function(rElement){
-      // console.log(JSON.stringify(rElement))
+      
 
        response.forEach(function(fElement){
           if(rElement.id == fElement.id)

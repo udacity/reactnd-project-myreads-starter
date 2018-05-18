@@ -16,47 +16,32 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
      books: []
-    //showSearchPage: false
+
   }
 
   getAllBooks(){
     BooksAPI.getAll().then(books => this.state({books}))
   }
 
-   /*updateShelf = (book, Nshelf) => BooksAPI.update(book,Nshelf).then(() => {
-    this.setState({book}) // here filter out book from state and then add new book to state
-  }) */
-
   updateShelf = (shelfName, book) => {
-//console.log(JSON.stringify(book))
+
 // book is the current book.
 // shelf is the current shelf.
-    alert("shelfname:  " +shelfName+ "book name:   " + book.id);
-    alert("shelfname: " + book.shelf + "this is the current shelf status of the book ")
-  BooksAPI.update({ id: book.id }, shelfName).then((responce) => {
-console.log(responce) //  responce is a array of updated shelves
 
-    alert(shelfName + " this is the book Value that just changed.")
+  BooksAPI.update({ id: book.id }, shelfName).then((responce) => {
+
+
     if(book.shelf == null)
     {
-      //console.log("Shelf attribute does not exist");
       book.shelf = shelfName;
-        alert(book.shelf + ": update shelf from undefined  to new value in App.js")
-
       var joined = this.state.books.concat(book);
-      //console.log(joined + "joined state")
-  this.setState({ books: [...joined] })
-  alert("added:" +book.title + " to state")
-  console.log(this.state.books)
-  //this.getAllBooks();
-
+      this.setState({ books: [...joined] })
  }
- console.log(book.shelf + " books shelf")
+
  if( shelfName == 'none')
  {
-
    book.shelf = shelfName;
-   alert("should have removed book from app.state because shelf is none")
+
    var tempState = this.state.books.filter((b) => b.id == book.id);
 
    var array = [...this.state.books]; // make a separate copy of the array
@@ -64,24 +49,12 @@ console.log(responce) //  responce is a array of updated shelves
      array.splice(index, 1);
      this.setState({books: array});
 
-
-
-   //console.log(tempState)
-   this.setState(() =>
+     this.setState(() =>
      {books: [...tempState]})
-     console.log(this.state.books)
+
 
  }
-  /*  this.setState(({books}) =>{
-        books: [...books]
 
-
-      }  )  */
-
-      /*this.setState({
-      books: [...books]})
-*/
-//
 this.setState(({ books }) => {
 
          books: books.filter(b =>
@@ -91,24 +64,14 @@ this.setState(({ books }) => {
          )
 
      });
-
-
-
-
 })
 
-
-
-//console.log(this.state.books)
 }
 
 
 
 
-updateSearch = () => {
 
-
-}
 
 
     componentDidMount(){
@@ -118,9 +81,7 @@ updateSearch = () => {
 
        })}
 
-       ComponentDidUpdate() {
-    //console.log(this.state.books);
-}
+      
 
 
   render() {
