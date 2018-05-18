@@ -10,6 +10,7 @@ class SearchPage extends Component{
 constructor(props){
   super(props)
   this.timeout = 0;
+
 }
 
 state = {
@@ -27,10 +28,23 @@ state = {
   //  update(event.target.value.trim())
 
   var test = event.target.value
+
+
+
+
   if(this.timeout) clearTimeout(this.timeout);
   this.timeout = setTimeout(() => {
 
+    if(test==="") return(
+      this.setState( {
+      books: []}
+      )
+    )
+
+
+    //alert('blank!')
   BooksAPI.search(test, 20).then(response => {
+
 
     //console.log(response);
     //console.log(this.props.books)
@@ -59,7 +73,7 @@ state = {
 
 })
 
-}, 1000)
+}, 800)
 
   //alert(this.timeout)
 
@@ -72,8 +86,13 @@ state = {
 
   }
 
-onUpdateShelfupdate = (query) => {
-//alert("do this instead")
+catchError = (book) => {
+
+
+if(book.imageLinks == null)
+return(null)
+else return (book.imageLinks.thumbnail)
+
 
 }
 
@@ -109,7 +128,8 @@ onUpdateShelfupdate = (query) => {
               <ol className="books-grid">
 {
               this.state.books.map(book => (
-  <Book key={book.id} id={book.id} book={book} title= {book.title} image={book.imageLinks.thumbnail} onUpdateShelf={this.props.onUpdateShelf} shelf={book.shelf} />
+
+  <Book key={book.id} id={book.id} book={book} title= {book.title} image={this.catchError(book)} onUpdateShelf={this.props.onUpdateShelf} shelf={book.shelf} />
 
               ) )
 }

@@ -5,6 +5,18 @@ import './App.css'
 
 class BookShelf extends Component{
 
+  catchError = (book) => {
+
+
+  if(book.imageLinks == null)
+  return(null)
+  else return (book.imageLinks.thumbnail)
+
+
+  }
+
+
+
 render(){
 return(
   <div>
@@ -16,7 +28,7 @@ return(
 {this.props.books.map(book =>
 (
 
-  <Book key={book.id} id={book.id} book={book} title= {book.title} image={book.imageLinks.thumbnail} onUpdateShelf={this.props.onUpdateShelf} shelf={this.props.name}/>
+  <Book key={book.id} id={book.id} book={book} title= {book.title} image={this.catchError(book)} onUpdateShelf={this.props.onUpdateShelf} shelf={this.props.name}/>
 
 ))}
 

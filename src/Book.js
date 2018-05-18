@@ -6,7 +6,9 @@ class Book extends Component{
 
   constructor(props){
     super(props)
-
+var test = this.props //? this.props.image =
+console.log(test)
+//const thumbnail = imageLinks && imageLinks.thumbnail ? imageLinks.thumbnail : null;
   }
 
   handleChange( shelfName) {
@@ -20,7 +22,12 @@ class Book extends Component{
     }
 
 
-updateShelf(){
+backgroundImage(){
+
+if(this.props.image == null)
+return("http://via.placeholder.com/350x150");
+
+else return("http://via.placeholder.com/350x150")
 
 }
 
