@@ -18,11 +18,11 @@ class BooksApp extends React.Component {
      books: []
 
   }
-
+ // adds all books to state
   getAllBooks(){
     BooksAPI.getAll().then(books => this.state({books}))
   }
-
+  // passes BooksApi with new shelf for the passed book, then updates state with updated book
   updateShelf = (shelfName, book) => {
 
 // book is the current book.
@@ -30,22 +30,22 @@ class BooksApp extends React.Component {
 
   BooksAPI.update({ id: book.id }, shelfName).then((responce) => {
 
-
+// if not on shelf add to shelf
     if(book.shelf == null)
     {
       book.shelf = shelfName;
-      var joined = this.state.books.concat(book);
+      let joined = this.state.books.concat(book);
       this.setState({ books: [...joined] })
  }
-
+// if updated book's shelf is none then take it off a shelf
  if( shelfName == 'none')
  {
    book.shelf = shelfName;
 
-   var tempState = this.state.books.filter((b) => b.id == book.id);
+   let tempState = this.state.books.filter((b) => b.id == book.id);
 
-   var array = [...this.state.books]; // make a separate copy of the array
-     var index = array.indexOf(book)
+   let array = [...this.state.books]; // make a separate copy of the array
+     let index = array.indexOf(book)
      array.splice(index, 1);
      this.setState({books: array});
 
@@ -54,7 +54,7 @@ class BooksApp extends React.Component {
 
 
  }
-
+// updates the state with the updated book
 this.setState(({ books }) => {
 
          books: books.filter(b =>
@@ -68,39 +68,29 @@ this.setState(({ books }) => {
 
 }
 
-
-
-
-
-
-
+  //if component did mount then update state with all books
     componentDidMount(){
         BooksAPI.getAll().then((books) => {
           this.setState({ books })
-          //  console.log(this.state.books);
-
        })}
 
-      
+
 
 
   render() {
     return (
-
   <div className="app">
-
-
-
+// renders the front page
   <Route exact path='/' render={() =>(
     <FrontPage books = {this.state.books} onUpdateShelf = {this.updateShelf}  />
-  )}/>
+  )}/>// renders the search page
   <Route path='/search' render={({history}) =>(
     <SearchPage books={this.state.books} onUpdateShelf = {this.updateShelf}  />
 
   )}/>
 
  </div>
-) //end return... add <SearchPage/> too see search render={() => (<FrontPage/>)}
+)
 
 }
 }

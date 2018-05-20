@@ -4,18 +4,12 @@ import Book from './Book.js'
 import './App.css'
 
 class BookShelf extends Component{
-
+  // catches an error if there is no book thumbnail, returns null so book will still be displayed with no picture
   catchError = (book) => {
-
-
   if(book.imageLinks == null)
   return(null)
   else return (book.imageLinks.thumbnail)
-
-
   }
-
-
 
 render(){
 return(

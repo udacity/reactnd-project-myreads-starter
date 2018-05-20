@@ -5,10 +5,6 @@ import './App.css'
 
 class FrontPage extends Component {
 
-
-
-
-
   render(){
 
     const shelfs = [
@@ -23,11 +19,9 @@ class FrontPage extends Component {
   {
     id: 'read',
   name: 'Read'
-  }
-  ]
+  }]
+
     return(
-
-
       <div>
         <div className="list-books">
         <div className="list-books-title">
@@ -35,7 +29,7 @@ class FrontPage extends Component {
         </div>
         </div>
         <div className="list-books-content">
-        {/*console.log(this.props.books)*/}
+
         {
 
           shelfs.map((shelf) =>
@@ -45,8 +39,6 @@ class FrontPage extends Component {
             (book) => (shelf.id === book.shelf )
           )}/>
           ))}
-
-
           </div>
 
         <div className="open-search">
@@ -54,16 +46,7 @@ class FrontPage extends Component {
 
         </div>
       </div>
-
     )}
-
-
-
-
   }
-
-//export default FrontPage
-
-//   <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a> link
 
 export default FrontPage;

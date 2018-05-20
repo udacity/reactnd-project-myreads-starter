@@ -7,30 +7,33 @@ import './App.css'
 
 class SearchPage extends Component{
 
+
+  /**
+  * @description Represents the seach Page
+  * @constructor Initializes let timeout to 0
+  * @param {string} props from app.js page.
+  */
+
 constructor(props){
   super(props)
   this.timeout = 0;
 
 }
-
+//holds the state of books display
 state = {
   books:[]
 }
 
   // searches the API for a search term, then updates the search starter
-
-
   clearArray = (array) => {
     this.setState({books:[]})
   }
 
+// searches for event changes in search bar
   search = (event) => {
   //  update(event.target.value.trim())
 
-  var test = event.target.value
-
-
-
+  let test = event.target.value
 
   if(this.timeout) clearTimeout(this.timeout);
   this.timeout = setTimeout(() => {
@@ -44,64 +47,37 @@ state = {
 
 
   BooksAPI.search(test, 20).then(response => {
-
-
-
-    var frontBooks = this.props.books;
-
-
+    let frontBooks = this.props.books;
      this.props.books.forEach(function(rElement){
-      
-
        response.forEach(function(fElement){
-          if(rElement.id == fElement.id)
+          if(rElement.id == fElement.id) // if searched book is on a shelf then update the books status on the search page
           {
-          //  alert("we have a match!")
             fElement.shelf = rElement.shelf
           }
        }
      )
-
     }
   );
-
+    // sets the search page state with the updated books
     this.setState( {
     books: [...response]}
     )
 
 })
 
-}, 800)
-
-  //alert(this.timeout)
-
-  //this.setInterval(alert(test), 3000)
-
-
-  //alert(test)
-
-
-
-  }
-
-catchError = (book) => {
-
-
-if(book.imageLinks == null)
-return(null)
-else return (book.imageLinks.thumbnail)
-
-
+}, 800) // response time in ms for a new search after there is a change on the search bar
 }
 
 
 
+catchError = (book) => {
+if(book.imageLinks == null)
+return(null)
+else return (book.imageLinks.thumbnail)
+}
+
   render(){
-
-
     return(
-
-
           <div className="search-books">
             <div className="search-books-bar">
             <Link className="close-search" to='/'/>
@@ -127,9 +103,7 @@ else return (book.imageLinks.thumbnail)
 {
               this.state.books.map(book => (
 
-  <Book key={book.id} id={book.id} book={book} title= {book.title} image={this.catchError(book)} onUpdateShelf={this.props.onUpdateShelf} shelf={book.shelf} />
-
-              ) )
+  <Book key={book.id} id={book.id} book={book} title= {book.title} image={this.catchError(book)} onUpdateShelf={this.props.onUpdateShelf} shelf={book.shelf} />))
 }
 
               </ol>
