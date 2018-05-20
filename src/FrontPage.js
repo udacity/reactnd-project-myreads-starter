@@ -6,7 +6,7 @@ import './App.css'
 class FrontPage extends Component {
 
   render(){
-
+    // shelfs, is the possible shelfs that the books can be on
     const shelfs = [
     {
     id: 'currentlyReading',
@@ -31,7 +31,7 @@ class FrontPage extends Component {
         <div className="list-books-content">
 
         {
-
+// loops through all the books in the app.js state on each shelf. Then passes shelf props to  BookShelf.js
           shelfs.map((shelf) =>
           (
 

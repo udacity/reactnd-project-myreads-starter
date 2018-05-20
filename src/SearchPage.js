@@ -69,7 +69,7 @@ state = {
 }
 
 
-
+// if book has no thumbnail return null to catch an error if thumbnail does not exist
 catchError = (book) => {
 if(book.imageLinks == null)
 return(null)
@@ -100,7 +100,7 @@ else return (book.imageLinks.thumbnail)
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-{
+{ // loops through state and displays each book in state
               this.state.books.map(book => (
 
   <Book key={book.id} id={book.id} book={book} title= {book.title} image={this.catchError(book)} onUpdateShelf={this.props.onUpdateShelf} shelf={book.shelf} />))

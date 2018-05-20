@@ -78,12 +78,14 @@ this.setState(({ books }) => {
 
 
   render() {
+    // renders the front page
+    // renders the search page
     return (
   <div className="app">
-// renders the front page
+
   <Route exact path='/' render={() =>(
     <FrontPage books = {this.state.books} onUpdateShelf = {this.updateShelf}  />
-  )}/>// renders the search page
+  )}/>
   <Route path='/search' render={({history}) =>(
     <SearchPage books={this.state.books} onUpdateShelf = {this.updateShelf}  />
 

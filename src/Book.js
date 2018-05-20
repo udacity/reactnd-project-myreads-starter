@@ -3,16 +3,10 @@ import FrontPage from './FrontPage.js'
 import './App.css'
 
 class Book extends Component{
-
+// passes updated shelf name and book to the updatedShelf on app.js page
   handleChange( shelfName) {
-
-
   this.props.onUpdateShelf(shelfName, this.props.book)
-
     }
-
-
-
 
 render(){
 return(

@@ -11,7 +11,7 @@ class BookShelf extends Component{
   else return (book.imageLinks.thumbnail)
   }
 
-render(){
+render(){// loops through app.js state and displays each book contained in that state
 return(
   <div>
   <div className="bookshelf">
