@@ -9,6 +9,10 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
+    this.getBooks()
+  }
+
+  getBooks = () => {
     BooksAPI.getAll().then(data => {
       this.setState({
         books: data
@@ -16,10 +20,13 @@ class BooksApp extends React.Component {
     })
   }
 
+
   render() {
     return (
       <div className="App">
-        <BookList books={this.state.books}/>
+        <BookList
+          books={this.state.books}
+        />
       </div>
     )
   }
