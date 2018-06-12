@@ -48,7 +48,7 @@ body, .app {
   right: 25px;
   bottom: 25px;
 }
-.open-search a {
+.open-search {
   display: block;
   width: 50px;
   height: 50px;
