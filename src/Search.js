@@ -6,6 +6,7 @@ class Search extends React.Component{
     render(){
         return (
             <div className="search-books">
+                {/* Link that redirects to a new URL */}
                 <div className="search-books-bar">
                     <Link
                         className = "close-search"
