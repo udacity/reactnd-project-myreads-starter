@@ -43,6 +43,8 @@ To simplify your development process, we've provided a backend server for you to
 * [`update`](#update)
 * [`search`](#search)
 
+You must send an `Authorization` header string with each request which is used to access the appropriate data for your app. If an unrecognized `Authorization` header is sent to the server, a new data-space will be allocated on the server corresponding to this string and will contain several default books.
+
 ### `getAll`
 
 Method Signature:
@@ -63,7 +65,7 @@ update(book, shelf)
 ```
 
 * book: `<Object>` containing at minimum an `id` attribute
-* shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"]  
+* shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"], or any other non-empty string to remove the book completely
 * Returns a Promise which resolves to a JSON object containing the response data of the POST request
 
 ### `search`
