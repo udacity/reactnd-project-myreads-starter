@@ -1,14 +1,7 @@
 import React,{Component} from 'react'
 
-    
-
 class BookShelfChanger extends Component {    
-
-    state ={
-        shelfList:[],
-        selectedValue:''
-    }
-    
+       
     renderShelfList() 
     {
         let items = []
@@ -34,10 +27,6 @@ class BookShelfChanger extends Component {
         return items;
     }
 
-    componentDidMount(){        
-        this.setState({shelfList:this.props.shelfList})
-    }
-    
     render() {
         return(
             <select>

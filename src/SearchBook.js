@@ -1,15 +1,41 @@
 import React, {Component} from 'react'
 import BookShelfChanger from './BookShelfChanger';
 import {Link} from 'react-router-dom'
-
+import escapeRegExp from 'escape-string-regexp'
+import sortBy from 'sort-by'
 
 class SearchBook extends Component {
 
+    state = {
+        query:''
+    }
+
+    updateQuery = (query) => {
+        this.setState({query:query.trim()})
+    }
+
+    clearQuery = () => {
+        this.setState({query:''})
+    };
+    
     onSelectChange = () => {
 
     }
 
     render() {
+        const {query} = this.state
+
+        let showingBooks
+        if (query) {
+            const match = new RegExp(escapeRegExp(query),'i')
+            showingBooks = this.props.books.filter((books) => match.test(books.title) || match.test(books.authors) )
+        }           
+        else {
+            showingBooks = this.props.books;
+        }
+
+        showingBooks.sort(sortBy('name'))
+        
         return(
         <div className="search-books">
             <div className="search-books-bar">
@@ -23,20 +49,22 @@ class SearchBook extends Component {
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
             */}
-                    <input type="text" placeholder="Search by title or author"/>
+            <input type="text" 
+                   onChange={ (event) => this.updateQuery(event.target.value)} 
+                   placeholder="Search by title or author"/>
 
-                </div>
+            </div>
             </div>
             <div className="search-books-results">
                 <ol className="books-grid">
-                    {this.props.books.map((book) => (
+                    {showingBooks.map((book) => (
                       <li>
                         <div className="book">
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
                               <div className="book-shelf-changer">
                                 <BookShelfChanger shelfList={this.props.books.map((book)=>book.shelf)} 
-                                                  selectedShelf={book.shelf}
+                                                  selectedShelf = {book.shelf}
                                                   onSelectChange = {this.onSelectChange}/>
                               </div>
                           </div>
