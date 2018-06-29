@@ -8,6 +8,10 @@ class BookShelfList extends Component {
 
     render() {
         return(
+          <div>
+          <div className="list-books-title">
+            <h1>MyReads</h1>  
+          </div>        
           <div className="list-books-content">   
             <div className="bookshelf">
               <h2 className="bookshelf-title">Currently Reading</h2>
@@ -30,7 +34,9 @@ class BookShelfList extends Component {
                              shelfList = {this.props.books.map(book => book.shelf) }/>
                 </div>
               </div>
-          </div>                         
+          </div>     
+          </div>
+                           
     )
     }
 }
