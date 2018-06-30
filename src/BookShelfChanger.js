@@ -1,6 +1,12 @@
 import React,{Component} from 'react'
+import PropTypes from 'prop-types'
 
-class BookShelfChanger extends Component {    
+class BookShelfChanger extends Component { 
+    
+    static propTypes = {
+        shelfList: PropTypes.array.isRequired,
+        selectedShelf: PropTypes.string.isRequired
+    }
        
     renderShelfList() 
     {
@@ -12,10 +18,10 @@ class BookShelfChanger extends Component {
         {
             return;
         }
-        else {
+        else {        
             for(let shelf of shelfs)
             {
-                if(shelf === this.props.selectedValue){
+                if(shelf === this.props.selectedShelf){
                     items.push(<option key={shelf} value={shelf} selected>{shelf}</option>)
                 }
                 else
