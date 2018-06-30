@@ -7,7 +7,11 @@ class BookShelfChanger extends Component {
         shelfList: PropTypes.array.isRequired,
         selectedShelf: PropTypes.string.isRequired
     }
-       
+
+    state = {
+        currentShelf:''
+    }
+
     renderShelfList() 
     {
         let items = []
@@ -21,11 +25,7 @@ class BookShelfChanger extends Component {
         else {        
             for(let shelf of shelfs)
             {
-                if(shelf === this.props.selectedShelf){
-                    items.push(<option key={shelf} value={shelf} selected>{shelf}</option>)
-                }
-                else
-                    items.push(<option key={shelf} value={shelf}>{shelf}</option>)
+                items.push(<option key={shelf} value={shelf}>{shelf}</option>)                
             }
         }
 
@@ -33,9 +33,17 @@ class BookShelfChanger extends Component {
         return items;
     }
 
+    componentDidMount() {        
+        this.setState({currentShelf:this.props.selectedShelf})
+    }
+
+    onSelectedChange = (e) => {        
+        this.setState({currentShelf:e.value})
+    }
+
     render() {
         return(
-            <select>
+            <select value={this.state.currentShelf} onChange = {this.onSelectedChange} >
                 {this.renderShelfList()}
             </select>
           )
