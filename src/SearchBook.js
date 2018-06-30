@@ -16,12 +16,8 @@ class SearchBook extends Component {
 
     clearQuery = () => {
         this.setState({query:''})
-    };
-    
-    onSelectChange = () => {
-
-    }
-
+    }; 
+  
     render() {
         const {query} = this.state
 
@@ -65,7 +61,7 @@ class SearchBook extends Component {
                               <div className="book-shelf-changer">
                                 <BookShelfChanger shelfList={this.props.books.map((book)=>book.shelf)} 
                                                   selectedShelf = {book.shelf}
-                                                  onSelectChange = {this.onSelectChange}/>
+                                                  book={book}/>
                               </div>
                           </div>
                           <div className="book-title">{book.title}</div>
