@@ -59,7 +59,7 @@ class SearchBook extends Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
                               <div className="book-shelf-changer">
-                                <BookShelfChanger shelfList={this.props.books.map((book)=>book.shelf)} 
+                                <BookShelfChanger shelfList={this.props.shelfList}
                                                   selectedShelf = {book.shelf}
                                                   book={book}/>
                               </div>

@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import BookShelfChanger from './BookShelfChanger';
 
 class BookShelf extends Component {    
-    render() {
+     render() {                
         return(
             <ol className="books-grid">
                 {this.props.books.map((book) => (
@@ -14,7 +14,7 @@ class BookShelf extends Component {
                             <BookShelfChanger shelfList={this.props.shelfList} 
                                               selectedShelf={book.shelf}
                                               book = {book}
-                                              updateBookShelf={this.props.updateBookShelf}/>
+                                              />
                         </div>
                     </div>
                     <div className="book-title">{book.title}</div>

@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import PropTypes from 'prop-types'
+import * as BooksAPI from './BooksAPI'
 
 class BookShelfChanger extends Component { 
     
@@ -10,6 +11,7 @@ class BookShelfChanger extends Component {
     }
 
     state = {
+        book:{},
         currentShelf:''
     }
 
@@ -36,14 +38,21 @@ class BookShelfChanger extends Component {
 
     componentDidMount() {        
         this.setState({currentShelf:this.props.selectedShelf})
+        this.setState({book:this.props.book})
     }
 
     onSelectedChange = (e,value) => {        
-        this.setState({currentShelf:e.target.value})     
-        this.props.updateBookShelf(this.props.book,e.target.value)               
+        this.setState({currentShelf:e.target.value})
+        this.updateBookShelf(e.target.value)             
     }
 
-    
+    updateBookShelf = (shelf) => {
+        BooksAPI.update(this.state.book,shelf)
+        
+        this.setState((state) => ({
+          book: state.book
+        }));                
+      }    
 
     render() {
         return(

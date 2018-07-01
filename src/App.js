@@ -7,28 +7,19 @@ import {Link,Route} from 'react-router-dom'
 
 class BooksApp extends React.Component {
   state = {   
-    books:[]    
+    books:[],
+    shelfList:['currentlyReading','wantToRead','read']    
   }
 
-  componentDidMount= () => {    
-    this.getAllBooks()
-    
+  componentWillMount = () => {    
+    this.getAllBooks()    
   }
 
   getAllBooks = () => {
     BooksAPI.getAll().then((books) => {
-      this.setState({books})      
-    })
-    console.log('get all books')
-  }
-
-
-  updateBookShelf(book,shelf) {
-    BooksAPI.update(book,shelf).then((books)=>{
-      this.getAllBooks()
-      console.log(books)
-    })
-  }
+      this.setState({books})           
+    })        
+  }   
 
   render() {
     return (
@@ -36,10 +27,13 @@ class BooksApp extends React.Component {
       <div className="app">              
         <div className="list-books">          
             <Route exact path="/search" render = {()=>( 
-              <SearchBook books={this.state.books} updateBookShelf={this.updateBookShelf} />
+              <SearchBook books={this.state.books}
+                          shelfList = {this.state.shelfList}  />
             )}/>                                      
             <Route exact path="/" render = {()=>( 
-              <BookShelfList books={this.state.books} updateBookShelf={this.updateBookShelf} />
+              <BookShelfList  books={this.state.books}                               
+                              shelfList={this.state.shelfList}
+                             />
             )}/>                      
         </div>
         <div className="open-search">
