@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-// import BookStatus from "./BookStatus"
+import BookStatus from "./BookStatus";
 
 class Book extends Component {
   render() {
     return (
       <ol className="books-grid">
-        <li>
+        <li key={this.props.bookTitle}>
           <div className="book">
             <div className="book-top">
               <div
@@ -13,11 +13,10 @@ class Book extends Component {
                 style={{
                   width: 128,
                   height: 193,
-                  backgroundImage:
-                    `url("${this.props.bookImage}")`
+                  backgroundImage: `url("${this.props.bookImage}")`
                 }}
               />
-              {/* <BookStatus /> */}
+              <BookStatus />
             </div>
             <div className="book-title">{this.props.bookTitle}</div>
             <div className="book-authors">{this.props.bookAuthors}</div>
