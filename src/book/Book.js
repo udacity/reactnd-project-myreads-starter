@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import BookStatus from "./BookStatus";
 
 class Book extends Component {
+
   render() {
     return (
       <ol className="books-grid">
-        <li key={this.props.bookTitle}>
+        <li key={this.props.bookId}>
           <div className="book">
             <div className="book-top">
               <div
@@ -16,7 +17,7 @@ class Book extends Component {
                   backgroundImage: `url("${this.props.bookImage}")`
                 }}
               />
-              <BookStatus />
+              <BookStatus bookId={this.props.bookId} callbackParent={this.props.callbackParent}/>
             </div>
             <div className="book-title">{this.props.bookTitle}</div>
             <div className="book-authors">{this.props.bookAuthors}</div>

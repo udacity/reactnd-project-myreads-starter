@@ -3,13 +3,15 @@ import React, { Component } from "react";
 class BookStatus extends Component {
   constructor(props) {
     super(props);
-    this.state = {value: 'none'};
+    this.state = { value: "none" };
 
     this.handleSelect = this.handleSelect.bind(this);
   }
 
   handleSelect(event) {
     this.setState({ value: event.target.value });
+    debugger
+    this.props.callbackParent(event.target.value, this.props.bookId);
   }
 
   render() {
