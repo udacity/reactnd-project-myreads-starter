@@ -17,7 +17,7 @@ class Book extends Component {
                   backgroundImage: `url("${this.props.bookImage}")`
                 }}
               />
-              <BookStatus bookId={this.props.bookId} callbackParent={this.props.callbackParent}/>
+              <BookStatus bookId={this.props.bookId} changeBookStatus={this.props.changeBookStatus}/>
             </div>
             <div className="book-title">{this.props.bookTitle}</div>
             <div className="book-authors">{this.props.bookAuthors}</div>

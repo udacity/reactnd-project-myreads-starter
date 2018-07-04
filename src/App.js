@@ -76,10 +76,13 @@ class BooksApp extends React.Component {
   };
 
   onBookChanged = (value, id) => {
-    console.log("I'm app, and the value is:" + value)
-    console.log("I'm app, and the id is:" + id)
-    debugger
-    this.state.allBooks.filter(book => book.id == id)[0].status = value; 
+    console.log("I'm app, and the value is:" + value);
+    console.log("I'm app, and the id is:" + id);
+    debugger;
+    // this.state.allBooks.filter(book => book.id == id)[0].status = value;
+    this.setState(state => {
+      return (state.allBooks.filter(book => book.id === id)[0].status = value);
+    });
   };
 
   render() {
@@ -133,7 +136,9 @@ class BooksApp extends React.Component {
                             bookTitle={book.bookTitle}
                             bookAuthors={book.bookAuthors}
                             bookImage={book.bookImage}
-                            callbackParent={(value, id) => this.onBookChanged(value, id)}
+                            changeBookStatus={(value, id) =>
+                              this.onBookChanged(value, id)
+                            }
                           />
                         ))}
                     </ol>
@@ -151,6 +156,9 @@ class BooksApp extends React.Component {
                             bookTitle={book.bookTitle}
                             bookAuthors={book.bookAuthors}
                             bookImage={book.bookImage}
+                            changeBookStatus={(value, id) =>
+                              this.onBookChanged(value, id)
+                            }
                           />
                         ))}
                     </ol>
@@ -168,6 +176,9 @@ class BooksApp extends React.Component {
                             bookTitle={book.bookTitle}
                             bookAuthors={book.bookAuthors}
                             bookImage={book.bookImage}
+                            changeBookStatus={(value, id) =>
+                              this.onBookChanged(value, id)
+                            }
                           />
                         ))}
                     </ol>

@@ -11,7 +11,7 @@ class BookStatus extends Component {
   handleSelect(event) {
     this.setState({ value: event.target.value });
     debugger
-    this.props.callbackParent(event.target.value, this.props.bookId);
+    this.props.changeBookStatus(event.target.value, this.props.bookId);
   }
 
   render() {
