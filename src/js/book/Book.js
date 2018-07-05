@@ -6,7 +6,9 @@ class Book extends Component {
   render() {
     return (
       <ol className="books-grid">
-        <li key={this.props.bookId}>
+        {/* {console.log(this.props.book.id)} */}
+        {/* {console.log(this.props)} */}
+        <li key={this.props.book.id}>
           <div className="book">
             <div className="book-top">
               <div
@@ -14,13 +16,13 @@ class Book extends Component {
                 style={{
                   width: 128,
                   height: 193,
-                  backgroundImage: `url("${this.props.bookImage}")`
+                  backgroundImage: `url("${this.props.book.imageLinks.smallThumbnail}")`
                 }}
               />
-              <BookStatus bookId={this.props.bookId} changeBookStatus={this.props.changeBookStatus}/>
+              <BookStatus book={this.props.book} changeBookStatus={this.props.changeBookStatus}/>
             </div>
-            <div className="book-title">{this.props.bookTitle}</div>
-            <div className="book-authors">{this.props.bookAuthors}</div>
+            <div className="book-title">{this.props.book.title}</div>
+            <div className="book-authors">{this.props.book.authors}</div>
           </div>
         </li>
       </ol>
