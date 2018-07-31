@@ -12,12 +12,12 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     BooksAPI.getAll().then(books => {
-      console.log(books);
       this.setState({ allBooks: books });
     });
   }
 
   onBookChanged = (value, book) => {
+
     if (
       this.state.allBooks.filter(element => element.id === book.id)[0] !=
       undefined
@@ -33,6 +33,8 @@ class BooksApp extends React.Component {
         return state.allBooks.push(book);
       });
     }
+
+    BooksAPI.update(book, value);
   };
 
   render() {

@@ -16,8 +16,7 @@ Method Signature:
 getAll()
 ```
 
-* Returns a Promise which resolves to a JSON object containing a collection of book objects.
-* This collection represents the books currently in the bookshelves in your app.
+* getAll() is responsible to return a promise with a collection of books (the ones which are supposed to be in the bookshelf)
 
 ### `update`
 
@@ -27,9 +26,9 @@ Method Signature:
 update(book, shelf)
 ```
 
-* book: `<Object>` containing at minimum an `id` attribute
-* shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"]  
-* Returns a Promise which resolves to a JSON object containing the response data of the POST request
+* book: `<Object>` this is the object which should contain an id related to the book itself
+* shelf: `<String>` this is a string which represents the position of this book in the shelf, in other words, want to read, currently reading or read
+* Returns a Promise with a list of id's related to the books and also returns the shelf position each book is
 
 ### `search`
 
@@ -40,13 +39,10 @@ search(query)
 ```
 
 * query: `<String>`
-* Returns a Promise which resolves to a JSON object containing a collection of a maximum of 20 book objects.
-* These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
+* Returns a Promise with a collection of books
 
 ## Important
-The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
-
-Access the Memory Game: https://pedroarvellos.github.io/memory-game.github.io/
+This backend provided by Alura does its search in a limited amount of books, so do not hesitate if you don't get an expected book.
 
 ## How to use
 
@@ -63,20 +59,20 @@ Download the project directly or go to a specific folder and download it by git:
 ```bash
 ├── CONTRIBUTING.md
 ├── README.md - This file.
-├── SEARCH_TERMS.md # The whitelisted short collection of available search terms for you to use with your app.
-├── package.json # npm package manager file. It's unlikely that you'll need to modify this.
+├── SEARCH_TERMS.md 
+├── package.json 
 ├── public
-│   ├── favicon.ico # React Icon, You may change if you wish.
-│   └── index.html # DO NOT MODIFY
+│   ├── favicon.ico 
+│   └── index.html
 └── src
-    ├── css # Styles for the app.
+    ├── css 
     │   ├── App.css
     │   ├── index.css 
-    ├── icons # Helpful images for your app.
+    ├── icons 
     │   ├── add.svg
     │   ├── arrow-back.svg
     │   └── arrow-drop-down.svg
-    ├── js # js files for the app.
+    ├── js
     │   ├── book
     │   │   ├── Book.js
     │   │   ├── BookStatus.js
@@ -89,9 +85,9 @@ Download the project directly or go to a specific folder and download it by git:
     │   ├── service
     │   │   ├── BooksAPI.js
     │   │   
-    ├── App.js # This is the root of your app. Contains static HTML right now.
-    ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
-    └── index.js # You should not need to modify this file. It is used for DOM rendering only.
+    ├── App.js
+    ├── App.test.js 
+    └── index.js 
 
 The project can be opened in any text editor, for example: _Sublime Text_, _Visual Studio_,  _Atom_, etc. To execute the project.
 

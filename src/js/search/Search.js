@@ -16,24 +16,26 @@ class Search extends Component {
     if (event.target.value !== "") {
       let bookShelf = this.props.bookShelf;
       BooksAPI.search(event.target.value).then(books => {
-        let flag = false;
+ 
+          let flag = false;
 
-        //If flags keeps false, the book isn't on my shelf list, so I can input it on my books list 
-        //(list which will be rendered in this component)
-        books.map(bookFromSearch => {
-          for (let i = 0; i < bookShelf.length; i++) {
-            if (bookFromSearch.id === bookShelf[i].id) {
-              flag = true;
+          //If flags keeps false, the book isn't on my shelf list, so I can input it on my books list
+          //(list which will be rendered in this component)
+          books.map(bookFromSearch => {
+            for (let i = 0; i < bookShelf.length; i++) {
+              if (bookFromSearch.id === bookShelf[i].id) {
+                flag = true;
+              }
             }
-          }
-          if (flag === false) {
-            this.setState(state => {
-              return state.books.push(bookFromSearch);
-            });
-          }
+            if (flag === false) {
+              this.setState(state => {
+                return state.books.push(bookFromSearch);
+              });
+            }
 
-          flag = false;
-        });
+            flag = false;
+          });
+        
       });
     }
   };
