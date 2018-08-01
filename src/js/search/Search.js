@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Debounce } from 'react-throttle';
 import { Link } from "react-router-dom";
 import * as BooksAPI from "./../service/BooksAPI";
 import Book from "./../book/Book";
@@ -15,12 +16,14 @@ class Search extends Component {
     // see no necessity to show it again.
     if (event.target.value !== "") {
       let bookShelf = this.props.bookShelf;
-      BooksAPI.search(event.target.value).then(books => {
- 
-          let flag = false;
+      BooksAPI.search(event.target.value.trim()).then(books => {
+        let flag = false;
 
-          //If flags keeps false, the book isn't on my shelf list, so I can input it on my books list
-          //(list which will be rendered in this component)
+        //If flags keeps false, the book isn't on my shelf list, so I can input it on my books list
+        //(list which will be rendered in this component)
+        if (books.length !== undefined) {
+          this.setState({ books: [] });
+
           books.map(bookFromSearch => {
             for (let i = 0; i < bookShelf.length; i++) {
               if (bookFromSearch.id === bookShelf[i].id) {
@@ -35,7 +38,9 @@ class Search extends Component {
 
             flag = false;
           });
-        
+        } else {
+          this.setState({ books: [] });
+        }
       });
     }
   };
@@ -48,11 +53,13 @@ class Search extends Component {
             Close
           </Link>
           <div className="search-books-input-wrapper">
+          <Debounce time="500" handler="onChange">
             <input
               type="text"
               placeholder="Search by title or author"
               onChange={this.onChange.bind(this)}
             />
+          </Debounce>
           </div>
         </div>
         <div className="search-books-results">
