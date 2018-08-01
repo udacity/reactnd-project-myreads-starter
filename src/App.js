@@ -24,23 +24,6 @@ class BooksApp extends React.Component {
         allBooks: state.allBooks.filter(b => b.id !== book.id).concat(book)
       }));
     });
-    // if (
-    //   this.state.allBooks.filter(element => element.id === book.id)[0] !=
-    //   undefined
-    // ) {
-    //   this.setState(state => {
-    //     return (state.allBooks.filter(
-    //       element => element.id === book.id
-    //     )[0].shelf = value);
-    //   });
-    // } else {
-    //   book.shelf = value;
-    //   this.setState(state => {
-    //     return state.allBooks.push(book);
-    //   });
-    // }
-
-    // BooksAPI.update(book, value);
   };
 
   render() {
