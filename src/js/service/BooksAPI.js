@@ -22,7 +22,7 @@ export const getAll = () =>
     .then(res => res.json())
     .then(data => data.books);
 
-export const update = (book, shelf) =>
+export const update = (shelf, book) =>
   fetch(`${api}/books/${book.id}`, {
     method: "PUT",
     headers: {

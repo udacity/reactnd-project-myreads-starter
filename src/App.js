@@ -5,37 +5,42 @@ import Search from "./js/search/Search";
 import * as BooksAPI from "./js/service/BooksAPI";
 import "./css/index.css";
 
-
 class BooksApp extends React.Component {
   state = {
     allBooks: []
   };
 
   componentDidMount() {
-    BooksAPI.getAll().then(books => {
-      this.setState({ allBooks: books });
+    BooksAPI.getAll().then(allBooks => {
+      this.setState({ allBooks });
     });
   }
 
-  onBookChanged = (value, book) => {
+  onBookChanged = (shelf, book) => {
+    
+    BooksAPI.update(shelf, book).then(() => {
+      book.shelf = shelf;
+      this.setState(state => ({
+        allBooks: state.allBooks.filter(b => b.id !== book.id).concat(book)
+      }));
+    });
+    // if (
+    //   this.state.allBooks.filter(element => element.id === book.id)[0] !=
+    //   undefined
+    // ) {
+    //   this.setState(state => {
+    //     return (state.allBooks.filter(
+    //       element => element.id === book.id
+    //     )[0].shelf = value);
+    //   });
+    // } else {
+    //   book.shelf = value;
+    //   this.setState(state => {
+    //     return state.allBooks.push(book);
+    //   });
+    // }
 
-    if (
-      this.state.allBooks.filter(element => element.id === book.id)[0] !=
-      undefined
-    ) {
-      this.setState(state => {
-        return (state.allBooks.filter(
-          element => element.id === book.id
-        )[0].shelf = value);
-      });
-    } else {
-      book.shelf = value;
-      this.setState(state => {
-        return state.allBooks.push(book);
-      });
-    }
-
-    BooksAPI.update(book, value);
+    // BooksAPI.update(book, value);
   };
 
   render() {
