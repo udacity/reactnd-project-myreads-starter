@@ -14,7 +14,7 @@ class Search extends Component {
     // At this part I'm creating a transaction which is automatically executed after passing by if condition,
     // to fill the books array I'm checking if there's it's already on my shelf, if the answer is yes, I
     // see no necessity to show it again.
-    if (event.target.value !== "") {
+    if (event.target.value.trim() !== "") {
       let bookShelf = this.props.bookShelf;
       BooksAPI.search(event.target.value.trim()).then(books => {
         if (books.length !== undefined) {
