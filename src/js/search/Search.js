@@ -7,7 +7,7 @@ import * as BooksAPI from "./../service/BooksAPI";
 class Search extends Component {
   state = {
     searchInput: "",
-    books: []
+    books: [],
   };
 
   onChange = event => {
@@ -21,6 +21,15 @@ class Search extends Component {
           this.setState({ books: [] });
 
           books.map(bookFromSearch => {
+            
+            let filteredBook = bookShelf.filter(b => b.id === bookFromSearch.id)[0];
+
+            if(filteredBook !== undefined) {
+              bookFromSearch.shelf = filteredBook.shelf;
+            } else {
+              bookFromSearch.shelf = 'no-value';
+            }
+
             this.setState(state => {
               return state.books.push(bookFromSearch);
             });
@@ -29,6 +38,8 @@ class Search extends Component {
           this.setState({ books: [] });
         }
       });
+    } else {
+      this.setState({ books: [] });
     }
   };
 
