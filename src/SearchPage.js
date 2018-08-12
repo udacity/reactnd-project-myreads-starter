@@ -23,7 +23,6 @@ constructor(props){
 state = {
   books:[]
 }
-
   // searches the API for a search term, then updates the search starter
   clearArray = (array) => {
     this.setState({books:[]})
@@ -47,10 +46,18 @@ state = {
 
 
   BooksAPI.search(test, 20).then(response => {
-    let frontBooks = this.props.books;
+    if(response.error==="empty query")
+    {
+
+      return(
+        this.setState({books: [...response]})
+      )
+
+  }
+    //let frontBooks = this.props.books;
      this.props.books.forEach(function(rElement){
        response.forEach(function(fElement){
-          if(rElement.id == fElement.id) // if searched book is on a shelf then update the books status on the search page
+          if(rElement.id === fElement.id) // if searched book is on a shelf then update the books status on the search page
           {
             fElement.shelf = rElement.shelf
           }
@@ -103,7 +110,7 @@ else return (book.imageLinks.thumbnail)
 { // loops through state and displays each book in state
               this.state.books.map(book => (
 
-  <Book key={book.id} id={book.id} book={book} title= {book.title} image={this.catchError(book)} onUpdateShelf={this.props.onUpdateShelf} shelf={book.shelf} />))
+  <Book key={book.id} id={book.id} book={book} title={book.title} image={this.catchError(book)} onUpdateShelf={this.props.onUpdateShelf} shelf={book.shelf}/>))
 }
 
               </ol>

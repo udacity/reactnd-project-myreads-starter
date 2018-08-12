@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import FrontPage from './FrontPage.js'
+//import FrontPage from './FrontPage.js'
 import Book from './Book.js'
 import './App.css'
 
@@ -22,7 +22,7 @@ return(
 {this.props.books.map(book =>
 (
 
-  <Book key={book.id} id={book.id} book={book} title= {book.title} image={this.catchError(book)} onUpdateShelf={this.props.onUpdateShelf} shelf={this.props.name}/>
+<Book key={book.id} id={book.id} book={book} title={book.title} image={this.catchError(book)} onUpdateShelf={this.props.onUpdateShelf} shelf={this.props.name}/>
 
 ))}
 

@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React from 'react';
 import { Route } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI'
 import FrontPage from './FrontPage.js'
@@ -18,10 +18,8 @@ class BooksApp extends React.Component {
      books: []
 
   }
- // adds all books to state
-  getAllBooks(){
-    BooksAPI.getAll().then(books => this.state({books}))
-  }
+
+
   // passes BooksApi with new shelf for the passed book, then updates state with updated book
   updateShelf = (shelfName, book) => {
 
@@ -38,11 +36,11 @@ class BooksApp extends React.Component {
       this.setState({ books: [...joined] })
  }
 // if updated book's shelf is none then take it off a shelf
- if( shelfName == 'none')
+ if( shelfName === 'none')
  {
    book.shelf = shelfName;
 
-   let tempState = this.state.books.filter((b) => b.id == book.id);
+   let tempState = this.state.books.filter((b) => b.id === book.id);
 
    let array = [...this.state.books]; // make a separate copy of the array
      let index = array.indexOf(book)
@@ -82,12 +80,11 @@ this.setState(({ books }) => {
     // renders the search page
     return (
   <div className="app">
-
   <Route exact path='/' render={() =>(
-    <FrontPage books = {this.state.books} onUpdateShelf = {this.updateShelf}  />
+    <FrontPage books={this.state.books} onUpdateShelf={this.updateShelf}/>
   )}/>
   <Route path='/search' render={({history}) =>(
-    <SearchPage books={this.state.books} onUpdateShelf = {this.updateShelf}  />
+    <SearchPage books={this.state.books} onUpdateShelf={this.updateShelf}/>
 
   )}/>
 
