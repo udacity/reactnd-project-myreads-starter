@@ -10,11 +10,23 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
+    this.getAllBooks()
+  } 
+
+  getAllBooks() {
     BooksAPI.getAll().then((books) => {
       this.setState({books})
       console.log(books)
     })
-  } 
+  }
+
+  onShelfChange = (book, shelf) => {
+    console.log(book)
+    console.log(shelf)
+    BooksAPI.update(book, shelf).then(() => {
+      this.getAllBooks()
+    })
+  }
 
   render() {
     return (
@@ -50,13 +62,16 @@ class BooksApp extends React.Component {
               <div>
                 <BookShelfComponent 
                   shelfTitle="Currently Reading" 
-                  books={this.state.books.filter((book) => book.shelf === "currentlyReading" )} />
+                  books={this.state.books.filter((book) => book.shelf === "currentlyReading" )}
+                  onShelfChange={this.onShelfChange} />
                 <BookShelfComponent 
                   shelfTitle="Want to Read" 
-                  books={this.state.books.filter((book) => book.shelf === "wantToRead" )} />
+                  books={this.state.books.filter((book) => book.shelf === "wantToRead" )}
+                  onShelfChange={this.onShelfChange} />
                 <BookShelfComponent 
                   shelfTitle="Read" 
-                  books={this.state.books.filter((book) => book.shelf === "read" )} />
+                  books={this.state.books.filter((book) => book.shelf === "read" )}
+                  onShelfChange={this.onShelfChange} />
               </div>
             </div>
             <div className="open-search">

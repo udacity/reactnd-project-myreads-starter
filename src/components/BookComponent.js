@@ -13,7 +13,12 @@ export class BookComponent extends React.Component {
             backgroundImage: `url(${book.imageLinks.smallThumbnail})`
             }}>
           </div>
-          <BookShelfChangerComponent />
+          <BookShelfChangerComponent 
+            defaultValue={book.shelf}
+            onShelfChange={(value) => {
+              console.log(value)
+              this.props.onShelfChange(book, value)
+            }} />
         </div>
         <div className="book-title">{book.title}</div>
         <div className="book-authors">{book.authors}</div>
