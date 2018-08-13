@@ -10,7 +10,7 @@ export class BookComponent extends React.Component {
         <div className="book-top">
           <div className="book-cover" style={{ 
             width: 128, height: 193, 
-            backgroundImage: `url(${book.imageURL})`
+            backgroundImage: `url(${book.imageLinks.smallThumbnail})`
             }}>
           </div>
           <BookShelfChangerComponent />
