@@ -1,8 +1,8 @@
 import React from "react";
 import '../App.css';
-import {BookComponent} from './BookComponent';
+import {Book} from './Book';
 
-export class BookShelfBooksComponent extends React.Component {
+export class ShelfBook extends React.Component {
   render() {
     let books = this.props.books
     return (
@@ -10,7 +10,9 @@ export class BookShelfBooksComponent extends React.Component {
         <ol className="books-grid">
           {books.map((book) => (
             <li key={book.id}>
-              <BookComponent book={book}/>
+              <Book 
+                book={book} 
+                onShelfChange={this.props.onShelfChange}/>
             </li>
           ))}
         </ol>
