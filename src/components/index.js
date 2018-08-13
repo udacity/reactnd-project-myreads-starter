@@ -1,3 +1,3 @@
-export * from './BookComponent';
-export * from './BookShelfChangerComponent';
-export * from './BookShelfBooksComponent';
+export * from './Book';
+export * from './ShelfChanger';
+export * from './ShelfBook';

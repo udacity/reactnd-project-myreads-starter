@@ -1,8 +1,8 @@
 import React from "react";
 import '../App.css';
-import {BookShelfChangerComponent} from './BookShelfChangerComponent';
+import {ShelfChanger} from './ShelfChanger';
 
-export class BookComponent extends React.Component {
+export class Book extends React.Component {
   render() {
     let book = this.props.book
     return (
@@ -13,7 +13,7 @@ export class BookComponent extends React.Component {
             backgroundImage: `url(${book.imageLinks.smallThumbnail})`
             }}>
           </div>
-          <BookShelfChangerComponent 
+          <ShelfChanger 
             defaultValue={book.shelf}
             onShelfChange={(value) => {
               console.log(value)

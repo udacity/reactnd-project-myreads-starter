@@ -1,6 +1,6 @@
 import React from "react";
 
-export class BookShelfChangerComponent extends React.Component {
+export class ShelfChanger extends React.Component {
   onShelfChange = (e) => {
     this.props.onShelfChange(e.target.value)
   }
