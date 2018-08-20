@@ -16,10 +16,9 @@ export class SearchBook extends React.Component {
     query = this.state.query
     if(query !== ''){
       BooksAPI.search(query, 20).then(booksFound => {
-        if(!booksFound.error) {
+        if(!booksFound.error && query !== '') {
         this.setState({books: booksFound})
         } else {
-          console.log(booksFound)
           this.setState({books: []})
         }
       })
