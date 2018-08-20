@@ -1,8 +1,9 @@
 
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { BookGrid } from './BookGrid';
-import * as BooksAPI from '../BooksAPI'
+import * as BooksAPI from '../BooksAPI';
+import {DebounceInput} from 'react-debounce-input';
 
 export class SearchBook extends React.Component {
   state = {
@@ -28,17 +29,16 @@ export class SearchBook extends React.Component {
   }
 
   render() {
-    let {query} = this.state
     return (
       <div className="search-books">
         <div className="search-books-bar">
           <Link className="close-search" to="/">Close</Link>
           <div className="search-books-input-wrapper">
-            <input 
-              type="text" 
+            <DebounceInput
               placeholder="Search by title or author"
-              value={query}
-              onChange={(event) => this.searchBooks(event.target.value)} />
+              minLength={2}
+              debounceTimeout={300}
+              onChange={event => this.searchBooks(event.target.value)} />
           </div>
         </div>
         <div className="search-books-results">
