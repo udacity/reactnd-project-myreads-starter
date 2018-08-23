@@ -1,9 +1,10 @@
-//* Book renders the book
+//* Book.js renders the book
 
 import React from 'react';
 import BookChanger from './BookChanger';
 
 const Book = (props) => {
+  console.log('Book Props', props);
   return (
     <div className="book">
     <div className="book-top">

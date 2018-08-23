@@ -3,13 +3,11 @@
 import React from 'react';
 import Book from './Book'
 
-const BookShelf = () => {
+const BookShelf = (props) => {
+  console.log('BookShelf Props', props);
   return (
     <div className="bookshelf-books">
       <ol className="books-grid">
-        <li>
-          <Book />
-        </li>
         <li>
           <Book />
         </li>

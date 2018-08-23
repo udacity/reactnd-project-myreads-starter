@@ -3,7 +3,8 @@
 import React from 'react';
 import BookShelf from './BookShelf'
 
-const BookLibrary = () => {
+const BookLibrary = (props) => {
+  console.log('BookLibrary Props', props);
   return (
     <div className="list-books-content">
     <div>
