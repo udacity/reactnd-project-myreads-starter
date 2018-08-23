@@ -19,7 +19,7 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll().then(books => {
       this.setState({ books: books });
-      console.log(this.state);
+      console.log("State", this.state);
     });
   }
 
@@ -33,9 +33,9 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-            <BookLibrary />
+            <BookLibrary books={this.state.books} />
 
-            {this.state.books.map(book => console.log(book))}
+            {/* {this.state.books.map(book => console.log(book))} */}
 
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>

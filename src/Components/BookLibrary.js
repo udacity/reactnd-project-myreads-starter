@@ -10,21 +10,22 @@ const BookLibrary = props => {
       <div>
         <div className="bookshelf">
           <h2 className="bookshelf-title">Currently Reading</h2>
-          <BookShelf />
+          {/* {props.books.map(book => console.log(book))} */}
+          <BookShelf books={props.books} />
         </div>
         <div className="bookshelf">
           <h2 className="bookshelf-title">Want to Read</h2>
-          <BookShelf />
+          {/* <BookShelf /> */}
         </div>
 
         <div className="bookshelf">
           <h2 className="bookshelf-title">Read</h2>
-          <BookShelf />
+          {/* <BookShelf /> */}
         </div>
 
         <div className="bookshelf">
           <h2 className="bookshelf-title">Test Shelf</h2>
-          <BookShelf />
+          {/* <BookShelf /> */}
         </div>
       </div>
     </div>
