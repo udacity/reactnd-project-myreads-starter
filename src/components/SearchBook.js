@@ -11,13 +11,23 @@ export class SearchBook extends React.Component {
     books: []
   }
 
+  updateBookShelfState = (booksFound, existingBooks) => {
+    booksFound.map(bookFound => { 
+      let filteredBooks = existingBooks.filter(eb => eb.id === bookFound.id)
+      if (filteredBooks[0]) {bookFound.shelf = filteredBooks[0].shelf}
+      return bookFound
+    })
+  }
+
   searchBooks = (query) => {
     this.setState({query: query.replace(/^\s+/,'')})
     query = this.state.query
     if(query !== ''){
       BooksAPI.search(query, 20).then(booksFound => {
+        console.log(booksFound)
         if(!booksFound.error && query !== '') {
-        this.setState({books: booksFound})
+         this.updateBookShelfState(booksFound, this.props.existingBooks)
+          this.setState({books: booksFound})
         } else {
           this.setState({books: []})
         }
