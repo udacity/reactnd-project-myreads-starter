@@ -16,7 +16,6 @@ export class Book extends React.Component {
           <ShelfChanger 
             defaultValue={book.shelf}
             onShelfChange={(value) => {
-              console.log(value)
               this.props.onShelfChange(book, value)
             }} />
         </div>
