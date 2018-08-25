@@ -25,7 +25,6 @@ export class SearchBook extends React.Component {
     query = this.state.query
     if(query !== ''){
       BooksAPI.search(query, 20).then(booksFound => {
-        console.log(booksFound)
         if(!booksFound.error && query !== '') { 
          this.updateBookShelfState(booksFound, this.props.booksOnShelf)
           this.setState({books: booksFound})
