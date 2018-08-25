@@ -15,7 +15,11 @@ const Book = props => {
           }}
         />
 
-        <BookChanger />
+        <BookChanger
+          book={props.book}
+          currentShelf={props.book.shelf}
+          moveBook={props.moveBook}
+        />
       </div>
       <div className="book-title">{props.book.title}</div>
       {props.book.authors.map((author, index) => (

@@ -14,12 +14,14 @@ const BookLibrary = props => {
             books={props.books.filter(
               book => book.shelf === "currentlyReading"
             )}
+            moveBook={props.moveBook}
           />
         </div>
         <div className="bookshelf">
           <h2 className="bookshelf-title">Want to Read</h2>
           <BookShelf
             books={props.books.filter(book => book.shelf === "wantToRead")}
+            moveBook={props.moveBook}
           />
         </div>
 
@@ -27,6 +29,7 @@ const BookLibrary = props => {
           <h2 className="bookshelf-title">Read</h2>
           <BookShelf
             books={props.books.filter(book => book.shelf === "read")}
+            moveBook={props.moveBook}
           />
         </div>
       </div>
