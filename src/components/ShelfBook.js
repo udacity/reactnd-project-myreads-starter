@@ -1,6 +1,7 @@
 import React from "react";
 import '../App.css';
-import {BookGrid} from './BookGrid'
+import {BookGrid} from './BookGrid';
+import PropTypes from 'prop-types';
 
 export class ShelfBook extends React.Component {
   render() {
@@ -12,4 +13,9 @@ export class ShelfBook extends React.Component {
       </div>
     )
   }
+}
+
+ShelfBook.propTypes = {
+  books: PropTypes.array.isRequired,
+  onShelfChange: PropTypes.func.isRequired
 }
