@@ -23,5 +23,5 @@ export class ShelfChanger extends React.Component {
 
 ShelfChanger.propTypes = {
   onShelfChange: PropTypes.func.isRequired,
-  defaultValue: PropTypes.string.isRequired
+  defaultValue: PropTypes.string
 }

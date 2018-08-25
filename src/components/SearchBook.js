@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { BookGrid } from './BookGrid';
 import * as BooksAPI from '../BooksAPI';
 import {DebounceInput} from 'react-debounce-input';
+import PropTypes from 'prop-types';
 
 export class SearchBook extends React.Component {
   state = {
@@ -11,9 +12,9 @@ export class SearchBook extends React.Component {
     books: []
   }
 
-  updateBookShelfState = (booksFound, existingBooks) => {
+  updateBookShelfState = (booksFound, booksOnShelf) => {
     booksFound.map(bookFound => { 
-      let filteredBooks = existingBooks.filter(eb => eb.id === bookFound.id)
+      let filteredBooks = booksOnShelf.filter(eb => eb.id === bookFound.id)
       if (filteredBooks[0]) {bookFound.shelf = filteredBooks[0].shelf}
       return bookFound
     })
@@ -25,8 +26,8 @@ export class SearchBook extends React.Component {
     if(query !== ''){
       BooksAPI.search(query, 20).then(booksFound => {
         console.log(booksFound)
-        if(!booksFound.error && query !== '') {
-         this.updateBookShelfState(booksFound, this.props.existingBooks)
+        if(!booksFound.error && query !== '') { 
+         this.updateBookShelfState(booksFound, this.props.booksOnShelf)
           this.setState({books: booksFound})
         } else {
           this.setState({books: []})
@@ -46,6 +47,7 @@ export class SearchBook extends React.Component {
             <DebounceInput
               placeholder="Search by title or author"
               minLength={2}
+              value={this.state.query}
               debounceTimeout={300}
               onChange={event => this.searchBooks(event.target.value)} />
           </div>
@@ -58,4 +60,9 @@ export class SearchBook extends React.Component {
       </div>
     )
   }
+}
+
+SearchBook.propTypes = {
+  onShelfChange: PropTypes.func.isRequired,
+  booksOnShelf: PropTypes.array.isRequired,
 }
