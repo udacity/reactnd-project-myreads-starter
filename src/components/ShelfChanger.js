@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 export class ShelfChanger extends React.Component {
   onShelfChange = (e) => {
@@ -18,4 +19,9 @@ export class ShelfChanger extends React.Component {
       </div>
     )
   }
+}
+
+ShelfChanger.propTypes = {
+  onShelfChange: PropTypes.func.isRequired,
+  defaultValue: PropTypes.string.isRequired
 }
