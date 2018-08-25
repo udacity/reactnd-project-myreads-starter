@@ -10,22 +10,24 @@ const BookLibrary = props => {
       <div>
         <div className="bookshelf">
           <h2 className="bookshelf-title">Currently Reading</h2>
-          {/* {props.books.map(book => console.log(book))} */}
-          <BookShelf books={props.books} />
+          <BookShelf
+            books={props.books.filter(
+              book => book.shelf === "currentlyReading"
+            )}
+          />
         </div>
         <div className="bookshelf">
           <h2 className="bookshelf-title">Want to Read</h2>
-          {/* <BookShelf /> */}
+          <BookShelf
+            books={props.books.filter(book => book.shelf === "wantToRead")}
+          />
         </div>
 
         <div className="bookshelf">
           <h2 className="bookshelf-title">Read</h2>
-          {/* <BookShelf /> */}
-        </div>
-
-        <div className="bookshelf">
-          <h2 className="bookshelf-title">Test Shelf</h2>
-          {/* <BookShelf /> */}
+          <BookShelf
+            books={props.books.filter(book => book.shelf === "read")}
+          />
         </div>
       </div>
     </div>
