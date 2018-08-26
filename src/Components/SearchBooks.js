@@ -1,8 +1,13 @@
 //* SearchBooks is the search page, it will show the books searched, and they can be added to the library
 
 import React, { Component } from "react";
+import * as BooksAPI from "../BooksAPI";
 
 class SearchBooks extends Component {
+  state = {
+    query: ""
+  };
+
   render() {
     return (
       <div className="search-books">
@@ -26,7 +31,10 @@ class SearchBooks extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid" />
+          <ol className="books-grid">
+            {console.log("Search Props", this.props)}
+            <li>Search book</li>
+          </ol>
         </div>
       </div>
     );
@@ -34,3 +42,8 @@ class SearchBooks extends Component {
 }
 
 export default SearchBooks;
+
+//! Search Terms
+/*
+'Android', 'Art', 'Artificial Intelligence', 'Astronomy', 'Austen', 'Baseball', 'Basketball', 'Bhagat', 'Biography', 'Brief', 'Business', 'Camus', 'Cervantes', 'Christie', 'Classics', 'Comics', 'Cook', 'Cricket', 'Cycling', 'Desai', 'Design', 'Development', 'Digital Marketing', 'Drama', 'Drawing', 'Dumas', 'Education', 'Everything', 'Fantasy', 'Film', 'Finance', 'First', 'Fitness', 'Football', 'Future', 'Games', 'Gandhi', 'Homer', 'Horror', 'Hugo', 'Ibsen', 'Journey', 'Kafka', 'King', 'Lahiri', 'Larsson', 'Learn', 'Literary Fiction', 'Make', 'Manage', 'Marquez', 'Money', 'Mystery', 'Negotiate', 'Painting', 'Philosophy', 'Photography', 'Poetry', 'Production', 'Programming', 'React', 'Redux', 'River', 'Robotics', 'Rowling', 'Satire', 'Science Fiction', 'Shakespeare', 'Singh', 'Swimming', 'Tale', 'Thrun', 'Time', 'Tolstoy', 'Travel', 'Ultimate', 'Virtual Reality', 'Web Development', 'iOS'
+*/
