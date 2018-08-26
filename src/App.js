@@ -1,27 +1,35 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import {Route, Link} from 'react-router-dom'
-import { Shelf, SearchBook } from './components';
+import {Route } from 'react-router-dom'
+import { Home, SearchBook } from './components';
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    books: [],
+    currentlyReading: [],
+    wantToRead: [],
+    read: []
   }
 
   componentDidMount() {
     this.getAllBooks()
   } 
 
-  getAllBooks() {
-    BooksAPI.getAll().then((books) => {
-      this.setState({books})
-    })
-  }
-
   onShelfChange = (book, shelf) => {
     BooksAPI.update(book, shelf).then(() => {
       this.getAllBooks()
+    })
+  }
+
+  getAllBooks() {
+    BooksAPI.getAll().then((books) => {
+      this.setState({
+        books: books,
+        currentlyReading: books.filter((book) => book.shelf === "currentlyReading" ),
+        wantToRead: books.filter((book) => book.shelf === "wantToRead"),
+        read: books.filter((book) => book.shelf === "read")
+      })
     })
   }
 
@@ -32,30 +40,11 @@ class BooksApp extends React.Component {
           <SearchBook booksOnShelf={this.state.books} onShelfChange={this.onShelfChange} />
         )}/>
         <Route exact path="/" render={() => (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-                <Shelf 
-                  shelfTitle="Currently Reading" 
-                  books={this.state.books.filter((book) => book.shelf === "currentlyReading" )}
-                  onShelfChange={this.onShelfChange} />
-                <Shelf 
-                  shelfTitle="Want to Read" 
-                  books={this.state.books.filter((book) => book.shelf === "wantToRead" )}
-                  onShelfChange={this.onShelfChange} />
-                <Shelf 
-                  shelfTitle="Read" 
-                  books={this.state.books.filter((book) => book.shelf === "read" )}
-                  onShelfChange={this.onShelfChange} />
-              </div>
-            </div>
-            <div className="open-search">
-              <Link to="/search">Add a book</Link>
-            </div>
-          </div>
+          <Home 
+              currentlyReading={this.state.currentlyReading} 
+              wantToRead={this.state.wantToRead} 
+              read={this.state.read} 
+              onShelfChange={this.onShelfChange} />
         )}/>
       </div>
     )

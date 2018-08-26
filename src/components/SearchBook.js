@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 export class SearchBook extends React.Component {
   state = {
-    query: '',
+    noResult: false,
     books: []
   }
 
@@ -20,21 +20,26 @@ export class SearchBook extends React.Component {
     })
   }
 
-  searchBooks = (query) => {
-    this.setState({query: query.replace(/^\s+/,'')})
-    query = this.state.query
-    if(query !== ''){
-      BooksAPI.search(query, 20).then(booksFound => {
-        if(!booksFound.error && query !== '') { 
-         this.updateBookShelfState(booksFound, this.props.booksOnShelf)
-          this.setState({books: booksFound})
-        } else {
-          this.setState({books: []})
-        }
-      })
+  handleChange = (event) => {
+    let query = event.target.value
+    query = query.replace(/^\s+/,'')
+    if(query === ""){
+      this.setState({noResult: false, books: []})
     } else {
-      this.setState({books: []})
+      this.searchBook(query)
     }
+  }
+
+  searchBook = (query) => {
+    BooksAPI.search(query, 20).then(booksFound => {
+      console.log(booksFound)
+      if(!booksFound.error && booksFound.length > 0) { 
+        this.updateBookShelfState(booksFound, this.props.booksOnShelf)
+        this.setState({books: booksFound})
+      } else {
+        this.setState({noResult: true, books: []})
+      }
+    })
   }
 
   render() {
@@ -47,11 +52,12 @@ export class SearchBook extends React.Component {
               placeholder="Search by title or author"
               minLength={2}
               value={this.state.query}
-              debounceTimeout={300}
-              onChange={event => this.searchBooks(event.target.value)} />
+              debounceTimeout={500}
+              onChange={this.handleChange} />
           </div>
         </div>
         <div className="search-books-results">
+          { this.state.noResult && <div>No result</div>}
           <BookGrid 
             books={this.state.books}
             onShelfChange={this.props.onShelfChange}/>
