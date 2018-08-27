@@ -4,14 +4,14 @@ import React from "react";
 import BookChanger from "./BookChanger";
 
 const Book = props => {
-  console.log("Book Props", props);
   return (
     <div className="book">
       <div className="book-top">
         <div
           className="book-cover"
           style={{
-            backgroundImage: `url(${props.book.imageLinks.thumbnail})`
+            backgroundImage: `url(${props.book.imageLinks &&
+              props.book.imageLinks.thumbnail})`
           }}
         />
 
@@ -22,11 +22,12 @@ const Book = props => {
         />
       </div>
       <div className="book-title">{props.book.title}</div>
-      {props.book.authors.map((author, index) => (
-        <div className="book-authors" key={index}>
-          {author}
-        </div>
-      ))}
+      {props.book.authors &&
+        props.book.authors.map((author, index) => (
+          <div className="book-authors" key={index}>
+            {author}
+          </div>
+        ))}
     </div>
   );
 };
