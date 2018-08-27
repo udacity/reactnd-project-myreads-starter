@@ -36,8 +36,7 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <Route path="/search" render={({ history }) => <SearchBooks />} />
-
+        {/* Main Page */}
         <Route
           exact
           path="/"
@@ -55,6 +54,11 @@ class BooksApp extends React.Component {
               </div>
             </div>
           )}
+        />
+        {/* Search Page */}
+        <Route
+          path="/search"
+          render={({ history }) => <SearchBooks moveBook={this.moveBook} />}
         />
       </div>
     );
