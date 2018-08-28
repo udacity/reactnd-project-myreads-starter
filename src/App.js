@@ -40,17 +40,12 @@ class BooksApp extends React.Component {
  {
    book.shelf = shelfName;
 
-   let tempState = this.state.books.filter((b) => b.id === book.id);
+
 
    let array = [...this.state.books]; // make a separate copy of the array
      let index = array.indexOf(book)
      array.splice(index, 1);
      this.setState({books: array});
-
-     this.setState(() =>
-     {books: [...tempState]})
-
-
  }
 // updates the state with the updated book
 this.setState(({ books }) => {
