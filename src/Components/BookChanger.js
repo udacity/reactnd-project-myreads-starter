@@ -3,8 +3,6 @@
 import React from "react";
 
 const BookChanger = props => {
-  // console.log("book changer props", props);
-  console.log(props.moveBook);
   return (
     <div className="book-shelf-changer">
       <select
