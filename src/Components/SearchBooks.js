@@ -1,59 +1,38 @@
 //* SearchBooks is the search page, it will show the books searched, and they can be added to the library
 
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import * as BooksAPI from "../BooksAPI";
 import Book from "./Book";
 
-class SearchBooks extends Component {
-  state = {
-    query: "",
-    searchBooks: []
-  };
-
-  getSeachedBooks = event => {
-    this.setState({ query: event.target.value });
-
-    if (this.state.query) {
-      BooksAPI.search(this.state.query).then(books =>
-        this.setState({ searchBooks: books })
-      );
-    } else {
-      this.setState({ searchBooks: [] });
-    }
-  };
-
-  render() {
-    return (
-      <div className="search-books">
-        <div className="search-books-bar">
-          <Link to="/" className="close-search">
-            Close
-          </Link>
-          <div className="search-books-input-wrapper">
-            <input
-              type="text"
-              placeholder="Search by title or author"
-              onChange={this.getSeachedBooks}
-              value={this.state.query}
-            />
-          </div>
-        </div>
-
-        <div className="search-books-results">
-          <ol className="books-grid">
-            {console.log("Search State", this.state.searchBooks)}
-            {this.state.searchBooks.map(book => (
-              <li key={book.id}>
-                <Book book={book} moveBook={this.props.moveBook} />
-              </li>
-            ))}
-          </ol>
+const SearchBooks = props => {
+  console.log("search props", props);
+  return (
+    <div className="search-books">
+      <div className="search-books-bar">
+        <Link to="/" className="close-search" onClick={props.clearSearch}>
+          Close
+        </Link>
+        <div className="search-books-input-wrapper">
+          <input
+            type="text"
+            placeholder="Search by title or author"
+            onChange={event => props.getSearchedBooks(event.target.value)}
+          />
         </div>
       </div>
-    );
-  }
-}
+
+      <div className="search-books-results">
+        <ol className="books-grid">
+          {props.books.map(book => (
+            <li key={book.id}>
+              <Book book={book} moveBook={props.moveBook} />
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  );
+};
 
 export default SearchBooks;
 
