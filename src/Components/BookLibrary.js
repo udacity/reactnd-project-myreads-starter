@@ -4,7 +4,6 @@ import React from "react";
 import BookShelf from "./BookShelf";
 
 const BookLibrary = props => {
-  console.log("BookLibrary Props", props);
   return (
     <div className="list-books-content">
       <div>
@@ -20,7 +19,9 @@ const BookLibrary = props => {
         <div className="bookshelf">
           <h2 className="bookshelf-title">Want to Read</h2>
           <BookShelf
-            books={props.books.filter(book => book.shelf === "wantToRead")}
+            books={props.books.filter(
+              book => book.shelf === "wantToRead"
+            )}
             moveBook={props.moveBook}
           />
         </div>
@@ -28,7 +29,9 @@ const BookLibrary = props => {
         <div className="bookshelf">
           <h2 className="bookshelf-title">Read</h2>
           <BookShelf
-            books={props.books.filter(book => book.shelf === "read")}
+            books={props.books.filter(
+              book => book.shelf === "read"
+            )}
             moveBook={props.moveBook}
           />
         </div>
