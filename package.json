@@ -1,5 +1,5 @@
 {
-  "homepage" : "https://carlo-bruno.github.io/udacity-fend-project-myreads/"
+  "homepage" : "https://carlo-bruno.github.io/udacity-fend-project-myreads/",
   "dependencies": {
     "gh-pages": "^1.2.0",
     "prop-types": "^15.6.1",
