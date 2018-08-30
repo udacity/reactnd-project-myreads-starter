@@ -9,12 +9,6 @@ import SearchBooks from "./Components/SearchBooks";
 
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
     books: [],
     searchBooks: []
   };
@@ -34,7 +28,9 @@ class BooksApp extends React.Component {
             let bookWithShelf = this.state.books.find(
               displayedBook => displayedBook.id === book.id
             );
-            book.shelf = bookWithShelf ? bookWithShelf.shelf : "none";
+            book.shelf = bookWithShelf
+              ? bookWithShelf.shelf
+              : "none";
             books[index] = book;
           });
           this.setState({ searchBooks: books });
@@ -69,10 +65,10 @@ class BooksApp extends React.Component {
               <div className="list-books-title">
                 <h1>MyReads</h1>
               </div>
-              <BookLibrary books={this.state.books} moveBook={this.moveBook} />
-
-              {/* {this.state.books.map(book => console.log(book))} */}
-
+              <BookLibrary
+                books={this.state.books}
+                moveBook={this.moveBook}
+              />
               <div className="open-search">
                 <Link to="/search">Add a book</Link>
               </div>
