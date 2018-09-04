@@ -27,8 +27,10 @@ class BooksApp extends React.Component {
 // shelf is the current shelf.
 
   BooksAPI.update({ id: book.id }, shelfName).then((responce) => {
-
+//console.log(this.state.books)
+//console.log(shelfName)
 // if not on shelf add to shelf
+
     if(book.shelf == null)
     {
       book.shelf = shelfName;
@@ -46,8 +48,15 @@ class BooksApp extends React.Component {
      let index = array.indexOf(book)
      array.splice(index, 1);
      this.setState({books: array});
+
  }
+
+ BooksAPI.getAll().then((books) => {
+   this.setState({ books })
+   console.log(this.state.books)
+})
 // updates the state with the updated book
+
 this.setState(({ books }) => {
 
          books: books.filter(b =>
@@ -57,6 +66,7 @@ this.setState(({ books }) => {
          )
 
      });
+
 })
 
 }
@@ -65,6 +75,7 @@ this.setState(({ books }) => {
     componentDidMount(){
         BooksAPI.getAll().then((books) => {
           this.setState({ books })
+          console.log(this.state.books)
        })}
 
 

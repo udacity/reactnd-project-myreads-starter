@@ -50,16 +50,19 @@ state = {
     {
 
       return(
-        this.setState({books: [...response]})
+        this.setState({books: [response]})
       )
 
   }
     //let frontBooks = this.props.books;
+    console.log(this.state.books)
      this.props.books.forEach(function(rElement){
        response.forEach(function(fElement){
           if(rElement.id === fElement.id) // if searched book is on a shelf then update the books status on the search page
           {
             fElement.shelf = rElement.shelf
+
+            //this.props.updateShelf(fElement.shelf,)
           }
        }
      )

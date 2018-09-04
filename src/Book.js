@@ -1,11 +1,20 @@
 import React,{Component} from 'react';
-
+import FrontPage from './FrontPage.js'
 import './App.css'
 
 class Book extends Component{
 // passes updated shelf name and book to the updatedShelf on app.js page
+constructor(props){
+        super(props);
+        this.state = { book: this.props.book };
+        console.log(this.state.book)
+    }
   handleChange( shelfName) {
   this.props.onUpdateShelf(shelfName, this.props.book)
+  this.props.book.shelf = shelfName;
+  this.setState({book: this.props.book})
+  console.log(shelfName)
+  console.log(this.props.shelf)
     }
 
 render(){
@@ -18,7 +27,7 @@ return(
 
            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.image})` }}></div>
            <div className="book-shelf-changer">
-             <select value={this.props.book.shelf || 'none'} onChange={change => this.handleChange( change.target.value)}>
+             <select value={this.state.book.shelf || 'none'} onChange={change => this.handleChange( change.target.value)}>
                <option value="move" disabled>Move to...</option>
                <option value="currentlyReading">Currently Reading</option>
                <option value="wantToRead">Want to Read</option>
