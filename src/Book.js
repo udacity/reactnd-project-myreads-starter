@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import FrontPage from './FrontPage.js'
+import Home from './Home.js'
 import './App.css'
 
 class Book extends Component{

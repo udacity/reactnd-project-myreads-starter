@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI'
-import FrontPage from './FrontPage.js'
+import Home from './Home.js'
 import SearchPage from './SearchPage.js'
 
 import './App.css'
@@ -87,7 +87,7 @@ this.setState(({ books }) => {
     return (
   <div className="app">
   <Route exact path='/' render={() =>(
-    <FrontPage books={this.state.books} onUpdateShelf={this.updateShelf}/>
+    <Home books={this.state.books} onUpdateShelf={this.updateShelf}/>
   )}/>
   <Route path='/search' render={({history}) =>(
     <SearchPage books={this.state.books} onUpdateShelf={this.updateShelf}/>

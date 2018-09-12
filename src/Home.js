@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import BookShelf from './BookShelf.js'
 import './App.css'
 
-class FrontPage extends Component {
+class Home extends Component {
 
   render(){
     // shelfs, is the possible shelfs that the books can be on
@@ -49,4 +49,4 @@ class FrontPage extends Component {
     )}
   }
 
-export default FrontPage;
+export default Home;

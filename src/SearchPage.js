@@ -50,7 +50,7 @@ state = {
     {
 
       return(
-        this.setState({books: [response]})
+        this.setState({books: []})
       )
 
   }
