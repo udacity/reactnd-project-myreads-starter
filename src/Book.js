@@ -7,14 +7,12 @@ class Book extends Component{
 constructor(props){
         super(props);
         this.state = { book: this.props.book };
-        console.log(this.state.book)
     }
   handleChange( shelfName) {
   this.props.onUpdateShelf(shelfName, this.props.book)
   this.props.book.shelf = shelfName;
   this.setState({book: this.props.book})
-  console.log(shelfName)
-  console.log(this.props.shelf)
+
     }
 
 render(){
