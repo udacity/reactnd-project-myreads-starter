@@ -1,5 +1,5 @@
 import React from 'react'
-import Router from 'react-router-dom'
+// import Router from 'react-router-dom'
 // import * as BooksAPI from './BooksAPI'
 import Bookshelf from './bookshelf.js'
 import SearchBar from './SearchBar.js'
@@ -13,8 +13,9 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: true
+    showSearchPage: false
   }
+
 
   render() {
     return (
