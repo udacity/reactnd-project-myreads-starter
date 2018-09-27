@@ -54,7 +54,7 @@ body, .app {
   height: 50px;
   border-radius: 50%;
   background: #2e7d32;
-  background-image: url('./icons/add.svg');
+  background-image: url('../assets/icons/add.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 28px;
@@ -92,7 +92,7 @@ body, .app {
   width: 50px;
   height: 53px;
   background: white;
-  background-image: url('./icons/arrow-back.svg');
+  background-image: url('../assets/icons/arrow-back.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: 28px;
@@ -148,7 +148,7 @@ body, .app {
   height: 40px;
   border-radius: 50%;
   background: #60ac5d;
-  background-image: url('./icons/arrow-drop-down.svg');
+  background-image: url('../assets/icons/arrow-drop-down.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 20px;
