@@ -1,11 +1,9 @@
 import React from 'react'
-import Book from './book.js'
+import BookGrid from './bookgrid.js'
 
 const searchResults = (props) => (
     <div className="search-books-results">
-      <ol className="books-grid">
-
-      </ol>
+      <BookGrid/>
     </div>
   )
 
