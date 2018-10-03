@@ -7,35 +7,54 @@
 // ─── VENDOR ─────────────────────────────────────────────────────────────────────
 //
 import React from "react";
-import { Provider } from "react-redux";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 // ────────────────────────────────────────────────────────────────────────────────
 //
 // ─── CUSTOM ─────────────────────────────────────────────────────────────────────
 //
-import store from "../store";
-import Router from "../routes";
-import Header from "../components/Header";
-import "./App.css";
+import SearchBar from "../../components/SearchBar";
+import BooksGrid from "../../components/BooksGrid";
 // ────────────────────────────────────────────────────────────────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
 //
-// ────────────────────────────────────────────────────────────────── II ──────────
-//   :::::: A P P   C O M P O N E N T : :  :   :    :     :        :          :
-// ────────────────────────────────────────────────────────────────────────────
+// ──────────────────────────────────────────────────────────────────────────────── II ──────────
+//   :::::: S E A R C H P A G E   C O M P O N E N T : :  :   :    :     :        :          :
+// ──────────────────────────────────────────────────────────────────────────────────────────
 //
-const BooksApp = () => (
-  <Provider store={store}>
-    <div className="app">
-      <Header />
-      <Router />
+const SearchPage = ({ result = [] }) => (
+  <div className="search-books">
+    <SearchBar />
+    <div className="search-books-results">
+      <BooksGrid books={result} errorMessage="No books found for your search" />
     </div>
-  </Provider>
+  </div>
 );
 // ────────────────────────────────────────────────────────────────────────────────
 //
-// ────────────────────────────────────────────────────── III ──────────
+// ────────────────────────────────────────────────────────── III ──────────
+//   :::::: P R O P T Y P E S : :  :   :    :     :        :          :
+// ────────────────────────────────────────────────────────────────────
+//
+BooksGrid.prototypes = {
+  result: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      authors: PropTypes.arrayOf(PropTypes.string).isRequired,
+      thumbnail: PropTypes.string.isRequired,
+      shelf: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired
+    })
+  ).isRequired
+};
+// ────────────────────────────────────────────────────────────────────────────────
+const mapStateToProps = ({ search: { result } }) => ({
+  result
+});
+//
+// ────────────────────────────────────────────────────── IV ──────────
 //   :::::: E X P O R T S : :  :   :    :     :        :          :
 // ────────────────────────────────────────────────────────────────
 //
-export default BooksApp;
+export default connect(mapStateToProps)(SearchPage);
 // ────────────────────────────────────────────────────────────────────────────────

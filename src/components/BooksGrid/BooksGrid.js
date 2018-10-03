@@ -12,39 +12,49 @@ import PropTypes from "prop-types";
 //
 // ─── CUSTOM ─────────────────────────────────────────────────────────────────────
 //
-import BooksGrid from "../BooksGrid";
+import Book from "../Book";
 // ────────────────────────────────────────────────────────────────────────────────
 // ────────────────────────────────────────────────────────────────────────────────
 //
-// ────────────────────────────────────────────────────────────────────── II ──────────
-//   :::::: S H E L F   C O M P O N E N T : :  :   :    :     :        :          :
-// ────────────────────────────────────────────────────────────────────────────────
+// ────────────────────────────────────────────────────────────────────────────── II ──────────
+//   :::::: B O O K S G R I D   C O M P O N E N T : :  :   :    :     :        :          :
+// ────────────────────────────────────────────────────────────────────────────────────────
 //
-const Shelf = ({ name, books = [] }) => (
-  <div className="bookshelf">
-    <h2 className="bookshelf-title">{name}</h2>
-    <div className="bookshelf-books">
-      <BooksGrid books={books} errorMessage="No books on this shelf." />
-    </div>
-  </div>
-);
+const BooksGrid = ({ errorMessage, books = [] }) =>
+  books.length ? (
+    <ol className="books-grid">
+      {books.map(({ title, authors, thumbnail, shelf, id }) => (
+        <li key={id}>
+          <Book
+            title={title}
+            authors={authors}
+            thumbnail={thumbnail}
+            shelf={shelf}
+            id={id}
+          />
+        </li>
+      ))}
+    </ol>
+  ) : (
+    <div className="books-error">{errorMessage}</div>
+  );
 // ────────────────────────────────────────────────────────────────────────────────
 //
 // ────────────────────────────────────────────────────────── III ──────────
 //   :::::: P R O P T Y P E S : :  :   :    :     :        :          :
 // ────────────────────────────────────────────────────────────────────
 //
-Shelf.prototypes = {
-  name: PropTypes.string.isRequired,
+BooksGrid.prototypes = {
   books: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
       authors: PropTypes.arrayOf(PropTypes.string),
       thumbnail: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-      shelf: PropTypes.string
+      shelf: PropTypes.string,
+      id: PropTypes.string.isRequired
     })
-  ).isRequired
+  ).isRequired,
+  errorMessage: PropTypes.string.isRequired
 };
 // ────────────────────────────────────────────────────────────────────────────────
 //
@@ -52,5 +62,5 @@ Shelf.prototypes = {
 //   :::::: E X P O R T S : :  :   :    :     :        :          :
 // ────────────────────────────────────────────────────────────────
 //
-export default Shelf;
+export default BooksGrid;
 // ────────────────────────────────────────────────────────────────────────────────

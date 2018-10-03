@@ -12,15 +12,13 @@ import { shallow } from "enzyme";
 //
 // ─── CUSTOM ─────────────────────────────────────────────────────────────────────
 //
-import Shelf from "./Shelf";
-import BooksGrid from "../BooksGrid";
+import BooksGrid from "./BooksGrid";
 // ────────────────────────────────────────────────────────────────────────────────
 //
 // ────────────────────────────────────────────────── II ──────────
 //   :::::: T E S T S : :  :   :    :     :        :          :
 // ────────────────────────────────────────────────────────────
 //
-
 const mockBooks = [
   {
     title: "The Linux Command Line",
@@ -32,17 +30,15 @@ const mockBooks = [
   }
 ];
 
-it("Should render a BookGrid books array is provided", () => {
-  const wrapper = shallow(<Shelf name="Test Shelf" books={mockBooks} />);
+it("Should render a list of books if the books array is provided", () => {
+  const wrapper = shallow(<BooksGrid books={mockBooks} errorMessage="Error" />);
 
-  expect(wrapper.find(BooksGrid).length).toEqual(1);
+  expect(wrapper.find(".books-grid").length).toEqual(mockBooks.length);
 });
 
-it("Should render a name", () => {
-  const name = "Test Shelf",
-    wrapper = shallow(<Shelf name={name} books={mockBooks} />);
+it("Should render a message if no books are provided", () => {
+  const wrapper = shallow(<BooksGrid errorMessage="Error" />);
 
-  expect(wrapper.find(".bookshelf-title").text()).toEqual(name);
+  expect(wrapper.find(".books-error").length).toEqual(1);
 });
-
 // ────────────────────────────────────────────────────────────────────────────────
