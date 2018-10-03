@@ -2,7 +2,13 @@
   "dependencies": {
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.0",
+    "redux-saga": "^0.16.0",
+    "reduxsauce": "^1.0.0"
   },
   "devDependencies": {
     "enzyme": "^3.6.0",
