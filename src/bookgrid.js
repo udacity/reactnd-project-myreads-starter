@@ -3,12 +3,11 @@ import Book from './book.js'
 
 const bookGrid = (props) => (
   <ol className="books-grid">
-    <li>
-      <Book/>
-    </li>
-    <li>
-      <Book/>
-    </li>
+    {props.books.map(book =>
+    <li key={book.id}>
+      <Book bookInfo={book} handleSelection={props.handleSelection}/>
+    </li>)
+    }
   </ol>
 )
 

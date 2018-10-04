@@ -2,13 +2,21 @@ import React from 'react'
 import SearchBar from './searchbar.js'
 import SearchResults from './searchresults.js'
 
-const searchPage = (props) => (
-  <div className="search-books">
+class SearchPage extends React.Component {
+  state = {
+    query: '',
+    booksFound: []
+  }
+  render() {
+    return (
+      <div className="search-books">
 
-      <SearchBar/>
-      <SearchResults/>
+          <SearchBar/>
+          <SearchResults booksFound={this.state.booksFound}/>
 
-    </div>
-  )
+        </div>
+    )
+  }
+}
 
-  export default searchPage
+  export default SearchPage
