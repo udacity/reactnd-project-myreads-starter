@@ -2,31 +2,56 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 class Menu extends Component {
-  handleChange = e => {
+  constructor(props) {
+    super();
+
+    this.timer = null;
+
+    this.state = {
+      shelf: props.book.shelf,
+      shelfText: "",
+      showTooltip: false
+    }
+  }
+
+  handleChange = (e) => {
     const { book, updateShelf } = this.props;
-    updateShelf(book, e.target.value);
+    const val = e.target.value;
+    this.setState({
+      shelf: val,
+      shelfText: e.target.selectedOptions[0].text,
+      showFeedbackTip: true
+    }, this.fadeOutFeedbackTip);
+    updateShelf(book, val);
   };
 
-  // TODO: I want the menus to reflect the shelf accurately on the search page,
-  // but the books in search results don't have a shelf property.
-  checkShelf = book => {
-    console.log("checkShelf", book, book.shelf);
-    return book.shelf === undefined ? "move" : book.shelf;
-  };
+  fadeOutFeedbackTip = () => {
+    this.timer = setTimeout(() => (this.setState({ showFeedbackTip: false })), 2000);
+  }
+
+  componentWillUnmount = () => {
+    clearTimeout(this.timer);
+  }
 
   render() {
+    const { shelf, shelfText, showFeedbackTip } = this.state;
+    const className = "feedback-tip" + (showFeedbackTip ? " show" : " hide");
+
     return (
-      <div className="book-shelf-changer">
-        <select value="move" onChange={this.handleChange}>
-          <option value="move" disabled>
-            Move to...
-          </option>
-          <option value="currentlyReading">Currently Reading</option>
-          <option value="wantToRead">Want to Read</option>
-          <option value="read">Read</option>
-          <option value="none">None</option>
-        </select>
-      </div>
+      <React.Fragment>
+        <div className="book-shelf-changer">
+          <select value={shelf} onChange={this.handleChange}>
+            <option value="move" disabled>
+              Move to...
+            </option>
+            <option value="currentlyReading">Currently Reading</option>
+            <option value="wantToRead">Want to Read</option>
+            <option value="read">Read</option>
+            <option value="none">None</option>
+          </select>
+        </div>
+        <div className={className}>{shelfText}</div>
+      </React.Fragment>
     );
   }
 }

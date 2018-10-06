@@ -160,6 +160,35 @@ body, .app {
   opacity: 0;
   cursor: pointer;
 }
+.feedback-tip {
+  display: flex;
+  font-size: 0.8em;
+  font-weight: bold;
+  background: #60ac5d;
+  border-radius: 4px;
+  color: #fff;
+  box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.63);
+  padding: 8px;
+  margin-left: 4px;
+  width: 120px;
+  position: absolute;
+  justify-content: center;
+  -webkit-box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.53);
+  -moz-box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.53);
+  visibility: hidden;
+  transition: visibility 500ms, opacity 500ms, top 400ms;
+}
+.feedback-tip.hide {
+  visibility: hidden;
+  opacity: 0;
+  top: 0;
+}
+.feedback-tip.show {
+  visibility: visible;
+  opacity: 1;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
 /* book cover */
 

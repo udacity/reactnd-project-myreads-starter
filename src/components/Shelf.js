@@ -3,8 +3,11 @@ import PropTypes from "prop-types";
 import Book from "./Book.js";
 
 class Shelf extends Component {
-  filterBooks = shelfName =>
-    this.props.books.filter(book => book.shelf === shelfName);
+
+  filterBooks = (shelf) => {
+    const filtered = this.props.books.filter((book) => book.shelf === shelf);
+    return filtered;
+  };
 
   render() {
     const { shelf, title, updateShelf } = this.props;

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Book from "./Book.js";
 import { search } from "../BooksAPI.js";
@@ -18,24 +19,52 @@ class Search extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-
-    // TODO: Interesting
-    // Searching for "duck" returns:
-    //  results: []
-    // Searching for "fork" returns:
-    //  query: "fork"results: {error: "empty query", items: Array(0)}
-
-    search(this.state.query).then(value =>
-      this.setState({
-        results: value
-      })
-    );
   };
 
   handleChange = e => {
-    this.setState({
-        query: e.target.value
+    this.setState({ query: e.target.value });
+    this.doSearch(e);
+  };
+
+  // TODO: Throttle/debounce
+  doSearch = e => {
+    const val = e.target.value;
+    if (val === "") {
+      this.setState({
+        results: []
+      });
+      return;
+    }
+
+    search(val).then(results => {
+      this.setState({
+        results: this.updateShelf(results)
+      });
     });
+  };
+
+  // Apply a shelf property to the books returned by search
+  updateShelf = results => {
+    if (results && results.hasOwnProperty("error")) {
+      return [];
+    }
+
+    const { books } = this.props;
+
+    // Use reduce to assign shelf property to each book in search results
+    const reduced = results.reduce((accum, curr) => {
+      const match = books.find((book) => book.id === curr.id);
+      curr["shelf"] = match ? match.shelf : "none";
+
+      return [...accum, curr];
+    }, []);
+
+    return reduced;
+  };
+
+   // Sometimes the results contain an error property: "empty query"
+   hasResults = () => {
+    return this.state.results && !this.state.results.hasOwnProperty("error");
   };
 
   render() {
@@ -66,7 +95,7 @@ class Search extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.state.results.length > 0 &&
+            {this.hasResults() &&
               this.state.results.map(book => (
                 <li key={book.id}>
                   <Book book={book} updateShelf={this.props.updateShelf} />
@@ -78,5 +107,10 @@ class Search extends Component {
     );
   }
 }
+
+Search.propTypes = {
+  books: PropTypes.array.isRequired,
+  updateShelf: PropTypes.func.isRequired
+};
 
 export default Search;
