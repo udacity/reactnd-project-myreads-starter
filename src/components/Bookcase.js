@@ -1,30 +1,28 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Shelf from "./Shelf.js";
+import ShelvesEnum from "../constants.js";
 
-class Bookcase extends Component {
-  render() {
-    const { books, shelvesEnum, updateShelf } = this.props;
+const Bookcase = (props) => {
+  const { books, updateShelf } = props;
 
-    return (
-      <React.Fragment>
-        {Object.values(shelvesEnum).map(item => (
-          <Shelf
-            key={item.key}
-            books={books}
-            shelf={item.key}
-            title={item.str}
-            updateShelf={updateShelf}
-          />
-        ))}
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <React.Fragment>
+      {Object.values(ShelvesEnum).map(item => (
+        <Shelf
+          key={item.key}
+          books={books}
+          shelf={item.key}
+          title={item.str}
+          updateShelf={updateShelf}
+        />
+      ))}
+    </React.Fragment>
+  );
+};
 
 Bookcase.propTypes = {
   books: PropTypes.array.isRequired,
-  shelvesEnum: PropTypes.object.isRequired,
   updateShelf: PropTypes.func.isRequired
 };
 

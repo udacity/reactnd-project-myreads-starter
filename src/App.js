@@ -8,16 +8,6 @@ import Search from "./components/Search.js";
 import { getAll, update } from "./BooksAPI";
 
 class BooksApp extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.ShelvesEnum = {
-      CURRENTLYREADING: { key: "currentlyReading", str: "Currently Reading" },
-      WANTTOREAD: { key: "wantToRead", str: "Want to Read" },
-      READ: { key: "read", str: "Read" }
-    };
-  }
-
   state = {
     books: []
   };
@@ -55,7 +45,7 @@ class BooksApp extends React.Component {
               </div>
               <div className="list-books-content">
                 <div>
-                  <Bookcase books={this.state.books} shelvesEnum={this.ShelvesEnum} updateShelf={this.updateShelf} />
+                  <Bookcase books={this.state.books} updateShelf={this.updateShelf} />
                 </div>
               </div>
               <OpenSearch />

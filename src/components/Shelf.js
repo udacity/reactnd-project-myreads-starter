@@ -1,33 +1,30 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Book from "./Book.js";
 
-class Shelf extends Component {
-
-  filterBooks = (shelf) => {
-    const filtered = this.props.books.filter((book) => book.shelf === shelf);
+const Shelf = props => {
+  const filterBooks = shelf => {
+    const filtered = props.books.filter(book => book.shelf === shelf);
     return filtered;
   };
 
-  render() {
-    const { shelf, title, updateShelf } = this.props;
+  const { shelf, title, updateShelf } = props;
 
-    return (
-      <div className="bookshelf">
-        <h2 className="bookshelf-title">{title}</h2>
-        <div className="bookshelf-books">
-          <ol className="books-grid">
-            {this.filterBooks(shelf).map(book => (
-              <li key={book.id}>
-                <Book book={book} updateShelf={updateShelf} />
-              </li>
-            ))}
-          </ol>
-        </div>
+  return (
+    <div className="bookshelf">
+      <h2 className="bookshelf-title">{title}</h2>
+      <div className="bookshelf-books">
+        <ol className="books-grid">
+          {filterBooks(shelf).map(book => (
+            <li key={book.id}>
+              <Book book={book} updateShelf={updateShelf} />
+            </li>
+          ))}
+        </ol>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 Shelf.propTypes = {
   books: PropTypes.array.isRequired,

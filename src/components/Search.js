@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Book from "./Book.js";
 import { search } from "../BooksAPI.js";
+import debounce from "lodash.debounce";
 
 class Search extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class Search extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.searchWithDebounce = debounce(this.doSearch, 500);
   }
 
   state = {
@@ -23,12 +25,10 @@ class Search extends Component {
 
   handleChange = e => {
     this.setState({ query: e.target.value });
-    this.doSearch(e);
+    this.searchWithDebounce(e.target.value);
   };
 
-  // TODO: Throttle/debounce
-  doSearch = e => {
-    const val = e.target.value;
+  doSearch = val => {
     if (val === "") {
       this.setState({
         results: []
