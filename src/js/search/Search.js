@@ -21,7 +21,7 @@ class Search extends Component {
           this.setState({ books: [] });
 
           books.map(bookFromSearch => {
-            
+
             let filteredBook = bookShelf.filter(b => b.id === bookFromSearch.id)[0];
 
             if(filteredBook !== undefined) {
