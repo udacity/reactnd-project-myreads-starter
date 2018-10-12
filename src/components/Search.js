@@ -51,19 +51,22 @@ class Search extends Component {
 
     const { books } = this.props;
 
-    // Use reduce to assign shelf property to each book in search results
-    const reduced = results.reduce((accum, curr) => {
-      const match = books.find((book) => book.id === curr.id);
-      curr["shelf"] = match ? match.shelf : "none";
+    // Map shelf properties to each book in search results
+    const mapped = results.map(bookOnShelf => {
+      const match = books.find(book => book.id === bookOnShelf.id);
+      const bookOnShelf_copy = Object.assign(
+        {},
+        bookOnShelf,
+        { shelf: match ? match.shelf : "none" }
+      );
+      return bookOnShelf_copy;
+    });
 
-      return [...accum, curr];
-    }, []);
-
-    return reduced;
+    return mapped;
   };
 
-   // Sometimes the results contain an error property: "empty query"
-   hasResults = () => {
+  // Sometimes the results contain an error property: "empty query"
+  hasResults = () => {
     return this.state.results && !this.state.results.hasOwnProperty("error");
   };
 
