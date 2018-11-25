@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css';
 import Book from './Book'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 
 class BooksApp extends Component {
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => {
+      this.setState({books})
+    })
+  }
   state = {
     showSearchPage: false,
     query: '',
 
-    books: [
+    books: [],
+
+    booksOld: [
       {
         id: 0,
         backgroundImage: 'url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")',
@@ -106,7 +113,7 @@ class BooksApp extends Component {
     // Change bookshelf title in this book in new array.
     newBooks[bookIndex].bookshelf_title = new_bookshelf_title
     // Change bookshelf title value in this book in new array.
-    newBooks[bookIndex].bookshelf_title_value = selectBookshelfTitle
+    newBooks[bookIndex].shelf = selectBookshelfTitle
     // Set new book`s array.
     this.setState((state) => ({
       books: newBooks
@@ -119,7 +126,6 @@ class BooksApp extends Component {
   }
 
   render() {
-    // const { books } = this.props
     const { query, books } = this.state
 
     let showingBooks = books
@@ -139,14 +145,6 @@ class BooksApp extends Component {
             <div className="search-books-bar">
               <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
               <div className="search-books-input-wrapper">
-                {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
 
                 <input type="text" placeholder="Search by title or author"
                   value={this.state.query}
@@ -192,7 +190,7 @@ class BooksApp extends Component {
                   <div key={title.id} className="bookshelf">
                     <h2 className="bookshelf-title">{title.name}</h2>
                     <div className="bookshelf-books">
-                      <Book onUpdateBookshelfTitle={this.updateBookshelfTitle} bookshelf_title={title.name} books={this.state.books}/>
+                      <Book onUpdateBookshelfTitle={this.updateBookshelfTitle} bookshelf_title={title.value} books={this.state.books}/>
                     </div>
                   </div>
                 ))}
