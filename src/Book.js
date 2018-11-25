@@ -3,6 +3,10 @@ import './App.css'
 
 class Book extends Component {
 
+  state = {
+    selectValue: 'Start'
+  }
+
   render() {
     return (
       <ol className="books-grid">
@@ -11,8 +15,8 @@ class Book extends Component {
             <div className="book">
               <div className="book-top">
                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: book.backgroundImage}}></div>
-                  <div onClick={() => this.props.onUpdateBookshelfTitle(book)} className="book-shelf-changer">
-                    <select>
+                  <div  className="book-shelf-changer">
+                    <select value={book.bookshelf_title_value} onChange={(e) => this.props.onUpdateBookshelfTitle(book, e.target.value)} >
                       <option value="move" disabled>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
@@ -31,5 +35,6 @@ class Book extends Component {
     )
   }
 }
-
+// onChange={() => this.props.onUpdateBookshelfTitle(book, this.option.value)}
+// onClick={() => this.props.onUpdateBookshelfTitle(book, 'Want to Read')}
 export default Book
