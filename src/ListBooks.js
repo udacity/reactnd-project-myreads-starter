@@ -90,7 +90,7 @@ class SearchBooks extends Component {
   ]
 
   updateBookshelfTitle = (book, selectBookshelfTitle) => {
-    // Get new bookshelf title 
+    // Get new bookshelf title
     let new_bookshelf_title = this.bookshelf_titles.filter((title) =>
     (title.value === selectBookshelfTitle))[0].name
     // Find index of this book.
@@ -101,6 +101,8 @@ class SearchBooks extends Component {
     let newBooks = this.state.books;
     // Change bookshelf title in this book in new array.
     newBooks[bookIndex].bookshelf_title = new_bookshelf_title
+    // Change bookshelf title value in this book in new array.
+    newBooks[bookIndex].bookshelf_title_value = selectBookshelfTitle
     // Set new book`s array.
     this.setState((state) => ({
       books: newBooks

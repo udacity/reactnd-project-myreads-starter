@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import './App.css'
+import PropTypes from 'prop-types';
+
 
 class Book extends Component {
-
-  state = {
-    selectValue: 'Start'
-  }
 
   render() {
     return (
@@ -35,6 +33,11 @@ class Book extends Component {
     )
   }
 }
-// onChange={() => this.props.onUpdateBookshelfTitle(book, this.option.value)}
-// onClick={() => this.props.onUpdateBookshelfTitle(book, 'Want to Read')}
+
+Book.propTypes = {
+  books: PropTypes.array.isRequired,
+  onUpdateBookshelfTitle: PropTypes.func.isRequired
+}
+
+
 export default Book
