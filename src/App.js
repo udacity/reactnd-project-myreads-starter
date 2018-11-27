@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as BooksAPI from './BooksAPI'
 import './App.css';
 import Book from './Book'
+import Search from './Search'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import {BrowserRouter} from 'react-router-dom'
@@ -85,49 +86,12 @@ class BooksApp extends Component {
     showingBooks.sort(sortBy('title'))
 
     return (
+
       <div className="app">
+
         {this.state.screen === 'search' && (
           <BrowserRouter>
-            <div className="search-books">
-              <div className="search-books-bar">
-                <Link to="/">
-                  <button className="close-search" onClick={() => this.setState({ screen: 'list' })}>Close</button>
-                </Link>
-                <div className="search-books-input-wrapper">
-
-                  <input type="text" placeholder="Search by title or author"
-                    value={this.state.query}
-                    onChange={(event) => this.updateQuery(event.target.value)}
-                  />
-
-                </div>
-              </div>
-              <div className="search-books-results">
-                <ol className="books-grid">
-                  {showingBooks.map((book) => (
-                    <li key={book.id}>
-                      <div className="book">
-                        <div className="book-top">
-                          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>
-                            <div  className="book-shelf-changer">
-                              <select value={book.bookshelf_title_value} onChange={(e) => this.props.onUpdateBookshelfTitle(book, e.target.value)} >
-                                <option value="move" disabled>Move to...</option>
-                                <option value="currentlyReading">Currently Reading</option>
-                                <option value="wantToRead">Want to Read</option>
-                                <option value="read">Read</option>
-                                <option value="none">None</option>
-                              </select>
-                            </div>
-
-                        </div>
-                        <div className="book-title">{book.title}</div>
-                        <div className="book-authors">{book.authors}</div>
-                      </div>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </div>
+            <Search/>
           </BrowserRouter>
 
         )}
@@ -158,9 +122,12 @@ class BooksApp extends Component {
             </div>
           </BrowserRouter>
         )}
+
       </div>
     )
+
   }
+
 }
 
 export default BooksApp
