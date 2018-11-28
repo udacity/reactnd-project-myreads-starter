@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import './App.css'
 import * as BooksAPI from './BooksAPI'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import App from './App'
@@ -39,11 +40,11 @@ class Search extends Component {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-        <Router path="/" component={App}>
+        <Route path="/" render={() => (
           <Link to="/">
             <button className="close-search" onClick={() => this.setState({ screen: 'list' })}>Close</button>
           </Link>
-        </Router>
+        )}/>
           <div className="search-books-input-wrapper">
 
             <input type="text" placeholder="Search by title or author"

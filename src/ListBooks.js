@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import './App.css'
 import * as BooksAPI from './BooksAPI'
-import './App.css';
-import Book from './Book'
-import Search from './Search'
-import ListBooks from './ListBooks'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import escapeRegExp from 'escape-string-regexp'
+import sortBy from 'sort-by'
+import App from './App'
+import Book from './Book'
 
-class BooksApp extends Component {
+class ListBooks extends Component {
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({books})
@@ -72,31 +71,36 @@ class BooksApp extends Component {
   updateQuery = (query) => {
     this.setState({ query: query.trim()})
   }
-
   render() {
-    const { query, books } = this.state
-
-    let showingBooks = books
-    if(query) {
-      const match = new RegExp(escapeRegExp(query), 'i')
-      showingBooks = books.filter((book) => match.test(book.title))
-    } else {
-      showingBooks = books
-    }
-
-    showingBooks.sort(sortBy('title'))
 
     return (
-      <div className="app">
-        <Route exact path="/search" render={() => (
-          <Search/>
-        )}/>
-        <Route exact path="/" render={() => (
-          <ListBooks/>
-        )}/>
+      <div className="list-books">
+
+        <div className="list-books-title">
+          <h1>MyReads</h1>
+        </div>
+        <div className="list-books-content">
+          <div>
+            {this.bookshelf_titles.map((title) => (
+              <div key={title.id} className="bookshelf">
+                <h2 className="bookshelf-title">{title.name}</h2>
+                <div className="bookshelf-books">
+                  <Book onUpdateBookshelfTitle={this.updateBookshelfTitle} bookshelf_title={title.value} books={this.state.books}/>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="open-search">
+          <Link to="/search">
+            <button onClick={() => this.setState({ screen: 'search' })}>Add a book</button>
+          </Link>
+        </div>
+
       </div>
     )
   }
 }
 
-export default BooksApp
+export default ListBooks
