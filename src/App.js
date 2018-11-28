@@ -5,8 +5,8 @@ import Book from './Book'
 import Search from './Search'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
-import {BrowserRouter} from 'react-router-dom'
-import {Link} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 
 class BooksApp extends Component {
   componentDidMount() {
@@ -90,14 +90,14 @@ class BooksApp extends Component {
       <div className="app">
 
         {this.state.screen === 'search' && (
-          <BrowserRouter>
+          <Route path="/search" render={() => (
             <Search/>
-          </BrowserRouter>
-
+          )}/>
         )}
         {this.state.screen === 'list' && (
-          <BrowserRouter>
+          <Route path="/" render={() => (
             <div className="list-books">
+
               <div className="list-books-title">
                 <h1>MyReads</h1>
               </div>
@@ -113,14 +113,20 @@ class BooksApp extends Component {
                   ))}
                 </div>
               </div>
+
               <div className="open-search">
                 <Link to="/search">
-
                   <button onClick={() => this.setState({ screen: 'search' })}>Add a book</button>
                 </Link>
               </div>
+
             </div>
-          </BrowserRouter>
+          )}/>
+
+
+
+
+
         )}
 
       </div>
