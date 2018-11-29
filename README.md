@@ -1,6 +1,5 @@
 # MyReads Project
-
-## TL;DR
+Bookshelf app that allows you to select and categorize books you have read, are currently reading, or want to read.
 
 To get started developing right away:
 
