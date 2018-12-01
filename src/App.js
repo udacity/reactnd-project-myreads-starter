@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import * as BooksAPI from './BooksAPI'
 import './App.css';
-import Book from './Book'
 import Search from './Search'
 import ListBooks from './ListBooks'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import { Route } from 'react-router-dom'
-import { Link } from 'react-router-dom'
 
 class BooksApp extends Component {
   componentDidMount() {

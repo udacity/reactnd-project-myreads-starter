@@ -5,7 +5,6 @@ import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
-import App from './App'
 
 class Search extends Component {
   componentDidMount() {
@@ -14,8 +13,7 @@ class Search extends Component {
     })
   }
   state = {
-    screen: 'list', // list, search
-    showSearchPage: false,
+    screen: 'list',
     query: '',
 
     books: []
@@ -66,6 +64,11 @@ class Search extends Component {
     BooksAPI.update(book, selectBookshelfTitle)
   }
 
+  // There are books that do not have thumbnail and their imageLinks object will be null.
+  // Checking the object before using it.
+  getImage = (book, imageLinks) => (
+      imageLinks !== null ? book.imageLinks.thumbnail : ''
+  )
 
   updateQuery = (query) => {
     this.setState({ query: query.trim()})
@@ -105,7 +108,7 @@ class Search extends Component {
               <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
-                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>
+                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.getImage(book, book.imageLinks.thumbnail)})`}}></div>
                       <div  className="book-shelf-changer">
                         <select value={book.shelf} onChange={(e) => this.updateBookshelfTitle(book, e.target.value)} >
                           <option value="move" disabled>Move to...</option>

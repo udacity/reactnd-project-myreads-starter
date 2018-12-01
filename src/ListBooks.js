@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
 import './App.css'
 import * as BooksAPI from './BooksAPI'
-import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
-import App from './App'
 import Book from './Book'
 
 class ListBooks extends Component {
