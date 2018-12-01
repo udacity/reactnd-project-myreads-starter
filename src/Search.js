@@ -3,8 +3,6 @@ import './App.css'
 import * as BooksAPI from './BooksAPI'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
 
 class Search extends Component {
   componentDidMount() {
@@ -15,7 +13,7 @@ class Search extends Component {
   state = {
     screen: 'list',
     query: '',
-
+    searchBooks: [],
     books: []
   }
 
@@ -43,47 +41,45 @@ class Search extends Component {
   ]
 
   updateBookshelfTitle = (book, selectBookshelfTitle) => {
-    // Get new bookshelf title
-    let new_bookshelf_title = this.bookshelf_titles.filter((title) =>
-    (title.value === selectBookshelfTitle))[0].name
-    // Find index of this book.
-    let bookIndex = this.state.books.findIndex((b) => (
-      b.id === book.id
-    ))
-    // Create new book`s array
-    let newBooks = this.state.books;
-    // Change bookshelf title in this book in new array.
-    newBooks[bookIndex].bookshelf_title = new_bookshelf_title
-    // Change bookshelf title value in this book in new array.
-    newBooks[bookIndex].shelf = selectBookshelfTitle
-    // Set new book`s array.
-    this.setState((state) => ({
-      books: newBooks
-    }))
     // Update in API
     BooksAPI.update(book, selectBookshelfTitle)
   }
 
   // There are books that do not have thumbnail and their imageLinks object will be null.
   // Checking the object before using it.
-  getImage = (book, imageLinks) => (
-      imageLinks !== null ? book.imageLinks.thumbnail : ''
+  getImage = (book) => (
+    book.imageLinks !== undefined ? book.imageLinks.thumbnail : ''
   )
 
   updateQuery = (query) => {
     this.setState({ query: query.trim()})
   }
+
+
   render() {
-    const { query, books } = this.state
-    let showingBooks = books
-    if(query) {
-      const match = new RegExp(escapeRegExp(query), 'i')
-      showingBooks = books.filter((book) => match.test(book.title))
+    // look for books in the Book API (search).
+    const {query, books, searchBooks} = this.state
+    let showingBooks
+    if (query) {
+      BooksAPI.search(query).then((searchBooks) => {
+        if (Array.isArray(searchBooks)) {
+          this.setState({searchBooks})
+        } else {
+          let searchBooks = []
+          this.setState({searchBooks})
+        }
+      }).catch(function(error) {
+        console.log('error in searchBooks: ' + error);
+        showingBooks = books
+      })
+      if (searchBooks !== undefined) {
+        showingBooks = searchBooks
+      } else {
+        showingBooks = books
+      }
     } else {
       showingBooks = books
     }
-
-    showingBooks.sort(sortBy('title'))
 
     return (
       <div className="search-books">
@@ -108,7 +104,7 @@ class Search extends Component {
               <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
-                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.getImage(book, book.imageLinks.thumbnail)})`}}></div>
+                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.getImage(book)})`}}></div>
                       <div  className="book-shelf-changer">
                         <select value={book.shelf} onChange={(e) => this.updateBookshelfTitle(book, e.target.value)} >
                           <option value="move" disabled>Move to...</option>
