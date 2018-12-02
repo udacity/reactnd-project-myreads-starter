@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway|Work+Sans:700');
+
 html, body, .root {
   height: 100%;
 }
 
 body {
   line-height: 1.5;
+  font-family: 'Raleway', sans-serif !important;
 }
 
 body, .app {
@@ -14,14 +17,18 @@ body, .app {
 
 .list-books-title {
   padding: 10px 0;
-  background: #2e7c31;
+  background: #c6edf7;
   text-align: center;
 }
 
 .list-books-title h1 {
   font-weight: 400;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
   margin: 0;
-  color: white;
+  color: black;
 }
 
 .list-books-content {
@@ -41,6 +48,9 @@ body, .app {
 
 .bookshelf-title {
   border-bottom: 1px solid #dedede;
+  text-align: center;
+  font-size: 20px;
+  
 }
 
 .bookshelf-books {
@@ -53,12 +63,12 @@ body, .app {
   bottom: 25px;
 }
 
-.open-search button {
+.open-search a {
   display: block;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #2e7d32;
+  background: #c6edf7;
   background-image: url('./icons/add.svg');
   background-repeat: no-repeat;
   background-position: center;
@@ -169,7 +179,7 @@ button:active {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #60ac5d;
+  background: #000000;
   background-image: url('./icons/arrow-drop-down.svg');
   background-repeat: no-repeat;
   background-position: center;
