@@ -116,6 +116,7 @@ body, .app {
   height: 53px;
   background-image: url('./icons/arrow-back.svg');
   background-position: center;
+  background-color: white;
   background-repeat: no-repeat;
   background-size: 28px;
   font-size: 0;
