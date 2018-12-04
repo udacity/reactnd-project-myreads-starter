@@ -96,8 +96,17 @@ class Search extends Component {
                                 
                             </div>
                         </li>
-                        ))} 
+                        )) 
+                    } 
                     </ol>
+
+                    {
+                        results.error === "empty query" &&
+                            <div className="no-results-div"> 
+                                <p>No Results </p>
+                            </div>
+                        
+                    }
                 </div>
           </div>
         )

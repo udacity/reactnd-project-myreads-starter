@@ -207,3 +207,11 @@ button:active {
   text-align: center;
   font-size: 0.8em;
 }
+
+/* Handle empty search results */
+.no-results-div p{
+  text-align: center;
+  padding-top: 25vh;
+  font-size: 30px;
+  color: #999;
+}

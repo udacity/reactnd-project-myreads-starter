@@ -58,6 +58,7 @@ class Main extends Component {
                                                 <div className="book-title">{book.title}</div>
                                                 <div className="book-authors">
                                                 {
+                                                    book.authors !== undefined && 
                                                     book.authors.map((author, i) => (
                                                         book.authors.length - 1  !== i ? author + ", " : author 
                                                     ))
@@ -99,6 +100,7 @@ class Main extends Component {
                                                 <div className="book-title">{book.title}</div>
                                                 <div className="book-authors">
                                                 {
+                                                    book.authors !== undefined && 
                                                     book.authors.map((author, i) => (
                                                         book.authors.length - 1  !== i ? author + ", " : author 
                                                     ))
@@ -140,6 +142,7 @@ class Main extends Component {
                                                 <div className="book-title">{book.title}</div>
                                                 <div className="book-authors">
                                                 {
+                                                    book.authors !== undefined && 
                                                     book.authors.map((author, i) => (
                                                         book.authors.length - 1  !== i ? author + ", " : author 
                                                     ))
