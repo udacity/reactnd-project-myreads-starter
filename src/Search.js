@@ -11,10 +11,25 @@ class Search extends Component {
 
     state = {
         searched: [],
-        //query: ''
+        query: ''
     }
 
-    searchBooks = (query) => {  
+    updateQuery = (query) => {
+        this.setState(() => ({
+          query: query.trim()
+        }))
+    }
+
+    updateResult = () => {
+        this.setState(() => ({
+            searched: []
+        }))
+    }
+
+    searchBooks = (query) => { 
+        
+        this.updateQuery(query)
+        this.updateResult()
 
         if(query.trim().length > 0){
 
@@ -39,7 +54,9 @@ class Search extends Component {
 
         const { onUpdateShelf, books } = this.props
 
-        const results = this.state.searched;
+        const query = this.state.query
+
+        const results = this.state.searched     
 
         return (
             <div className="search-books">
@@ -61,7 +78,7 @@ class Search extends Component {
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                    { results.length > 0 && 
+                    { results.length > 0 && query.trim().length > 0 && 
                     results.map((book) => (
                         <li key = {book.id} >
                             <div className="book">
@@ -73,7 +90,7 @@ class Search extends Component {
                                     }
                                     <div className="book-shelf-changer">
                                     
-                                    <select onChange = {(e) => onUpdateShelf(book, e.target.value)} value={ books.findIndex(x => x.id == book.id) >= 0 ? books[books.findIndex(x => x.id == book.id)].shelf : 'none'  }>
+                                    <select onChange = {(e) => onUpdateShelf(book, e.target.value)} value={ books.findIndex(x => x.id === book.id) >= 0 ? books[books.findIndex(x => x.id === book.id)].shelf : 'none'  }>
                                         <option value="move" disabled>Move to...</option>
                                         <option value="currentlyReading">Currently Reading</option>
                                         <option value="wantToRead">Want to Read</option>
