@@ -14,7 +14,7 @@ class BooksApp extends React.Component {
   componentDidMount(){
     BooksAPI.getAll()
     .then((books) => {
-        //console.log(books);
+        console.log(books);
         this.setState(() => ({
             books
         }))
@@ -51,6 +51,7 @@ class BooksApp extends React.Component {
           )} />
           <Route path='/search' render={() => (
             <Search
+              books={this.state.books}
               onUpdateShelf={this.updateShelf}
               /*
               onCreateContact={(contact) => {
