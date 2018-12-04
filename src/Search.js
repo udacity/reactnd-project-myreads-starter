@@ -29,13 +29,13 @@ class Search extends Component {
     searchBooks = (query) => { 
         
         this.updateQuery(query)
-        this.updateResult()
+        this.updateResult()     //reset state on every search. That's how I could get search to work properly
 
         if(query.trim().length > 0){
 
-            BooksAPI.search(query).
-            then((searched) => {
-                console.log(searched)
+            BooksAPI.search(query)
+            .then((searched) => {
+                //console.log(searched)
                 this.setState(() => ({
                     searched
                 }))
