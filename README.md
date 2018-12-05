@@ -29,7 +29,7 @@ The application consists of two pages.
  Step 3: Start the development server 
  ```npm start```
  
- N.B: Internet access is important for the search page to work as the API is not hosted locally
+ **N.B: Internet access is important for the search page to work as the API is not hosted locally**
  
  
  
