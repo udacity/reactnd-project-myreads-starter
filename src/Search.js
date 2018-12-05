@@ -11,34 +11,23 @@ class Search extends Component {
     })
   }
   state = {
-    screen: 'list',
     query: '',
     searchBooks: [],
-    books: []
+    books: [],
+    showingBooks: []
   }
 
-  bookshelf_titles = [
-    {
-      id: 0,
-      name: 'Currently Reading',
-      value: 'currentlyReading'
-    },
-    {
-      id: 1,
-      name: 'Want to Read',
-      value: 'wantToRead'
-    },
-    {
-      id: 2,
-      name: 'Read',
-      value: 'read'
-    },
-    {
-      id: 3,
-      name: 'None',
-      value: 'none'
+  // Get book shelf or return none.
+  getBookShelf = (book) => {
+    console.log('book.shelf: ' + book.shelf);
+    if (book.shelf !== undefined) {
+      console.log('book.shelf !== undefined');
+      return book.shelf
+    } else {
+      console.log('None');
+      return 'none'
     }
-  ]
+  }
 
   updateBookshelfTitle = (book, selectBookshelfTitle) => {
     // Update in API
@@ -52,41 +41,55 @@ class Search extends Component {
   )
 
   updateQuery = (query) => {
-    this.setState({ query: query.trim()})
-  }
+    this.setState({query})
 
-
-  render() {
     // look for books in the Book API (search).
-    const {query, books, searchBooks} = this.state
-    let showingBooks
+    let {books, searchBooks} = this.state
     if (query) {
+      console.log('query: ' + query);
+      query = query.trim()
       BooksAPI.search(query).then((searchBooks) => {
         if (Array.isArray(searchBooks)) {
           this.setState({searchBooks})
         } else {
-          let searchBooks = []
-          this.setState({searchBooks})
+          // let searchBooks = books
+          console.log('searchBooks is NOT array');
+          this.setState({searchBooks: books})
         }
       }).catch(function(error) {
         console.log('error in searchBooks: ' + error);
-        showingBooks = books
+        // showingBooks = books
+        this.setState({searchBooks: books})
       })
+
       if (searchBooks !== undefined) {
-        showingBooks = searchBooks
+        console.log('searchBooks is NOT undefined');
+        // showingBooks = searchBooks
+        console.log('searchBooks: ' + searchBooks);
+        this.setState({searchBooks: searchBooks})
       } else {
-        showingBooks = books
+        console.log('searchBooks is undefined');
+        // showingBooks = books
+        this.setState({searchBooks: books})
       }
     } else {
-      showingBooks = books
+      console.log('query false');
+      // showingBooks = books
+      this.setState({searchBooks: []})
     }
+    // Search results are not shown when all of the text is deleted out of the
+    // search input box.
+    if (query === '') {this.setState({searchBooks: []})}
+  }
 
+
+  render() {
     return (
       <div className="search-books">
         <div className="search-books-bar">
         <Route path="/" render={() => (
           <Link to="/">
-            <button className="close-search" onClick={() => this.setState({ screen: 'list' })}>Close</button>
+            <button className="close-search">Close</button>
           </Link>
         )}/>
           <div className="search-books-input-wrapper">
@@ -100,13 +103,13 @@ class Search extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {showingBooks.map((book) => (
+            {this.state.searchBooks.map((book) => (
               <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.getImage(book)})`}}></div>
                       <div  className="book-shelf-changer">
-                        <select value={book.shelf} onChange={(e) => this.updateBookshelfTitle(book, e.target.value)} >
+                        <select value={this.getBookShelf(book)} onChange={(e) => this.updateBookshelfTitle(book, e.target.value)} >
                           <option value="move" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>

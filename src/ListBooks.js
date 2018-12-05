@@ -33,11 +33,6 @@ class ListBooks extends Component {
       id: 2,
       name: 'Read',
       value: 'read'
-    },
-    {
-      id: 3,
-      name: 'None',
-      value: 'none'
     }
   ]
 
@@ -63,10 +58,6 @@ class ListBooks extends Component {
     BooksAPI.update(book, selectBookshelfTitle)
   }
 
-
-  updateQuery = (query) => {
-    this.setState({ query: query.trim()})
-  }
   render() {
 
     return (
@@ -90,7 +81,7 @@ class ListBooks extends Component {
 
         <div className="open-search">
           <Link to="/search">
-            <button onClick={() => this.setState({ screen: 'search' })}>Add a book</button>
+            <button>Add a book</button>
           </Link>
         </div>
 
