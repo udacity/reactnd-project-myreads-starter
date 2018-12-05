@@ -10,6 +10,7 @@ class Search extends Component {
       this.setState({books})
     })
   }
+  
   state = {
     query: '',
     searchBooks: [],
@@ -46,35 +47,34 @@ class Search extends Component {
     // look for books in the Book API (search).
     let {books, searchBooks} = this.state
     if (query) {
-      console.log('query: ' + query);
+      // Clean query before search.
       query = query.trim()
+      // Search in API.
       BooksAPI.search(query).then((searchBooks) => {
+        // Check if result of search is array.
+        // If it will be no array, we will trouble in showing books.
         if (Array.isArray(searchBooks)) {
+          // searchBooks is array
           this.setState({searchBooks})
         } else {
-          // let searchBooks = books
-          console.log('searchBooks is NOT array');
+          // searchBooks is NOT array
           this.setState({searchBooks: books})
         }
       }).catch(function(error) {
+        // error in searchBooks
         console.log('error in searchBooks: ' + error);
-        // showingBooks = books
         this.setState({searchBooks: books})
       })
 
       if (searchBooks !== undefined) {
-        console.log('searchBooks is NOT undefined');
-        // showingBooks = searchBooks
-        console.log('searchBooks: ' + searchBooks);
-        this.setState({searchBooks: searchBooks})
+        // searchBooks is NOT undefined
+        this.setState({searchBooks: []})
       } else {
-        console.log('searchBooks is undefined');
-        // showingBooks = books
-        this.setState({searchBooks: books})
+        // searchBooks is undefined
+        this.setState({searchBooks: []})
       }
     } else {
-      console.log('query false');
-      // showingBooks = books
+      // Query false.
       this.setState({searchBooks: []})
     }
     // Search results are not shown when all of the text is deleted out of the
