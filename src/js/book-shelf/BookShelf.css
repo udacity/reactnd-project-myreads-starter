@@ -1,0 +1,54 @@
+.list-books-title {
+    padding: 10px 0;
+    background: #2e7c31;
+    text-align: center;
+}
+
+.list-books-title h1 {
+    font-weight: 400;
+    margin: 0;
+    color: white;
+}
+
+.list-books-content {
+    padding: 0 0 80px;
+    flex: 1;
+}
+
+.bookshelf {
+    padding: 0 10px 20px;
+}
+
+@media (min-width: 600px) {
+    .bookshelf {
+        padding: 0 20px 40px;
+    }
+}
+
+.bookshelf-title {
+    border-bottom: 1px solid #dedede;
+}
+
+.bookshelf-books {
+    text-align: center;
+}
+
+.open-search {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+}
+
+.open-search a {
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #2e7d32;
+    background-image: url("./../../icons/add.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 28px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    font-size: 0;
+}

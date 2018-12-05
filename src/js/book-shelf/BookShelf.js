@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Book from "./../book/Book";
-import "./../../css/App.css";
+import "./BookShelf.css";
 
 class BooksApp extends React.Component {
   render() {

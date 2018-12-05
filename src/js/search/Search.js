@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Debounce } from "react-throttle";
 import { Link } from "react-router-dom";
+import "./Search.css";
 import Book from "./../book/Book";
 import * as BooksAPI from "./../service/BooksAPI";
 

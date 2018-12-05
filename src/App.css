@@ -1,0 +1,12 @@
+html,
+body,
+.root {
+  height: 100%;
+}
+body {
+  line-height: 1.5;
+}
+body,
+.app {
+  background: white;
+}

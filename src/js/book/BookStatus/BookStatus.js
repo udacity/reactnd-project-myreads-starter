@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import "./BookStatus.css";
 
 class BookStatus extends Component {
-  state = { 
-    value: "" 
+  state = {
+    value: ""
   };
 
   handleSelect(event) {

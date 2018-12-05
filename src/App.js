@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import BookShelf from "./js/book-shelf/BookShelf";
 import Search from "./js/search/Search";
 import * as BooksAPI from "./js/service/BooksAPI";
-import "./css/index.css";
+import "./App.css";
 
 class BooksApp extends React.Component {
   state = {
