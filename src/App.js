@@ -9,12 +9,8 @@ class BooksApp extends Component {
   render() {
     return (
       <div className="app">
-        <Route exact path="/search" render={() => (
-          <Search/>
-        )}/>
-        <Route exact path="/" render={() => (
-          <ListBooks/>
-        )}/>
+        <Route exact path="/search" component={Search}/>
+        <Route exact path="/" component={ListBooks}/>
       </div>
     )
   }
