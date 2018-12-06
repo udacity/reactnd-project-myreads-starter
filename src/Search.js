@@ -10,7 +10,7 @@ class Search extends Component {
       this.setState({books})
     })
   }
-  
+
   state = {
     query: '',
     searchBooks: [],
@@ -20,15 +20,30 @@ class Search extends Component {
 
   // Get book shelf or return none.
   getBookShelf = (book) => {
-    console.log('book.shelf: ' + book.shelf);
     if (book.shelf !== undefined) {
-      console.log('book.shelf !== undefined');
       return book.shelf
     } else {
-      console.log('None');
       return 'none'
     }
   }
+
+  bookshelf_titles = [
+    {
+      id: 0,
+      name: 'Currently Reading',
+      value: 'currentlyReading'
+    },
+    {
+      id: 1,
+      name: 'Want to Read',
+      value: 'wantToRead'
+    },
+    {
+      id: 2,
+      name: 'Read',
+      value: 'read'
+    }
+  ]
 
   updateBookshelfTitle = (book, selectBookshelfTitle) => {
     // Update in API
@@ -54,11 +69,18 @@ class Search extends Component {
         // Check if result of search is array.
         // If it will be no array, we will trouble in showing books.
         if (Array.isArray(searchBooks)) {
+          // Change shelf values.
+          searchBooks.map((searchBook) => {
+              searchBook.shelf = 'none'
+              return this.state.books.map((book) => {
+                return searchBook.id === book.id ? searchBook.shelf = book.shelf : ""
+              })
+          })
           // searchBooks is array
           this.setState({searchBooks})
         } else {
           // searchBooks is NOT array
-          this.setState({searchBooks: books})
+          this.setState({searchBooks: []})
         }
       }).catch(function(error) {
         // error in searchBooks

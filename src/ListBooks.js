@@ -10,11 +10,8 @@ class ListBooks extends Component {
       this.setState({books})
     })
   }
-  state = {
-    screen: 'list', // list, search
-    showSearchPage: false,
-    query: '',
 
+  state = {
     books: []
   }
 
@@ -59,10 +56,8 @@ class ListBooks extends Component {
   }
 
   render() {
-
     return (
       <div className="list-books">
-
         <div className="list-books-title">
           <h1>MyReads</h1>
         </div>
@@ -84,7 +79,6 @@ class ListBooks extends Component {
             <button>Add a book</button>
           </Link>
         </div>
-
       </div>
     )
   }
