@@ -44,21 +44,12 @@ class BooksApp extends React.Component {
             <Main
               books={this.state.books}
               onUpdateShelf={this.updateShelf}
-              /*
-              onDeleteContact={this.removeContact}
-              */
             />
           )} />
           <Route path='/search' render={() => (
             <Search
               books={this.state.books}
               onUpdateShelf={this.updateShelf}
-              /*
-              onCreateContact={(contact) => {
-                this.createContact(contact)
-                history.push('/')
-              }}
-              */
             />
           )} />
         </div>

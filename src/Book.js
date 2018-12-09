@@ -13,10 +13,11 @@ class Book extends Component {
         const { onUpdateShelf, book } = this.props
 
         return(
-            <li key = {book.id} >
+            <li>
                 <div className="book">
                     <div className="book-top">
                         {
+                            //show thumbnail of book exists. If it doesn't show a gray background
                             book.imageLinks !== undefined ?
                                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url( ' + book.imageLinks.thumbnail + ')' }}></div>
                             : <div className="book-cover" style={{ width: 128, height: 193, background: 'gray' }}></div>

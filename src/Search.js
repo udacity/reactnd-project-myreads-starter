@@ -10,42 +10,39 @@ class Search extends Component {
     }
 
     state = {
-        searched: [],
+        results: [],
         query: ''
     }
 
-    updateQuery = (query) => {
+    updateResult = (result) => {
         this.setState(() => ({
-          query: query.trim()
+            results: result
         }))
     }
 
-    updateResult = () => {
+    updateQuery = (q) => {
         this.setState(() => ({
-            searched: []
+            query: q
         }))
     }
 
     searchBooks = (query) => { 
         
-        this.updateQuery(query)
-        this.updateResult()     //reset state on every search. That's how I could get search to work properly
+        this.updateResult([]) 
+        this.updateQuery(query)    
+        //reset state on every search. That's how I could get search to work properly
 
         if(query.trim().length > 0){
 
             BooksAPI.search(query)
-            .then((searched) => {
-                //console.log(searched)
-                this.setState(() => ({
-                    searched
-                }))
+            .then((results) => {
+                //console.log(results)
+                this.updateResult(results) 
         
             })
 
         }else{
-            this.setState(() => ({
-                searched : []
-            }))
+            this.updateResult([]) 
         } 
         
     }
@@ -54,9 +51,7 @@ class Search extends Component {
 
         const { onUpdateShelf, books } = this.props
 
-        const query = this.state.query
-
-        const results = this.state.searched     
+        const { results, query } = this.state     
 
         return (
             <div className="search-books">
@@ -78,8 +73,11 @@ class Search extends Component {
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                    { results.length > 0 && query.trim().length > 0 && 
-                    results.map((book) => (
+                    { 
+                        //Show only if results are returned and there is a valid query string
+                        results.length > 0 && 
+                        query.length > 0 &&
+                        results.map((book) => (
                         <li key = {book.id} >
                             <div className="book">
                                 <div className="book-top">
@@ -89,8 +87,17 @@ class Search extends Component {
                                         : <div className="book-cover" style={{ width: 128, height: 193, background: 'gray' }}></div>
                                     }
                                     <div className="book-shelf-changer">
-                                    
-                                    <select onChange = {(e) => onUpdateShelf(book, e.target.value)} value={ books.findIndex(x => x.id === book.id) >= 0 ? books[books.findIndex(x => x.id === book.id)].shelf : 'none'  }>
+                                    <select 
+                                        onChange = {(e) => onUpdateShelf(book, e.target.value)} 
+                                        value = { 
+                                            //check if the book exists in the shelf. 
+                                            //If so, set the value of the select to the shelf status.
+                                            //If not, set the value to none.
+                                            books.findIndex(x => x.id === book.id) >= 0 
+                                            ? books[books.findIndex(x => x.id === book.id)].shelf 
+                                            : 'none'  
+                                        }
+                                        >
                                         <option value="move" disabled>Move to...</option>
                                         <option value="currentlyReading">Currently Reading</option>
                                         <option value="wantToRead">Want to Read</option>
@@ -102,12 +109,10 @@ class Search extends Component {
                                 <div className="book-title">{book.title}</div>
                                 <div className="book-authors">
                                 { 
-                                    
                                     book.authors !== undefined && 
                                     book.authors.map((author, i) => (
                                         book.authors.length - 1  !== i ? author + ", " : author 
                                     ))
-                                    
                                 }
                                 </div>
                                 
@@ -117,11 +122,12 @@ class Search extends Component {
                     } 
                     </ol>
 
-                    {
+                    {   
+                        //Show only if results are not returned
                         results.error === "empty query" &&
-                            <div className="no-results-div"> 
-                                <p>No Results </p>
-                            </div>
+                        <div className="no-results-div"> 
+                            <p>No Results </p>
+                        </div>
                         
                     }
                 </div>
