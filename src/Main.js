@@ -76,8 +76,8 @@ class Main extends Component {
                                     { read.map((book) => (
                                         <Book
                                             key = {book.id}
-                                            book={book}
-                                            onUpdateShelf={onUpdateShelf}
+                                            book = {book}
+                                            onUpdateShelf = {onUpdateShelf}
                                         />
                                     ))} 
                                     </ol>
