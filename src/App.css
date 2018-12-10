@@ -53,7 +53,7 @@ body, .app {
   bottom: 25px;
 }
 
-.open-search button {
+.open-search a {
   display: block;
   width: 50px;
   height: 50px;
@@ -68,7 +68,7 @@ body, .app {
   outline: 0;
 }
 
-.open-search button:hover {
+.open-search a:hover {
   background-color: rgb(0, 102, 0);
 }
 
