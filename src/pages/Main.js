@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { getAll } from '../BooksAPI'
 import Book from '../components/Book'
+import BookShelf from '../components/BookShelf'
 
 export class Main extends Component {
   state = { books: [] }
@@ -10,8 +11,15 @@ export class Main extends Component {
       .catch(error => console.log('error', error))
   }
 
-  render() {
+  filterBooksByShelf = (shelf) => {
     const { books } = this.state;
+    return books.filter(book => book.shelf === shelf );
+  }
+
+  render() {
+    const currentlyReading = this.filterBooksByShelf('currentlyReading');
+    const wantToRead = this.filterBooksByShelf('wantToRead');
+    const read = this.filterBooksByShelf('read');
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -19,16 +27,9 @@ export class Main extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Currently Reading</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  {books.map(book => (
-                    <li key={book.id}><Book {...book} /></li>
-                  ))}
-                </ol>
-              </div>
-            </div>
+          <BookShelf bookList={currentlyReading} title={'Currently Reading'} />
+          <BookShelf bookList={wantToRead} title={'Want to Read'} />
+          <BookShelf bookList={read} title={'Read'} />
           </div>
         </div>
       </div>

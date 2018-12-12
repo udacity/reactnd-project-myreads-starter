@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 export default class Book extends Component {
   componentDidMount() {
-    console.log('holi')
+    console.log('holi', this.props)
   }
 
   render() {
