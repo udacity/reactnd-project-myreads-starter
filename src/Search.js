@@ -18,7 +18,7 @@ class Search extends React.Component {
 
     async callResults(query) {
         this.updateQuery(query);
-        let results = await search(query).then( results => {
+        let results = query && await search(query).then( results => {
             this.setState({
                 bookResults:  results
             });
