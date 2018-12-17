@@ -1,15 +1,12 @@
 import React from 'react';
-import { update } from './BooksAPI';
 
 class Book extends React.Component {
   state = {
     shelf: ""
   }
 
-
-
   render() {
-    const {book, onOptionChange} = this.props;
+    const {book} = this.props;
 
     return (
       <div>
