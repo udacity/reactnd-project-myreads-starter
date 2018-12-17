@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 
 export default class Book extends Component {
-  componentDidMount() {
-    console.log('holi', this.props)
+  handleOnChangeSelect = (event) => {
+    const { book, updateBook } = this.props;
+    const shelf = event.target.value;
+    if (shelf !== 'none') {
+      updateBook(book, shelf);
+    }
   }
 
   render() {
-    const { title, authors, imageLinks } = this.props
+    const { title, authors, imageLinks, shelf } = this.props.book;
     return (
       <div className="book">
         <div className="book-top">
@@ -19,18 +23,17 @@ export default class Book extends Component {
             }}
           />
           <div className="book-shelf-changer">
-            <select>
+            <select onChange={this.handleOnChangeSelect} value={shelf}>
               <option value="move" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
               <option value="read">Read</option>
               <option value="none">None</option>
-
             </select>
           </div>
         </div>
         <div className="book-title">{title}</div>
-        <div className="book-authors">{authors.join()}</div>
+        <div className="book-authors">{authors && authors.join()}</div>
       </div>
     )
   }
