@@ -15,10 +15,7 @@ class MainPage extends React.Component {
     }
 
     async onOptionChange (book, value) {
-        console.log(book)
-        console.log(value)
         await update(book, value);
-
         let apiBooks = await BooksAPI.getAll();
         this.setState({
           apiBooks
@@ -44,7 +41,6 @@ class MainPage extends React.Component {
         return filteredBooks;
     }
 
-
     render() {
         const { apiBooks } = this.state;
 
@@ -54,29 +50,22 @@ class MainPage extends React.Component {
                     <h1>MyReads</h1>
                 </div>
                 <div className="list-books-content">
-                    <div>
-
-                        <Bookshelf 
-                            bookshelfTitle={"Currently Reading"}
-                            books={this.getBooksByShelf(apiBooks, "currentlyReading")}
-                            onOptionChange={this.onOptionChange}
-                        />
-
-                        <Bookshelf 
-                            bookshelfTitle={"Want To Read"}
-                            books={this.getBooksByShelf(apiBooks, "wantToRead")}
-                            onOptionChange={this.onOptionChange}
-                        />
-
-                        <Bookshelf 
-                            bookshelfTitle={"Read"}
-                            books={this.getBooksByShelf(apiBooks, "read")}
-                            onOptionChange={this.onOptionChange}
-                        />
-
-                    </div>
+                    <Bookshelf 
+                        bookshelfTitle={"Currently Reading"}
+                        books={this.getBooksByShelf(apiBooks, "currentlyReading")}
+                        onOptionChange={this.onOptionChange}
+                    />
+                    <Bookshelf 
+                        bookshelfTitle={"Want To Read"}
+                        books={this.getBooksByShelf(apiBooks, "wantToRead")}
+                        onOptionChange={this.onOptionChange}
+                    />
+                    <Bookshelf 
+                        bookshelfTitle={"Read"}
+                        books={this.getBooksByShelf(apiBooks, "read")}
+                        onOptionChange={this.onOptionChange}
+                    />
                 </div>
-
                 <div className="open-search">
                     <Link to="/search">
                         <button>Add a book</button>
@@ -85,7 +74,6 @@ class MainPage extends React.Component {
             </div>
         );
     }
-
 }
 
 export default MainPage;
