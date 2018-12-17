@@ -16,7 +16,7 @@ class Bookshelf extends React.Component {
               {/* MAP THROUGH LIST OF BOOKS, WHICH ARE PASSED VIA PROPS */}
               {books.map( book => {
                 return (
-                  <li>
+                  <li key={book.title}>
                     {/* Below will become book component */}
                     <div className="book">
                       <div className="book-top">
