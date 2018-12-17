@@ -1,8 +1,8 @@
 import React from 'react';
+import Book from './Book';
 
 class Bookshelf extends React.Component {
   render() {
-    // props destrucuring
     const {bookshelfTitle, books} = this.props;
 
     return (
@@ -11,41 +11,21 @@ class Bookshelf extends React.Component {
           <h2 className="bookshelf-title">{bookshelfTitle}</h2>
           <div className="bookshelf-books">
             <ol className="books-grid">
-
-              {/* MAP THROUGH LIST OF BOOKS, WHICH ARE PASSED VIA PROPS */}
               {books.map( book => {
                 return (
                   <li key={book.title}>
-                    {/* Below will become book component */}
-                    <div className="book">
-                      <div className="book-top">
-                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                        {/* Below can probably be made its own component */}
-                        <div className="book-shelf-changer">
-                          <select>
-                            <option value="move" disabled>Move to...</option>
-                            <option value="currentlyReading">Currently Reading</option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="none">None</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="book-title">{book.title}</div>
-                      {book.authors.map(author => {
-                        return (<div key={author} className="book-authors">{author}</div>)
-                      })}
-                    </div>
+                    <Book 
+                      book={book}
+                    /> 
                   </li>
                 );
               })}
-              
             </ol>
           </div>
         </div>
       </div>
     );
   }
-}
+};
 
 export default Bookshelf;
