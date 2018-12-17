@@ -16,6 +16,7 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
+      {/* SEARCH COMPONENT BELOW */}
         {this.state.showSearchPage ? (
           <div className="search-books">
             <div className="search-books-bar">
@@ -44,6 +45,9 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
+              {/* Bookshelves live inside this div above */}
+
+                {/* FIRST BOOKSHELF INSTANCE */}
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
@@ -87,6 +91,8 @@ class BooksApp extends React.Component {
                     </ol>
                   </div>
                 </div>
+
+                {/* SECOND BOOKSHELF INSTANCE */}
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Want to Read</h2>
                   <div className="bookshelf-books">
@@ -130,6 +136,8 @@ class BooksApp extends React.Component {
                     </ol>
                   </div>
                 </div>
+
+                {/* THIRD BOOKSHELF INSTANCE */}
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Read</h2>
                   <div className="bookshelf-books">
@@ -193,6 +201,8 @@ class BooksApp extends React.Component {
                 </div>
               </div>
             </div>
+
+            {/* Search Button (navigates you) */}
             <div className="open-search">
               <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
             </div>
