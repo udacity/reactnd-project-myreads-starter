@@ -63,7 +63,7 @@ class MainPage extends React.Component {
                 </div>
 
                 <div className="open-search">
-                    <Link className="open-search" to="/search">
+                    <Link to="/search">
                         <button>Add a book</button>
                     </Link>
                 </div>
