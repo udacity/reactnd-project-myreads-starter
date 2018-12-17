@@ -18,7 +18,10 @@ class MainPage extends React.Component {
         });
     }
 
+
     render() {
+        const { apiBooks } = this.state;
+
         let sampleBookList = [
             {
               imageLinks: {
@@ -45,19 +48,21 @@ class MainPage extends React.Component {
                 </div>
                 <div className="list-books-content">
                     <div>
+
                         <Bookshelf 
-                            bookshelfTitle={"Sample Bookshelf"}
-                            books={sampleBookList}
+                            bookshelfTitle={"Currently Reading"}
+                            books={apiBooks}
                         />
 
                         <Bookshelf 
-                            bookshelfTitle={"Books from the API"}
-                            books={this.state.apiBooks}
+                            bookshelfTitle={"Want To Read"}
+                            books={apiBooks}
                         />
 
-                        {/* Bookshelves should be:
-                            Read, Currently Reading, Want to Read
-                        */}
+                        <Bookshelf 
+                            bookshelfTitle={"Read"}
+                            books={apiBooks}
+                        />
 
                     </div>
                 </div>
