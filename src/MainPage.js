@@ -21,13 +21,12 @@ class MainPage extends React.Component {
 
         let apiBooks = await BooksAPI.getAll();
         this.setState({
-          apiBooks: apiBooks
+          apiBooks
         });
       }
 
     async componentDidMount() {
         let apiBooks = await BooksAPI.getAll();
-        console.log(apiBooks)
     
         this.setState({
           apiBooks
@@ -37,8 +36,6 @@ class MainPage extends React.Component {
     getBooksByShelf = (books, bookshelfTitle) => {
         let filteredBooks = []
         books && books.forEach(book => {
-
-            console.log(book)
             if (book.shelf === bookshelfTitle) {
                 filteredBooks.push(book);
             }
