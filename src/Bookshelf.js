@@ -7,7 +7,6 @@ class Bookshelf extends React.Component {
 
     return (
       <div>
-        {/* FIRST BOOKSHELF INSTANCE */}
         <div className="bookshelf">
           <h2 className="bookshelf-title">{bookshelfTitle}</h2>
           <div className="bookshelf-books">
@@ -20,8 +19,7 @@ class Bookshelf extends React.Component {
                     {/* Below will become book component */}
                     <div className="book">
                       <div className="book-top">
-                        {/* Not sure if book url below is working as expected.. */}
-                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.url})` }}></div>
+                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                         {/* Below can probably be made its own component */}
                         <div className="book-shelf-changer">
                           <select>
@@ -34,7 +32,9 @@ class Bookshelf extends React.Component {
                         </div>
                       </div>
                       <div className="book-title">{book.title}</div>
-                      <div className="book-authors">{book.author}</div>
+                      {book.authors.map(author => {
+                        return (<div key={author} className="book-authors">{author}</div>)
+                      })}
                     </div>
                   </li>
                 );
