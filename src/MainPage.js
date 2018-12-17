@@ -17,7 +17,7 @@ class MainPage extends React.Component {
     async onOptionChange (book, value) {
         console.log(book)
         console.log(value)
-        update(book, value);
+        await update(book, value);
 
         let apiBooks = await BooksAPI.getAll();
         this.setState({
