@@ -13,7 +13,7 @@ class Bookshelf extends React.Component {
             <ol className="books-grid">
               {books && books.length > 0 && books.map( book => {
                 return (
-                  <li key={book.title}>
+                  <li key={`${book.title}_${book.id}`}>
                     <Book 
                       book={book}
                     /> 
