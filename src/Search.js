@@ -29,8 +29,7 @@ class Search extends React.Component {
             });
         }
 
-        console.log(query)
-        console.log(results)
+        console.log(query);
     }
 
     render() {
