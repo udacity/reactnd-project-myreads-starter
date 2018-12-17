@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { search } from './BooksAPI';
-import Book from './Book'
 import Bookshelf from './Bookshelf'
 
 class Search extends React.Component {
@@ -18,12 +17,18 @@ class Search extends React.Component {
 
     async callResults(query) {
         this.updateQuery(query);
-        let results = query && await search(query).then( results => {
+        let results = query && await search(query)
+            .then( results => {
+                this.setState({
+                    bookResults:  results
+                });
+            });
+        if (!query) {
             this.setState({
-                bookResults:  results
+                bookResults: []
             });
         }
-        );
+
         console.log(query)
         console.log(results)
     }
