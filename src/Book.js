@@ -1,8 +1,11 @@
 import React from 'react';
+import { update, getAll } from './BooksAPI';
 
 class Book extends React.Component {
-  onChange = (value) => {
+  async onChange (book, value) {
+    console.log(book)
     console.log(value)
+    update(book, value);
   }
 
   render() {
@@ -15,7 +18,7 @@ class Book extends React.Component {
             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks && book.imageLinks.thumbnail})` }}></div>
             {/* Below can probably be made its own component */}
             <div className="book-shelf-changer">
-              <select onChange={(event) => this.onChange(event.target.value)}>
+              <select onChange={(event) => this.onChange(book, event.target.value)}>
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
