@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { search } from './BooksAPI';
 import Bookshelf from './Bookshelf'
+import { update } from './BooksAPI';
 
 class Search extends React.Component {
     state = {
@@ -15,9 +16,15 @@ class Search extends React.Component {
         });
     } 
 
+    async onOptionChange (book, value) {
+        console.log(book)
+        console.log(value)
+        update(book, value);
+    }
+
     async callResults(query) {
         this.updateQuery(query);
-        let results = query && await search(query)
+        query && await search(query)
             .then( results => {
                 this.setState({
                     bookResults:  results
@@ -62,6 +69,7 @@ class Search extends React.Component {
                     <Bookshelf
                         bookshelfTitle="Search Results"
                         books={bookResults}
+                        onOptionChange={this.onOptionChange}
                     />
                 </div>
             </div>

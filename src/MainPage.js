@@ -2,41 +2,47 @@ import React from 'react';
 import Bookshelf from './Bookshelf';
 import * as BooksAPI from './BooksAPI'
 import { Link } from "react-router-dom";
+import { update } from './BooksAPI';
 
 
 class MainPage extends React.Component {
-    state = {
-        apiBooks: []
+    constructor(props) {
+        super(props)
+        this.state = {
+            apiBooks: []
+        }
+        this.onOptionChange = this.onOptionChange.bind(this);
     }
+
+    async onOptionChange (book, value) {
+        await update(book, value);
+        let apiBooks = await BooksAPI.getAll();
+        this.setState({
+          apiBooks
+        });
+      }
 
     async componentDidMount() {
         let apiBooks = await BooksAPI.getAll();
-        console.log(apiBooks)
     
         this.setState({
           apiBooks
         });
     }
 
-    render() {
-        let sampleBookList = [
-            {
-              imageLinks: {
-                smallThumbnail: "http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api",
-                thumbnail:"http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api"
-              },
-              title: "To Kill A Mockingbird",
-              authors: ["Harper Lee"]
-            },
-            {
-              imageLinks: {
-                smallThumbnail: "http://books.google.com/books/content?id=wrOQLV6xB-wC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72G3gA5A-Ka8XjOZGDFLAoUeMQBqZ9y-LCspZ2dzJTugcOcJ4C7FP0tDA8s1h9f480ISXuvYhA_ZpdvRArUL-mZyD4WW7CHyEqHYq9D3kGnrZCNiqxSRhry8TiFDCMWP61ujflB&source=gbs_api",
-                thumbnail:"http://books.google.com/books/content?id=wrOQLV6xB-wC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72G3gA5A-Ka8XjOZGDFLAoUeMQBqZ9y-LCspZ2dzJTugcOcJ4C7FP0tDA8s1h9f480ISXuvYhA_ZpdvRArUL-mZyD4WW7CHyEqHYq9D3kGnrZCNiqxSRhry8TiFDCMWP61ujflB&source=gbs_api"
-              },
-              title: "Harry Potter and the Sorcerer's Stone",
-              authors: ["J.K. Rowling"]
+    getBooksByShelf = (books, bookshelfTitle) => {
+        let filteredBooks = []
+        books && books.forEach(book => {
+            if (book.shelf === bookshelfTitle) {
+                filteredBooks.push(book);
             }
-          ];
+        });
+
+        return filteredBooks;
+    }
+
+    render() {
+        const { apiBooks } = this.state;
 
         return(
             <div className="list-books">
@@ -44,24 +50,22 @@ class MainPage extends React.Component {
                     <h1>MyReads</h1>
                 </div>
                 <div className="list-books-content">
-                    <div>
-                        <Bookshelf 
-                            bookshelfTitle={"Sample Bookshelf"}
-                            books={sampleBookList}
-                        />
-
-                        <Bookshelf 
-                            bookshelfTitle={"Books from the API"}
-                            books={this.state.apiBooks}
-                        />
-
-                        {/* Bookshelves should be:
-                            Read, Currently Reading, Want to Read
-                        */}
-
-                    </div>
+                    <Bookshelf 
+                        bookshelfTitle={"Currently Reading"}
+                        books={this.getBooksByShelf(apiBooks, "currentlyReading")}
+                        onOptionChange={this.onOptionChange}
+                    />
+                    <Bookshelf 
+                        bookshelfTitle={"Want To Read"}
+                        books={this.getBooksByShelf(apiBooks, "wantToRead")}
+                        onOptionChange={this.onOptionChange}
+                    />
+                    <Bookshelf 
+                        bookshelfTitle={"Read"}
+                        books={this.getBooksByShelf(apiBooks, "read")}
+                        onOptionChange={this.onOptionChange}
+                    />
                 </div>
-
                 <div className="open-search">
                     <Link to="/search">
                         <button>Add a book</button>
@@ -70,7 +74,6 @@ class MainPage extends React.Component {
             </div>
         );
     }
-
 }
 
 export default MainPage;
