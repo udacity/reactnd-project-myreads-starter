@@ -23,6 +23,7 @@ class MainPage extends React.Component {
         this.setState({
           apiBooks
         });
+        this.forceUpdate();
       }
 
     async componentDidMount() {
