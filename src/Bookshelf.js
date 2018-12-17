@@ -5,6 +5,9 @@ class Bookshelf extends React.Component {
   render() {
     const {bookshelfTitle, books} = this.props;
 
+    console.log(bookshelfTitle);
+    console.log(books);
+
     return (
       <div>
         <div className="bookshelf">
@@ -12,6 +15,8 @@ class Bookshelf extends React.Component {
           <div className="bookshelf-books">
             <ol className="books-grid">
               {books && books.length > 0 && books.map( book => {
+                console.log("ahhhhhhhhh")
+                console.log(books)
                 return (
                   <li key={`${book.title}_${book.id}`}>
                     <Book 
