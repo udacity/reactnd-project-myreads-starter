@@ -3,22 +3,24 @@ import React from 'react';
 class Bookshelf extends React.Component {
   render() {
     // props destrucuring
-    const {title, books} = this.props;
+    const {bookshelfTitle, books} = this.props;
 
     return (
       <div>
         {/* FIRST BOOKSHELF INSTANCE */}
         <div className="bookshelf">
-          <h2 className="bookshelf-title">{title}</h2>
+          <h2 className="bookshelf-title">{bookshelfTitle}</h2>
           <div className="bookshelf-books">
             <ol className="books-grid">
 
               {/* MAP THROUGH LIST OF BOOKS, WHICH ARE PASSED VIA PROPS */}
-              {books.forEach( book => {
+              {books.map( book => {
                 return (
                   <li>
+                    {/* Below will become book component */}
                     <div className="book">
                       <div className="book-top">
+                        {/* Not sure if book url below is working as expected.. */}
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.url})` }}></div>
                         {/* Below can probably be made its own component */}
                         <div className="book-shelf-changer">
@@ -45,3 +47,5 @@ class Bookshelf extends React.Component {
     );
   }
 }
+
+export default Bookshelf;
