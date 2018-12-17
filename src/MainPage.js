@@ -2,12 +2,28 @@ import React from 'react';
 import Bookshelf from './Bookshelf';
 import * as BooksAPI from './BooksAPI'
 import { Link } from "react-router-dom";
+import { update } from './BooksAPI';
 
 
 class MainPage extends React.Component {
-    state = {
-        apiBooks: []
+    constructor(props) {
+        super(props)
+        this.state = {
+            apiBooks: []
+        }
+        this.onOptionChange = this.onOptionChange.bind(this);
     }
+
+    async onOptionChange (book, value) {
+        console.log(book)
+        console.log(value)
+        update(book, value);
+
+        let apiBooks = await BooksAPI.getAll();
+        this.setState({
+          apiBooks: apiBooks
+        });
+      }
 
     async componentDidMount() {
         let apiBooks = await BooksAPI.getAll();
@@ -16,6 +32,19 @@ class MainPage extends React.Component {
         this.setState({
           apiBooks
         });
+    }
+
+    getBooksByShelf = (books, bookshelfTitle) => {
+        let filteredBooks = []
+        books && books.forEach(book => {
+
+            console.log(book)
+            if (book.shelf === bookshelfTitle) {
+                filteredBooks.push(book);
+            }
+        });
+
+        return filteredBooks;
     }
 
 
@@ -51,17 +80,20 @@ class MainPage extends React.Component {
 
                         <Bookshelf 
                             bookshelfTitle={"Currently Reading"}
-                            books={apiBooks}
+                            books={this.getBooksByShelf(apiBooks, "currentlyReading")}
+                            onOptionChange={this.onOptionChange}
                         />
 
                         <Bookshelf 
                             bookshelfTitle={"Want To Read"}
-                            books={apiBooks}
+                            books={this.getBooksByShelf(apiBooks, "wantToRead")}
+                            onOptionChange={this.onOptionChange}
                         />
 
                         <Bookshelf 
                             bookshelfTitle={"Read"}
-                            books={apiBooks}
+                            books={this.getBooksByShelf(apiBooks, "read")}
+                            onOptionChange={this.onOptionChange}
                         />
 
                     </div>
