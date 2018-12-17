@@ -1,6 +1,10 @@
 import React from 'react';
 
 class Book extends React.Component {
+  onChange = (value) => {
+    console.log(value)
+  }
+
   render() {
     const {book} = this.props;
 
@@ -11,7 +15,7 @@ class Book extends React.Component {
             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks && book.imageLinks.thumbnail})` }}></div>
             {/* Below can probably be made its own component */}
             <div className="book-shelf-changer">
-              <select>
+              <select onChange={(event) => this.onChange(event.target.value)}>
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
