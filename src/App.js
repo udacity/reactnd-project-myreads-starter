@@ -87,6 +87,10 @@ class BooksApp extends React.Component {
                   books={this.state.apiBooks}
                 />
 
+                {/* Bookshelves should be:
+                  Read, Currently Reading, Want to Read
+                */}
+
               </div>
             </div>
 
