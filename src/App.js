@@ -1,5 +1,5 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Bookshelf from './Bookshelf';
 
@@ -12,6 +12,11 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false
+  }
+
+  async componentDidMount() {
+    let apiBooks = await BooksAPI.getAll();
+    console.log(apiBooks)
   }
 
   render() {
@@ -28,6 +33,7 @@ class BooksApp extends React.Component {
         author: "J.K. Rowling"
       }
     ];
+
     return (
       <div className="app">
       {/* SEARCH COMPONENT BELOW */}
