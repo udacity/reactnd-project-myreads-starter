@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { search } from '../BooksAPI'
 import BookList from '../components/BookList'
 
-export class Search extends Component {
+export default class Search extends Component {
   state = {
     query: '',
     books: []
@@ -21,7 +23,7 @@ export class Search extends Component {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <button className="close-search">Close</button>
+          <Link to='/' className="close-search">Close</Link>
           <div className="search-books-input-wrapper">
             {/*
             NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -46,4 +48,6 @@ export class Search extends Component {
   }
 }
 
-export default Search
+Search.propTypes = {
+  updateBook: PropTypes.func.isRequired
+};

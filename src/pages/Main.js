@@ -1,17 +1,12 @@
 import React, { Component } from 'react'
-import { getAll } from '../BooksAPI'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import BookShelf from '../components/BookShelf'
 
-export class Main extends Component {
-  state = { books: [] }
-  componentDidMount() {
-    getAll()
-      .then(books => this.setState({ books }))
-      .catch(error => console.log('error', error))
-  }
+export default class Main extends Component {
 
   filterBooksByShelf = (shelf) => {
-    const { books } = this.state;
+    const { books } = this.props;
     return books.filter(book => book.shelf === shelf);
   }
 
@@ -32,9 +27,15 @@ export class Main extends Component {
             <BookShelf updateBook={updateBook} bookList={read} title={'Read'} />
           </div>
         </div>
+        <div className="open-search">
+          <Link to='/search'>Add a book</Link>
+        </div>
       </div>
     )
   }
 }
 
-export default Main
+Main.propTypes = {
+  books: PropTypes.array,
+  updateBook: PropTypes.func.isRequired
+};

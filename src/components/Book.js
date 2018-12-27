@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import PropTypes from 'prop-types'
 export default class Book extends Component {
   handleOnChangeSelect = (event) => {
     const { book, updateBook } = this.props;
@@ -38,3 +38,10 @@ export default class Book extends Component {
     )
   }
 }
+
+Book.propTypes = {
+  book: PropTypes.shape({
+    title: PropTypes.string, authors: PropTypes.array, imageLinks: PropTypes.object, shelf: PropTypes.string
+  }),
+  updateBook: PropTypes.func.isRequired
+};

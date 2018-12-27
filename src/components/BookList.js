@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Book from './Book'
 
-export class BookList extends Component {
+export default class BookList extends Component {
   render() {
     const { books, updateBook } = this.props
     return (
@@ -17,4 +18,7 @@ export class BookList extends Component {
   }
 }
 
-export default BookList
+BookList.propTypes = {
+  books: PropTypes.array,
+  updateBook: PropTypes.func.isRequired
+};

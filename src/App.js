@@ -1,12 +1,17 @@
 import React from 'react'
-import './App.css'
+import { Route } from 'react-router-dom'
+import { getAll, update } from './BooksAPI'
 import Main from '../src/pages/Main'
 import Search from '../src/pages/Search'
-import { getAll, update } from './BooksAPI'
-
+import './App.css'
 
 class BooksApp extends React.Component {
-  state = { showSearchPage: false }
+  state = { books: [] }
+
+  componentDidMount() {
+    getAll()
+      .then(books => this.setState({ books }))
+  }
 
   updateBook = (book, shelf) => {
     update(book, shelf).then(() => {
@@ -17,8 +22,17 @@ class BooksApp extends React.Component {
 
   render() {
     return (
-      <Main updateBook={this.updateBook} />
-      // <Search updateBook={this.updateBook} />
+      <div>
+        <Route exact path='/' render={()=>(
+          <Main books={this.state.books} updateBook={this.updateBook} />
+        )}/>
+        <Route path='/search' render={({ history })=>(
+          <Search updateBook={(book, shelf) => {
+            this.updateBook(book, shelf)
+            history.push('/')
+          }} />
+        )}/>
+      </div>
     )
   }
 }
