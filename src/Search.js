@@ -26,9 +26,11 @@ class Search extends React.Component {
         this.updateQuery(query);
         query && await search(query)
             .then( results => {
-                this.setState({
-                    bookResults:  results
-                });
+                if (query === this.state.query) {
+                    this.setState({
+                        bookResults:  results
+                    });
+                }
             });
         if (!query) {
             this.setState({
