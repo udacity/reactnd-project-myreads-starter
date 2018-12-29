@@ -1,9 +1,13 @@
 import React from 'react';
 
 class Book extends React.Component {
-    state = {
-        shelf: ""
-    }
+    // I don't think you need this below
+
+    // state = {
+    //     shelf: ""
+    // }
+
+    // books can't keep track of their shelf when searched, fix this
 
     render() {
         const { book } = this.props;
