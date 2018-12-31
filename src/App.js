@@ -2,10 +2,14 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Shelf from './components/Shelf'
+import SearchPage from './components/SearchPage'
+import escapeRegExp from 'escape-string-regexp'
+import sortBy from 'sort-by'
 
 class BooksApp extends React.Component {
     state = {
-      books: []
+      books: [],
+      showSearchPage: true
     }
 
     componentDidMount(){
@@ -15,10 +19,8 @@ class BooksApp extends React.Component {
         })
     }
 
-    
     updateShelf = (book, shelf) => { BooksAPI.update(book,shelf).then(()=>{
         book.shelf = shelf;
-        console.log(book.shelf)
         const reorderedBooks = this.state.books.filter((fb) => fb.id !== book.id).concat([book])
         this.setState({books: reorderedBooks})
     }) } 
@@ -27,6 +29,9 @@ class BooksApp extends React.Component {
 
         return (
             <div className="app">
+            {this.state.showSearchPage ? (
+                <SearchPage />
+                ) : (
                 <div className="list-books">
                     <div className="list-books-title">
                         <h1>MyReads</h1>
@@ -57,10 +62,12 @@ class BooksApp extends React.Component {
                                 />
                         </div>
                     </div>
-                </div>
+                </div> 
+            )}
             <div className="open-search">
                 <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
             </div>
+              
             </div>
             
         )}
