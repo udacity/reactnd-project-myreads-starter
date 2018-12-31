@@ -5,7 +5,6 @@ import * as BooksAPI from '.././BooksAPI'
 
 class SearchPage extends React.Component {
     state={
-        books:[],
         query: '',
         results: []
     }
@@ -18,25 +17,23 @@ class SearchPage extends React.Component {
     }
 
     getResults = (query) =>  {
-        if (query > 0) {
+        if (query) {
             BooksAPI.search(query).then((results) => {
                 this.setState({results: results})
-                console.log(results)
             })
         } else {
-            this.setState({ results: [] })
-            
+            this.setState({results: []});
+            this.setState({query: ''});
         }
         
     }
 
     render() {
-        
+
       return (
         <div className='search-books'>
             {/* <Searchbar /> */}
             <div className='search-books-bar'>
-                {JSON.stringify(this.state)}
                 <div className="search-books-input-wrapper">
                 <input
                 className=''
