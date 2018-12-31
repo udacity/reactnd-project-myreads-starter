@@ -1,15 +1,24 @@
 import React from 'react'
+import * as BooksAPI from '.././BooksAPI'
 
 class Searchbar extends React.Component {
     state = {
-        query: ''
+        query: '',
+        results: []
     }
 
     updateQuery = (query) => {
-        this.setState({ query: query.trim() })
+        this.setState({
+            query: query
+        })
     }
 
-
+    getResults = (query) =>  {
+        BooksAPI.search(query).then((results) => {
+            this.setState({results: results})
+        })
+    }
+    
     render() {
       return (
         <div className='search-books-bar'>
