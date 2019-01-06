@@ -65,7 +65,7 @@ class SearchPage extends Component {
                       <li key={result.id}>
                       <Book
                        book={result}
-                       shelf='none'
+                       value={result.shelf}
                        updateShelf={this.updateShelf}
                       />
                       </li>
