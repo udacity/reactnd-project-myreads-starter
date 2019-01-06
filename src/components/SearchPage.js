@@ -19,6 +19,9 @@ class SearchPage extends React.Component {
     getResults = (query) =>  {
         if (query) {
             BooksAPI.search(query).then((results) => {
+                if (results.error) {
+                    return this.setState({results: []});
+                  }
                 this.setState({results: results})
             })
         } else {
