@@ -29,8 +29,10 @@ class SearchPage extends React.Component {
 
     updateShelf = (result, shelf) => { BooksAPI.update(result,shelf).then(()=>{
         result.shelf = shelf;
-        const reorderedBooks = this.state.results.filter((fb) => fb.id !== result.id).concat([result])
+        const reorderedBooks = this.state.results.filter((fb) => fb.id !== result.id).splice([result])
         this.setState({results: reorderedBooks})
+
+
     }) } 
 
     render() {
