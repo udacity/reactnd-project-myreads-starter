@@ -18,7 +18,6 @@ function Book(props) {
         //props.shelf({shelf: event.target.value});
         props.updateShelf(props.book, event.target.value)
         event.preventDefault();
-        
       }
 
         return(

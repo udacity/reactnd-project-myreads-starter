@@ -25,8 +25,13 @@ class SearchPage extends React.Component {
             this.setState({results: []});
             this.setState({query: ''});
         }
-        
     }
+
+    updateShelf = (result, shelf) => { BooksAPI.update(result,shelf).then(()=>{
+        result.shelf = shelf;
+        const reorderedBooks = this.state.results.filter((fb) => fb.id !== result.id).concat([result])
+        this.setState({results: reorderedBooks})
+    }) } 
 
     render() {
 
@@ -50,6 +55,8 @@ class SearchPage extends React.Component {
                       <li key={result.id}>
                       <Book
                        book={result}
+                       shelf='none'
+                       updateShelf={this.updateShelf}
                       />
                       </li>
                   )) 

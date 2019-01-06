@@ -9,7 +9,7 @@ import sortBy from 'sort-by'
 class BooksApp extends React.Component {
     state = {
       books: [],
-      showSearchPage: true
+      showSearchPage: false
     }
 
     componentDidMount(){
