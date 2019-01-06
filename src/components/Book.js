@@ -26,12 +26,12 @@ function Book(props) {
                 <div className="book-cover" style={style}>
                 <img src={style.backgroundImage} style={style} alt={props.book.title} /></div>
                 <div className="book-shelf-changer">
-                    <select value={props.shelf} onChange={changeToShelf}>
-                    <option value="move" disabled>Move to...</option>
-                    <option value="currentlyReading">Currently Reading</option>
-                    <option value="wantToRead">Want to Read</option>
-                    <option value="read">Read</option>
-                    <option value="none">None</option>
+                    <select value={props.book.shelf} onChange={changeToShelf}>
+                        <option value="move" disabled>Move to...</option>
+                        <option value="wantToRead">Want to Read</option>
+                        <option value="currentlyReading">Currently Reading</option>
+                        <option value="read">Read</option>
+                        <option value="none">None</option>
                     </select>
                 </div>
             </div>
