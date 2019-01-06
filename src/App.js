@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {Component} from 'react'
 import * as BooksAPI from './BooksAPI'
+import { BrowserRouter, Route, Link } from 'react-router-dom'
 import './App.css'
 import Shelf from './components/Shelf'
 import SearchPage from './components/SearchPage'
@@ -26,48 +27,62 @@ class BooksApp extends React.Component {
 
         return (
             <div className="app">
-            {this.state.showSearchPage ? (
+                <Route path="/search" render={ () => (
                 <SearchPage />
-                ) : (
-                <div className="list-books">
-                    <div className="list-books-title">
-                        <h1>MyReads</h1>
-                    </div>
-                    <div className="list-books-content">
-                        <div>
-                            <Shelf 
-                                shelfTitle='Want To Read'
-                                books={this.state.books}
-                                shelf='wantToRead'
-                                updateShelf={this.updateShelf}
-                                />
+                )}
+                />
+
+                <Route exact path="/" render={ () => (
+                    <div className="list-books">
+
+                        <div className="list-books-title">
+                            <h1>MyReads</h1>
                         </div>
-                        <div>
-                            <Shelf 
-                                shelfTitle='Currently Reading'
-                                books={this.state.books}
-                                shelf='currentlyReading' 
-                                updateShelf={this.updateShelf}
-                                />
-                        </div>
-                        <div>
-                            <Shelf 
-                                shelfTitle='Already Read'
-                                books={this.state.books}
-                                shelf='read' 
-                                updateShelf={this.updateShelf}
-                                />
-                        </div>
-                    </div>
-                </div> 
-            )}
-            <div className="open-search">
-                <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+
+                        <div className="list-books-content">
+
+                            <div>
+                                <Shelf 
+                                    shelfTitle='Want To Read'
+                                    books={this.state.books}
+                                    shelf='wantToRead'
+                                    updateShelf={this.updateShelf}
+                                    />
+                            </div>
+
+                            <div>
+                                <Shelf 
+                                    shelfTitle='Currently Reading'
+                                    books={this.state.books}
+                                    shelf='currentlyReading' 
+                                    updateShelf={this.updateShelf}
+                                    />
+                            </div>
+
+                            <div>
+                                <Shelf 
+                                    shelfTitle='Already Read'
+                                    books={this.state.books}
+                                    shelf='read' 
+                                    updateShelf={this.updateShelf}
+                                    />
+                            </div>
+                            <div className="open-search">
+              <Link
+                    to="/search"
+                >
+                    Add a book
+              </Link>
             </div>
-              
-            </div>
-            
-        )}
+                        </div>
+
+                    </div> 
+                    
+                )}
+                />
+            </div> 
+        )
+    }
 }
 
 export default BooksApp
