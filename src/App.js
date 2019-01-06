@@ -3,8 +3,6 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Shelf from './components/Shelf'
 import SearchPage from './components/SearchPage'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
 
 class BooksApp extends React.Component {
     state = {
@@ -15,7 +13,6 @@ class BooksApp extends React.Component {
     componentDidMount(){
         BooksAPI.getAll().then(books => {
             this.setState({books})
-            console.log(books)
         })
     }
 

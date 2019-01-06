@@ -1,5 +1,4 @@
 import React from 'react'
-import Searchbar from './Searchbar'
 import Book from './Book'
 import * as BooksAPI from '.././BooksAPI'
 
@@ -46,7 +45,6 @@ class SearchPage extends React.Component {
             <div className='search-books-bar'>
                 <div className="search-books-input-wrapper">
                 <input
-                className=''
                 placeHolder='Search for books by title or author'
                 value={this.state.query}
                 onChange={(event) => this.updateQuery(event.target.value )}

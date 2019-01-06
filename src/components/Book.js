@@ -7,15 +7,8 @@ function Book(props) {
         height: 188,
         backgroundImage: props.book.imageLinks ? props.book.imageLinks.thumbnail : ''
     }
-/*
-    const handleChange = (event) => {
-        props.book.shelf= event.target.value })
-        console.log(this.state)
-      } */
-
 
     const changeToShelf = (event) => {
-        //props.shelf({shelf: event.target.value});
         props.updateShelf(props.book, event.target.value)
         event.preventDefault();
       }
