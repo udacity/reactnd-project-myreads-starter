@@ -5,7 +5,7 @@ function Book(props) {
     const style={
         width: 128,
         height: 188,
-        backgroundImage: props.book.imageLinks ? props.book.imageLinks.thumbnail : ''
+        backgroundImage: props.book.imageLinks ? props.book.imageLinks.thumbnail : 'https://github.com/artnerdnet/reactnd-project-myreads-starter/blob/searchFeature/src/img/default-cover.png'
     }
 
     const changeToShelf = (event) => {
