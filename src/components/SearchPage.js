@@ -9,26 +9,24 @@ class SearchPage extends Component {
         results: []
     }
     
-    updateQuery = (query) => {
-        this.setState({
-            query: query
-        })
-        this.getResults(query);
-    }
+    updateQuery = ({target: {value: query}}) => this.setState({query}, () => this.getResults());
 
-    getResults = (query) =>  {
-        if (query) {
-            BooksAPI.search(query).then((results) => {
-                if (results.error) {
-                    return this.setState({results: []});
-                  }
-                this.setState({results: results})
-            })
-        } else {
-            this.setState({results: []});
-            this.setState({query: ''});
-        }
-    }
+    getResults = () =>  {
+      const {query} = this.state;
+      if (query) {
+        BooksAPI
+          .search(query)
+          .then(results => {
+            if (results.error) {
+              return this.setState({results: []});
+            }
+            this.setState({results})
+          })
+      } else {
+        this.setState({results: [], query: ''});
+      }
+    };
+  
 
     updateShelf = (result, shelf) => { BooksAPI.update(result,shelf).then(()=>{
         result.shelf = shelf;
@@ -54,7 +52,7 @@ class SearchPage extends Component {
                 <input
                 placeholder='Search for books by title or author'
                 value={this.state.query}
-                onChange={(event) => this.updateQuery(event.target.value )}
+                onChange={this.updateQuery}
                 />
                 </div>
             </div>
@@ -65,7 +63,7 @@ class SearchPage extends Component {
                       <li key={result.id}>
                       <Book
                        book={result}
-                       value={result.shelf}
+                       value='none'
                        updateShelf={this.updateShelf}
                       />
                       </li>
