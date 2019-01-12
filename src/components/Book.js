@@ -37,6 +37,7 @@ function Book(props) {
         </div>
       </div>
       <div className="book-title">{props.book.title}</div>
+      <div className="book-author"> {props.book.authors ? props.book.authors.join(' & ') : ''}</div>
     </div>
   );
 }
