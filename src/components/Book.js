@@ -25,7 +25,7 @@ function Book(props) {
           />
         </div>
         <div className="book-shelf-changer">
-          <select value={props.book.shelf} defaultValue='none' selected='none' onChange={changeToShelf}>
+          <select value={props.book.shelf || 'none'} selected='none' onChange={changeToShelf}>
             <option value="move" disabled>
               Move to...
             </option>
