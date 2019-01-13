@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { search } from './BooksAPI';
 import Bookshelf from './Bookshelf'
-import { update } from './BooksAPI';
+import { update, getAll } from './BooksAPI';
 
 class Search extends React.Component {
     state = {
@@ -24,11 +24,25 @@ class Search extends React.Component {
 
     async callResults(query) {
         this.updateQuery(query);
+        let allBooks = await getAll();
         query && await search(query)
             .then( results => {
                 if (query === this.state.query) {
+                    let newResults;
+                    if (results.length > 0) {
+                        newResults = results.map(result => {
+                            let newResult = result;
+                            let book = allBooks.find(book => {
+                                return book.id === result.id
+                            })
+                            if (book && book.shelf){
+                                newResult.shelf = book.shelf
+                            }
+                            return newResult
+                        })
+                    }
                     this.setState({
-                        bookResults:  results
+                        bookResults:  newResults
                     });
                 }
             });
