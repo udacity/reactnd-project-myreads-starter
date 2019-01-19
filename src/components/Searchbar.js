@@ -1,40 +1,25 @@
 import React from 'react'
 import * as BooksAPI from '.././BooksAPI'
+import { Link } from "react-router-dom";
 
-class Searchbar extends React.Component {
-    state = {
-        query: '',
-        results: []
-    }
+function Searchbar(props) {
 
-    updateQuery = (query) => {
-        this.setState({
-            query: query
-        })
-    }
+	return (
+		<div className="search-books-bar">
+			<Link to="/" className="close-search">
+				Close
+        </Link>
+			<div className="search-books-input-wrapper">
+				<input
+					placeholder="Search for books by title or author"
+					value={props.query}
+					onChange={props.updateQuery}
+				/>
+			</div>
+		</div>
+	)
 
-    getResults = (query) =>  {
-        BooksAPI.search(query).then((results) => {
-            this.setState({results: results})
-        })
-    }
-    
-    render() {
-      return (
-        <div className='search-books-bar'>
-            {JSON.stringify(this.state)}
-            <div className="search-books-input-wrapper">
-            <input
-            className=''
-            placeHolder='Search for books by title or author'
-            value={this.state.query}
-            onChange={(event) => this.updateQuery(event.target.value )}
-            />
-            </div>
 
-        </div>
-      );
-    }
-  }
+}
 
 export default Searchbar;
