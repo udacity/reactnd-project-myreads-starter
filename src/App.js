@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import * as BooksAPI from "./BooksAPI";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import "./App.css";
 import Shelf from "./components/Shelf";
 import SearchPage from "./components/SearchPage";
