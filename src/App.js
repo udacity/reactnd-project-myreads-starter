@@ -29,6 +29,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route path="/search"
+/* ---- Import SearchPage after assigning route /search and passes books state and updateShelf() ----- */
           render={() =>
             <SearchPage
               books={this.state.books}
@@ -45,6 +46,8 @@ class BooksApp extends React.Component {
               <div className="list-books-title">
                 <h1>MyReads</h1>
               </div>
+
+{/* ---- The shelf component is imported and passed the props from the books state array ----- */}
 
               <div className="list-books-content">
                 <div>
