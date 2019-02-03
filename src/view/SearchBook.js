@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import SearchBookBar from './components/SearchBookBar'
 
 export default class SearchBook extends Component {
 
@@ -11,15 +12,13 @@ export default class SearchBook extends Component {
     you don't find a specific author or title. Every search is limited by search terms.
   */
 
+  //TODO: Talvez books grid seja um componente
   render() {
     return (
       <div className="search-books">
-        <div className="search-books-bar">
-          <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
-          <div className="search-books-input-wrapper">
-            <input type="text" placeholder="Search by title or author" />
-          </div>
-        </div>
+        <SearchBookBar 
+          link="/"
+        />
         <div className="search-books-results">
           <ol className="books-grid"></ol>
         </div>

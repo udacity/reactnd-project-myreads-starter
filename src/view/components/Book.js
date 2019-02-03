@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import SelectButton from './SelectButton';
+import BookCover from './BookCover';
 
 export default class Book extends Component {
   render() {
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover"
-            style={{
-              width: 128,
-              height: 193,
-              backgroundImage: `url(${this.props.cover})`
-            }}
+          <BookCover
+            cover={this.props.cover}
           />
           <SelectButton />
         </div>

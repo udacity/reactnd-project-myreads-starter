@@ -3,7 +3,6 @@ import Book from './Book';
 
 export default class BookRow extends Component {
   render() {
-    console.log(this.props.books)
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">
@@ -16,7 +15,7 @@ export default class BookRow extends Component {
                 <Book
                   author={book.author}
                   title={book.title}
-                  conver={book.cover}
+                  cover={book.cover}
                 />
               </li>
             ))}
