@@ -1,22 +1,62 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Book from './Book';
+import * as BooksAPI from '../BooksAPI';
 
-const SearchBook = () => {
-    return(
-        <div className="search-books">
-        <div className="search-books-bar">
-          <Link to='/'>
-              <button className="close-search">Close</button>
-          </Link>
-          <div className="search-books-input-wrapper">
-            <input type="text" placeholder="Search by title or author"/>
+class SearchBook extends Component{
+
+    state = {
+        query: '',
+        books: [],
+        hasError: false,
+    }
+
+    handleQuery = (event) => {
+        this.setState({query: event.target.value});
+        this.searchBook(this.state.query);
+    }
+
+    searchBook = (query) => {
+        BooksAPI.search(query)
+        .then((fetchedData) => {
+          if(typeof fetchedData !== 'undefined') {
+            const books = Array.isArray(fetchedData) ? fetchedData : fetchedData.items;
+            this.setState({
+              books: books,
+              hasError: books.length === 0
+            })
+          }
+        })
+    }
+
+    render() {
+        return(
+            <div className="search-books">
+            <div className="search-books-bar">
+              <Link to='/' className='close-search'> Close </Link>
+              <div className="search-books-input-wrapper">
+                <input type="text" onChange={this.handleQuery} value={this.state.query} placeholder="Search by title or author"/>
+              </div>
+            </div>
+            <div className="search-books-results">
+              <ol className="books-grid">
+              {
+                this.state.hasError && 'No record found.'
+              }
+              {this.state.books.map((result, index) => (
+                  <li key={index}>
+                      <Book
+                          title={result.title}
+                          authors={result.authors}
+                          url={result.imageLinks}
+                      />
+                  </li>
+              ))}   
+              </ol>
+            </div>
           </div>
-        </div>
-        <div className="search-books-results">
-          <ol className="books-grid"></ol>
-        </div>
-      </div>
-    );
+        );
+    }
 }
 
 export default SearchBook;

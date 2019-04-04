@@ -6,9 +6,6 @@ import SearchBook from './components/SearchBook';
 import { Route } from 'react-router-dom';
 
 class BooksApp extends React.Component {
-  state = {
-    showSearchPage: false
-  }
 
   render() {
     return (

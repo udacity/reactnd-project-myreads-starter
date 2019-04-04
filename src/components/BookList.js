@@ -16,13 +16,9 @@ const BookList = () => {
               </div>
             </div>
             <div className="open-search">
-              <Link to='/search' > 
-                <button>
-                    Add a book 
-                </button>
-              </Link>
+              <Link to='/search' className='add-btn'> Add a book </Link>
             </div>
-          </div>
+        </div>
     );
 }
 

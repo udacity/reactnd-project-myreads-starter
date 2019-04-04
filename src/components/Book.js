@@ -1,10 +1,11 @@
 import React from 'react';
 
 const Book = (props) => {
+  const { url, title, authors } = props;
     return(
         <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${props.url}")` }}></div>
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${url && url.smallThumbnail}")` }}></div>
           <div className="book-shelf-changer">
             <select>
               <option value="move" disabled>Move to...</option>
@@ -15,8 +16,10 @@ const Book = (props) => {
             </select>
           </div>
         </div>
-        <div className="book-title">{props.title}</div>
-        <div className="book-authors">{props.author}</div>
+        <div className="book-title">{title}</div>
+        <div className="book-authors">
+          {authors && authors.map( author => author+' \n')}
+        </div>
       </div>
     );
 }
