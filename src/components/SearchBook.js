@@ -29,6 +29,13 @@ class SearchBook extends Component{
         })
     }
 
+    componentDidMount() {
+      BooksAPI.getAll()
+      .then( fetchedData => {
+        this.setState({books: fetchedData})
+      })
+    }
+
     render() {
         return(
             <div className="search-books">
