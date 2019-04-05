@@ -7,7 +7,7 @@ class SearchBook extends Component{
 
     state = {
         query: '',
-        books: [],
+        books: this.props.books,
         hasError: false,
     }
 
@@ -29,11 +29,9 @@ class SearchBook extends Component{
         })
     }
 
-    componentDidMount() {
-      BooksAPI.getAll()
-      .then( fetchedData => {
-        this.setState({books: fetchedData})
-      })
+    // lifting up the state
+    handleUpdate = (book, shelf) => {
+      this.props.updateShelf(book, shelf);
     }
 
     render() {
@@ -56,6 +54,9 @@ class SearchBook extends Component{
                           title={result.title}
                           authors={result.authors}
                           url={result.imageLinks}
+                          book={result}
+                          handleUpdate={this.handleUpdate}
+                          shelf={result.shelf}
                       />
                   </li>
               ))}   
