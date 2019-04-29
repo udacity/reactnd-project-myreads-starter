@@ -1,7 +1,18 @@
 import React from "react";
+import Book from "./Book";
 
 const SearchResults = props => {
-  return <div>All Books that match.</div>;
+  return (
+    <div className="search-books-results">
+      <ol className="books-grid">
+        {props.books.map(book => (
+          <li key={book.id}>
+            <Book book={book} />
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
 };
 
 export default SearchResults;
