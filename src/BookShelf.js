@@ -1,10 +1,23 @@
 import React, { Component } from "react";
+import * as BooksAPI from "./BooksAPI";
 import Book from "./Book";
 
 class BookShelf extends Component {
   state = {
     books: []
   };
+
+  componentDidMount() {
+    BooksAPI.getAll().then(results => {
+      const books = results.filter(result => {
+        return result.shelf === this.props.shelf;
+      });
+      this.setState(() => ({
+        books
+      }));
+    });
+  }
+
   render() {
     return (
       <div className="bookshelf">
