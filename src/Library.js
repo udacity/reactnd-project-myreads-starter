@@ -18,7 +18,9 @@ class Library extends Component {
             </div>
           ))}
         </div>
-        <Link to="/search" className="open-search" />
+        <Link to="/search" className="open-search">
+          <button />
+        </Link>
       </div>
     );
   }
