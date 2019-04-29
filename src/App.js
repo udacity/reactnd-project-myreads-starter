@@ -9,7 +9,6 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {BooksAPI.getAll().then(data => console.log(data))}
         <Route path="/" component={Library} />
         <Route path="/search" component={BookSearch} />
       </div>
