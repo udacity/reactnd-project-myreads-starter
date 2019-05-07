@@ -48,6 +48,7 @@ class BookSearch extends Component {
         </div>
         <SearchResults
           books={this.state.books}
+          library={this.props.library}
           updateLibrary={this.updateLibrary}
         />
       </div>

@@ -7,7 +7,7 @@ class Book extends Component {
   };
 
   render() {
-    const { book } = this.props;
+    const { book, library } = this.props;
     return (
       <div className="book">
         <div className="book-top">
@@ -20,7 +20,7 @@ class Book extends Component {
                 book.imageLinks.thumbnail})`
             }}
           />
-          <Control book={book} categorize={this.categorize} />
+          <Control book={book} library={library} categorize={this.categorize} />
         </div>
         <div className="book-title">{book.title}</div>
         <div className="book-authors">

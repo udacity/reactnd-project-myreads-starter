@@ -20,6 +20,7 @@ class Library extends Component {
                 <BookShelf
                   category={shelf[0]}
                   books={shelf[1]}
+                  library={library}
                   updateShelf={this.updateShelf}
                 />
               </div>

@@ -7,7 +7,7 @@ class BookShelf extends Component {
   };
 
   render() {
-    const { books, category } = this.props;
+    const { books, category, library } = this.props;
 
     const readableCategory = category.split(/(?=[A-Z])/).map((word, index) => {
       return (
@@ -24,7 +24,11 @@ class BookShelf extends Component {
           <ol className="books-grid">
             {books.map(book => (
               <li key={book.id}>
-                <Book book={book} reorganize={this.reorganize} />
+                <Book
+                  book={book}
+                  library={library}
+                  reorganize={this.reorganize}
+                />
               </li>
             ))}
           </ol>
