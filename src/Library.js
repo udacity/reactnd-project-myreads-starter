@@ -1,56 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import * as BooksAPI from "./BooksAPI";
 import BookShelf from "./BookShelf";
 
-const categories = ["currentlyReading", "wantToRead", "read"];
-
 class Library extends Component {
-  state = {
-    library: {
-      currentlyReading: [],
-      wantToRead: [],
-      read: []
-    }
-  };
-
-  componentDidMount() {
-    BooksAPI.getAll().then(data => this.shelfBooks(data));
-  }
-
-  shelfBooks = data => {
-    categories.forEach(category => {
-      let books = data.filter(book => book.shelf === category);
-      this.setState(prevState => ({
-        library: {
-          ...prevState.library,
-          [category]: books
-        }
-      }));
-    });
-  };
-
-  fetchBooks = shelfs => {
-    let data = [];
-    Object.values(shelfs)
-      .flat()
-      .forEach(bookId => {
-        BooksAPI.get(bookId)
-          .then(book => {
-            data.push(book);
-          })
-          .then(() => this.shelfBooks(data));
-      });
-  };
-
   updateShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf).then(shelfs => {
-      this.fetchBooks(shelfs);
-    });
+    this.props.updateLibrary(book, shelf);
   };
-
   render() {
-    const { library } = this.state;
+    const { library } = this.props;
     return (
       <div className="list-books">
         <div className="list-books-title">

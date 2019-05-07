@@ -26,6 +26,10 @@ class BookSearch extends Component {
           });
     });
   };
+
+  updateLibrary = (book, shelf) => {
+    this.props.updateLibrary(book, shelf);
+  };
   render() {
     return (
       <div className="search-books">
@@ -42,7 +46,10 @@ class BookSearch extends Component {
             />
           </div>
         </div>
-        <SearchResults books={this.state.books} />
+        <SearchResults
+          books={this.state.books}
+          updateLibrary={this.updateLibrary}
+        />
       </div>
     );
   }
