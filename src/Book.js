@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import Control from "./Control.js";
 
 class Book extends Component {
-  state = {
-    shelf: this.props.book.shelf
+  categorize = (book, shelf) => {
+    this.props.reorganize(book, shelf);
   };
 
   render() {
@@ -19,10 +19,14 @@ class Book extends Component {
               backgroundImage: `url(${book.imageLinks.thumbnail})`
             }}
           />
-          <Control shelf={this.state.shelf} />
+          <Control book={book} categorize={this.categorize} />
         </div>
         <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.authors}</div>
+        <div className="book-authors">
+          {book.authors.map(author => {
+            return <div key={author}>{author}</div>;
+          })}
+        </div>
       </div>
     );
   }

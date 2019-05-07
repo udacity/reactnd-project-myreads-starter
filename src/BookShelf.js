@@ -1,32 +1,21 @@
 import React, { Component } from "react";
-import * as BooksAPI from "./BooksAPI";
 import Book from "./Book";
 
 class BookShelf extends Component {
-  state = {
-    books: []
+  reorganize = (book, shelf) => {
+    this.props.updateShelf(book, shelf);
   };
 
-  componentDidMount() {
-    BooksAPI.getAll().then(results => {
-      const books = results.filter(result => {
-        return result.shelf === this.props.shelf;
-      });
-      this.setState(() => ({
-        books
-      }));
-    });
-  }
-
   render() {
+    const { books, category } = this.props;
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{this.props.shelf}</h2>
+        <h2 className="bookshelf-title">{category}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            {this.state.books.map(book => (
+            {books.map(book => (
               <li key={book.id}>
-                <Book book={book} />
+                <Book book={book} reorganize={this.reorganize} />
               </li>
             ))}
           </ol>
