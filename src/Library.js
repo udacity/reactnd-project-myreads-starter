@@ -30,9 +30,9 @@ class Library extends Component {
     });
   };
 
-  fetchBooks = categories => {
+  fetchBooks = shelfs => {
     let data = [];
-    Object.values(categories)
+    Object.values(shelfs)
       .flat()
       .forEach(bookId => {
         BooksAPI.get(bookId)
@@ -44,8 +44,8 @@ class Library extends Component {
   };
 
   updateShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf).then(categories => {
-      this.fetchBooks(categories);
+    BooksAPI.update(book, shelf).then(shelfs => {
+      this.fetchBooks(shelfs);
     });
   };
 
