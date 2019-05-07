@@ -9,10 +9,12 @@ class BookShelf extends Component {
   render() {
     const { books, category } = this.props;
 
-    const readableCategory = category
-    .split(/(?=[A-Z])/)
-    .map((word, index) => {
-      return (<span className="capitalize" key={index}>{word}&nbsp;</span>)
+    const readableCategory = category.split(/(?=[A-Z])/).map((word, index) => {
+      return (
+        <span className="capitalize" key={index}>
+          {word}&nbsp;
+        </span>
+      );
     });
 
     return (
