@@ -2,12 +2,8 @@ import React, { Component } from "react";
 import Book from "./Book";
 
 class BookShelf extends Component {
-  reorganize = (book, shelf) => {
-    this.props.updateShelf(book, shelf);
-  };
-
   render() {
-    const { books, category, library } = this.props;
+    const { books, category, library, updateLibrary } = this.props;
 
     const readableCategory = category.split(/(?=[A-Z])/).map((word, index) => {
       return (
@@ -27,7 +23,7 @@ class BookShelf extends Component {
                 <Book
                   book={book}
                   library={library}
-                  reorganize={this.reorganize}
+                  updateLibrary={updateLibrary}
                 />
               </li>
             ))}

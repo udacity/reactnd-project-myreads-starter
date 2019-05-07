@@ -10,7 +10,7 @@ const SearchResults = props => {
             <Book
               book={book}
               library={props.library}
-              reorganize={props.updateLibrary}
+              updateLibrary={props.updateLibrary}
             />
           </li>
         ))}
