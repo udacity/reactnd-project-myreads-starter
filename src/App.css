@@ -47,6 +47,10 @@ body, .app {
   text-align: center;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 .open-search {
   position: fixed;
   right: 25px;
