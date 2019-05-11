@@ -7,6 +7,8 @@
     "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
+    "frisby": "^2.1.1",
+    "jest": "^24.8.0",
     "react-scripts": "1.1.4"
   },
   "scripts": {
