@@ -86,7 +86,18 @@ class BookApp extends React.Component {
             })
     }
 
-    handleOnSearch = (search) => {
+    handleOnSearch = (search, isDelayed) => {
+        if (isDelayed) {
+            setTimeout(function () {
+                this.doQuery(search);
+            }.bind(this), 600);
+        } else {
+            this.doQuery(search);
+        }
+    }
+
+    doQuery = (search) => {
+
         BooksAPI.search(search)
             .then(newBooks => {
                 if (Array.isArray(newBooks)) {
@@ -172,8 +183,8 @@ class BookApp extends React.Component {
                 <FabSearch isShown={!showSearchPage} onClick={this.handleSearchFabClicker} />
                 {showSearchPage &&
                     <SearchBar
-                        // onChange={console.log}
-                        onRequestSearch={this.handleOnSearch}
+                        onChange={(value) => this.handleOnSearch(value, true)}
+                        onRequestSearch={(value) => this.handleOnSearch(value, false)}
                         style={{
                             margin: '0 auto',
                             maxWidth: 800

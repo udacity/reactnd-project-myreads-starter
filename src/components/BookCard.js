@@ -78,7 +78,7 @@ class BookCard extends Component {
             <Card raised={true} style={{ marginBottom: 5 }}>
                 <CardHeader
                     avatar={
-                        <Avatar aria-label="Recipe" src={book.imageLinks.thumbnail || ''}>
+                        <Avatar aria-label="Recipe" src={book.imageLinks ? book.imageLinks.smallThumbnail : null}>
                             {book.title[0]}
                         </Avatar>
                     }
@@ -116,9 +116,9 @@ class BookCard extends Component {
                         </div>
                     }
                     title={book.title}
-                    subheader={book.authors.join(", ") || book.publishedDate} />
+                    subheader={(book.authors) ? book.authors.join(", ") : book.publishedDate} />
                 <CardMedia style={{ height: 0, paddingTop: '56.25%' }}
-                    image={book.imageLinks.thumbnail}
+                    image={book.imageLinks ? book.imageLinks.thumbnail : null}
                     title={book.title}
                 />
                 <CardContent>
