@@ -65,8 +65,8 @@ class BookCard extends Component {
 
     handleClose = (option) => {
         this.setState(() => ({ anchorEl: null }));
-        if(option){
-            console.log('change to ' + option)
+        if (option) {
+            this.props.onShelfChanged(this.props.book, option)
         }
     };
 
@@ -78,7 +78,7 @@ class BookCard extends Component {
             <Card raised={true} style={{ marginBottom: 5 }}>
                 <CardHeader
                     avatar={
-                        <Avatar aria-label="Recipe" src={book.imageLinks.thumbnail}>
+                        <Avatar aria-label="Recipe" src={book.imageLinks.thumbnail || ''}>
                             {book.title[0]}
                         </Avatar>
                     }
@@ -107,7 +107,7 @@ class BookCard extends Component {
                                     <MenuItem
                                         key={option}
                                         value={option}
-                                        selected={option === 'Pyxis'}
+                                        disabled={option === "move" || option === book.shelf}
                                         onClick={() => this.handleClose(option)}>
                                         {option}
                                     </MenuItem>
@@ -150,7 +150,8 @@ class BookCard extends Component {
 }
 
 BookCard.propTypes = {
-    book: PropTypes.object.isRequired
+    book: PropTypes.object.isRequired,
+    onShelfChanged: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(BookCard);
