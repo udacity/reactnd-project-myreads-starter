@@ -14,23 +14,19 @@ class ShelfTab extends Component {
     render() {
         const { books, shelf, isLoaded } = this.props;
         return (
-            <div className="bookshelf">
+            <div>
                 {!isLoaded && <label>Loading content</label>}
                 {(isLoaded && books.length <= 0) && <label>No book available</label>}
                 {
                     books.length > 0 &&
                     <div>
-                        <h2 className="bookshelf-title">{shelf.label}</h2>
-                        <div className="bookshelf-books">
-                            <ol className="books-grid">
-                                {books.map(book => (
-                                    <BookCard
-                                        key={"book_" + book.id} book={book}
-                                        onShelfChanged={this.handleShelfChanged}
-                                    />
-                                ))}
-                            </ol>
-                        </div>
+                        <h2>{shelf.label}</h2>
+                        {books.map(book => (
+                            <BookCard
+                                key={"book_" + book.id} book={book}
+                                onShelfChanged={this.handleShelfChanged}
+                            />
+                        ))}
                     </div>
 
                 }

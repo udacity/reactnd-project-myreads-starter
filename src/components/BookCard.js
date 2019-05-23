@@ -118,7 +118,7 @@ class BookCard extends Component {
                     title={book.title}
                     subheader={(book.authors) ? book.authors.join(", ") : book.publishedDate} />
                 <CardMedia style={{ height: 0, paddingTop: '56.25%' }}
-                    image={book.imageLinks ? book.imageLinks.thumbnail : null}
+                    image={book.imageLinks ? book.imageLinks.thumbnail : "/default_cover.jpg"}
                     title={book.title}
                 />
                 <CardContent>
