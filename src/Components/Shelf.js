@@ -1,16 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Shelf = ({ bookShelfName, children }) => {
-  return (
-    <div className="bookshelf">
-      <h2 className="bookshelf-title">{bookShelfName}</h2>
-      <div className="bookshelf-books">
-        <ol className="books-grid">{children}</ol>
+class Shelf extends React.PureComponent {
+  render() {
+    const { bookShelfName, children } = this.props;
+    return (
+      <div className="bookshelf">
+        <h2 className="bookshelf-title">{bookShelfName}</h2>
+        <div className="bookshelf-books">
+          <ol className="books-grid">{children}</ol>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 Shelf.propTypes = {
   bookShelfName: PropTypes.string,
