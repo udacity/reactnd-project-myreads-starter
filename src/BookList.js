@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Section extends Component {
-  state = {
-    books: []
-  };
-
+class BookList extends Component {
   render() {
     return (
-      <div>
-        <h3>{this.props.section}</h3>
-        <BookList  />
-      </div>
+      <ul>
+        {
+          this.props.books.map(book => (
+            <BookListItem book={book} key={book.name} />
+          ))
+
+        }
+      </ul>
     )
   }
 }
 
 Section.prototype = {
-  section: PropTypes.text.isRequired
+  books: PropTypes.array.isRequired
 };
 
-export default Section;
+export default BookList;
