@@ -6,10 +6,11 @@ class BookList extends Component {
     return (
       <ul>
         {
-          this.props.books.map(book => (
-            <BookListItem book={book} key={book.name} />
-          ))
-
+          this.props.books.map(book =>
+            (
+              <BookListItem book={book} key={book.name}/>
+            )
+          )
         }
       </ul>
     )
