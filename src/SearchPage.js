@@ -4,10 +4,11 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 
+
 class SearchBooks extends React.Component {
     state={
         query:'',
-        books: this.props.books
+        books: []
     }
 
 updateQuery = (query)=>{
@@ -20,12 +21,13 @@ updateQuery = (query)=>{
  
     // search for books in database the match the query and then return it .
     SearchForBook = (query)=>{
-        BooksAPI.search(query) 
+        BooksAPI.search(query)
         .then((result)=>{
-           if (Array.isArray(result)) {
+            if (Array.isArray(result)) {
             this.setState(() => ({
                 books: result 
-            })) }
+            })) 
+               console.log(result)}
          else {
               // not found
                this.setState({
@@ -37,13 +39,8 @@ updateQuery = (query)=>{
 
 
 render(){
-    
-    const { query }= this.state;
-
-
-    console.log(this.props.books)
-
-      
+    const {books,query}=this.state;
+    console.log(this.state.books)
     return(
         <div>
             <div className="search-books">
@@ -70,17 +67,20 @@ render(){
             
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        {this.state.books.map((book)=>(
+                        { // the books show only if book has book and the search input has query
+                        books.length > 0 && query.length > 0 
+                            &&
+                            (this.state.books.map((book)=>(
                             <li className="books-grid li" key={book.id}>
                                    <div className="book">
                                     <div className="book-top">
                                         <div className="book-cover" style={{ 
                                             width: 128,
                                              height: 192,
-                                            backgroundImage: `url(${book.imageLinks.thumbnail} )` }}>
+                                                backgroundImage: `url(${book.imageLinks ? book.imageLinks.thumbnail:""} )` }}>
                                          </div>
                                         <div className="book-shelf-changer">
-                                            <select>
+                                            <select >
                                                 <option value="move" disabled>Move to...</option>
                                                 <option value="currentlyReading" defaultValue>Currently Reading</option>
                                                 <option value="wantToRead">Want to Read</option>
@@ -90,9 +90,9 @@ render(){
                                         </div>
                                     </div>
                                     <div className="book-title">{book.title}</div>
-                                    <div className="book-authors">{book.authors}</div>
+                                        <div className="book-authors">{`${book.authors ? book.authors : ""}`}</div>
                                 </div>
-                            </li>
+                            </li>)
                              ))}
                     </ol>
                 </div>
