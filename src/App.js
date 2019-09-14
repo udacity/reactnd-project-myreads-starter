@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
+import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI';
 import SearchBooks from './SearchPage';
 import MainPage from './MainPage';
-import { Route } from 'react-router-dom'
 
 class BooksApp extends React.Component {
   state = {
@@ -16,7 +16,7 @@ class BooksApp extends React.Component {
     BooksAPI.getAll()
       .then((books)=>{
         this.setState(()=>({
-          books
+          books: books
           
         }))
       })
@@ -33,7 +33,7 @@ class BooksApp extends React.Component {
 
       <Route exact path='/' render={()=>(<MainPage />)}/>
 
-        <Route exact path='/search' render={() => 
+        <Route  path='/search' render={() => 
         (<SearchBooks books={this.state.books} />)} />
 
       </div>

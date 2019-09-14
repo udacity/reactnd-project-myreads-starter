@@ -8,39 +8,64 @@ import './App.css'
 class SearchBooks extends React.Component {
     state={
         query:'',
-        books: []
+        books: [],
+        shelf:''
+         
     }
 
-updateQuery = (query)=>{
+updateQuery = (event)=>{
+    event.preventDefault();
+    const newlist= event.target.value
   this.setState(() => ({
-      query: query
+      query: newlist
   }))
-  // pass the new quary the user type it.
-  this.SearchForBook(this.state.query)
+    // pass the new quary the user type it.
+    this.SearchForBook(this.state.query)
+    
     }
  
     // search for books in database the match the query and then return it .
     SearchForBook = (query)=>{
+        // check if the query not empty and then search
+        // this sentence solved the post problem that i got it.
+        if (query.length > 0) {
         BooksAPI.search(query)
         .then((result)=>{
             if (Array.isArray(result)) {
             this.setState(() => ({
                 books: result 
-            })) 
-               console.log(result)}
-         else {
-              // not found
-               this.setState({
-                   books: []
-               })} 
-            
-        })
+            })) }  
+        }
+        )}
+        else {
+            // not found
+            this.setState({
+                books: []
+
+            }) 
+        } 
+
+}
+
+    // update the 
+    UpdateShelf=(event)=>{
+     const newShelf=event.target.value
+     this.setState(()=>({
+
+     }))
+     console.log(this.state.shelf)
+
     }
 
 
 render(){
-    const {books,query}=this.state;
-    console.log(this.state.books)
+    const { books, query}=this.state;
+
+    const showingBooks = books.error === "empty query"
+        ? <h1>The Result Not Found</h1> : books.filter((c) => (
+            c.title.toLowerCase().includes(query.toLowerCase())
+        ))
+
     return(
         <div>
             <div className="search-books">
@@ -59,7 +84,7 @@ render(){
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                        <input type="text" placeholder="Search by title or author" value={this.state.query} onChange={(event) => this.updateQuery(event.target.value)} />
+                        <input type="text" placeholder="Search by title or author" value={query} onChange={ this.updateQuery} />
 
                     </div>
                 </div>
@@ -68,9 +93,9 @@ render(){
                 <div className="search-books-results">
                     <ol className="books-grid">
                         { // the books show only if book has book and the search input has query
-                        books.length > 0 && query.length > 0 
+                            showingBooks.length>0 && query.length>0
                             &&
-                            (this.state.books.map((book)=>(
+                            (showingBooks.map((book)=>(
                             <li className="books-grid li" key={book.id}>
                                    <div className="book">
                                     <div className="book-top">
@@ -80,7 +105,7 @@ render(){
                                                 backgroundImage: `url(${book.imageLinks ? book.imageLinks.thumbnail:""} )` }}>
                                          </div>
                                         <div className="book-shelf-changer">
-                                            <select >
+                                            <select value={this.state.shelf} onChange={this.UpdateShelf}>
                                                 <option value="move" disabled>Move to...</option>
                                                 <option value="currentlyReading" defaultValue>Currently Reading</option>
                                                 <option value="wantToRead">Want to Read</option>
@@ -94,7 +119,18 @@ render(){
                                 </div>
                             </li>)
                              ))}
+                        <div>
+                            {
+                                // if we search for book and the books not found show this massage
+                                books.error === "empty query"
+                                &&
+                                (<h1>The Result Not Found</h1>)
+
+                            }
+                        </div>
+                        {console.log(books)}
                     </ol>
+               
                 </div>
             </div>
         </div>
@@ -107,3 +143,5 @@ render(){
 }
 
 export default SearchBooks;
+
+
