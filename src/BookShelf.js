@@ -4,12 +4,11 @@ import Section from "./Section";
 
 class BookShelf extends Component {
   state = {
-    currentlyReading: [],
-    wantToRead: [],
-    read: []
+    sections: ['Currently Reading', 'Want To Read', 'Read']
   };
 
   render() {
+    console.log(this.state.sections);
     return (
       <div>
         <div className="list-books-title">
@@ -17,7 +16,9 @@ class BookShelf extends Component {
         </div>
         <div className="list-books-content">
           {
-            <Section />
+            this.state.sections.map((section, index) => (
+              <Section section={section} key={index}/>
+            ))
           }
         </div>
       </div>
