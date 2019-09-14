@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import Selector from "./Selector";
 
 class BookListItem extends Component {
+
+  handleOnClick = (value) => {
+    console.log("Inside BookListItem", value)
+  }
+
   render() {
     return (
       <li>
@@ -14,7 +19,7 @@ class BookListItem extends Component {
               backgroundImage: `url(${this.props.book.coverUrl})`
             }}></div>
             <div className="book-shelf-changer">
-              <Selector/>
+              <Selector currentSection={this.props.section} onSelectorClick={this.handleOnClick.bind(this)}/>
             </div>
           </div>
           <div className="book-title">{this.props.book.title}</div>
@@ -26,7 +31,8 @@ class BookListItem extends Component {
 }
 
 BookListItem.propTypes = {
-  book: PropTypes.object.isRequired
+  book: PropTypes.object.isRequired,
+  section: PropTypes.string.isRequired
 };
 
 export default BookListItem;
