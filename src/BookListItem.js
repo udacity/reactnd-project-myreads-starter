@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import SectionSelector from "./SectionSelector";
+import Selector from "./Selector";
 
 class BookListItem extends Component {
   render() {
@@ -14,7 +14,7 @@ class BookListItem extends Component {
               backgroundImage: `url(${this.props.book.coverUrl})`
             }}></div>
             <div className="book-shelf-changer">
-              <SectionSelector/>
+              <Selector/>
             </div>
           </div>
           <div className="book-title">{this.props.book.title}</div>

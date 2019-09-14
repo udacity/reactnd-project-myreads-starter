@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 
-class SectionSelector extends Component{
+class Selector extends Component{
   state = {
-    changedSelection: ''
+    newSelection: ''
   };
+
 
   render() {
     return(
@@ -18,4 +19,12 @@ class SectionSelector extends Component{
   }
 }
 
-export default SectionSelector;
+// Selector.propTypes={
+//   currentSelector: PropTypes.string.isRequired
+// }
+export default Selector;
+
+//Algorithm:
+// Props will send currentSelector.
+//Match currentSelector to new selector.
+// if selector is changed raise the newSelection state up tp the parent to inform that the selection has been updated.

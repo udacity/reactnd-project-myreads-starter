@@ -6,7 +6,7 @@ class SearchResults extends Component {
   render(){
     return(
       <div>
-        <BookList />
+        <ol className="books-grid"></ol>
       </div>
     )
   }

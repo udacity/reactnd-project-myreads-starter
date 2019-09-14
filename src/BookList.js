@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import SectionSelector from './SectionSelector';
+import Selector from './Selector';
 import BookListItem from "./BookListItem";
 
 class BookList extends Component {
