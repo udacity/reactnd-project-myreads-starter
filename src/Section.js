@@ -12,7 +12,7 @@ class Section extends Component {
 
     return (
       <div>
-        <BookList books={this.state.books} section={this.props.section}/>
+        <BookList books={this.props.section.books} section={this.props.section.name}/>
       </div>
     )
   }
@@ -20,7 +20,13 @@ class Section extends Component {
 
 
 Section.propTypes = {
-  section: PropTypes.string.isRequired
+  section: PropTypes.object.isRequired
 };
 
 export default Section;
+
+
+// Algorithm:
+// Filter the books depending on which section is being displayed
+// What do I need in order to do that? I need a way to track which is the self
+//
