@@ -11,6 +11,7 @@ class BooksApp extends React.Component {
    books:[]
 
   }
+
   // fetch the books from backend and then send it into SearchBooks
   componentDidMount(){
     BooksAPI.getAll()
@@ -22,16 +23,21 @@ class BooksApp extends React.Component {
       })
   }
 
-  //it will take every book with select shelf and then update it in backend.
-  UpdateShelfBook = (book, shelf)=>{
-   
+  //it will take every book with select shelf and then update it .
+  UpdateShelfBook = (book, shelf)=>{ 
+  // the update will works only if the current shelf for book doesn't match 
+  if(book.shelf!==shelf){
     BooksAPI.update(book,shelf)
       .then((newdata) => {
-        book.shelf=shelf
-        
+       book.shelf =shelf
+       
+        this.setState(prevState=>({
+          books: prevState.books.filter(s=>s.id!==book.id)
+          .concat([book])
+        }))  
       })
-
   }
+}
   
 
 

@@ -9,11 +9,10 @@ import Book from './Book'
 class SearchBooks extends React.Component {
     state={
         query:'',
-        books: [] ,
-       shelf:''
-         
+        books: [] 
     }
 
+    
 updateQuery = (event)=>{
     event.preventDefault();
     const newlist= event.target.value
@@ -36,14 +35,12 @@ updateQuery = (event)=>{
             this.setState(() => ({
                 books: result 
             })) } 
-
         }
         )}
         else {
             // not found
             this.setState({
-                books: []
-
+                books: [],
             }) 
         } 
 
@@ -78,7 +75,7 @@ render(){
                 <div className="search-books-results">
 
                     <ol className="books-grid">
-                        { // the books show only if book has book and the search input has query
+                        { // the books show only if books has book and the search input has query
                             showingBooks.length>0 && query.length>0
                             &&
                             (showingBooks.map((book)=>(
@@ -87,14 +84,15 @@ render(){
                                     imageLinks={book.imageLinks}
                                     shelf={book.shelf} 
                                     book={book} 
-                                   UpdateShelfBook={UpdateShelfBook} />
+                                   UpdateShelfBook={UpdateShelfBook}
+                                        key={book.id} />
                             </li>)
                              ))}
 
                         <div>
                             {
                                 // if we search for book and the books not found show this massage
-                                books.error === "empty query"
+                                books.error === "empty query"&& books.length===0
                                 &&
                                 (<h1>The Result Not Found</h1>)
 

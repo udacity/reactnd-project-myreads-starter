@@ -1,15 +1,16 @@
-import React from 'react'
-import './App.css'
+import React from 'react';
+import './App.css';
 
-class Book extends React.Component {
 
-     UpdateShelf=(event)=>{
-       event.preventDefault();
-         this.props.UpdateShelfBook(this.props.book, event.target.value)
+class ShelveList extends React.Component {
+
+    UpdateShelf = (event) => {
+        event.preventDefault();
+        this.props.UpdateShelfBook(this.props.books, event.target.value)
     }
 
 render(){
-    const { title, authors, imageLinks, shelf}=this.props
+    const { title, authors, imageLinks, shelf } = this.props
     return(
         <div className="book">
             <div className="book-top">
@@ -20,7 +21,7 @@ render(){
                 }}>
                 </div>
                 <div className="book-shelf-changer">
-                    <select value={shelf===undefined?"none":shelf} onChange={this.UpdateShelf}>
+                    <select value={shelf === undefined ? "none" : shelf} onChange={this.UpdateShelf}>
                         <option value="move" disabled>Move to...</option>
                         <option value="currentlyReading" >Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
@@ -35,6 +36,6 @@ render(){
     );
 }
 
-}
 
-export default Book;
+}
+export default ShelveList;
