@@ -16,25 +16,36 @@ class BooksApp extends React.Component {
     BooksAPI.getAll()
       .then((books)=>{
         this.setState(()=>({
-          books: books
+          books
           
         }))
       })
   }
 
-  UpdateShelf=()=>{
+  //it will take every book with select shelf and then update it in backend.
+  UpdateShelfBook = (book, shelf)=>{
+   
+    BooksAPI.update(book,shelf)
+      .then((newdata) => {
+        book.shelf=shelf
+        
+      })
 
   }
+  
 
 
   render() {
     return (
+     
       <div className="app">
 
-      <Route exact path='/' render={()=>(<MainPage />)}/>
+        <Route exact path='/' render={() => (<MainPage books={this.state.books}
+         UpdateShelfBook={this.UpdateShelfBook} />)}/>
 
         <Route  path='/search' render={() => 
-        (<SearchBooks books={this.state.books} />)} />
+          (<SearchBooks books={this.state.books}
+         UpdateShelfBook={this.UpdateShelfBook} />)} />
 
       </div>
     )
