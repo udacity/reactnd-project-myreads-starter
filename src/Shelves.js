@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-// import ShelveList from './ShelveList'
 import Book from './Book'
 
 
@@ -18,9 +17,10 @@ class Shelves extends React.Component {
                             book={book}
                             UpdateShelfBook={UpdateShelfBook}
                             key={book.id}/>
-                    </li>
+                    </li>  
                 ))
             }
+                {console.log(books)}
             </ol>
         )
     }

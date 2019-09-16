@@ -9,7 +9,9 @@ import Book from './Book'
 class SearchBooks extends React.Component {
     state={
         query:'',
-        books: [] 
+        books: [],
+        notFound:''
+       
     }
 
     
@@ -33,12 +35,24 @@ updateQuery = (event)=>{
         .then((result)=>{
             if (Array.isArray(result)) {
             this.setState(() => ({
-                books: result 
-            })) } 
+                books: result,
+                notFound:"correct"
+            }))
+            } else {
+                // Invalid querie
+                this.setState({
+                    notFound:result
+                })
+            } 
+
+            
+            console.log(this.state.notFound)
         }
         )}
+        
         else {
             // not found
+
             this.setState({
                 books: [],
             }) 
@@ -49,13 +63,18 @@ updateQuery = (event)=>{
    
 
 render(){
-    const { books, query}=this.state;
+    const { books, query,notFound}=this.state;
     const { UpdateShelfBook}=this.props;
 
-    const showingBooks = (books.error === "empty query"
-        ? <h1>The Result Not Found</h1> : books.filter((c) => (
+    const showingBooks = (books.length >= 0 && query.length > 0
+        ?  books.filter((c) => (
             c.title.toLowerCase().includes(query.toLowerCase())
-        ))) 
+        )):"" ) 
+
+    // const showingBooks = (notFound ==="empty query "&& query.length > 0
+    //     ? true : books.filter((c) => (
+    //         c.title.toLowerCase().includes(query.toLowerCase())
+    //     ))) 
 
     return(
         <div>
@@ -75,6 +94,8 @@ render(){
                 <div className="search-books-results">
 
                     <ol className="books-grid">
+                      
+
                         { // the books show only if books has book and the search input has query
                             showingBooks.length>0 && query.length>0
                             &&
@@ -88,17 +109,13 @@ render(){
                                         key={book.id} />
                             </li>)
                              ))}
+                        {showingBooks && this.state.notFound.error ==="empty query"
+                        &&
+                               <h3>The Result Not Found</h3>
+                             }
+                       
 
-                        <div>
-                            {
-                                // if we search for book and the books not found show this massage
-                                books.error === "empty query"&& books.length===0
-                                &&
-                                (<h1>The Result Not Found</h1>)
-
-                            }
-                        </div>
-                        {console.log(books)}
+                        {/* {console.log(books)} */}
                     </ol>
                
                 </div>
