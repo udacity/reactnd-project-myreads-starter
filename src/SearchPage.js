@@ -39,7 +39,7 @@ updateQuery = (event)=>{
                 notFound:"correct"
             }))
             } else {
-                // Invalid querie
+                // Invalid query
                 this.setState({
                     notFound:result
                 })
@@ -52,7 +52,6 @@ updateQuery = (event)=>{
         
         else {
             // not found
-
             this.setState({
                 books: [],
             }) 
@@ -71,10 +70,6 @@ render(){
             c.title.toLowerCase().includes(query.toLowerCase())
         )):"" ) 
 
-    // const showingBooks = (notFound ==="empty query "&& query.length > 0
-    //     ? true : books.filter((c) => (
-    //         c.title.toLowerCase().includes(query.toLowerCase())
-    //     ))) 
 
     return(
         <div>
@@ -109,8 +104,9 @@ render(){
                                         key={book.id} />
                             </li>)
                              ))}
-                        {showingBooks && this.state.notFound.error ==="empty query"
-                        &&
+                         {
+                            showingBooks && notFound.error ==="empty query"
+                                     &&
                                <h3>The Result Not Found</h3>
                              }
                        
@@ -123,9 +119,6 @@ render(){
         </div>
     );
 }
-
-
-
 
 }
 
