@@ -17,17 +17,17 @@ class Selector extends Component{
     const selectionValue = event.target.value;
     if(this.props.currentSelection !== selectionValue ){
       this.updateSelection(selectionValue)
+      this.props.onSelectorClick(selectionValue)
     }
-    this.onSelectorClick(this.state.newSelection)
   };
 
   render() {
     return(
       <select onChange={this.handleSelection}>
         <option value="move" disabled>Move to...</option>
-        <option value="currentlyReading">Currently Reading</option>
-        <option value="wantToRead">Want to Read</option>
-        <option value="read">Read</option>
+        <option value="Currently Reading">Currently Reading</option>
+        <option value="Want To Read">Want to Read</option>
+        <option value="Read">Read</option>
         <option value="none">None</option>
       </select>
     )
@@ -36,7 +36,7 @@ class Selector extends Component{
 
 Selector.propTypes={
   currentSection: PropTypes.string.isRequired,
-  onSelectorClick: PropTypes.func.isRequired
+  onSelectorClick: PropTypes.func
 }
 export default Selector;
 

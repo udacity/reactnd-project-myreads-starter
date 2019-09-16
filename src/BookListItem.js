@@ -4,9 +4,10 @@ import Selector from "./Selector";
 
 class BookListItem extends Component {
 
-  handleOnClick = (value) => {
-    console.log("Inside BookListItem", value)
-  }
+  propagateSectionChange = (updatedSection) => {
+    console.log("Inside BookListItem", updatedSection, this.props.book)
+    this.props.onPropagateSectionChange(updatedSection, this.props.book)
+  };
 
   render() {
     return (
@@ -19,7 +20,10 @@ class BookListItem extends Component {
               backgroundImage: `url(${this.props.book.coverUrl})`
             }}></div>
             <div className="book-shelf-changer">
-              <Selector currentSection={this.props.section} onSelectorClick={this.handleOnClick.bind(this)}/>
+              <Selector
+                currentSection={this.props.section}
+                onSelectorClick={this.propagateSectionChange}
+              />
             </div>
           </div>
           <div className="book-title">{this.props.book.title}</div>
@@ -32,7 +36,8 @@ class BookListItem extends Component {
 
 BookListItem.propTypes = {
   book: PropTypes.object.isRequired,
-  section: PropTypes.string.isRequired
+  section: PropTypes.string.isRequired,
+  onPropagateSectionChange: PropTypes.func
 };
 
 export default BookListItem;

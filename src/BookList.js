@@ -4,8 +4,14 @@ import Selector from './Selector';
 import BookListItem from "./BookListItem";
 
 class BookList extends Component {
+
+  handleOnPropagateSectionChange = (updatedSection, book) => {
+    console.log("Inside BookList", updatedSection, book)
+    this.props.onSectionChange(updatedSection, this.props.section, book);
+  };
+
   render() {
-    console.log(this.props)
+    console.log(this.props);
     return (
       <div>
         <div className="bookshelf">
@@ -14,7 +20,12 @@ class BookList extends Component {
             <ol className="books-grid">
               {
                 this.props.books.map((book, index) => (
-                  <BookListItem book={book} key={index} section={this.props.section}/>
+                  <BookListItem
+                    book={book}
+                    key={index}
+                    section={this.props.section}
+                    onPropagateSectionChange={this.handleOnPropagateSectionChange}
+                  />
                 ))
               }
             </ol>
@@ -27,7 +38,8 @@ class BookList extends Component {
 
 BookList.propTypes = {
   books: PropTypes.array.isRequired,
-  section: PropTypes.string.isRequired
+  section: PropTypes.string.isRequired,
+  onSectionChange: PropTypes.func
 };
 
 export default BookList;

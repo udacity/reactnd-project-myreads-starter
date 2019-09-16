@@ -3,16 +3,21 @@ import PropTypes from 'prop-types';
 import BookList from "./BookList";
 
 class Section extends Component {
-  state = {
-    books: []
-  };
 
+  handleSectionChangePropogation = (updatedSection, currentSection, book) => {
+    console.log("Inside Section", updatedSection, currentSection, book);
+    this.props.onSectionChange(updatedSection, currentSection, book);
+  };
   render() {
     console.log(this.props.section);
 
     return (
       <div>
-        <BookList books={this.props.section.books} section={this.props.section.name}/>
+        <BookList
+          books={this.props.section.books}
+          section={this.props.section.name}
+          onSectionChange={this.handleSectionChangePropogation}
+        />
       </div>
     )
   }
@@ -20,7 +25,8 @@ class Section extends Component {
 
 
 Section.propTypes = {
-  section: PropTypes.object.isRequired
+  section: PropTypes.object.isRequired,
+  onSectionChange: PropTypes.func
 };
 
 export default Section;

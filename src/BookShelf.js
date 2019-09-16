@@ -6,7 +6,7 @@ class BookShelf extends Component {
     sectionDetails: [
       {
         name: 'Currently Reading',
-        books:[
+        books: [
           {
             title: 'To Kill a Mockingbird',
             author: 'Harper Lee',
@@ -59,8 +59,50 @@ class BookShelf extends Component {
     ]
   };
 
+  findSection = (searchSection) => {
+    return this.state.sectionDetails.find(section => (
+      section.name === searchSection
+    ))
+  };
+
+  removeBookFromSection = (section, bookToRemove) => {
+    const books =  section.books.filter(book => (
+    book.title !== bookToRemove.title
+    ));
+
+    return {
+      ...section,
+      books
+    }
+  };
+
+  addBookToSection = (section, bookToAdd) => {
+    const books =  section.books.concat(bookToAdd);
+
+    return {
+      ...section,
+      books
+    }
+  };
+
+  updateBookShelfState = (newState) => {
+    const prevState = this.findSection(newState.name)
+    this.setState(() => {
+      Object.assign(prevState, newState, {})
+    })
+  }
+
+  handleSectionChange = (newSection, currentSection, bookToUpdate) => {
+    const previousSectionBooks = this.findSection(currentSection);
+    const updatedPreviousSection = this.removeBookFromSection(previousSectionBooks, bookToUpdate)
+    this.updateBookShelfState(updatedPreviousSection);
+
+    const updateNewSection = this.findSection(newSection);
+    const updatedNewSection = this.addBookToSection(updateNewSection, bookToUpdate)
+    this.updateBookShelfState(updatedNewSection)
+  };
+
   render() {
-    console.log(this.state.sections);
     return (
       <div>
         <div className="list-books-title">
@@ -69,7 +111,11 @@ class BookShelf extends Component {
         <div className="list-books-content">
           {
             this.state.sectionDetails.map((section, index) => (
-              <Section section={section} key={index}/>
+              <Section
+                section={section}
+                key={index}
+                onSectionChange={this.handleSectionChange}
+              />
             ))
           }
         </div>
