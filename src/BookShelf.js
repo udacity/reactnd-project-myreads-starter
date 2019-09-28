@@ -102,9 +102,13 @@ class BookShelf extends Component {
     this.updateBookShelfState(updatedNewSection)
   };
 
+  handleAddBook = () => {
+    this.props.history.push('/search')
+  }
+
   render() {
     return (
-      <div>
+      <div className="list-books">
         <div className="list-books-title">
           <h1>MyReads</h1>
         </div>
@@ -118,6 +122,9 @@ class BookShelf extends Component {
               />
             ))
           }
+        </div>
+        <div className="open-search">
+          <button onClick={this.handleAddBook}>Add a book</button>
         </div>
       </div>
     )
