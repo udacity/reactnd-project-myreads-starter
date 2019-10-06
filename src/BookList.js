@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Selector from './Selector';
 import BookListItem from "./BookListItem";
 
 class BookList extends Component {
@@ -43,12 +42,3 @@ BookList.propTypes = {
 };
 
 export default BookList;
-
-
-// {
-//   this.props.books.map(book =>
-//     (
-//       <BookListItem book={book} key={book.name}/>
-//     )
-//   )
-// }

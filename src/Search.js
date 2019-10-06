@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import SearchBar from "./SearchBar";
-import SearchResults from "./SearchResults";
 
 class Search extends Component {
 
@@ -14,9 +13,6 @@ class Search extends Component {
         <div className="search-books-bar">
           <button className="close-search" onClick={this.handleOnClick}>Close</button>
           <SearchBar/>
-        </div>
-        <div className="search-books-results">
-          <SearchResults/>
         </div>
       </div>
     )

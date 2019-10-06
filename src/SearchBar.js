@@ -1,23 +1,69 @@
 import React, { Component } from 'react'
+import * as BooksAPI from './BooksAPI'
+import SearchResults from "./SearchResults";
 
 class SearchBar extends Component {
-  render(){
-    return(
+  state = {
+    query: '',
+    results: []
+  };
+
+  handleOnChange = (event) => {
+    console.log("enter data", event.target.value)
+    const searchParams = event.target.value;
+    this.setState({
+      query: searchParams
+    }
+    // ,
+    //   () => {
+    //   this.searchBooks()
+    // }
+    );
+
+    console.log("Changing params here", this.state.query);
+  };
+
+  // searchBooks = () => {
+  //   if (this.state.query !== '') {
+  //     BooksAPI.search(this.state.query)
+  //       .then(response => {
+  //         console.log("this is what i got from BooksApi", response);
+  //         this.setState({
+  //           results: response
+  //         })
+  //       })
+  //       .catch(error => console.log(error));
+  //     console.log("What is the state here?", typeof(this.state.results), this.state.results)
+  //   }
+  // };
+
+  componentDidMount() {
+    if (this.state.query !== '') {
+      BooksAPI.search(this.state.query)
+        .then(response => {
+          console.log("this is what i got from BooksApi", response);
+          this.setState({
+            results: response
+          })
+        })
+        .catch(error => console.log(error));
+      console.log("What is the state here?", typeof(this.state.results), this.state.results)
+    }
+  }
+
+  render() {
+    return (
       <div className="search-books-input-wrapper">
-        {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
+        <input
+          type="text"
+          onChange={this.handleOnChange}
+          placeholder="Search by title or author"
+        />
 
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
-        <input type="text" placeholder="Search by title or author"/>
-
+        <SearchResults className="search-books-results" books={this.state.results}/>
       </div>
     )
   }
 }
-
 
 export default SearchBar;

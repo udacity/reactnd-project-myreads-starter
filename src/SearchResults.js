@@ -1,15 +1,25 @@
 import React, { Component } from 'react'
-import BookList from "./BookList";
+import PropTypes from "prop-types";
 
 class SearchResults extends Component {
 
-  render(){
-    return(
-      <div>
-        <ol className="books-grid"></ol>
-      </div>
+  render() {
+    console.log("Wat is this?", typeof (this.props.books), this.props.books);
+    const { books } = this.props;
+    console.log("SearchResults", books)
+    return (
+      <ol>
+        "show this"
+        <li>one</li>
+        <li>one</li>
+        <li>{books}</li>
+      </ol>
     )
   }
 }
 
 export default SearchResults;
+
+// SearchResults.propTypes = {
+//   results: PropTypes.array,
+// };
