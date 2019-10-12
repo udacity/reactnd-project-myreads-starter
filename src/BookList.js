@@ -19,13 +19,14 @@ class BookList extends Component {
             <ol className="books-grid">
               {
                 this.props.books.map((book, index) => (
-                  <BookListItem
-                    book={book}
-                    key={index}
-                    section={this.props.section}
-                    onPropagateSectionChange={this.handleOnPropagateSectionChange}
-                  />
-                ))
+                    <BookListItem
+                      book={book}
+                      key={index}
+                      section={this.props.section || ''}
+                      onPropagateSectionChange={this.handleOnPropagateSectionChange}
+                    />
+                  )
+                )
               }
             </ol>
           </div>
