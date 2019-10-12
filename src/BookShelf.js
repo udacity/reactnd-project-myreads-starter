@@ -90,7 +90,7 @@ class BookShelf extends Component {
     this.setState(() => {
       Object.assign(prevState, newState, {})
     })
-  }
+  };
 
   handleSectionChange = (newSection, currentSection, bookToUpdate) => {
     const previousSectionBooks = this.findSection(currentSection);
@@ -104,7 +104,7 @@ class BookShelf extends Component {
 
   handleAddBook = () => {
     this.props.history.push('/search')
-  }
+  };
 
   render() {
     return (

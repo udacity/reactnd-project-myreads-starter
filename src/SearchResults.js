@@ -12,7 +12,7 @@ class SearchResults extends Component {
         "show this"
         <li>one</li>
         <li>one</li>
-        <li>{books}</li>
+        <li>{books.map(book => (book))}</li>
       </ol>
     )
   }

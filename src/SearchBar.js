@@ -13,31 +13,16 @@ class SearchBar extends Component {
     const searchParams = event.target.value;
     this.setState({
       query: searchParams
+    },
+      () => {
+      this.searchBooks()
     }
-    // ,
-    //   () => {
-    //   this.searchBooks()
-    // }
     );
 
     console.log("Changing params here", this.state.query);
   };
 
-  // searchBooks = () => {
-  //   if (this.state.query !== '') {
-  //     BooksAPI.search(this.state.query)
-  //       .then(response => {
-  //         console.log("this is what i got from BooksApi", response);
-  //         this.setState({
-  //           results: response
-  //         })
-  //       })
-  //       .catch(error => console.log(error));
-  //     console.log("What is the state here?", typeof(this.state.results), this.state.results)
-  //   }
-  // };
-
-  componentDidMount() {
+  searchBooks = () => {
     if (this.state.query !== '') {
       BooksAPI.search(this.state.query)
         .then(response => {
@@ -49,7 +34,22 @@ class SearchBar extends Component {
         .catch(error => console.log(error));
       console.log("What is the state here?", typeof(this.state.results), this.state.results)
     }
-  }
+  };
+
+  // componentDidMount() {
+  //   if (this.state.query !== '') {
+  //     BooksAPI.search(this.state.query)
+  //       .then(response => {
+  //         console.log("this is what i got from BooksApi", response);
+  //         this.setState({
+  //           query: this.state.query,
+  //           results: response
+  //         })
+  //       })
+  //       .catch(error => console.log(error));
+  //     console.log("What is the state here?", typeof(this.state.results), this.state.results)
+  //   }
+  // }
 
   render() {
     return (
