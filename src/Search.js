@@ -12,11 +12,12 @@ class Search extends Component {
   };
 
   handleOnSearch = (response) => {
-   console.log('Did I get raise to Search component?', response);
-    this.setState({
-      results: response
-    })
-  }
+    if(response !== undefined) {
+      this.setState({
+        results: response
+      })
+    }
+  };
 
   render() {
     return (
