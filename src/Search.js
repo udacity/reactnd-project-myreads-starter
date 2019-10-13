@@ -12,19 +12,22 @@ class Search extends Component {
   };
 
   handleOnSearch = (response) => {
-    if(response !== undefined) {
-      this.setState({
-        results: response
-      })
-    }
+    this.setState({
+      results: response
+    })
+    
   };
 
   render() {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <button className="close-search" onClick={this.handleOnClick}>Close</button>
-          <SearchBar onSearch={this.handleOnSearch} />
+          <button
+            className="close-search"
+            onClick={this.handleOnClick}>
+            Close
+          </button>
+          <SearchBar onSearch={this.handleOnSearch}/>
         </div>
 
         <div className="search-books-results">

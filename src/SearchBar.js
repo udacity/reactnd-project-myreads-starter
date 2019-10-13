@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
-import PropTypes from "prop-types";
-import SearchResults from "./SearchResults";
 
 class SearchBar extends Component {
   state = {
@@ -26,7 +24,11 @@ class SearchBar extends Component {
     BooksAPI.search(searchParams)
       .then(response => {
         console.log("this is what i got from BooksApi", response);
-        this.props.onSearch(response)
+        if(response.error === "empty query"){
+          return response.items
+        } else {
+          this.props.onSearch(response)
+        }
       })
       .catch(error => console.log(error));
   };

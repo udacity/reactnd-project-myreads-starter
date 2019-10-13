@@ -11,25 +11,24 @@ class BookList extends Component {
 
   render() {
     console.log(this.props);
+    const { books, section } = this.props;
     return (
-      <div>
-        <div className="bookshelf">
-          <h2 className="bookshelf-title">{this.props.section}</h2>
-          <div className="bookshelf-books">
-            <ol className="books-grid">
-              {
-                this.props.books.map((book, index) => (
-                    <BookListItem
-                      book={book}
-                      key={index}
-                      section={this.props.section || ''}
-                      onPropagateSectionChange={this.handleOnPropagateSectionChange}
-                    />
-                  )
+      <div className="bookshelf">
+        <h2 className="bookshelf-title">{this.props.section}</h2>
+        <div className="bookshelf-books">
+          <ol className="books-grid">
+            {
+              books.map((book, index) => (
+                  <BookListItem
+                    book={book}
+                    key={index}
+                    section={section || ''}
+                    onPropagateSectionChange={this.handleOnPropagateSectionChange}
+                  />
                 )
-              }
-            </ol>
-          </div>
+              )
+            }
+          </ol>
         </div>
       </div>
     )
