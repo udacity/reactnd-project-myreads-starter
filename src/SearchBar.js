@@ -6,7 +6,7 @@ class SearchBar extends Component {
     query: ''
   };
 
-  handleOnChange = (event) => {
+  handleOnChange = event => {
     console.log("enter data", event.target.value)
     const searchParams = event.target.value;
     this.setState({

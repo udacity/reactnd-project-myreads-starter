@@ -8,14 +8,15 @@ class Section extends Component {
     console.log("Inside Section", updatedSection, currentSection, book);
     this.props.onSectionChange(updatedSection, currentSection, book);
   };
+
   render() {
     console.log(this.props.section);
-
+    const { section } = this.props;
     return (
       <div>
         <BookList
-          books={this.props.section.books}
-          section={this.props.section.name}
+          bookIds={section.bookIds}
+          section={section.name}
           onSectionChange={this.handleSectionChangePropogation}
         />
       </div>

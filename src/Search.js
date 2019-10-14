@@ -5,7 +5,7 @@ import SearchResults from "./SearchResults";
 class Search extends Component {
   state = {
     results: []
-  }
+  };
 
   handleOnClick = () => {
     this.props.history.push('/')
@@ -15,7 +15,6 @@ class Search extends Component {
     this.setState({
       results: response
     })
-    
   };
 
   render() {

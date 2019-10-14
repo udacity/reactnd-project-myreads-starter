@@ -9,7 +9,7 @@ class SearchResults extends Component {
 
     return (
       <BookList
-        books={books}
+        bookIds={books}
         section={undefined}
       />
     )

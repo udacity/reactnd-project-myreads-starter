@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Selector from "./Selector";
+import * as BooksAPI from './BooksAPI';
 
 
 class BookListItem extends Component {
+  state = {
+    book: {},
+  }
 
   propagateSectionChange = (updatedSection) => {
     console.log("Inside BookListItem", updatedSection, this.props.book)
@@ -11,21 +15,38 @@ class BookListItem extends Component {
   };
 
   loadCoverImage = () => {
-    const {book} = this.props;
-    if(book.imageLinks === undefined) {
+    const { book } = this.state;
+    if (book.imageLinks === undefined) {
       return ''
     }
 
-    if(book.imageLinks.thumbnail === undefined) {
+    if (book.imageLinks.thumbnail === undefined) {
       return book.imageLinks
     } else {
       return book.imageLinks.thumbnail
     }
   };
 
+  fetchCurrentBook = () => {
+    const bookId = this.props.bookId;
+    BooksAPI.get(bookId)
+      .then(response =>
+        this.setState({
+          book: response,
+        })
+      )
+  }
+
+  componentDidMount() {
+    this.fetchCurrentBook();
+  }
+
   render() {
     let coverImage = this.loadCoverImage();
+    const { section, bookId } = this.props;
+    const { book } = this.state;
 
+    console.log("Inside BookListItem", section, bookId)
     return (
       <li>
         <div className="book">
@@ -37,13 +58,14 @@ class BookListItem extends Component {
             }}/>
             <div className="book-shelf-changer">
               <Selector
-                currentSection={this.props.section}
+                book={book}
+                currentSection={section}
                 onSelectorClick={this.propagateSectionChange}
               />
             </div>
           </div>
-          <div className="book-title">{this.props.book.title}</div>
-          <div className="book-authors">{this.props.book.author}</div>
+          <div className="book-title">{book.title}</div>
+          <div className="book-authors">{book.author}</div>
         </div>
       </li>
     )
@@ -51,7 +73,7 @@ class BookListItem extends Component {
 }
 
 BookListItem.propTypes = {
-  book: PropTypes.object.isRequired,
+  bookId: PropTypes.string.isRequired,
   section: PropTypes.string.isRequired,
   onPropagateSectionChange: PropTypes.func
 };

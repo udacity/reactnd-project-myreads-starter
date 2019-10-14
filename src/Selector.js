@@ -1,42 +1,52 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import * as BooksAPI from './BooksAPI'
 
-class Selector extends Component{
+class Selector extends Component {
   state = {
     newSelection: ''
   };
 
-  updateSelection = (value) => {
-    this.setState({
-      newSelection: value
-    });
+  updateSelection = (section) => {
+    const { book } = this.props;
+    console.log('here', book.id, section);
+    BooksAPI.update(book, section)
+      .then(response => {
+          console.log('here too?', response);
+        this.setState({
+            newSelection: section
+          },
+          () => this.props.onSelectorClick(response)
+        )
+        }
+      ).catch(error => console.log(error))
   };
 
   handleSelection = (event) => {
     event.preventDefault();
     const selectionValue = event.target.value;
-    if(this.props.currentSelection !== selectionValue ){
+    if (this.props.currentSelection !== selectionValue) {
       this.updateSelection(selectionValue)
-      this.props.onSelectorClick(selectionValue)
     }
   };
 
   render() {
-    return(
+    return (
       <select onChange={this.handleSelection}>
         <option value="move" disabled>Move to...</option>
-        <option value="Currently Reading">Currently Reading</option>
-        <option value="Want To Read">Want to Read</option>
-        <option value="Read">Read</option>
+        <option value="currentlyReading">Currently Reading</option>
+        <option value="wantToRead">Want to Read</option>
+        <option value="read">Read</option>
         <option value="none">None</option>
       </select>
     )
   }
 }
 
-Selector.propTypes={
+Selector.propTypes = {
   currentSection: PropTypes.string.isRequired,
-  onSelectorClick: PropTypes.func
+  onSelectorClick: PropTypes.func,
+  book: PropTypes.object.isRequired
 }
 export default Selector;
 
