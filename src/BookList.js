@@ -10,8 +10,8 @@ class BookList extends Component {
   };
 
   render() {
-    console.log(this.props);
-    const { bookIds, section } = this.props;
+    console.log("Props for BookList", this.props);
+    const { books, section } = this.props;
 
     return (
       <div className="bookshelf">
@@ -19,11 +19,11 @@ class BookList extends Component {
         <div className="bookshelf-books">
           <ol className="books-grid">
             {
-              bookIds.map((bookId) => (
+              books.map((book) => (
                   <BookListItem
-                    bookId={bookId}
-                    key={bookId}
-                    section={section || ''}
+                    book={book}
+                    key={book.id}
+                    section={section}
                     onPropagateSectionChange={this.handleOnPropagateSectionChange}
                   />
                 )
@@ -38,7 +38,7 @@ class BookList extends Component {
 
 BookList.propTypes = {
   books: PropTypes.array,
-  section: PropTypes.string.isRequired,
+  section: PropTypes.string,
   onSectionChange: PropTypes.func
 };
 

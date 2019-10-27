@@ -1,38 +1,25 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import * as BooksAPI from './BooksAPI'
 
 class Selector extends Component {
+
   state = {
-    newSelection: ''
-  };
+    value: 'currentlyReading'
+  }
 
-  updateSelection = (section) => {
-    const { book } = this.props;
-    console.log('here', book.id, section);
-    BooksAPI.update(book, section)
-      .then(response => {
-          console.log('here too?', response);
-        this.setState({
-            newSelection: section
-          },
-          () => this.props.onSelectorClick(response)
-        )
-        }
-      ).catch(error => console.log(error))
-  };
-
-  handleSelection = (event) => {
+  handleSelectionChangeEvent = (event) => {
     event.preventDefault();
     const selectionValue = event.target.value;
-    if (this.props.currentSelection !== selectionValue) {
-      this.updateSelection(selectionValue)
+    if (this.props.currentSection !== selectionValue) {
+      this.setState({value: selectionValue})
+      this.props.onSelectorClick(selectionValue)
     }
   };
 
+
   render() {
     return (
-      <select onChange={this.handleSelection}>
+      <select value={this.props.currentSectionKey || 'none'} onChange={this.handleSelectionChangeEvent}>
         <option value="move" disabled>Move to...</option>
         <option value="currentlyReading">Currently Reading</option>
         <option value="wantToRead">Want to Read</option>
@@ -45,12 +32,8 @@ class Selector extends Component {
 
 Selector.propTypes = {
   currentSection: PropTypes.string.isRequired,
+  currentSectionKey: PropTypes.string.isRequired,
   onSelectorClick: PropTypes.func,
   book: PropTypes.object.isRequired
 }
 export default Selector;
-
-//Algorithm:
-// Props will send currentSelector.
-//Match currentSelector to new selector.
-// if selector is changed raise the newSelection state up tp the parent to inform that the selection has been updated.

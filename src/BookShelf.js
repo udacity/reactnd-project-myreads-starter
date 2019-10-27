@@ -1,93 +1,110 @@
 import React, { Component } from 'react';
 import Section from "./Section";
+import * as BooksAPI from './BooksAPI';
 
 class BookShelf extends Component {
   state = {
-    sectionDetails: [
-      {
-        name: "Currently Reading",
-        key: 'currentlyReading',
-        bookIds: [
-          "nggnmAEACAAJ", "sJf1vQAACAAJ"
-        ]
-      },
+    sections: [
       {
         name: 'Want To Read',
         key: 'wantToRead',
-        bookIds: [
-          "jAUODAAAQBAJ", "IOejDAAAQBAJ",
-          "1wy49i-gQjIC", "qIjQjgEACAAJ",
-          "qXXHAgAAQBAJ", "PFIfAQAAIAAJ"
-        ]
+        books: []
       },
+
       {
         name: 'Read',
         key: 'read',
-        bookIds: [
-          "evuwdDLfAyYC", "74XNzF_al3MC",
-          "5bgEyjAtLhEC", "Du_mTZwlWRUC"
-        ]
+        books: []
+      },
+      {
+        name: 'Currently Reading',
+        key: 'currentlyReading',
+        books: []
       }
     ]
   };
 
-  findSection = (searchSection) => {
-    console.log("What am I searching here?", searchSection)
-    return this.state.sectionDetails.find(section => (
-      section.name === searchSection
-    ))
-  };
-
-  removeBookFromSection = (section, bookToRemove) => {
-    console.log("Inside removeBook", bookToRemove, section);
-    const books = section.books.filter(book => (
-      book.title !== bookToRemove.title
-    ));
-
-    return {
-      ...section,
-      books
-    }
-  };
-
-  addBookToSection = (section, bookToAdd) => {
-    console.log("Inside addBookToSection", section, bookToAdd)
-    const books = section.books.concat(bookToAdd);
-
-    return {
-      ...section,
-      books
-    }
-  };
-
   updateBookShelfState = (newState) => {
-    const prevState = this.findSection(newState.name);
-    this.setState(() => {
-      Object.assign(prevState, newState, {})
+    this.setState({
+      sections: newState
     })
+
   };
 
-  handleSectionChange = (newSection, currentSection, bookToUpdate) => {
-    console.log('not here tough')
-    console.log("Inside BookShelf", newSection, currentSection, bookToUpdate);
+  buildSection = (response) => {
+    let sectionBooks = [];
 
-    const previousSectionBooks = this.findSection(currentSection);
-    console.log("Previous section books", previousSectionBooks)
-    const updatedPreviousSection = this.removeBookFromSection(previousSectionBooks, bookToUpdate)
-    this.updateBookShelfState(updatedPreviousSection);
+    let readSection = {
+      name: 'Read',
+      key: 'read',
+      books: []
+    };
 
-    console.log("New section ----> ", newSection);
-    const updateNewSection = this.findSection(newSection);
-    const updatedNewSection = this.addBookToSection(updateNewSection, bookToUpdate)
-    console.log("What is the value of updateNewSection", updatedNewSection)
-    this.updateBookShelfState(updatedNewSection)
+    let currentlyReading = {
+      name: 'Currently Reading',
+      key: 'currentlyReading',
+      books: []
+    };
+
+    let wantToRead = {
+      name: 'Want To Read',
+      key: 'wantToRead',
+      books: []
+    };
+
+    currentlyReading['books'] = this.filterBooksForSection(response, 'currentlyReading');
+    sectionBooks.push(currentlyReading);
+
+    wantToRead['books'] = this.filterBooksForSection(response, 'wantToRead');
+    sectionBooks.push(wantToRead);
+
+    readSection['books'] = this.filterBooksForSection(response, 'read')
+    sectionBooks.push(readSection);
+
+    return sectionBooks
+  };
+
+  filterBooksForSection = (response, key) => {
+    return response.filter((book) =>
+      book.shelf === key
+    );
   };
 
   handleAddBook = () => {
     this.props.history.push('/search')
   };
 
+  componentDidMount() {
+    BooksAPI.getAll()
+      .then(resp => {
+        return this.buildSection(resp)
+      })
+      .then(result => {
+          console.log("Result:", result)
+          return this.updateBookShelfState(result)
+        }
+      )
+  }
+
+  updateSelection = (newSection, book) => {
+    BooksAPI.update(book, newSection)
+      .then(response => {
+          this.updateBookShelfState(response)
+        }
+      );
+
+    this.props.history.push('/')
+  };
+
+  handleSectionChange = (newSection, oldSection, book) => {
+    this.updateSelection(newSection, book)
+  };
+
+
   render() {
+    const { sections } = this.state;
+    console.log("Rendering....");
+
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -95,7 +112,7 @@ class BookShelf extends Component {
         </div>
         <div className="list-books-content">
           {
-            this.state.sectionDetails.map((section, index) => (
+            sections.map((section, index) => (
               <Section
                 section={section}
                 key={index}

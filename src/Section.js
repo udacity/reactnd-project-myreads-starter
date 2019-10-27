@@ -5,17 +5,15 @@ import BookList from "./BookList";
 class Section extends Component {
 
   handleSectionChangePropogation = (updatedSection, currentSection, book) => {
-    console.log("Inside Section", updatedSection, currentSection, book);
     this.props.onSectionChange(updatedSection, currentSection, book);
   };
 
   render() {
-    console.log(this.props.section);
     const { section } = this.props;
     return (
       <div>
         <BookList
-          bookIds={section.bookIds}
+          books={section.books}
           section={section.name}
           onSectionChange={this.handleSectionChangePropogation}
         />

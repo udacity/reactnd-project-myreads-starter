@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Selector from "./Selector";
-import * as BooksAPI from './BooksAPI';
-
 
 class BookListItem extends Component {
-  state = {
-    book: {},
-  }
 
   propagateSectionChange = (updatedSection) => {
     console.log("Inside BookListItem", updatedSection, this.props.book)
@@ -15,7 +10,7 @@ class BookListItem extends Component {
   };
 
   loadCoverImage = () => {
-    const { book } = this.state;
+    const { book } = this.props;
     if (book.imageLinks === undefined) {
       return ''
     }
@@ -27,26 +22,11 @@ class BookListItem extends Component {
     }
   };
 
-  fetchCurrentBook = () => {
-    const bookId = this.props.bookId;
-    BooksAPI.get(bookId)
-      .then(response =>
-        this.setState({
-          book: response,
-        })
-      )
-  }
-
-  componentDidMount() {
-    this.fetchCurrentBook();
-  }
-
   render() {
     let coverImage = this.loadCoverImage();
-    const { section, bookId } = this.props;
-    const { book } = this.state;
+    const { section, book } = this.props;
 
-    console.log("Inside BookListItem", section, bookId)
+    console.log("Inside BookListItem", section, book)
     return (
       <li>
         <div className="book">
@@ -60,6 +40,7 @@ class BookListItem extends Component {
               <Selector
                 book={book}
                 currentSection={section}
+                currentSectionKey={book.shelf}
                 onSelectorClick={this.propagateSectionChange}
               />
             </div>
@@ -73,7 +54,7 @@ class BookListItem extends Component {
 }
 
 BookListItem.propTypes = {
-  bookId: PropTypes.string.isRequired,
+  book: PropTypes.object.isRequired,
   section: PropTypes.string.isRequired,
   onPropagateSectionChange: PropTypes.func
 };

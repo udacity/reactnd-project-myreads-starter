@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import BookList from "./BookList";
 
 class SearchResults extends Component {
+
   render() {
     const { books } = this.props;
-    console.log("SearchResults", books)
 
     return (
       <BookList
-        bookIds={books}
-        section={undefined}
+        books={books}
+        section={''}
       />
     )
   }
@@ -19,5 +19,6 @@ class SearchResults extends Component {
 export default SearchResults;
 
 SearchResults.propTypes = {
-  books: PropTypes.array
+  books: PropTypes.array,
+  onSectionChange: PropTypes.func
 };
