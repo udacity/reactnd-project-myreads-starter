@@ -4,31 +4,15 @@ import * as BooksAPI from './BooksAPI';
 
 class BookShelf extends Component {
   state = {
-    sections: [
-      {
-        name: 'Want To Read',
-        key: 'wantToRead',
-        books: []
-      },
-
-      {
-        name: 'Read',
-        key: 'read',
-        books: []
-      },
-      {
-        name: 'Currently Reading',
-        key: 'currentlyReading',
-        books: []
-      }
-    ]
+    sections: []
   };
 
   updateBookShelfState = (newState) => {
-    this.setState({
-      sections: newState
-    })
+    const { sections } = this.state;
 
+    this.setState({
+      sections: Object.assign(sections, newState, {})
+    })
   };
 
   buildSection = (response) => {
@@ -103,7 +87,6 @@ class BookShelf extends Component {
 
   render() {
     const { sections } = this.state;
-    console.log("Rendering....");
 
     return (
       <div className="list-books">
