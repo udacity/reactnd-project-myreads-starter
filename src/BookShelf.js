@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Section from "./Section";
 import * as BooksAPI from './BooksAPI';
-import PropTypes from "prop-types";
 import {Link} from 'react-router-dom';
 
 class BookShelf extends Component {
@@ -62,9 +61,6 @@ class BookShelf extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.updateSection);
-    this.updateBookShelfState(this.updateSection)
-
     BooksAPI.getAll()
       .then(resp => {
         return this.buildSection(resp)
@@ -75,29 +71,10 @@ class BookShelf extends Component {
       )
   }
 
-  updateSelection = (newSection, book) => {
-    BooksAPI.update(book, newSection)
-      .then(response => {
-          return this.updateBookShelfState(response)
-        }
-      );
-  };
 
   handleSectionChange = (newSection, oldSection, book) => {
-    this.updateSelection(newSection, book)
+    this.props.onSectionChange(newSection, oldSection, book)
   };
-
-  updateSearchedBook = () => {
-    if(this.props.shelfChange === true) {
-      console.log("Updating shelf", this.props.updatedSectionDetails['updatedSection'],
-        this.props.updatedSectionDetails['book'])
-
-      this.updateSelection(
-        this.props.updatedSectionDetails['updatedSection'],
-        this.props.updatedSectionDetails['book']
-      )
-    }
-  }
 
   render() {
     const { sections } = this.state;
@@ -124,8 +101,8 @@ class BookShelf extends Component {
     )
   }
 }
-
-BookShelf.propTypes = {
-  updateSection: PropTypes.object
-};
+//
+// BookShelf.propTypes = {
+//   updateSection: PropTypes.object
+// };
 export default BookShelf;

@@ -3,35 +3,39 @@ import './App.css';
 import BookShelf from "./BookShelf";
 import Search from './Search';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import * as BooksAPI from "./BooksAPI";
 
 class BooksApp extends React.Component {
   state = {
-     sectionChange: false,
-     updatedSectionDetails: {
-       updatedSection: '',
-       currentSection: '',
-       book: {}
-     }
-  }
+    section: []
+  };
 
-  onSectionChange = (updatedSection, currentSection, book) => {
-    console.log("Inside App", updatedSection, currentSection, book);
+  updateAppState = (newState) => {
+    console.log("Inside App", newState);
     this.setState({
-      sectionChange: !this.state.sectionChange,
-      updatedSectionDetails: {
-        updatedSection: updatedSection,
-        currentSection: currentSection,
-        book: book
-      }
-    }, () => console.log('state', this.state) )
-  }
+      section: newState
+    }, () => console.log('state', this.state))
+  };
+
+  updateSelection = (newSection, book) => {
+    BooksAPI.update(book, newSection)
+      .then(response => {
+          console.log("This is updates response", response)
+          return this.updateAppState(response)
+        }
+      );
+  };
+
+  handleSectionChange = (newSection, oldSection, book) => {
+    this.updateSelection(newSection, book)
+  };
 
   render() {
     return (
       <BrowserRouter class='app'>
         <Switch>
-          <Route exact path='/' component={() => <BookShelf updateSection={this.state}/>}/>
-          <Route exact path='/search' component={() => <Search onSectionChange={this.onSectionChange}/>}/>
+          <Route exact path='/' component={() => <BookShelf onSectionChange={this.handleSectionChange}/>}/>
+          <Route exact path='/search' component={() => <Search onSectionChange={this.handleSectionChange} bookShelfState={this.state}/>}/>
         </Switch>
       </BrowserRouter>
     )

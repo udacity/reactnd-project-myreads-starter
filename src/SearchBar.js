@@ -16,8 +16,6 @@ class SearchBar extends Component {
         this.searchBooks(searchParams)
       }
     );
-
-    console.log("Changing params here", this.state.query);
   };
 
   searchBooks = searchParams => {

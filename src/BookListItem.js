@@ -26,7 +26,7 @@ class BookListItem extends Component {
     let coverImage = this.loadCoverImage();
     const { section, book } = this.props;
 
-    console.log("Inside BookListItem", section, book)
+    console.log("Inside BookListItem", section, book.shelf)
     return (
       <li>
         <div className="book">
