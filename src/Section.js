@@ -11,13 +11,11 @@ class Section extends Component {
   render() {
     const { section } = this.props;
     return (
-      <div>
-        <BookList
-          books={section.books}
-          section={section.name}
-          onSectionChange={this.handleSectionChangePropogation}
-        />
-      </div>
+      <BookList
+        books={section.books}
+        section={section.name}
+        onSectionChange={this.handleSectionChangePropogation}
+      />
     )
   }
 }

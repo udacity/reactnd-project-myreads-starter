@@ -4,6 +4,11 @@ import BookList from "./BookList";
 
 class SearchResults extends Component {
 
+  handleSectionChangePropogation = (updatedSection, currentSection, book) => {
+    console.log("Inside SearchResults")
+    this.props.onSectionChange(updatedSection, currentSection, book);
+  };
+
   render() {
     const { books } = this.props;
 
@@ -11,6 +16,7 @@ class SearchResults extends Component {
       <BookList
         books={books}
         section={''}
+        onSectionChange={this.handleSectionChangePropogation}
       />
     )
   }

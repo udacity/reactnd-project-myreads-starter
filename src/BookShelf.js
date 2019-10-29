@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Section from "./Section";
 import * as BooksAPI from './BooksAPI';
+import PropTypes from "prop-types";
+import {Link} from 'react-router-dom';
 
 class BookShelf extends Component {
   state = {
@@ -55,16 +57,19 @@ class BookShelf extends Component {
   };
 
   handleAddBook = () => {
+    console.log(this.props.history)
     this.props.history.push('/search')
   };
 
   componentDidMount() {
+    console.log(this.props.updateSection);
+    this.updateBookShelfState(this.updateSection)
+
     BooksAPI.getAll()
       .then(resp => {
         return this.buildSection(resp)
       })
       .then(result => {
-          console.log("Result:", result)
           return this.updateBookShelfState(result)
         }
       )
@@ -73,21 +78,29 @@ class BookShelf extends Component {
   updateSelection = (newSection, book) => {
     BooksAPI.update(book, newSection)
       .then(response => {
-          this.updateBookShelfState(response)
+          return this.updateBookShelfState(response)
         }
       );
-
-    this.props.history.push('/')
   };
 
   handleSectionChange = (newSection, oldSection, book) => {
     this.updateSelection(newSection, book)
   };
 
+  updateSearchedBook = () => {
+    if(this.props.shelfChange === true) {
+      console.log("Updating shelf", this.props.updatedSectionDetails['updatedSection'],
+        this.props.updatedSectionDetails['book'])
+
+      this.updateSelection(
+        this.props.updatedSectionDetails['updatedSection'],
+        this.props.updatedSectionDetails['book']
+      )
+    }
+  }
 
   render() {
     const { sections } = this.state;
-
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -105,12 +118,14 @@ class BookShelf extends Component {
           }
         </div>
         <div className="open-search">
-          <button onClick={this.handleAddBook}>Add a book</button>
+          <Link to='/search'>Add a book</Link>
         </div>
       </div>
     )
   }
 }
 
-
+BookShelf.propTypes = {
+  updateSection: PropTypes.object
+};
 export default BookShelf;

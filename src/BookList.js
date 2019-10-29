@@ -6,7 +6,8 @@ class BookList extends Component {
 
   handleOnPropagateSectionChange = (updatedSection, book) => {
     console.log("Inside BookList", updatedSection, book)
-    this.props.onSectionChange(updatedSection, this.props.section, book);
+    const currentSection = this.props.section || 'None';
+    this.props.onSectionChange(updatedSection, currentSection, book);
   };
 
   render() {
