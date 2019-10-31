@@ -10,7 +10,7 @@ const Book = props => {
           style={{
             width: 128,
             height: 193,
-            backgroundImage: `${data.image}`
+            backgroundImage: `url(${data.imageLinks.thumbnail})`
           }}
         />
         <div className="book-shelf-changer">
