@@ -1,7 +1,7 @@
 import React from "react";
 
 const Book = props => {
-  const { data } = props;
+  const { book } = props;
   return (
     <div className="book">
       <div className="book-top">
@@ -10,7 +10,7 @@ const Book = props => {
           style={{
             width: 128,
             height: 193,
-            backgroundImage: `url(${data.imageLinks.thumbnail})`
+            backgroundImage: `url(${book.imageLinks.thumbnail})`
           }}
         />
         <div className="book-shelf-changer">
@@ -25,8 +25,8 @@ const Book = props => {
           </select>
         </div>
       </div>
-      <div className="book-title">{data.title}</div>
-      <div className="book-authors">{data.authors}</div>
+      <div className="book-title">{book.title}</div>
+      <div className="book-authors">{book.authors}</div>
     </div>
   );
 };
