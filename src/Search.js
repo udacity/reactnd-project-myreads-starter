@@ -10,7 +10,12 @@ class Search extends Component {
   };
 
   handleOnSearch = (response) => {
-    const newState = this.addShelfPropertyToResults(response)
+    let newState = [];
+
+    if(response !== undefined){
+      newState = this.addShelfPropertyToResults(response)
+    }
+
     this.updateResults(newState)
   };
 

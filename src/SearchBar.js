@@ -15,13 +15,13 @@ class SearchBar extends Component {
   searchBooks = searchParams => {
     BooksAPI.search(searchParams)
       .then(response => {
-        if (response.error === "empty query") {
-          return response.items
+        if (response && response.error === "empty query") {
+          this.props.onSearch(response.items)
         } else {
           this.props.onSearch(response)
         }
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error))
   };
 
   render() {
