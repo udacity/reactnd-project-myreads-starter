@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 
 class Selector extends Component {
-
   state = {
     value: 'currentlyReading'
   }
@@ -10,8 +9,9 @@ class Selector extends Component {
   handleSelectionChangeEvent = (event) => {
     event.preventDefault();
     const selectionValue = event.target.value;
+
     if (this.props.currentSection !== selectionValue) {
-      this.setState({value: selectionValue})
+      this.setState({ value: selectionValue })
       this.props.onSelectorClick(selectionValue)
     }
   };
@@ -32,7 +32,7 @@ class Selector extends Component {
 
 Selector.propTypes = {
   currentSection: PropTypes.string.isRequired,
-  currentSectionKey: PropTypes.string.isRequired,
+  currentSectionKey: PropTypes.string,
   onSelectorClick: PropTypes.func,
   book: PropTypes.object.isRequired
 }

@@ -27,9 +27,3 @@ Section.propTypes = {
 };
 
 export default Section;
-
-
-// Algorithm:
-// Filter the books depending on which section is being displayed
-// What do I need in order to do that? I need a way to track which is the self
-//

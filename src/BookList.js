@@ -3,15 +3,12 @@ import PropTypes from 'prop-types';
 import BookListItem from "./BookListItem";
 
 class BookList extends Component {
-
   handleOnPropagateSectionChange = (updatedSection, book) => {
-    console.log("Inside BookList", updatedSection, book)
     const currentSection = this.props.section || 'None';
     this.props.onSectionChange(updatedSection, currentSection, book);
   };
 
   render() {
-    console.log("Props for BookList", this.props);
     const { books, section } = this.props;
 
     return (

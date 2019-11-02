@@ -5,7 +5,6 @@ import Selector from "./Selector";
 class BookListItem extends Component {
 
   propagateSectionChange = (updatedSection) => {
-    console.log("Inside BookListItem", updatedSection, this.props.book)
     this.props.onPropagateSectionChange(updatedSection, this.props.book)
   };
 
@@ -25,8 +24,6 @@ class BookListItem extends Component {
   render() {
     let coverImage = this.loadCoverImage();
     const { section, book } = this.props;
-
-    console.log("Inside BookListItem", section, book.shelf)
     return (
       <li>
         <div className="book">
@@ -46,7 +43,13 @@ class BookListItem extends Component {
             </div>
           </div>
           <div className="book-title">{book.title}</div>
-          <div className="book-authors">{book.author}</div>
+          <div className="book-authors">
+            {
+              book.authors.map((author, index) =>
+                <div key={index}>{author}</div>
+              )
+            }
+          </div>
         </div>
       </li>
     )
