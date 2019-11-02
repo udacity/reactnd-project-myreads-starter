@@ -1,5 +1,16 @@
 # MyReads Project
 
+## Description
+A small react application to simulate a users bookshelf and add or remove books.
+
+## Installation
+Steps to get this app working on local.
+1. Clone the repo using `git clone <click on green clone or download button on github and paste the contents>`
+2. Install prohect dependencies using `npm install`
+3. Run server locally using `npm start`
+4. Navigate to `http://localhost:3000` and see the app running.
+
+----
 This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
 
 Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
