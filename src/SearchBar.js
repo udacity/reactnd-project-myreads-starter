@@ -7,22 +7,15 @@ class SearchBar extends Component {
   };
 
   handleOnChange = event => {
-    console.log("enter data", event.target.value)
     const searchParams = event.target.value;
-    this.setState({
-        query: searchParams
-      },
-      () => {
-        this.searchBooks(searchParams)
-      }
-    );
+    this.setState({ query: searchParams });
+    this.searchBooks(searchParams)
   };
 
   searchBooks = searchParams => {
     BooksAPI.search(searchParams)
       .then(response => {
-        console.log("this is what i got from BooksApi", response);
-        if(response.error === "empty query"){
+        if (response.error === "empty query") {
           return response.items
         } else {
           this.props.onSearch(response)

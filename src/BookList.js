@@ -13,7 +13,9 @@ class BookList extends Component {
 
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{section}</h2>
+        {
+          section !== '' && <h2 className="bookshelf-title">{section}</h2>
+        }
         <div className="bookshelf-books">
           <ol className="books-grid">
             {

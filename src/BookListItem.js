@@ -45,6 +45,7 @@ class BookListItem extends Component {
           <div className="book-title">{book.title}</div>
           <div className="book-authors">
             {
+              book.authors &&
               book.authors.map((author, index) =>
                 <div key={index}>{author}</div>
               )

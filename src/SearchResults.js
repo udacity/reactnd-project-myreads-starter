@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import BookList from "./BookList";
 
 class SearchResults extends Component {
-
   handleSectionChangePropogation = (updatedSection, currentSection, book) => {
-    console.log("Inside SearchResults")
     this.props.onSectionChange(updatedSection, currentSection, book);
   };
 

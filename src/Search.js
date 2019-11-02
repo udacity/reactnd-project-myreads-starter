@@ -15,10 +15,8 @@ class Search extends Component {
   };
 
   updateResults = (newState) => {
-    this.setState({
-      results: newState
-    })
-  }
+    this.setState({ results: newState })
+  };
 
   onSectionChange = (updatedSection, currentSection, book) => {
     this.props.onSectionChange(updatedSection, currentSection, book);
