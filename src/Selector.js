@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 class Selector extends Component {
   state = {
-    value: 'currentlyReading'
-  }
+    value: 'none'
+  };
 
   handleSelectionChangeEvent = (event) => {
     event.preventDefault();
@@ -19,7 +19,7 @@ class Selector extends Component {
 
   render() {
     return (
-      <select value={this.props.currentSectionKey || 'none'} onChange={this.handleSelectionChangeEvent}>
+      <select value={this.props.currentSectionKey || this.state.value} onChange={this.handleSelectionChangeEvent}>
         <option value="move" disabled>Move to...</option>
         <option value="currentlyReading">Currently Reading</option>
         <option value="wantToRead">Want to Read</option>
@@ -35,5 +35,6 @@ Selector.propTypes = {
   currentSectionKey: PropTypes.string,
   onSelectorClick: PropTypes.func,
   book: PropTypes.object.isRequired
-}
+};
+
 export default Selector;

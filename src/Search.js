@@ -75,5 +75,4 @@ Search.propTypes = {
   onSectionChange: PropTypes.func
 };
 
-
 export default Search;

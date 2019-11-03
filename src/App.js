@@ -75,6 +75,10 @@ class BooksApp extends React.Component {
     this.loadBooks();
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    return this.state.sections !== nextState.sections
+  }
+
   render() {
     return (
       <BrowserRouter class='app'>

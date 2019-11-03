@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Selector from "./Selector";
 
 class BookListItem extends Component {
-
   propagateSectionChange = (updatedSection) => {
     this.props.onPropagateSectionChange(updatedSection, this.props.book)
   };

@@ -8,6 +8,9 @@ class SearchBar extends Component {
 
   handleOnChange = event => {
     const searchParams = event.target.value;
+    if (searchParams === ''){
+      return this.props.onSearch([])
+    }
     this.setState({ query: searchParams });
     this.searchBooks(searchParams)
   };
