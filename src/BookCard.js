@@ -10,7 +10,7 @@ class BookCard extends Component {
                 <div className="card">
                     <div className="card-image">
                         <figure className="image is-2by3 book-cover">                          
-                            <img src={this.state.bookcover} alt="this is a thing" className="image"></img>
+                            <img src='#' alt="this is a thing" className="image"></img>
                         </figure>                    
                     </div>
                     <div className="card-content">

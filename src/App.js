@@ -4,8 +4,10 @@ import './App.css'
 import './BookCard.css'
 import BookCard from './BookCard.js'
 import Header from './Header'
+import { Route, Link } from 'react-router-dom'
 
-class BooksApp extends React.Component {
+
+class App extends React.Component {
   state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
@@ -14,7 +16,8 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
-    bookcover: ''
+    bookcover: '',
+    query: '',
   }
 
 
@@ -27,17 +30,18 @@ class BooksApp extends React.Component {
       })
   }
 
+
   render() {
     return (
-      <div className="app">
+    <div>
       <Header />
-        {this.state.showSearchPage ? (
-          <div className="search-books">
-            <div className="search-books-bar">
-              <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
+      <Route path='/add' render={() => (
+        <div className="container">
+               
               <div className="field">
                 <div className="control">
-                  {/*
+                  <Link className="back-button" to="/"><span class="icon is-large has-text-dark"><i className="fas fa-lg fa-chevron-left" title="close search"></i></span></Link>
+                                  {/*
                     NOTES: The search from BooksAPI is limited to a particular set of search terms.
                     You can find these search terms here:
                     https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
@@ -45,15 +49,15 @@ class BooksApp extends React.Component {
                     However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                     you don't find a specific author or title. Every search is limited by search terms.
                   */}
-                  <input type="text" placeholder="Search by title or author" className="book-search-input input is-primary is-rounded is-medium" />
+                  <input type="text" placeholder="Search by title or author" className="book-search-input input is-medium is-dark" />
                 </div>
               </div>
-            </div>
             <div className="search-books-results">
               <ol className="books-grid"></ol>
             </div>
-          </div>
-        ) : (
+        </div>
+        ) } />
+        <Route exact path='/' render={() => (
             <div className="list-books-content">
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
@@ -80,14 +84,12 @@ class BooksApp extends React.Component {
                   </div>
                 </div>
               <div className="open-search">
-                <button className="button is-dark is-bold is-rounded" onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+                <Link to="/add" className="button is-dark is-bold is-rounded" id="add-book-button"></Link>
               </div>     
-            </div>  
-        )}      
-      
-      </div>      
+            </div>  )} /> 
+          </div>
     )
   }
 }
 
-export default BooksApp
+export default App

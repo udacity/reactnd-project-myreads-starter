@@ -16,7 +16,7 @@ body, .app {
   bottom: 25px;
 }
 
-.open-search button {
+#add-book-button {
   display: block;
   width: 50px;
   height: 50px;
@@ -35,33 +35,17 @@ body, .app {
 /* search page */
 
 .book-search-input {
-  position: fixed;
-  width: 100%;
+  position: relative;
+  width: 90%;
   top: 0;
   left: 0;
   z-index: 5;
-  display: flex;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 0 6px rgba(0,0,0,0.23);
 }
 
-.field {
-  flex: 1;
-  background: whitesmoke;
-  max-width:70%; max-height: 20%;
-}
-
-.search-books-bar input {
-  width: 100%;
-  padding: 15px 10px;
-  font-size: 1.25em;
-  border: none;
-  outline: none;
-}
 
 .close-search {
-  display: block;
-  top: 20px;
-  left: 15px;
+  display: inline-flex;
   width: 50px;
   height: 53px;
   background-image: url('./icons/arrow-back.svg');
@@ -73,10 +57,12 @@ body, .app {
   outline: none;
 }
 
-button:active {
-  border: red;
-  outline: none;
+.back-button {
+  display: block;
+  color: red;
+
 }
+
 
 .search-books-results {
   padding: 80px 10px 20px;
@@ -126,3 +112,9 @@ button:active {
   font-size: 1.5rem;
   font-weight: bolder;
 }
+
+.control {
+  display: flex;
+  margin-top: 10px;
+}
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css')

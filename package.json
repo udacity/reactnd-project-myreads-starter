@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mdi/react": "^1.2.1",
     "bulmaswatch": "^0.7.5",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
