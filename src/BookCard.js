@@ -1,43 +1,47 @@
-import React, {Component} from 'react';
-// import * as BooksAPI from './BooksAPI';
+import React from 'react';
+import BookButton from './BookButton';
+import Placeholder from './images/steve.jpg';
+import PropTypes from 'prop-types';
 
-class BookCard extends Component {
-state: {
-    cover: '',
-    title: '',
-    author: ''
-}
-  
-    render() {
+const BookCard = props => {
+
+        const { book, changeShelf } = props;
+
+        const cover =
+        book.imageLinks && book.imageLinks.thumbnail
+          ? book.imageLinks.thumbnail
+          : Placeholder;
+      
+
         return (
-             <li>
-                <div className="card">
+            <div className="column">
+                <div className="card book-card">
                     <div className="card-image">
-                        <figure className="image is-2by3 book-cover">                          
-                            <img src={this.state.cover} alt={this.state.title} className="image"></img>
+                        <figure className="image book-cover"> 
+                            <img src={cover} alt="book cover" />
                         </figure>                    
                     </div>
                     <div className="card-content">
-                        <div className="content book-info">
-                            <p className="bookTitle">Title: {this.state.title}</p>
-                            <p className="bookAuthor">Author: {this.state.author}</p>
-                        </div>
+                        <div className="content book-info">                    
+                        <span className="author-label">By:</span>
+                             {book.authors &&
+                                    book.authors.map((author, index) => (
+                                <p className="book-author" key={index}>
+                                    {author}
+                                    </p>
+                            ))}                                  
                     </div>
                     <div className="card-footer">
-                        <div className="book-shelf-changer has-background-dark is-bold">
-                            <select>
-                                        <option value="move" disabled>Move to...</option>
-                                        <option value="currentlyReading">Currently Reading</option>
-                                        <option value="wantToRead">Want to Read</option>
-                                        <option value="read">Read</option>
-                                        <option value="none">None</option>
-                            </select>
-                        </div>
+                        <BookButton className="book-button" book={book} changeShelf={this.changeShelf} />
                     </div>
                 </div>
-            </li>
+            </div>
+            </div>
         )
     }
-}
+    BookCard.propTypes = {
+        books: PropTypes.array.isRequired,
+        changeShelf: PropTypes.func.isRequired
+      }
 
 export default BookCard

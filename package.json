@@ -6,6 +6,7 @@
     "@mdi/react": "^1.2.1",
     "bulmaswatch": "^0.7.5",
     "prop-types": "^15.6.2",
+    "proptypes": "^1.1.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-router": "^5.1.2",
