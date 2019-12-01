@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, history } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import './App.css';
 import Header from './Header';
@@ -8,42 +8,44 @@ import BookShelf from './BookShelf';
 import PropTypes from 'prop-types';
 
 class App extends Component {
-  state = { 
-    books: [],  
-  };
+
 
   static propTypes = {
     changeShelf: PropTypes.func.isRequired,
-    searchResults: PropTypes.array.isRequired,
+    books: PropTypes.array.isRequired,
    };
+   
+   state = { 
+    books: [],    
+  };
 
+  
   componentDidMount() {
     BooksAPI.getAll().then(books => this.setState({ books }))
   };
 
-  changeShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf)
-    .then(books => this.setState({ books }))
-  };   
+  
+searchBooks = (query) => {
+  BooksAPI.search(query).then(books => {
+    this.setState({books})})
+};
 
-  render() {
-    const { books } = this.state;
+  changeShelf = (book, shelf) => {
+  // API: update book/shelf 
+    BooksAPI.update(book, shelf).then(this.setState(book.shelf))
+}
+
+render() {
+
     return (
       <div className="App">      
       <Header />
-      <section className="section is-medium is-light">
-           <Route
-            path="/add"
-            component={SearchBooks}
-            books={books} changeShelf={this.changeShelf}            
-          />
-        </section>
         <section className="section">
           <Route
-            exact path="/" books={books} render={() => (
+            exact path="/" render={() => (
               <div className="wrapper">                
-               {books.map((book, shelf) => (
-               <BookShelf key={shelf} book={book} books={books} changeShelf={this.changeShelf} />
+               {this.state.books.map(book => (
+               <BookShelf key={book.shelf} title={book.shelf} books={this.state.books} changeShelf={this.changeShelf} />
                ))}
                <Link to="/add">
                 <div className="open-search">                 
@@ -53,6 +55,17 @@ class App extends Component {
             )}
           /> 
         </section> 
+           <Route path="/add">            
+           <section className="section is-medium is-light">
+            <SearchBooks 
+            books={this.state.books} searchBooks={this.searchBooks} onChangeShelf={(shelf) => {
+              this.changeShelf(shelf)
+              history.push('/');
+            }} 
+            />
+            </section>           
+            </Route>
+        
       </div>
     );
     

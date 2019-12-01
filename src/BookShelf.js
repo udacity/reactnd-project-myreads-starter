@@ -6,25 +6,23 @@ class BookShelf extends Component {
   static propTypes = {
     changeShelf: PropTypes.func.isRequired,
     books: PropTypes.array.isRequired,
+    title: PropTypes.string.isRequired,
    };
 
   render() {  
 
-    const { books, changeShelf, shelf, } = this.props;
-
     return (
       <div className="bookshelf" >
       <nav className="level">
-        <h4 className="bookshelf-title">{shelf}</h4>
+        <h4 className="bookshelf-title">{this.props.title}</h4>
       </nav>
       <div className="shelf-container">
       <div className="columns is-multiline">
-        {books.map(book => (
+        {this.props.books.map(book => (
           <BookCard
-            book={book}
-            books={books}
-            key={shelf}
-            changeShelf={this.changeShelf}
+            book={book}            
+            key={book.id}
+            changeShelf={this.props.changeShelf}
           />
         ))}
       </div>

@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+let onChangeShelf = (event) => {
+this.changeShelf(this.book, event.target.value)
+
+}
+
 const BookButton = props => {
-  const { book, changeShelf } = props;
-
- const updateShelf = event => {
-    changeShelf(book, event.target.value); 
- }
-
     
     return (
       <div className="book-shelf-changer has-background-dark is-bold">
-        <select onChange={updateShelf}>
+        <select onChange={(event) => onChangeShelf}>
           <option value="none" disabled>
             Move to...
           </option>

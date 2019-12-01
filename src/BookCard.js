@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const BookCard = props => {
 
-        const { book, changeShelf } = props;
+        const { book } = props;
 
         const cover =
         book.imageLinks && book.imageLinks.thumbnail
@@ -32,7 +32,9 @@ const BookCard = props => {
                             ))}                                  
                     </div>
                     <div className="card-footer">
-                        <BookButton className="book-button" book={book} changeShelf={this.changeShelf} />
+                        <BookButton className="book-button" book={book} onChangeShelf={(shelf) => {
+                            this.changeShelf(shelf)
+                        }} />
                     </div>
                 </div>
             </div>
