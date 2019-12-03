@@ -4,30 +4,28 @@ import PropTypes from 'prop-types';
 
 class BookShelf extends Component {
   static propTypes = {
-    changeShelf: PropTypes.func.isRequired,
     books: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
    };
 
   render() {  
+    const {bookUpdate} = this.props;
 
     return (
-      <div className="bookshelf" >
-      <nav className="level">
-        <h4 className="bookshelf-title">{this.props.title}</h4>
-      </nav>
-      <div className="shelf-container">
+      <div className="bookshelf has-background-primary is-bold">
+        <figure className="title has-background-warning is-bold">
+             <h2 className="title is-inline is-size-6 has-text-danger">{this.props.title}</h2>
+        </figure>       
       <div className="columns is-multiline">
         {this.props.books.map(book => (
           <BookCard
             book={book}            
             key={book.id}
-            changeShelf={this.props.changeShelf}
+            bookUpdate={bookUpdate} 
           />
         ))}
       </div>
-      </div>
-      </div>    
+      </div> 
     );
   }
 }

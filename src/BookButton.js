@@ -1,30 +1,34 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import * as BooksAPI from './BooksAPI'
 
-let onChangeShelf = (event) => {
-this.changeShelf(this.book, event.target.value)
+class BookButton extends Component {
+  static propTypes = {
+    book: PropTypes.object.isRequired,
+  };
 
-}
+    changeShelf = (event) => {
+      BooksAPI.update(this.props.book.id, event.target.value)
+      this.props.bookUpdate(this.props.book.id, event.target.value)
+  };
 
-const BookButton = props => {
-    
+  render() {
+    const {book} = this.props;
     return (
-      <div className="book-shelf-changer has-background-dark is-bold">
-        <select onChange={(event) => onChangeShelf}>
-          <option value="none" disabled>
-            Move to...
-          </option>
+      <div className="book-shelf-changer has-background-dark is-bold has-text-white">
+        <select 
+        value={book} 
+        onChange={this.changeShelf}>
+          <option value="move" disabled>Move to...</option>
           <option value="currentlyReading">Currently Reading</option>
           <option value="wantToRead">Want to Read</option>
           <option value="read">Read</option>
-          <option value="none">None</option>
+          <option value="">None</option>
         </select>
       </div>
+
     );
   }
-  BookButton.propTypes = {
-    books: PropTypes.array.isRequired,
-    changeShelf: PropTypes.func.isRequired
-  }
+}
 
 export default BookButton;
