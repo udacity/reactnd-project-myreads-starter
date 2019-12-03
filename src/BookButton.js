@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import * as BooksAPI from './BooksAPI'
+// import * as BooksAPI from './BooksAPI'
 
 class BookButton extends Component {
   static propTypes = {
@@ -8,8 +8,8 @@ class BookButton extends Component {
   };
 
     changeShelf = (event) => {
-      BooksAPI.update(this.props.book.id, event.target.value)
-      this.props.bookUpdate(this.props.book.id, event.target.value)
+//      BooksAPI.update(this.props.book, event.target.value)
+      this.props.bookUpdate(this.props.book, event.target.value)
   };
 
   render() {

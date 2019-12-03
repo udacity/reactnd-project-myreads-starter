@@ -9,7 +9,7 @@ import BookShelf from './BookShelf';
 
 class App extends Component {
 
-   state = { 
+  state = { 
     books: [],
   };
 
@@ -20,36 +20,20 @@ class App extends Component {
   });
   };
 
-
- getShelfBooks(shelfName){
-    return this.state.books.filter((b) => b.shelf === shelfName)
- }
-  
 searchBooks = (query) => {
   BooksAPI.search(query).then(books => {
     this.setState({books})})
 };
 
-/* changeShelf = (book, newShelf) => {
-  BooksAPI.update(book, newShelf).then(() => {
-      book.shelf = newShelf;
-      this.setState(state => ({
-          books: state.books.filter(b => b.id !== book.id).concat([ book ])
-      }));
-  });
-}; */
+getShelfBooks(shelfName){
+  return this.state.books.filter((b) => b.shelf === shelfName)
+}
 
-// bookUpdate = this.props;
-
-
-      bookUpdate = (book, shelf) => {        
-        BooksAPI.update(book, shelf).then(() => {          
-          // Filter out the book and append it to the end of the list
-          // so it appears at the end of whatever shelf it was added to.
-          this.setState(state => ({
-              books: state.books.filter(b => b.id !== this.state.books.id).concat([ this.state.books ])
-          }));
-      })}
+bookUpdate = (book, shelf) => {        
+      BooksAPI.update(book, shelf)
+        .then(book => {
+        BooksAPI.get(book.id)})
+        .then(this.setState(prevState => ({ books: this.state.books })))}
 
 render() {
 const {bookUpdate, ...other} = this.props;
