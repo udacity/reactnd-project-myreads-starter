@@ -79,7 +79,9 @@ updateQuery(query) {
                   <BookCard
                     key={book.id}
                     book={book}    
-                    bookUpdate={this.bookUpdate}                                                                          
+                    onBookUpdate={(book, shelf) => {
+                    this.bookUpdate(book, shelf)
+                    }}                                                                      
                   />                 
                 ))}
                 

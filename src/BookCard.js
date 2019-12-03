@@ -3,6 +3,10 @@ import BookButton from './BookButton';
 
 
 class BookCard extends Component {
+    
+    componentWillUpdate() {
+        this.props.updateShelf(this.book)
+    }
 
 render(){
     const { book, bookUpdate } = this.props;
@@ -24,7 +28,14 @@ render(){
                                     {author}
                                     </p>
                             ))}                                  
-                        <BookButton className="book-button" book={book} bookUpdate={bookUpdate}  />
+                        <BookButton 
+                        className="book-button" 
+                        book={book}
+                        ref={this.select}                   
+                        onBookUpdate={() => {
+                    bookUpdate(this.bookId, this.select)
+                    this.updateShelf(book)
+                    }}  />
                 </div>
             </div>
             </div>

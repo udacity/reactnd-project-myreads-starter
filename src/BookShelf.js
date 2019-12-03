@@ -9,8 +9,13 @@ class BookShelf extends Component {
     bookUpdate: PropTypes.func.isRequired,
    };
 
+   updateBookShelf(book){
+    BooksAPI.get(book).push(this.getShelfBooks)
+  }
+
+
   render() {  
-    const {bookUpdate} = this.props;
+    const {bookUpdate, updateShelf} = this.props;
 
     return (
       <div className="bookshelf has-background-primary is-bold">
@@ -22,7 +27,12 @@ class BookShelf extends Component {
           <BookCard
             book={book}            
             key={book.id}
-            bookUpdate={bookUpdate} 
+            ref={this.select}
+            onBookUpdate={() => {
+                    bookUpdate(this.bookId, this.select)
+                    updateShelf(book)
+                    }}
+            
           />
         ))}
       </div>
