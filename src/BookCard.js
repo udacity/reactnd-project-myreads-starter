@@ -5,7 +5,7 @@ import BookButton from './BookButton';
 class BookCard extends Component {
     
     componentWillUpdate() {
-        this.props.updateShelf(this.book)
+        this.props.updateBookShelf(this.select)
     }
 
 render(){

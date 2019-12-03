@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BookCard from './BookCard';
 import PropTypes from 'prop-types';
+import * as BooksAPI from './BooksAPI';
 
 class BookShelf extends Component {
   static propTypes = {
