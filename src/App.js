@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import { Route, Link } from 'react-router-dom';
-import * as BooksAPI from './BooksAPI';
+import * as BooksAPI from './components/BooksAPI';
 import './css/App.css';
-import Header from './Header';
-import SearchBooks from './SearchBooks';
-import BookShelf from './BookShelf';
-import ErrorBoundary from './ErrorBoundary';
+import Header from './components/Header';
+import SearchBooks from './components/SearchBooks';
+import BookShelf from './components/BookShelf';
+import ErrorBoundary from './components/ErrorBoundary';
 
 class App extends Component {
 
