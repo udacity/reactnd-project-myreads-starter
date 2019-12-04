@@ -16,7 +16,7 @@ class BookShelf extends Component {
 
 
   render() {  
-    const {bookUpdate, updateShelf} = this.props;
+    const {bookUpdate} = this.props;
 
     return (
       <div className="bookshelf has-background-primary is-bold">
@@ -31,7 +31,6 @@ class BookShelf extends Component {
             ref={this.select}
             onBookUpdate={() => {
                     bookUpdate(this.bookId, this.select)
-                    updateShelf(book)
                     }}
             
           />

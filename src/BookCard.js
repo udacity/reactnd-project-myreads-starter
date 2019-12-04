@@ -4,13 +4,11 @@ import BookButton from './BookButton';
 
 class BookCard extends Component {
     
-    componentWillUpdate() {
-        this.props.updateBookShelf(this.select)
-    }
 
 render(){
     const { book, bookUpdate } = this.props;
     const cover = book.imageLinks.thumbnail;
+    
         return (
             <div className="column">
                 <div className="card book-card has-background-danger is-bold has-text-white" id={book.id}>
@@ -33,9 +31,8 @@ render(){
                         book={book}
                         ref={this.select}                   
                         onBookUpdate={() => {
-                    bookUpdate(this.bookId, this.select)
-                    this.updateShelf(book)
-                    }}  />
+                    bookUpdate(book, this.select.value)
+                       }}  />
                 </div>
             </div>
             </div>

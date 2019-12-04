@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import * as BooksAPI from './BooksAPI'
 
 
 
@@ -9,14 +8,10 @@ class BookButton extends Component {
     book: PropTypes.object.isRequired,
   };
   
-  onRemoveBook(book, shelf) {
-    BooksAPI.update(book, shelf)
-    .then(this.updateBookShelf)
-    }
+    changeShelf = (book, shelf) => {
+      const bookUpdate = this.bookUpdate()
+      bookUpdate(book, shelf)
 
-    changeShelf = (event) => {
-
-      this.bookUpdate(this.props.book, event.target.value)
   };
 
 
@@ -25,14 +20,14 @@ class BookButton extends Component {
     return (
       <div className="book-shelf-changer has-background-dark is-bold has-text-white">
         <select 
-        ref={this.select && this.onRemoveBook}
+        ref={this.select}
         book={book}
         defaultValue={book.shelf} 
-        onChange={this.select}>          
+        onClick={this.changeShelf(this.props.book, this.select)}>          
           <option value="currentlyReading">Currently Reading</option>
           <option value="wantToRead">Want to Read</option>
           <option value="read">Read</option>
-          <option value={this.onRemoveBook(book)}>Remove</option>
+          <option value="">Remove</option>
         </select>
       </div>
 

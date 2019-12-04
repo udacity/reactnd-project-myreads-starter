@@ -5,7 +5,7 @@ import './App.css';
 import Header from './Header';
 import SearchBooks from './SearchBooks';
 import BookShelf from './BookShelf';
-import onRemoveBook from './BookButton';
+
 
 class App extends Component {
 
@@ -18,25 +18,21 @@ class App extends Component {
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({books});
-  });
-  };
-
-  removeBook() {
-    BooksAPI.update(onRemoveBook.book, onRemoveBook.shelf)
+  })
   }
 
   searchBooks = (query) => {
     BooksAPI.search(query)
     .then(books => {this.setState({books})})
-};
-
-  getShelfBooks(shelfName){
-  return this.state.books.map((shelfBooks) => this.state.shelfBooks.filter((b) => b.shelf === shelfName))
 }
 
-  bookUpdate = (book, shelf) => {        
+  getShelfBooks(shelfName){
+  return this.state.books.filter((b) => b.shelf === shelfName)
+}
+
+  bookUpdate(book, shelf){        
       BooksAPI.update(book, shelf)
-        .then(this.setState(prevState => ({ books: this.state.books }))
+        .then(this.setState((update) => ({ book: update.book, shelf: update.shelf }))
         )
       }
 
@@ -57,30 +53,31 @@ this.select = React.createRef();
               <BookShelf 
                   title="Currently Reading"
                   books={this.getShelfBooks("currentlyReading")}
-                  onBookUpdate={(book, shelf) => {
+                  bookUpdate={(book, shelf) => {
                     this.bookUpdate(book, shelf)
                     }}
                   updateShelf={this.updateShelf} 
-                  ref={onRemoveBook}
+                  ref={this.select}
                   {...other}
                 />
                 <br />
                 <BookShelf 
                   title="Want to Read"
                   books={this.getShelfBooks("wantToRead")}
-                  onBookUpdate={(book, shelf) => {
+                  bookUpdate={(book, shelf) => {
                     this.bookUpdate(book, shelf)
                     }}
-                  updateShelf={this.updateShelf}   
+                  ref={this.select}
                 />
                 <br />
                 <BookShelf 
                   title="Read"
                   books={this.getShelfBooks("read")}
-                  onBookUpdate={(book, shelf) => {
+                  bookUpdate={(book, shelf) => {
                     this.bookUpdate(book, shelf)
                     }}
-                  updateShelf={this.updateShelf}                    
+
+                  ref={this.select}                    
                 />
                 <br />
               ))}
@@ -93,8 +90,9 @@ this.select = React.createRef();
         </section> 
            <Route path="/add" render={() => (            
                 <SearchBooks books={this.state.books}
+                ref={this.select}
                 updateShelf={this.updateShelf}  
-                onBookUpdate={(book, shelf) => {
+                bookUpdate={(book, shelf) => {
                     this.bookUpdate(book, shelf)
                     }}
                 onSearchBooks={(query) => {
