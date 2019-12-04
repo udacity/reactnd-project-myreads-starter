@@ -1,92 +1,29 @@
 # MyReads Project
 
-This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
+This is my entry for the MyReads project. I was very late to get this in because of some major life changes that occurred. I had to get through those first before I could start and the aftermath continued to affect my development time... both in the amount of time and my level of concentration. I am back on track now and excited to move forward.
 
-Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
+I am really into design - and a CSS lover - but I did not get to go above and beyond on that level due to being behind in the course. Same goes for features... but I have all kinds of personal projects in the works, so I'm not too concerned about standing out. I'm also not necessarily looking to enter the job market with this nanodegree - not for a while, anwyways, so that is not too concerning at this time.
 
-## TL;DR
+Thank you for viewing and assessing my project. I worked hard on it.
 
-To get started developing right away:
+## Dependencies & Development Info
 
-* install all project dependencies with `npm install`
-* start the development server with `npm start`
+Bulma (specifically BulmaSwatch's 'Journal' swatch) was used as a CSS framework for this project.
 
-## What You're Getting
-```bash
-├── CONTRIBUTING.md
-├── README.md - This file.
-├── SEARCH_TERMS.md # The whitelisted short collection of available search terms for you to use with your app.
-├── package.json # npm package manager file. It's unlikely that you'll need to modify this.
-├── public
-│   ├── favicon.ico # React Icon, You may change if you wish.
-│   └── index.html # DO NOT MODIFY
-└── src
-    ├── App.css # Styles for your app. Feel free to customize this as you desire.
-    ├── App.js # This is the root of your app. Contains static HTML right now.
-    ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
-    ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
-    ├── icons # Helpful images for your app. Use at your discretion.
-    │   ├── add.svg
-    │   ├── arrow-back.svg
-    │   └── arrow-drop-down.svg
-    ├── index.css # Global styles. You probably won't need to change anything here.
-    └── index.js # You should not need to modify this file. It is used for DOM rendering only.
-```
+[Bulma](https://bulma.io) 
+[BulmaSwatch](https://jenil.github.io/bulmaswatch/)
+[Journal](https://jenil.github.io/bulmaswatch/journal/)
 
-Remember that good React design practice is to create new JS files for each component and use import/require statements to include them where they are needed.
+If I have done my job correctly, you should be able to use everything from the start because even Bulma is 'minified' down to single CSS file output. 
 
-## Backend Server
+Still, as always... this is how you 
 
-To simplify your development process, we've provided a backend server for you to develop against. The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods you will need to perform necessary operations on the backend:
+### Getting Started
 
-* [`getAll`](#getall)
-* [`update`](#update)
-* [`search`](#search)
+running `npm install` in the project directory will install required dependencies for the project. 
 
-### `getAll`
+`npm start` will start the development server, allowing for hot-reloading based on saved file changes.
 
-Method Signature:
-
-```js
-getAll()
-```
-
-* Returns a Promise which resolves to a JSON object containing a collection of book objects.
-* This collection represents the books currently in the bookshelves in your app.
-
-### `update`
-
-Method Signature:
-
-```js
-update(book, shelf)
-```
-
-* book: `<Object>` containing at minimum an `id` attribute
-* shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"]  
-* Returns a Promise which resolves to a JSON object containing the response data of the POST request
-
-### `search`
-
-Method Signature:
-
-```js
-search(query)
-```
-
-* query: `<String>`
-* Returns a Promise which resolves to a JSON object containing a collection of a maximum of 20 book objects.
-* These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
-
-## Important
-The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
-
-## Create React App
+The backend API [BooksAPI.js](./src/BooksAPI.js) uses a fixed set of cached search results and is limited to a particular set of search terms because of the nature of this React app (school project)... the list of usable search terms can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md).
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).

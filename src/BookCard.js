@@ -1,16 +1,22 @@
 import React, {Component} from 'react';
 import BookButton from './BookButton';
+import PropTypes from 'prop-types';
 
 
 class BookCard extends Component {
-    
+static propTypes = {
+    book: PropTypes.object.isRequired,
+    bookUpdate: PropTypes.func.isRequired,
+    resultBooks: PropTypes.array.isRequired,
+}
+state = {
+}
 
 render(){
-    const { book, bookUpdate } = this.props;
+    const { book, bookUpdate, resultBooks, ...other} = this.props;
     const cover = book.imageLinks.thumbnail;
     
         return (
-            <div className="column">
                 <div className="card book-card has-background-danger is-bold has-text-white" id={book.id}>
                     <div className="card-image">
                         <figure className="image book-cover"> 
@@ -28,13 +34,12 @@ render(){
                             ))}                                  
                         <BookButton 
                         className="book-button" 
-                        book={book}
-                        ref={this.select}                   
-                        onBookUpdate={() => {
-                    bookUpdate(book, this.select.value)
-                       }}  />
+                        book={book}                                         
+                        bookUpdate={bookUpdate}
+                        resultBooks={resultBooks}
+                        {...other}
+                        />
                 </div>
-            </div>
             </div>
             </div>
             

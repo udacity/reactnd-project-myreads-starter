@@ -9,6 +9,22 @@ body {
   line-height: 1.2;
 }
 
+a, a:visited {
+  color: red;
+}
+
+a:hover {
+  color: rgba(175, 7, 7, 0.548);
+}
+
+a:focus, a:active {
+  color: rgb(255, 80, 80);
+}
+
+span.close-search-link-text {
+  font-size: 19px !important;
+  margin-top: -4px;
+}
 
 .open-search {
   position: fixed;
@@ -17,7 +33,7 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 50%;  
-  background-image: url('./icons/add.svg');
+  background-image: url('../icons/add.svg');
   background-color: black;
   background-repeat: no-repeat;
   background-position: center;
@@ -34,7 +50,7 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 50%;  
-  background-image: url('./icons/add.svg');
+  background-image: url('../icons/add.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 28px;
@@ -48,21 +64,27 @@ body {
 }
 
 .book-search-input {
-  width: 50%;
-  height: 3vh;
+  margin: 24px;
+  margin-top: 0px;
+  width: 80%;
+  height: 28px;
   z-index: 5;
   border: thin solid black;
   box-shadow: 0 10px 20px rgba(0,0,0,0.09), 0 0 6px rgba(0,0,0,0.03);
   }
-
+.label {
+  padding: 0px;
+  margin-top: -12px;
+}
 .close-search {
   display: inline-flex;
-  width: 40px;
-  height: 18px;  
-  background-image: url('./icons/arrow-back.svg');
+  width: 38px;
+  height: 12px;  
+  background-image: url('../icons/arrow-back.svg');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 28px;
+  background-size: 26px;
+  padding-top: 4px;
 }
 
 .back-button {
@@ -72,14 +94,23 @@ body {
 }
 
 article.message {
-  float: right;
-  width: 20%;
+  margin: auto;
+  width: 240px;
+}
+
+.message-body {
+  padding: 0px;
+  margin: 0px;
+  font-size: 14px;
 }
 
 .search-books-results {
   padding: 80px 10px 20px;
 }
 
+.search-results-title {
+  margin-left: 8px;
+}
 
 .card {
   border-top: 6px solid #FFC941 ;
@@ -151,7 +182,7 @@ width: 40px;
 height: 40px;
 border-radius: 50%;
 bottom: -12px; right: 8px;
-background-image: url('./icons/arrow-drop-down.svg');
+background-image: url('../icons/arrow-drop-down.svg');
 background-repeat: no-repeat;
 background-position: center;
 background-size: 20px;

@@ -33,7 +33,7 @@ export const update = (book, shelf) =>
     },
     body: JSON.stringify({ shelf })
   }).then(res => res.json())
-  .then(data => data.update)
+
 
 
 export const search = (query) =>

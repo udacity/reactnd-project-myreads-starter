@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import { Route, Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
-import './App.css';
+import './css/App.css';
 import Header from './Header';
 import SearchBooks from './SearchBooks';
 import BookShelf from './BookShelf';
-
+import ErrorBoundary from './ErrorBoundary';
 
 class App extends Component {
 
@@ -21,22 +21,20 @@ class App extends Component {
   })
   }
 
-  searchBooks = (query) => {
-    BooksAPI.search(query)
-    .then(books => {this.setState({books})})
-}
 
   getShelfBooks(shelfName){
   return this.state.books.filter((b) => b.shelf === shelfName)
 }
 
-  bookUpdate(book, shelf){        
-      BooksAPI.update(book, shelf)
-        .then(this.setState((update) => ({ book: update.book, shelf: update.shelf }))
-        )
+  bookUpdate = (book, newShelf) => {        
+      BooksAPI.update(book, newShelf).then(() => {
+        book.shelf = newShelf;
+        this.setState(state => ({
+          books: state.books.filter(b => b.id !== book.id).concat([ book ])
+        }));
+      });
       }
-
-
+  
 render() {
 const {bookUpdate, ...other} = this.props;
 this.removeBook = React.createRef();
@@ -49,35 +47,27 @@ this.select = React.createRef();
         <section className="section">
           <Route
             exact path="/" render={() => (
+              <ErrorBoundary>
               <div className="row">                     
               <BookShelf 
                   title="Currently Reading"
                   books={this.getShelfBooks("currentlyReading")}
-                  bookUpdate={(book, shelf) => {
-                    this.bookUpdate(book, shelf)
-                    }}
-                  updateShelf={this.updateShelf} 
-                  ref={this.select}
+                  bookUpdate={this.bookUpdate}
                   {...other}
                 />
                 <br />
                 <BookShelf 
                   title="Want to Read"
                   books={this.getShelfBooks("wantToRead")}
-                  bookUpdate={(book, shelf) => {
-                    this.bookUpdate(book, shelf)
-                    }}
-                  ref={this.select}
+                  bookUpdate={this.bookUpdate}
+                  {...other}
                 />
                 <br />
                 <BookShelf 
                   title="Read"
                   books={this.getShelfBooks("read")}
-                  bookUpdate={(book, shelf) => {
-                    this.bookUpdate(book, shelf)
-                    }}
-
-                  ref={this.select}                    
+                  bookUpdate={this.bookUpdate}
+                  {...other}             
                 />
                 <br />
               ))}
@@ -85,20 +75,19 @@ this.select = React.createRef();
                 <div className="open-search">                 
                 </div>
                 </Link>
-              </div>              
+              </div>
+              </ErrorBoundary>              
             )}/> 
         </section> 
+       
            <Route path="/add" render={() => (            
-                <SearchBooks books={this.state.books}
-                ref={this.select}
-                updateShelf={this.updateShelf}  
-                bookUpdate={(book, shelf) => {
-                    this.bookUpdate(book, shelf)
-                    }}
-                onSearchBooks={(query) => {
-                  this.searchBooks({query})
-                  }}
+             <ErrorBoundary>
+                <SearchBooks 
+                books={this.state.books}                
+                bookUpdate={this.bookUpdate}                
+                {...other}
                  />
+              </ErrorBoundary>
            )}/>
       </div>
     );
