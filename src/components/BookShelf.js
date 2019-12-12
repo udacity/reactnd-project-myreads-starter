@@ -21,9 +21,10 @@ class BookShelf extends Component {
         {books.map(book => (
         <div className="column" key={book.id}>
           <BookCard
-            book={book}            
-            key={book.id}
+            book={book}
+            key={book.id}                        
             bookUpdate={bookUpdate}
+            shelf={book.shelf}
             {...other}            
           />
           </div>         

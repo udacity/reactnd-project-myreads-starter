@@ -7,40 +7,34 @@ class BookButton extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired,
     bookUpdate: PropTypes.func.isRequired,
-    currentShelf: PropTypes.object.isRequired,
-    resultBooks: PropTypes.array.isRequired,
   };
 
-  state = {
-    currentShelf: '',
-  }
+//  componentDidMount(){
+  //  this.setState({currentShelf: this.props.book.shelf})
 
-  componentDidMount(){
-    this.setState({currentShelf: this.props.book.shelf})
-  }
-
-//  setShelf = (shelf) => {
-//    shelf = this.props.book.shelf
-//    this.setState({currentShelf: {shelf}})
 //  }
+  
+
+// getShelf = (bookId) => { }
 
     bookUpdate = (event) => {      
       this.props.bookUpdate(this.props.book, event.target.value)
       this.setState({currentShelf: event.target.value})
-
-  };
-
+    };
+  
 
   render() {
-    const {book, currentShelf} = this.props;
-
+    const {book} = this.props;
+    // const currentShelf = this.state;
     return (
-      <div className="book-shelf-changer has-background-dark is-bold has-text-white">
+           <div className="book-shelf-changer has-background-dark is-bold has-text-white">
         <select 
         book={book}
-        value={currentShelf} 
-        onChange={this.bookUpdate}>          
-          <option value="">None</option>
+        value={this.props.currentShelf} 
+        onChange={this.bookUpdate} 
+        >          
+          <option value="move" disabled>Move book to a new shelf...</option>         
+          <option value="none">None</option>
           <option value="currentlyReading">Currently Reading</option>
           <option value="wantToRead">Want to Read</option>
           <option value="read">Read</option>          
@@ -48,6 +42,9 @@ class BookButton extends Component {
       </div>
     );
   }
+}
+BookButton.defaultProps = {
+  currentShelf: 'none',  
 }
 
 export default BookButton;

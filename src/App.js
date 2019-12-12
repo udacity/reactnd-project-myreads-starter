@@ -5,10 +5,12 @@ import './css/App.css';
 import Header from './components/Header';
 import SearchBooks from './components/SearchBooks';
 import BookShelf from './components/BookShelf';
-import ErrorBoundary from './components/ErrorBoundary';
+import PropTypes from 'prop-types';
 
 class App extends Component {
-
+static propTypes = {
+  books: PropTypes.array.isRequired  
+}
   state = { 
     books: [],
     shelfBooks: [],
@@ -22,8 +24,8 @@ class App extends Component {
   }
 
 
-  getShelfBooks(shelfName){
-  return this.state.books.filter((b) => b.shelf === shelfName)
+  getShelfBooks(shelf){
+  return this.state.books.filter((b) => b.shelf === shelf)
 }
 
   bookUpdate = (book, newShelf) => {        
@@ -34,12 +36,15 @@ class App extends Component {
         }));
       });
       }
-  
-render() {
-const {bookUpdate, ...other} = this.props;
-this.removeBook = React.createRef();
-this.select = React.createRef();
+      
 
+render() {
+const       shelves = [
+  {name: 'currentlyReading', title: 'Currently Reading'}, 
+  {name: 'wantToRead', title: 'Want to Read'},
+  {name: 'read', title: 'Read'}
+]
+const {bookUpdate, ...other} = this.props;
 
     return (
       <div className="App">      
@@ -47,47 +52,32 @@ this.select = React.createRef();
         <section className="section">
           <Route
             exact path="/" render={() => (
-              <ErrorBoundary>
-              <div className="row">                     
+            <div>
+              {shelves.map(shelf => (
+              <div className="row">                                 
               <BookShelf 
-                  title="Currently Reading"
-                  books={this.getShelfBooks("currentlyReading")}
+                  key={shelf.name}
+                  title={shelf.title}
+                  books={this.getShelfBooks(shelf.name)}
                   bookUpdate={this.bookUpdate}
                   {...other}
                 />
                 <br />
-                <BookShelf 
-                  title="Want to Read"
-                  books={this.getShelfBooks("wantToRead")}
-                  bookUpdate={this.bookUpdate}
-                  {...other}
-                />
-                <br />
-                <BookShelf 
-                  title="Read"
-                  books={this.getShelfBooks("read")}
-                  bookUpdate={this.bookUpdate}
-                  {...other}             
-                />
-                <br />
-              ))}
+                </div>
+              ))}              }
                <Link to="/add">
                 <div className="open-search">                 
                 </div>
                 </Link>
-              </div>
-              </ErrorBoundary>              
+            </div>
             )}/> 
         </section> 
        
-           <Route path="/add" render={() => (            
-             <ErrorBoundary>
-                <SearchBooks 
-                books={this.state.books}                
+           <Route path="/add" render={() => (              
+                <SearchBooks                                     
                 bookUpdate={this.bookUpdate}                
                 {...other}
                  />
-              </ErrorBoundary>
            )}/>
       </div>
     );

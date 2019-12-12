@@ -1,0 +1,13 @@
+a {
+    background-color: #FF3960;
+    margin: 4px;
+    font-size: 14px;
+    font-weight: 00 !important;
+    color: white !important;
+  
+    }
+  
+  a:hover {
+    background-color: white !important;
+    color: black !important;
+  }

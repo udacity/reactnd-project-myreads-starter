@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import BookCard from './BookCard';
 import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
-import ErrorBoundary from './ErrorBoundary';
 import PropTypes from 'prop-types';
 
 class SearchBooks extends Component {
   static propTypes = {
-    currentShelf: PropTypes.object.isRequired,
     resultBooks: PropTypes.array.isRequired,
   };
 
@@ -19,6 +17,7 @@ class SearchBooks extends Component {
 state = {
 query: '',
 resultBooks: [],
+books:[]
 };
 
 componentDidMount() {
@@ -27,7 +26,7 @@ componentDidMount() {
     this.setState(() => ({
       books
     }))
-  })}
+  })} 
 
 updateQuery(query) {
   this.setState(() => ({
@@ -40,19 +39,17 @@ updateQuery(query) {
     }))
   })} 
 
-  searchBooks = (query) => {
+/*   searchBooks = (query) => {
     BooksAPI.search(query)
     .then(books => {this.setState({books})})
-}
+    
+} */
 
 
   clearQuery = () => {
     this.updateQuery('')
   }
 
-componentWillUnmount() {
-  this.clearQuery()
-}
 
 
   render() {
@@ -92,24 +89,23 @@ componentWillUnmount() {
             </div>                 
             <hr />   
           <div className="container">                        
-              <div className="columns is-multiline">
-              <ErrorBoundary>
+              <div className="columns is-multiline">              
                 {resultBooks.length 
                   ? resultBooks.map((book) => (                  
                   <BookCard
                     book={book}    
-                    key={resultBooks.id}                    
-                    bookUpdate={bookUpdate}                                                                 
+                    key={book.id}                    
+                    bookUpdate={bookUpdate}
+                  //  shelf={book.shelf}     
                   />                 
                 ))
                 : <div className="column">
                 <div className="no-books-text">
                 <h4 className="subtitle">No Books to Display</h4></div>
                 <br />
-                <Link to="/"><button className="button is-small is-outlined is-danger" onClick={Link}>exit search</button></Link>
+                <Link to="/"><button className="button is-outlined">exit search</button></Link>
                 </div>
-                }
-                </ErrorBoundary>
+                }                
               </div>            
             </div>
     </div>
