@@ -24,10 +24,24 @@ class BooksApp extends React.Component {
       )
     })
   }
+ groupBy(objeectArray , property) { 
+   return objeectArray.reduce(function (acc, obj) {
+     var key = obj[property];
+     if (!acc[key]) {
+       acc[key] = [];       
+     }
+     acc[key].push(obj);
+     return acc;
+   },{});
+ }
 
   render() {
     console.log("My message")
     console.log (this.state.books)
+
+    const groupeBooks = this.groupBy (this.state.books, 'shelf');
+    console.log (groupeBooks);
+
     return (
       <div className="app">
         {this.state.showSearchPage ? (
