@@ -90,10 +90,9 @@ class BooksApp extends React.Component {
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
-              <div> {shelves }</div>
               </div>
             <div className="list-books-content">
-              Lacra books
+              {shelves}
             </div>
             <div className="open-search">
               <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
