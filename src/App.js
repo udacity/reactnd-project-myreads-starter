@@ -36,6 +36,13 @@ class BooksApp extends React.Component {
    },{});
  }
 
+ shelfNames = {
+   'currentlyReading' :'Currently Reading',
+   'wantToRead' :'Want To Read',
+   'read' : 'Read'
+ }
+
+//<div> {shelves }</div>
   render() {
     console.log("My message")
     console.log (this.state.books)
@@ -46,10 +53,16 @@ class BooksApp extends React.Component {
     const shelves = Object.keys(groupedBooks).map(key => {
       
       return (
-        <BookSelf shelfKey = {key} />
+        <BookSelf shelfKey = {key} 
+        shelfNames ={this.shelfNames[key]}
+        />
+
+      
+      
       )
     });
-
+    
+   
     return (
       <div className="app">
         {this.state.showSearchPage ? (
