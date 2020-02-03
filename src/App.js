@@ -1,6 +1,7 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
+import BookSelf from './BookShelf'
 
 class BooksApp extends React.Component {
   state = {
@@ -39,8 +40,15 @@ class BooksApp extends React.Component {
     console.log("My message")
     console.log (this.state.books)
 
-    const groupeBooks = this.groupBy (this.state.books, 'shelf');
-    console.log (groupeBooks);
+    const groupedBooks = this.groupBy (this.state.books, 'shelf');
+    console.log (groupedBooks);
+
+    const shelves = Object.keys(groupedBooks).map(key => {
+      
+      return (
+        <BookSelf shelfKey = {key} />
+      )
+    });
 
     return (
       <div className="app">
@@ -69,7 +77,8 @@ class BooksApp extends React.Component {
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
-            </div>
+              <div> {shelves }</div>
+              </div>
             <div className="list-books-content">
               Lacra books
             </div>
