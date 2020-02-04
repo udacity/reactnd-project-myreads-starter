@@ -1,6 +1,6 @@
 import React from 'react'
 
-class BookShelf extends React.Component{ 
+class Shelfs extends React.Component{ 
     render() {
         const { shelfKey, shelfNames } = this.props;
         console.log ( 'my shelf =>' + shelfKey)
@@ -15,4 +15,4 @@ class BookShelf extends React.Component{
 
 }
 
-export default BookShelf
+export default Shelfs

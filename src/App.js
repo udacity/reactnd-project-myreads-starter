@@ -1,7 +1,7 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import BookSelf from './BookShelf'
+import Shelfs from './Shelfs'
 
 class BooksApp extends React.Component {
   state = {
@@ -53,7 +53,7 @@ class BooksApp extends React.Component {
     const shelves = Object.keys(groupedBooks).map(key => {
       
       return (
-        <BookSelf shelfKey = {key} 
+        <Shelfs shelfKey = {key} 
         shelfNames ={this.shelfNames[key]}
         />
 
