@@ -48,6 +48,7 @@ class BooksApp extends React.Component {
     console.log (this.state.books)
 
     const groupedBooks = this.groupBy (this.state.books, 'shelf');
+    console.log("goobed books")
     console.log (groupedBooks);
 
     const shelves = Object.keys(groupedBooks).map(key => {
@@ -55,6 +56,8 @@ class BooksApp extends React.Component {
       return (
         <Shelfs shelfKey = {key} 
         shelfNames ={this.shelfNames[key]}
+        bookList ={this.groupedBooks[key]}
+        allBooks = {this.state.books}
         />
 
       
