@@ -56,7 +56,7 @@ class BooksApp extends React.Component {
       return (
         <Shelfs shelfKey = {key} 
         shelfNames ={this.shelfNames[key]}
-        bookList ={this.groupedBooks[key]}
+        bookList ={groupedBooks[key]}
         allBooks = {this.state.books}
         />
 
