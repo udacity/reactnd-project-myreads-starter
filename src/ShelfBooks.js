@@ -6,9 +6,11 @@ class ShelfBooks extends React.Component {
         console.log('my shelf book marker')
         console.log(bookList)
 
-
         return (
-            <div>  place holder </div>
+            <ol className="books-grid">
+                bookList
+            </ol>
+            
         )
     }
 

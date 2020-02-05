@@ -9,7 +9,7 @@ class Shelfs extends React.Component {
         return (
             <div className=' bookshelf'>
                 <h2 className='bookshelf-title' > {shelfNames}</h2>
-                <div>
+                <div className="bookshelf-books">
                     <ShelfBooks bookList={bookList}
                         allBooks={allBooks}
 
