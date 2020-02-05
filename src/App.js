@@ -14,58 +14,58 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
-    books:[]
+    books: []
   }
-  componentDidMount(){
-    BooksAPI.getAll ()
-    .then((books)=>{
-      this.setState(() =>({
-        books
+  componentDidMount() {
+    BooksAPI.getAll()
+      .then((books) => {
+        this.setState(() => ({
+          books
+        })
+        )
       })
-      )
-    })
   }
- groupBy(objeectArray , property) { 
-   return objeectArray.reduce(function (acc, obj) {
-     var key = obj[property];
-     if (!acc[key]) {
-       acc[key] = [];       
-     }
-     acc[key].push(obj);
-     return acc;
-   },{});
- }
+  groupBy(objeectArray, property) {
+    return objeectArray.reduce(function (acc, obj) {
+      var key = obj[property];
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(obj);
+      return acc;
+    }, {});
+  }
 
- shelfNames = {
-   'currentlyReading' :'Currently Reading',
-   'wantToRead' :'Want To Read',
-   'read' : 'Read'
- }
+  shelfNames = {
+    'currentlyReading': 'Currently Reading',
+    'wantToRead': 'Want To Read',
+    'read': 'Read'
+  }
 
-//<div> {shelves }</div>
+  //<div> {shelves }</div>
   render() {
     console.log("My message")
-    console.log (this.state.books)
+    console.log(this.state.books)
 
-    const groupedBooks = this.groupBy (this.state.books, 'shelf');
+    const groupedBooks = this.groupBy(this.state.books, 'shelf');
     console.log("goobed books")
-    console.log (groupedBooks);
+    console.log(groupedBooks);
 
     const shelves = Object.keys(groupedBooks).map(key => {
-      
+
       return (
-        <Shelfs shelfKey = {key} 
-        shelfNames ={this.shelfNames[key]}
-        bookList ={groupedBooks[key]}
-        allBooks = {this.state.books}
+        <Shelfs shelfKey={key}
+          shelfNames={this.shelfNames[key]}
+          bookList={groupedBooks[key]}
+          allBooks={this.state.books}
         />
 
-      
-      
+
+
       )
     });
-    
-   
+
+
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -81,7 +81,7 @@ class BooksApp extends React.Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author"/>
+                <input type="text" placeholder="Search by title or author" />
 
               </div>
             </div>
@@ -90,18 +90,18 @@ class BooksApp extends React.Component {
             </div>
           </div>
         ) : (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
+            <div className="list-books">
+              <div className="list-books-title">
+                <h1>MyReads</h1>
               </div>
-            <div className="list-books-content">
-              {shelves}
+              <div className="list-books-content">
+                {shelves}
+              </div>
+              <div className="open-search">
+                <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+              </div>
             </div>
-            <div className="open-search">
-              <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
-            </div>
-          </div>
-        )}
+          )}
       </div>
     )
   }
