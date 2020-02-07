@@ -5,8 +5,9 @@ class BookItem extends React.Component {
 
 
   render() {
-
-
+    let { key, book } = this.props
+    console.log('lacra Books')
+    console.log(book)
 
     return (
 
