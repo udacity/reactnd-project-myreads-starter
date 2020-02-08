@@ -3,7 +3,7 @@ import ShelfBooks from './ShelfBooks'
 
 class Shelfs extends React.Component {
     render() {
-        const { shelfKey, shelfNames, bookList, allBooks } = this.props;
+        const { shelfKey, shelfNames, bookList, allBooks, changeSelf } = this.props;
         console.log("my shelf")
         console.log(bookList)
         return (
@@ -12,6 +12,7 @@ class Shelfs extends React.Component {
                 <div className="bookshelf-books">
                     <ShelfBooks bookList={bookList}
                         allBooks={allBooks}
+                        changeSelf={changeSelf}
 
                     />
                 </div>

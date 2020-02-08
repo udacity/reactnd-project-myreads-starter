@@ -43,6 +43,9 @@ class BooksApp extends React.Component {
     'wantToRead': 'Want To Read',
     'read': 'Read'
   }
+  changeSelf = (book, shelId) => {
+    console.log('shelf change : ' + book.title + " / " + shelId)
+  }
 
   //<div> {shelves }</div>
   render() {
@@ -60,6 +63,7 @@ class BooksApp extends React.Component {
           shelfNames={this.shelfNames[key]}
           bookList={groupedBooks[key]}
           allBooks={this.state.books}
+          changeSelf = {this.changeSelf}
         />
 
 
