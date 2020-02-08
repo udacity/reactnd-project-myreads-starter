@@ -4,6 +4,7 @@ import './App.css'
 import Shelfs from './Shelfs'
 import { Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
+import BookItem from './BookItem'
 
 class BooksApp extends React.Component {
   state = {
@@ -43,8 +44,24 @@ class BooksApp extends React.Component {
     'wantToRead': 'Want To Read',
     'read': 'Read'
   }
-  changeSelf = (book, shelId) => {
-    console.log('shelf change : ' + book.title + " / " + shelId)
+  changeSelf = (book, shelfId) => {
+    let {books} = this.state;
+    console.log('shelf change : ' + book.title + " / " + shelfId)
+
+    let newBooks= books.map(oldBook =>{
+      if (oldBook.id === book.id) {
+        oldBook.shelf = shelfId;
+      }
+      return oldBook
+    })
+    console.log("new books")
+    console.log(newBooks)
+
+    BooksAPI.update(book,shelfId).then((bookResponse) =>{
+      this.setState({
+        books:newBooks
+      })
+    })
   }
 
   //<div> {shelves }</div>
