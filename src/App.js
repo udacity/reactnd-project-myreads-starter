@@ -105,9 +105,9 @@ class BooksApp extends React.Component {
             </div>
           </div>
         )} />
-        <Route path='/search' render={() => (
-          <SearchMain 
-            changeSelf= {this.changeSelf}
+        <Route exact path='/search' render={(props) => (
+          <SearchMain {...props}
+            addBookToShelf={this.changeSelf}
           />
 
         )} />

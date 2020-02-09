@@ -70,7 +70,7 @@ class SearchMain extends Component {
     }
 
     render() {
-        let { changeShelf } = this.props
+        const { addBookToShelf} = this.props
 
         return (
             <div className="search-books">
@@ -93,7 +93,7 @@ class SearchMain extends Component {
                     {(this.state.badTerms.length < 1)
                         ? <ShelfBooks
                             bookList={this.state.books}
-                            changeShelf={changeShelf}
+                            changeSelf={addBookToShelf}
                         />
                         : <div> Bad Thearm </div>
                     }
