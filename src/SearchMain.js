@@ -3,6 +3,8 @@ import { DebounceInput } from 'react-debounce-input'
 import * as BooksAPI from './BooksAPI'
 import ShelfBooks from './ShelfBooks'
 
+import { Link } from 'react-router-dom'
+
 
 class SearchMain extends Component {
 
@@ -68,12 +70,15 @@ class SearchMain extends Component {
     }
 
     render() {
-        const { addBookToShelf, allBooks} = this.props
+        const { addBookToShelf, allBooks } = this.props
 
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                    <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
+                    <Link className="close-search" to="/">
+                        {/* <button className="close-search" >Close</button> */}
+                        Close
+                    </Link>
                     <div className="search-books-input-wrapper">
                         {/*
                 NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -92,7 +97,7 @@ class SearchMain extends Component {
                         ? <ShelfBooks
                             bookList={this.state.books}
                             changeSelf={addBookToShelf}
-                            allBooks = {allBooks}
+                            allBooks={allBooks}
                         />
                         : <div> Bad Thearm </div>
                     }
