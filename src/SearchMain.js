@@ -39,6 +39,11 @@ class SearchMain extends Component {
         console.log(event.target.value)
 
         let query = event.target.value
+        query = query.trim()
+        if (query === '') {
+            this.setState({ books: [] })
+            return
+        }
 
         let badTerms = this.getBadTerms(query);
 
@@ -85,10 +90,14 @@ class SearchMain extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <ShelfBooks
-                        bookList={this.state.books}
-                        changeShelf={changeShelf}
-                    />
+                    {(this.state.badTerms.length < 1)
+                        ? <ShelfBooks
+                            bookList={this.state.books}
+                            changeShelf={changeShelf}
+                        />
+                        : <div> Bad Thearm </div>
+                    }
+
                     <ol className="books-grid"></ol>
                 </div>
             </div>
