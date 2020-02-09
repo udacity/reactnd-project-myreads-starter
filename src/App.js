@@ -4,7 +4,6 @@ import './App.css'
 import Shelfs from './Shelfs'
 import { Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
-import BookItem from './BookItem'
 
 class BooksApp extends React.Component {
   state = {

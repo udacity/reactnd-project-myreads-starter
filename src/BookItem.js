@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 
-class BookItem extends React.Component {
+class BookItem extends Component {
 
 
   render() {
