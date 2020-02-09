@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { DebounceInput } from 'react-debounce-input'
 import * as BooksAPI from './BooksAPI'
+import ShelfBooks from './ShelfBooks'
 
 
 class SearchMain extends Component {
@@ -16,19 +17,20 @@ class SearchMain extends Component {
         let query = event.target.value
 
         BooksAPI.search(query).then((books) => {
-            if (books && books.length >0) {
+            if (books && books.length > 0) {
                 let foundBooks = books.filter((book) => (book.imageLinks && book.imageLinks.thumbnail))
-                this.setState({books: foundBooks, badTerms: []})
+                this.setState({ books: foundBooks, badTerms: [] })
                 console.log(foundBooks)
             }
-        
+
         })
 
-        
+
 
     }
 
     render() {
+        let { changeShelf } = this.props
 
         return (
             <div className="search-books">
@@ -48,6 +50,10 @@ class SearchMain extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
+                    <ShelfBooks
+                        bookList={this.state.books}
+                        changeShelf={changeShelf}
+                    />
                     <ol className="books-grid"></ol>
                 </div>
             </div>

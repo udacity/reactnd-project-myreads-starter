@@ -106,7 +106,9 @@ class BooksApp extends React.Component {
           </div>
         )} />
         <Route path='/search' render={() => (
-          <SearchMain />
+          <SearchMain 
+            changeSelf= {this.changeSelf}
+          />
 
         )} />
 
