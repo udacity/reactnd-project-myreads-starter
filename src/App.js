@@ -45,18 +45,18 @@ class BooksApp extends React.Component {
     'read': 'Read'
   }
   changeSelf = (book, shelfId) => {
-    let {books} = this.state;
+    let { books } = this.state;
 
-    let newBooks= books.map(oldBook =>{
+    let newBooks = books.map(oldBook => {
       if (oldBook.id === book.id) {
         oldBook.shelf = shelfId;
       }
       return oldBook
     })
 
-    BooksAPI.update(book,shelfId).then((bookResponse) =>{
+    BooksAPI.update(book, shelfId).then((bookResponse) => {
       this.setState({
-        books:newBooks
+        books: newBooks
       })
     })
   }
@@ -69,11 +69,13 @@ class BooksApp extends React.Component {
     const shelves = Object.keys(groupedBooks).map(key => {
 
       return (
-        <Shelfs shelfKey={key}
+        <Shelfs
+          key={key}
+          shelfKey={key}
           shelfNames={this.shelfNames[key]}
           bookList={groupedBooks[key]}
           allBooks={this.state.books}
-          changeSelf = {this.changeSelf}
+          changeSelf={this.changeSelf}
         />
 
 
