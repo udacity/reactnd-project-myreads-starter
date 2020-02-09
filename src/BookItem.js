@@ -5,7 +5,7 @@ class BookItem extends React.Component {
 
 
   render() {
-    let { key, book ,changeSelf, shelfKey} = this.props
+    let { book ,changeSelf} = this.props
 
     return (
       <li>
