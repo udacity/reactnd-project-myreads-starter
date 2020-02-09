@@ -44,21 +44,37 @@ class BooksApp extends React.Component {
     'wantToRead': 'Want To Read',
     'read': 'Read'
   }
-  changeSelf = (book, shelfId) => {
-    let { books } = this.state;
 
-    let newBooks = books.map(oldBook => {
-      if (oldBook.id === book.id) {
-        oldBook.shelf = shelfId;
-      }
-      return oldBook
-    })
-
-    BooksAPI.update(book, shelfId).then((bookResponse) => {
-      this.setState({
-        books: newBooks
+  addNewBook = (book, shelf) => {
+    BooksAPI.update(book, shelf)
+      .then((bookResponse) => {
+        book.shelf = shelf
+        let newBooks = this.state.books.concat([book])
+        this.setState({
+          books: newBooks
+        })
       })
+  }
+
+  changeSelf = (bookItem, shelfId) => {
+    let { books } = this.state;
+    let isNewBook = true;
+    let newBooks = books.map(book => {
+      if (book.id === bookItem.id) {
+        book.shelf = shelfId;
+        isNewBook = false; //is not a new book wee found it on the shelfs
+      }
+      return book;
     })
+    if (isNewBook) {
+      this.addNewBook(bookItem, shelfId)
+    } else {
+      BooksAPI.update(bookItem, shelfId).then((bookResponse) => {
+        this.setState({
+          books: newBooks
+        })
+      })
+    }
   }
 
   //<div> {shelves }</div>
