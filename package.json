@@ -5,6 +5,7 @@
   "dependencies": {
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
+    "react-debounce-input": "^3.2.2",
     "react-dom": "^16.6.3",
     "react-router-dom": "^5.1.2",
     "react-scripts": "2.1.1"

@@ -1,6 +1,32 @@
 import React, { Component } from 'react'
+import { DebounceInput } from 'react-debounce-input'
+import * as BooksAPI from './BooksAPI'
+
 
 class SearchMain extends Component {
+
+    state = {
+        books: [],
+        badTerms: []
+    }
+
+    runSearch(event) {
+        console.log(event.target.value)
+
+        let query = event.target.value
+
+        BooksAPI.search(query).then((books) => {
+            if (books && books.length >0) {
+                let foundBooks = books.filter((book) => (book.imageLinks && book.imageLinks.thumbnail))
+                this.setState({books: foundBooks, badTerms: []})
+                console.log(foundBooks)
+            }
+        
+        })
+
+        
+
+    }
 
     render() {
 
@@ -17,7 +43,7 @@ class SearchMain extends Component {
                 However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                 you don't find a specific author or title. Every search is limited by search terms.
               */}
-                        <input type="text" placeholder="Search by title or author" />
+                        <DebounceInput type="text" placeholder="Search by title or author" onChange={evt => this.runSearch(evt)} />
 
                     </div>
                 </div>
