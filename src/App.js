@@ -108,6 +108,7 @@ class BooksApp extends React.Component {
         <Route exact path='/search' render={(props) => (
           <SearchMain {...props}
             addBookToShelf={this.changeSelf}
+            allBooks={this.state.books}
           />
 
         )} />

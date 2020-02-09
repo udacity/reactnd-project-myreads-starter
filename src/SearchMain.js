@@ -36,7 +36,6 @@ class SearchMain extends Component {
     }
 
     runSearch(event) {
-        console.log(event.target.value)
 
         let query = event.target.value
         query = query.trim()
@@ -53,7 +52,6 @@ class SearchMain extends Component {
                 if (books && books.length > 0) {
                     let foundBooks = books.filter((book) => (book.imageLinks && book.imageLinks.thumbnail))
                     this.setState({ books: foundBooks, badTerms: [] })
-                    console.log(foundBooks)
                 }
 
             })
@@ -70,7 +68,7 @@ class SearchMain extends Component {
     }
 
     render() {
-        const { addBookToShelf} = this.props
+        const { addBookToShelf, allBooks} = this.props
 
         return (
             <div className="search-books">
@@ -94,6 +92,7 @@ class SearchMain extends Component {
                         ? <ShelfBooks
                             bookList={this.state.books}
                             changeSelf={addBookToShelf}
+                            allBooks = {allBooks}
                         />
                         : <div> Bad Thearm </div>
                     }
