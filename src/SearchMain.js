@@ -11,19 +11,54 @@ class SearchMain extends Component {
         badTerms: []
     }
 
+    querryIsValid = false;
+    allTerms = ['Android', 'Art', 'Artificial Intelligence', 'Astronomy', 'Austen', 'Baseball', 'Basketball',
+        'Bhagat', 'Biography', 'Brief', 'Business', 'Camus', 'Cervantes', 'Christie', 'Classics', 'Comics', 'Cook',
+        'Cricket', 'Cycling', 'Desai', 'Design', 'Development', 'Digital Marketing', 'Drama', 'Drawing', 'Dumas',
+        'Education', 'Everything', 'Fantasy', 'Film', 'Finance', 'First', 'Fitness', 'Football', 'Future', 'Games',
+        'Gandhi', 'Homer', 'Horror', 'Hugo', 'Ibsen', 'Journey', 'Kafka', 'King', 'Lahiri', 'Larsson', 'Learn',
+        'Literary Fiction', 'Make', 'Manage', 'Marquez', 'Money', 'Mystery', 'Negotiate', 'Painting', 'Philosophy',
+        'Photography', 'Poetry', 'Production', 'Programming', 'React', 'Redux', 'River', 'Robotics', 'Rowling',
+        'Satire', 'Science Fiction', 'Shakespeare', 'Singh', 'Swimming', 'Tale', 'Thrun', 'Time', 'Tolstoy', 'Travel',
+        'Ultimate', 'Virtual Reality', 'Web Development', 'iOS'];
+    validator = this.allTerms.join(',').toLowerCase();
+
+    getBadTerms(query) {
+        let tokens = query.split(" ");
+        let terms = [];
+        tokens.forEach(element => {
+
+            if (!this.validator.includes(element.toLowerCase())) {
+                terms.push(element)
+            }
+        });
+        return terms;
+    }
+
     runSearch(event) {
         console.log(event.target.value)
 
         let query = event.target.value
 
-        BooksAPI.search(query).then((books) => {
-            if (books && books.length > 0) {
-                let foundBooks = books.filter((book) => (book.imageLinks && book.imageLinks.thumbnail))
-                this.setState({ books: foundBooks, badTerms: [] })
-                console.log(foundBooks)
-            }
+        let badTerms = this.getBadTerms(query);
 
-        })
+
+        if (badTerms.length < 1) {
+            BooksAPI.search(query).then((books) => {
+                if (books && books.length > 0) {
+                    let foundBooks = books.filter((book) => (book.imageLinks && book.imageLinks.thumbnail))
+                    this.setState({ books: foundBooks, badTerms: [] })
+                    console.log(foundBooks)
+                }
+
+            })
+        } else {
+            this.setState({
+                books: [],
+                badTerms: badTerms
+            })
+        }
+
 
 
 
