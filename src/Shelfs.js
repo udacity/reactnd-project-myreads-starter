@@ -13,6 +13,7 @@ class Shelfs extends React.Component {
                     <ShelfBooks bookList={bookList}
                         allBooks={allBooks}
                         changeSelf={changeSelf}
+                        shelfKey={shelfKey}
 
                     />
                 </div>
