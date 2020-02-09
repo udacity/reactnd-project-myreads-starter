@@ -46,7 +46,6 @@ class BooksApp extends React.Component {
   }
   changeSelf = (book, shelfId) => {
     let {books} = this.state;
-    console.log('shelf change : ' + book.title + " / " + shelfId)
 
     let newBooks= books.map(oldBook =>{
       if (oldBook.id === book.id) {
@@ -54,8 +53,6 @@ class BooksApp extends React.Component {
       }
       return oldBook
     })
-    console.log("new books")
-    console.log(newBooks)
 
     BooksAPI.update(book,shelfId).then((bookResponse) =>{
       this.setState({
@@ -66,12 +63,8 @@ class BooksApp extends React.Component {
 
   //<div> {shelves }</div>
   render() {
-    console.log("My message")
-    console.log(this.state.books)
 
     const groupedBooks = this.groupBy(this.state.books, 'shelf');
-    console.log("goobed books")
-    console.log(groupedBooks);
 
     const shelves = Object.keys(groupedBooks).map(key => {
 

@@ -5,11 +5,7 @@ import BookItem from './BookItem'
 class ShelfBooks extends React.Component {
     render() {
         const { bookList, allBooks,changeSelf, shelfKey } = this.props;
-        console.log('my shelf book marker')
-        console.log(bookList)
         let bookItem = bookList.map( book => {
-            console.log("create book ")
-            console.log(book)
 
             return(
                 <BookItem  
