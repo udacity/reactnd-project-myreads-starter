@@ -1,15 +1,15 @@
-import React from 'react'
+import React, {Component} from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import SearchBooks from './SearchBooks'
 import Bookshelf from './Bookshelf'
+import {Route, BrowserRouter, Link} from 'react-router-dom'
 
 const shelves = ["currentlyReading", "wantToRead", "read"]
 
-class BooksApp extends React.Component {
+class BooksApp extends Component {
   state = {
-    books: [],
-    showSearchPage: false
+    books: []
   }
 
   componentDidMount() {
@@ -23,25 +23,26 @@ class BooksApp extends React.Component {
 
   render() {
     return (
-      <div className="app">
-        {this.state.showSearchPage ? (
-          <SearchBooks/>
-        ) : (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-                {shelves.map((shelf) => <Bookshelf key={shelf} shelf={shelf} books={this.state.books}/>)}
+      <BrowserRouter>
+        <div className="app">
+          <Route exact path='/' render={() => (
+            <div className="list-books">
+              <div className="list-books-title">
+                <h1>MyReads</h1>
               </div>
+              <div className="list-books-content">
+                <div>
+                  {shelves.map((shelf) => <Bookshelf key={shelf} shelf={shelf} books={this.state.books}/>)}
+                </div>
+              </div>
+              <Link className="open-search" to='/search'><button>Add a book</button></Link>
             </div>
-            <div className="open-search">
-              <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
-            </div>
-          </div>
-        )}
-      </div>
+          )}/>
+          <Route path='/search' render={() => (
+            <SearchBooks/>
+          )}/>
+        </div>
+      </BrowserRouter>
     )
   }
 }
