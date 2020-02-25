@@ -22,7 +22,7 @@ class Bookshelf extends Component {
         <h2 className="bookshelf-title">{shelf}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            {this.props.books.map((book) => book.shelf === this.props.shelf && <li key={book.id}><Book book={book} shelf={this.props.shelf}/></li>)}
+            {this.props.books.map((book) => book.shelf === this.props.shelf && <li key={book.id}><Book book={book}/></li>)}
           </ol>
         </div>
       </div>
