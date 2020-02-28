@@ -1,19 +1,26 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import Book from './Book'
 
 class Bookshelf extends Component {
+  static propTypes = {
+    shelf: PropTypes.string.isRequired,
+    books: PropTypes.array.isRequired,
+    onShelfChange: PropTypes.func.isRequired
+  }
+
   render() {
     const {books, onShelfChange} = this.props
     let shelf
     switch (this.props.shelf) {
-      case "currentlyReading":
-        shelf = "Currently Reading"
+      case 'currentlyReading':
+        shelf = 'Currently Reading'
         break;
-      case "wantToRead":
-        shelf = "Want To Read"
+      case 'wantToRead':
+        shelf = 'Want To Read'
         break;
-      case "read":
-        shelf = "Read"
+      case 'read':
+        shelf = 'Read'
         break;
       default:
         break;

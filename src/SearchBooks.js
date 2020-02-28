@@ -1,9 +1,15 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 
 class SearchBooks extends Component {
+  static propTypes = {
+    myBooks: PropTypes.array.isRequired,
+    onShelfChange: PropTypes.func.isRequired
+  }
+
   state = {
     query: '',
     searchedBooks: [],
@@ -57,7 +63,6 @@ class SearchBooks extends Component {
     } else {
       showBooks = (
         <ol className="books-grid">
-          {console.log(searchedBooks)}
           {searchedBooks.map((searchedBook) => <li key={searchedBook.id}><Book myBooks={myBooks} book={searchedBook} onShelfChange={onShelfChange}/></li>)}
         </ol>
       )

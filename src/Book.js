@@ -1,7 +1,14 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import ShelfChanger from './ShelfChanger'
 
 class Book extends Component {
+  static propTypes= {
+    myBooks: PropTypes.array,
+    book: PropTypes.object.isRequired,
+    onShelfChange: PropTypes.func.isRequired
+  }
+
   state = {
     changed: false
   }
@@ -32,7 +39,7 @@ class Book extends Component {
       <div className="book">
         <div className="book-top">
           <div style={coverStyle}>
-          <div className="book-cover" style={{width: 128, height: 193, backgroundImage: `url(${imageLinks !== undefined && imageLinks.thumbnail})`}}></div>
+          <div className='book-cover' style={{width: 128, height: 193, backgroundImage: `url(${imageLinks !== undefined && imageLinks.thumbnail})`}}></div>
           <ShelfChanger book={this.props.book} myBooks={myBooks} shelf={shelf} onShelfChange={onShelfChange} onBookMove={onBookMove}/>
           </div>
         </div>

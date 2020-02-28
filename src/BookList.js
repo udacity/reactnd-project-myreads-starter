@@ -1,9 +1,10 @@
 import React from 'react'
-import AddBookButton from './AddBookButton'
+import PropTypes from 'prop-types'
 import Bookshelf from './Bookshelf'
+import AddBookButton from './AddBookButton'
 
 const BookList = props => {
-  const shelves = ["currentlyReading", "wantToRead", "read"]
+  const shelves = ['currentlyReading', 'wantToRead', 'read']
   const {books, onShelfChange} = props
 
   return(
@@ -20,5 +21,10 @@ const BookList = props => {
     </div>
     )
   }
+
+BookList.propTypes = {
+  books: PropTypes.array.isRequired,
+  onShelfChange: PropTypes.func.isRequired
+}
 
 export default BookList

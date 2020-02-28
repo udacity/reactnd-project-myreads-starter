@@ -1,11 +1,9 @@
 import React, {Component} from 'react'
+import { Route, BrowserRouter } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import SearchBooks from './SearchBooks'
-import { Route, BrowserRouter } from 'react-router-dom'
 import BookList from './BookList'
-
-
+import SearchBooks from './SearchBooks'
 
 class BooksApp extends Component {
   state = {
@@ -26,7 +24,7 @@ class BooksApp extends Component {
       BooksAPI.update(book, shelf)
         .then(() => {
           book.shelf = shelf;
-          this.setState((prevState) =>({
+          this.setState((prevState) => ({
             books: prevState.books.filter((x) => x.id !== book.id).concat(book)
           }))
         })

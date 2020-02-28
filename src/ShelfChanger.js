@@ -1,6 +1,15 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 
 class ShelfChanger extends Component {
+  static propTypes = {
+    book: PropTypes.object.isRequired,
+    myBooks: PropTypes.array,
+    shelf: PropTypes.string,
+    onShelfChange: PropTypes.func.isRequired,
+    onBookMove: PropTypes.func.isRequired
+  }
+
   state = {
     shelf: ''
   }
@@ -37,12 +46,13 @@ class ShelfChanger extends Component {
       this.shelfChange(myBooks, book)
     }
   }
-  
+
   handleChange = (event) => {
     const {value} = event.target
     this.props.onShelfChange(this.props.book, value)
     this.props.onBookMove(value)
   }
+
   render() {
     const {shelf} = this.state
     return (
