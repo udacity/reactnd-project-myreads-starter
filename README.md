@@ -6,7 +6,7 @@ This is the final assessment project for Udacity's React Fundamentals course. Th
 
 To get started:
 
-* clone project with ``
+* clone project with `https://github.com/susumoa/reactnd-project-myreads-starter.git`
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
 
