@@ -41,6 +41,7 @@ class ShelfChanger extends Component {
   handleChange = (event) => {
     const {value} = event.target
     this.props.onShelfChange(this.props.book, value)
+    this.props.onBookMove(value)
   }
   render() {
     const {shelf} = this.state
