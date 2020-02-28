@@ -3,6 +3,7 @@ import Book from './Book'
 
 class Bookshelf extends Component {
   render() {
+    const {books, onShelfChange} = this.props
     let shelf
     switch (this.props.shelf) {
       case "currentlyReading":
@@ -22,7 +23,7 @@ class Bookshelf extends Component {
         <h2 className="bookshelf-title">{shelf}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            {this.props.books.map((book) => book.shelf === this.props.shelf && <li key={book.id}><Book book={book}/></li>)}
+            {books.map((book) => book.shelf === this.props.shelf && <li key={book.id}><Book book={book} myBooks={books} onShelfChange={onShelfChange}/></li>)}
           </ol>
         </div>
       </div>

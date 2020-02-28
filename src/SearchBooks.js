@@ -6,29 +6,62 @@ import Book from './Book'
 class SearchBooks extends Component {
   state = {
     query: '',
-    searchedBooks: []
+    searchedBooks: [],
+    myBooks: []
+  }
+
+  componentDidUpdate(prevProps) {
+    const {myBooks} = this.props
+    if (prevProps.myBooks !== myBooks) {
+      this.setState({
+        myBooks: myBooks
+      })
+    }
   }
 
   updateQuery = (query) => {
-    this.searchBooks(query);
-    this.setState(() => ({
+    this.setState({
       query: query
-    }))
+    })
+    this.searchBooks(query);
   }
 
   searchBooks = (query) => {
-    query === ''
-      ? this.setState({searchedBooks: []})
-      : BooksAPI.search(query)
+    const {myBooks} = this.props
+    if (query) {
+      BooksAPI.search(query)
         .then((searchedBooks) => {
-          this.setState({
-            searchedBooks: searchedBooks.length > 1 ? searchedBooks : []
-          })
+          searchedBooks !== '' &&
+          this.setState((prevState) => ({
+            ...prevState,
+            searchedBooks: searchedBooks,
+            myBooks: myBooks
+          }))
         })
+    } else {
+      this.setState({
+        searchedBooks: [],
+        myBooks: myBooks
+      })
+    }
   }
 
   render() {
     const {query, searchedBooks} = this.state
+    const {myBooks, onShelfChange} = this.props
+    let showBooks = '';
+    if (searchedBooks.error === 'empty query' || searchedBooks === undefined) {
+      showBooks = (
+        <p>Sorry, no books found. Try again!</p>
+      )
+    } else {
+      showBooks = (
+        <ol className="books-grid">
+          {console.log(searchedBooks)}
+          {searchedBooks.map((searchedBook) => <li key={searchedBook.id}><Book myBooks={myBooks} book={searchedBook} onShelfChange={onShelfChange}/></li>)}
+        </ol>
+      )
+    }
     return(
       <div className="search-books">
         <div className="search-books-bar">
@@ -47,9 +80,7 @@ class SearchBooks extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid">
-            {searchedBooks === [] ? <div>No books found. Try again!</div> : searchedBooks.map((searchedBook) => <li key={searchedBook.id}><Book book={searchedBook}/></li>)}
-          </ol>
+            {showBooks}
         </div>
       </div>
     )
@@ -57,5 +88,3 @@ class SearchBooks extends Component {
 }
 
 export default SearchBooks
-
-// <li><Book book={book}/></li>
