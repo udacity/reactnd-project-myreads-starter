@@ -12,8 +12,8 @@ const Book = (props) => {
             <BookShelfChanger />
           </div>
         </div>
-        <div className="book-title">{title}}</div>
-        <div className="book-authors">{authors}}</div>
+        <div className="book-title">{title}</div>
+        <div className="book-authors">{authors}</div>
       </div>
     );
   };
