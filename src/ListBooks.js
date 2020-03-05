@@ -1,5 +1,5 @@
 import React from 'react';
-import Book from './Book';
+import Bookshelf from './Bookshelf';
 
 const books = [
   {
@@ -67,8 +67,6 @@ const books = [
   }
 ];
 
-
-
 const ListBooks = (props) => {
     return (
       <div className="list-books">
@@ -77,48 +75,9 @@ const ListBooks = (props) => {
         </div>
         <div className="list-books-content">
           <div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Currently Reading</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  <li>
-                    <Book bookDetails={books[0]} />
-                  </li>
-                  <li>
-                    <Book bookDetails={books[1]} />
-                  </li>
-                </ol>
-              </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Want to Read</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  <li>
-                    <Book bookDetails={books[2]} />
-                  </li>
-                  <li>
-                    <Book bookDetails={books[3]} />
-                  </li>
-                </ol>
-              </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Read</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  <li>
-                    <Book bookDetails={books[4]} />
-                  </li>
-                  <li>
-                    <Book bookDetails={books[5]} />
-                  </li>
-                  <li>
-                    <Book bookDetails={books[6]} />
-                  </li>
-                </ol>
-              </div>
-            </div>
+            <Bookshelf shelfTitle={"Currently Reading"} books={books.slice(0, 2)} />
+            <Bookshelf shelfTitle={"Want to Read"} books={books.slice(2, 4)} />
+            <Bookshelf shelfTitle={"Read"} books={books.slice(4)} />
           </div>
         </div>
         <div className="open-search">
