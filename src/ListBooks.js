@@ -67,7 +67,9 @@ const books = [
   }
 ];
 
-const Bookshelf = (props) => {
+
+
+const ListBooks = (props) => {
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -126,4 +128,4 @@ const Bookshelf = (props) => {
     );
   };
 
-export default Bookshelf;
+export default ListBooks;

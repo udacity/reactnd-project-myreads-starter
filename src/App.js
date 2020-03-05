@@ -1,7 +1,7 @@
 import React from 'react';
 // import * as BooksAPI from './BooksAPI';
 import './App.css';
-import Bookshelf from './Bookshelf';
+import ListBooks from './ListBooks';
 import SearchPage from './SearchPage';
 
 
@@ -17,7 +17,7 @@ class BooksApp extends React.Component {
     showSearchPage: false
   }
 
-  navigateToBookshelf = () => this.setState({ showSearchPage: false })
+  navigateToListBooks = () => this.setState({ showSearchPage: false })
 
   navigateToSearch = () => this.setState({ showSearchPage: true })
   
@@ -25,9 +25,9 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <SearchPage toBookshelf={this.navigateToBookshelf} />
+          <SearchPage toListBooks={this.navigateToListBooks} />
         ) : (
-          <Bookshelf toSearch={this.navigateToSearch} />
+          <ListBooks toSearch={this.navigateToSearch} />
         )}
       </div>
     )
