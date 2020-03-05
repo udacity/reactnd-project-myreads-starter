@@ -1,20 +1,12 @@
 import React from 'react';
-import Book from './Book';
+import BooksGrid from './BooksGrid';
 
 const Bookshelf = (props) => {
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{props.shelfTitle}</h2>
         <div className="bookshelf-books">
-          <ol className="books-grid">
-            {
-              props.books.map((book) => (
-                <li>
-                  <Book bookDetails={book} />
-                </li>
-              ))
-            }
-          </ol>
+          <BooksGrid books={props.books} />
         </div>
       </div>
     );
