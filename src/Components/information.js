@@ -10,7 +10,7 @@ const Information = ({ title, author }) => {
   return (
     <div>
       <div className="book-title">{title}</div>
-      <div className="book-authors">{author.length <= 1 ? author : author[0] + ' & more'}</div>
+      <div className="book-authors">{author.length <= 1 ? author : `${author[0]} & more`}</div>
     </div>
   );
 };

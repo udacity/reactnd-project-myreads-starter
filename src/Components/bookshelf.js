@@ -1,51 +1,44 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import Book from './book';
-import { render } from 'react-dom';
 
-// const BookShelf = ({ title = 'Currently Reading', books = [] }) => {
-class BookShelf extends React.Component {
-  state = {
-    shouldRender: false,
-  };
-  handleShelfChange = () => {
-    console.log(`Should probably change the shelf ¯\_(ツ)_/¯`);
-  };
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps !== this.props) this.setState({ shouldRender: true });
-    return nextProps !== this.props;
-  }
-
-  render() {
-    const { books, title } = this.props;
-    console.log(title, ' Bookshelf Props: ', books);
-    // if (books === null) books = [];
-    return (
-      <div className="bookshelf">
-        <h2 className="bookshelf-title">{title}</h2>
-        <div className="bookshelf-books">
+/**
+ * @description Represents a Bookshelf Containing Books
+ * @param  {} title of the bookshelf
+ * @param  {} books being included and displayed in the shelf
+ * @param  {} handleShelfChange function to be invoked once the book is to be moved to another shelf
+ */
+const BookShelf = ({ title = '', books = [], handleShelfChange }) => {
+  return (
+    <div className="bookshelf">
+      <h2 className="bookshelf-title">{title}</h2>
+      <div className="bookshelf-books">
+        <ol className="books-grid">
           <ol className="books-grid">
-            <ol className="books-grid">
-              {this.state.shouldRender &&
-                books.map((book) => {
-                  return (
-                    <li key={book.id}>
-                      <Book
-                        handleBookShelfChange={this.handleShelfChange}
-                        coverUrl={book.imageLinks.smallThumbnail}
-                        title={book.title}
-                        authors={book.authors}
-                        currentShelf={book.shelf}
-                      />
-                    </li>
-                  );
-                })}
-            </ol>
+            {books.map((book) => {
+              return (
+                <li key={book.id}>
+                  <Book
+                    handleShelfChange={handleShelfChange}
+                    coverUrl={book.imageLinks.smallThumbnail}
+                    title={book.title}
+                    authors={book.authors}
+                    currentShelf={book.shelf}
+                  />
+                </li>
+              );
+            })}
           </ol>
-        </div>
+        </ol>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+BookShelf.propTypes = {
+  title: PropTypes.string,
+  books: PropTypes.array,
+  handleShelfChange: PropTypes.func,
+};
 
 export default BookShelf;

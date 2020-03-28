@@ -2,7 +2,10 @@ import React from 'react';
 // import * as BooksAPI from './BooksAPI'
 import './App.css';
 import * as API from './BooksAPI';
+import ShelfLibrary from './Components/shelflibrary';
 import BookShelf from './Components/bookshelf';
+import Header from './Components/header';
+
 class BooksApp extends React.Component {
   state = {
     /**
@@ -12,37 +15,35 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
-    currentlyReading: null,
-    wantToRead: null,
-    read: null,
+    currentlyReading: [],
+    wantToRead: [],
+    read: [],
   };
 
   logState = () => console.log(this.state);
 
-  addBook = (book, shelf) => {
-    // console.log('Book:\n', book);
-    // this.setState(prevState => {
-    //   shelf = prevState[shelf].push(book);
-    // });
-    this.setState(prevState => {
-      shelf = prevState[shelf].push(book);
-    });
-  };
   handleShelfChange = () => {
     console.log(`Should probably change the shelf ¯\_(ツ)_/¯`);
   };
 
   fetchData = () => {
     API.getAll().then(books => {
-      this.setState({ currentlyReading: [], wantToRead: [], read: [] });
-      books.forEach(book =>
-        this.setState(prevState => {
-          book.shelf = prevState[book.shelf].push(book);
-        }),
-      );
-      console.log('done');
+      console.log('Books recieved: ', books);
+      const currentlyReading = [];
+      const wantToRead = [];
+      const read = [];
+      books.forEach(book => {
+        console.log('Book: ', book.shelf);
+        if (book.shelf === 'currentlyReading') currentlyReading.push(book);
+        else if (book.shelf === 'wantToRead') wantToRead.push(book);
+        else if (book.shelf === 'read') read.push(book); // ? adding this line to prevent mistakes from API
+      });
+      this.setState({
+        currentlyReading,
+        wantToRead,
+        read,
+      });
       this.logState();
-      // this.forceUpdate();
     });
   };
 
@@ -81,15 +82,27 @@ class BooksApp extends React.Component {
           </div>
         ) : (
           <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
+            <Header />
+            {/* <ShelfLibrary
+              bookshelfes={[
+                ['Currently Reading', currentlyReading],
+                ['Want to Read', wantToRead],
+                ['Read', read],
+              ]}
+              handleChange={this.handleShelfChange}
+            /> */}
             <div className="list-books-content">
-              <div>
-                <BookShelf title="Currently Reading" books={currentlyReading} />
-                <BookShelf title="Want to Read" books={wantToRead} />
-                <BookShelf title="Read" books={read} />
-              </div>
+              <BookShelf
+                title="Currently Reading"
+                books={currentlyReading}
+                handleShelfChange={this.handleShelfChange}
+              />
+              <BookShelf
+                title="Want to Read"
+                books={wantToRead}
+                handleShelfChange={this.handleShelfChange}
+              />
+              <BookShelf title="Read" books={read} handleShelfChange={this.handleShelfChange} />
             </div>
             <div className="open-search">
               <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>

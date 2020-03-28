@@ -14,7 +14,8 @@ const Option = ({ currShelf, label }) => {
  * @param  {} changeShelf - Function which handles Shelf Changing (updating state)
  * @param  {{} currShelf='none' Current Shelf Of the Book. Default Value "none"
  */
-const ShelfChanger = ({ changeShelf, currShelf = 'none' }) => {
+const ShelfChanger = ({ changeShelf, currShelf }) => {
+  console.log('CurrShelf: ', currShelf);
   return (
     <div className="book-shelf-changer">
       <select onChange={(value) => changeShelf(value)}>
