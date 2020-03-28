@@ -9,8 +9,8 @@ import PropTypes from 'prop-types';
 const Information = ({ title, author }) => {
   return (
     <div>
-      <div className="book-title">{title ? title : 'No Data Available'}</div>
-      <div className="book-authors">{author ? author : 'No Data Available'}</div>
+      <div className="book-title">{title}</div>
+      <div className="book-authors">{author.length <= 1 ? author : author[0] + ' & more'}</div>
     </div>
   );
 };
