@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GoBackButton from './gobackbutton';
 
-const Search = ({ goHome }) => (
+const Search = ({ goHome, currentlyReading, wantToRead, read }) => (
   <div className="search-books">
     <div className="search-books-bar">
       <GoBackButton goBack={goHome} />
@@ -26,6 +26,9 @@ const Search = ({ goHome }) => (
 
 Search.propTypes = {
   goHome: PropTypes.func.isRequired,
+  currentlyReading: PropTypes.arrayOf(PropTypes.object).isRequired,
+  wantToRead: PropTypes.arrayOf(PropTypes.object).isRequired,
+  read: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Search;

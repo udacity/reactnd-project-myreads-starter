@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 
 import './App.css';
 import * as API from './BooksAPI';
-import BookShelf from './Components/bookshelf';
-import Header from './Components/header';
+import LandingPage from './Components/landingpage';
 import Search from './Components/Search/search';
-import SearchButton from './Components/Search/searchbutton';
 
 class BooksApp extends React.Component {
   constructor(props) {
@@ -21,33 +19,22 @@ class BooksApp extends React.Component {
     };
   }
 
-  // state = {
-  //   /**
-  //    * TODO: Instead of using this state variable to keep track of which page
-  //    * we're on, use the URL in the browser's address bar. This will ensure that
-  //    * users can use the browser's back and forward buttons to navigate between
-  //    * pages, as well as provide a good URL they can bookmark and share.
-  //    */
-
-  // };
-
   logState = () => console.log(this.state);
 
-  handleShelfChange = () => {
-    console.log(`Should probably change the shelf ¯\_(ツ)_/¯`);
+  handleShelfChange = (book, shelf) => {
+    console.log(`Should probably move book ${book} to shelf ${shelf} ¯\_(ツ)_/¯`);
+    //FIXME: MOVE BOOK TO OTHER SHELF; UPDATE STATE AND SERVER
   };
 
   fetchData = () => {
-    API.getAll().then((books) => {
-      console.log('Books recieved: ', books);
+    API.getAll().then(books => {
       const currentlyReading = [];
       const wantToRead = [];
       const read = [];
-      books.forEach((book) => {
-        console.log('Book: ', book.shelf);
+      books.forEach(book => {
         if (book.shelf === 'currentlyReading') currentlyReading.push(book);
         else if (book.shelf === 'wantToRead') wantToRead.push(book);
-        else if (book.shelf === 'read') read.push(book); // ? adding this line to prevent mistakes from API
+        else if (book.shelf === 'read') read.push(book); // ? adding the evaluation to prevent mistakes from API
       });
       this.setState({
         currentlyReading,
@@ -73,21 +60,13 @@ class BooksApp extends React.Component {
           exact
           path="/"
           render={() => (
-            <div className="list-books">
-              <Header />
-              <BookShelf
-                title="Currently Reading"
-                books={currentlyReading}
-                handleShelfChange={this.handleShelfChange}
-              />
-              <BookShelf
-                title="Want to Read"
-                books={wantToRead}
-                handleShelfChange={this.handleShelfChange}
-              />
-              <BookShelf title="Read" books={read} handleShelfChange={this.handleShelfChange} />
-              <SearchButton goBack={() => history.push('/search')} />
-            </div>
+            <LandingPage
+              currentlyReading={currentlyReading}
+              wantToRead={wantToRead}
+              read={read}
+              history={history}
+              handleShelfChange={this.handleShelfChange}
+            />
           )}
         />
       </div>
@@ -95,6 +74,6 @@ class BooksApp extends React.Component {
   }
 }
 
-BooksApp.propTypes = { history: PropTypes.any };
+BooksApp.propTypes = { history: PropTypes.any.isRequired };
 
 export default withRouter(BooksApp);

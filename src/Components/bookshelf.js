@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Book from './book';
+import BooksGrid from './booksgrid';
 
 /**
  * @description Represents a Bookshelf Containing Books
@@ -14,21 +15,7 @@ const BookShelf = ({ title, books, handleShelfChange }) => {
       <h2 className="bookshelf-title">{title}</h2>
       <div className="bookshelf-books">
         <ol className="books-grid">
-          <ol className="books-grid">
-            {books.map((book) => {
-              return (
-                <li key={book.id}>
-                  <Book
-                    handleShelfChange={handleShelfChange}
-                    coverUrl={book.imageLinks.smallThumbnail}
-                    title={book.title}
-                    authors={book.authors}
-                    currentShelf={book.shelf}
-                  />
-                </li>
-              );
-            })}
-          </ol>
+          <BooksGrid books={books} handleShelfChange={handleShelfChange} />
         </ol>
       </div>
     </div>

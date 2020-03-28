@@ -18,10 +18,10 @@ Option.propTypes = {
  * @param  {} changeShelf - Function which handles Shelf Changing (updating state)
  * @param  {{} currShelf='none' Current Shelf Of the Book. Default Value "none"
  */
-const ShelfChanger = ({ changeShelf, currShelf }) => {
+const ShelfChanger = ({ changeShelf, currShelf, id }) => {
   return (
     <div className="book-shelf-changer">
-      <select onChange={(value) => changeShelf(value)}>
+      <select onChange={(event) => changeShelf(id, event.target.value)}>
         <option value="move" disabled>
           Move to...
         </option>
@@ -37,6 +37,7 @@ const ShelfChanger = ({ changeShelf, currShelf }) => {
 ShelfChanger.propTypes = {
   changeShelf: PropTypes.func.isRequired,
   currShelf: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default ShelfChanger;
