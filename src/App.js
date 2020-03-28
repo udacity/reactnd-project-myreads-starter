@@ -23,8 +23,27 @@ class BooksApp extends React.Component {
 
   logState = () => console.log(this.state);
 
+  varToString = (varObj) => Object.keys(varObj)[0];
+
+  checkShelf = (book, shelf, name) => {
+    if (shelf.includes(book)) {
+      /* eslint no-param-reassign: ["error", { "props": true, "ignorePropertyModificationsFor": ["book"] }] */
+      book.shelf = name;
+      console.log('Adding shelf');
+    }
+  };
+
   fetchQuery = () => {
+    const { currentlyReading, wantToRead, read, queryResult } = this.state;
     API.search('Artificial Intelligence').then((result) => {
+      // const resultInShelf = result.map((book) => this.checkShelf(book, currentlyReading));
+      const arr = [];
+      result.forEach((book) => {
+        this.checkShelf(book, currentlyReading, this.varToString({ currentlyReading }));
+        this.checkShelf(book, wantToRead, this.varToString({ wantToRead }));
+        this.checkShelf(book, read, this.varToString({ read }));
+      });
+      // console.log('SHELF: ', resultInShelf);
       this.setState({ queryResult: result });
       console.log('QueryResult: ', result);
     });
@@ -43,6 +62,7 @@ class BooksApp extends React.Component {
       this.setState({
         [shelf]: currShelf,
       });
+      // FIXME : ADD SHELFNAME TO BOOK IN STATE
     });
   };
 
@@ -74,6 +94,14 @@ class BooksApp extends React.Component {
       if (toShelf === 'none' || result[toShelf].includes(book))
         this.moveBook(book, fromShelf, toShelf);
     });
+  };
+
+  wait = (ms) => {
+    const start = new Date().getTime();
+    let end = start;
+    while (end < start + ms) {
+      end = new Date().getTime();
+    }
   };
 
   fetchData = () => {
@@ -116,6 +144,7 @@ class BooksApp extends React.Component {
               read={read}
               handleShelfChange={this.handleShelfChange}
               queryResult={queryResult}
+              stateShelves={[...currentlyReading, ...wantToRead, ...read]}
             />
           )}
         />
