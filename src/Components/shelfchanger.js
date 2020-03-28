@@ -15,13 +15,13 @@ Option.propTypes = {
 
 /**
  * @description Adds Option Button to Move Book to Another Shelf.
- * @param  {} changeShelf - Function which handles Shelf Changing (updating state)
+ * @param  {} changeShelf - Function which handles Shelf Changing
  * @param  {{} currShelf='none' Current Shelf Of the Book. Default Value "none"
  */
 const ShelfChanger = ({ changeShelf, currShelf, id }) => {
   return (
     <div className="book-shelf-changer">
-      <select onChange={(event) => changeShelf(id, event.target.value)}>
+      <select value="move" onChange={(event) => changeShelf(id, currShelf, event.target.value)}>
         <option value="move" disabled>
           Move to...
         </option>
