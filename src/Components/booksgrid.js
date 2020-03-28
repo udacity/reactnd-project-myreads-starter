@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Book from './book';
-
+/**
+ * @description Returns a grid containing Books
+ * @param  {} books Books contained in the grid
+ * @param  {} handleShelfChange - Function which handles Shelf Changing
+ */
 const BooksGrid = ({ books, handleShelfChange }) => (
   <ol className="books-grid">
     {books.map((book) => {

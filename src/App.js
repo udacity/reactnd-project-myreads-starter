@@ -25,7 +25,6 @@ class BooksApp extends React.Component {
     console.log('Adding Book');
     API.get(id).then((book) => {
       const { [shelf]: currShelf } = this.state;
-      console.log('currShelf: ', currShelf, '\nbook: ', book);
       currShelf.push(book);
       this.setState({
         [shelf]: currShelf,
@@ -33,19 +32,24 @@ class BooksApp extends React.Component {
     });
   };
 
-  handleShelfChange = (book, shelf) => {
-    const b = new Object({});
-    b.id = book;
-    console.log(`Should probably move book ${book} to shelf ${shelf} ¯\_(ツ)_/¯\nBook: ${b.id}`);
-    API.update(b, shelf).then((result) => {
-      console.log('Update: ', result);
-      if (result[shelf].includes(book)) this.addBook(book, shelf);
-      // this.setState({
-      //   ...result,
-      // });
+  moveBook = (id, currShelf, toShelf) => {
+    let { [currShelf]: shelf } = this.state;
+    shelf = shelf.filter((book) => book.id !== id);
+    this.setState({
+      [currShelf]: shelf,
     });
+    this.addBook(id, toShelf);
+  };
 
-    // FIXME: MOVE BOOK TO OTHER SHELF; UPDATE STATE AND SERVER
+  handleShelfChange = (book, fromShelf, toShelf) => {
+    const b = {};
+    b.id = book;
+    console.log(
+      `Should probably move book ${book} from shelf ${fromShelf} to shelf ${toShelf} ¯\_(ツ)_/¯\nBook: ${b.id}`,
+    );
+    API.update(b, toShelf).then((result) => {
+      if (result[toShelf].includes(book)) this.moveBook(book, fromShelf, toShelf);
+    });
   };
 
   fetchData = () => {
@@ -56,7 +60,7 @@ class BooksApp extends React.Component {
       books.forEach((book) => {
         if (book.shelf === 'currentlyReading') currentlyReading.push(book);
         else if (book.shelf === 'wantToRead') wantToRead.push(book);
-        else if (book.shelf === 'read') read.push(book); // ? adding the evaluation to prevent mistakes from API
+        else if (book.shelf === 'read') read.push(book); // ? adding the evaluation to prevent errors from API
       });
       this.setState({
         currentlyReading,
