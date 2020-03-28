@@ -7,6 +7,12 @@ import ShelfChanger from './shelfchanger';
 /**
  * @description Represents a book
  *
+ * @param  {} handleShelfChange - Function which handles Shelf Changing
+ * @param  {} coverUrl Url of the Cover
+ * @param  {} title Title of the Book
+ * @param  {} authors Array of Authors of the Book
+ * @param  {} currentShelf Current Shelf of the Book
+ * @param  {} id Book ID
  */
 const Book = ({ handleShelfChange, coverUrl, title, authors, currentShelf, id }) => {
   return (
@@ -29,11 +35,12 @@ Book.defaultProps = {
   currentShelf: 'none',
   authors: '',
   title: '',
+  coverUrl: '',
 };
 
 Book.propTypes = {
   handleShelfChange: PropTypes.func.isRequired,
-  coverUrl: PropTypes.string.isRequired,
+  coverUrl: PropTypes.string,
   title: PropTypes.string,
   authors: PropTypes.arrayOf(PropTypes.string),
   currentShelf: PropTypes.string,

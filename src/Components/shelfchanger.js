@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 /**
  * @description Removes Boilerplate Code.
- * @returns <option /> Tag for Selector
+ * @returns <option /> Component for Selector
  */
 const Option = ({ currShelf, label }) => {
   return currShelf !== label ? <option value={label}>{label}</option> : null;
@@ -16,7 +16,7 @@ Option.propTypes = {
 /**
  * @description Adds Option Button to Move Book to Another Shelf.
  * @param  {} changeShelf - Function which handles Shelf Changing
- * @param  {{} currShelf='none' Current Shelf Of the Book. Default Value "none"
+ * @param  {} currShelf Current Shelf Of the Book.
  */
 const ShelfChanger = ({ changeShelf, currShelf, id }) => {
   return (
