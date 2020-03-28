@@ -6,18 +6,26 @@ import BookShelf from './Components/bookshelf';
 import Header from './Components/header';
 
 class BooksApp extends React.Component {
-  state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false,
-    currentlyReading: [],
-    wantToRead: [],
-    read: [],
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showSearchPage: false,
+      currentlyReading: [],
+      wantToRead: [],
+      read: [],
+    };
+  }
+
+  // state = {
+  //   /**
+  //    * TODO: Instead of using this state variable to keep track of which page
+  //    * we're on, use the URL in the browser's address bar. This will ensure that
+  //    * users can use the browser's back and forward buttons to navigate between
+  //    * pages, as well as provide a good URL they can bookmark and share.
+  //    */
+
+  // };
 
   logState = () => console.log(this.state);
 
@@ -47,7 +55,8 @@ class BooksApp extends React.Component {
   };
 
   componentDidMount = () => {
-    this.fetchData();
+    const { fetchData } = this;
+    fetchData();
   };
 
   render() {
@@ -82,14 +91,6 @@ class BooksApp extends React.Component {
         ) : (
           <div className="list-books">
             <Header />
-            {/* <ShelfLibrary
-              bookshelfes={[
-                ['Currently Reading', currentlyReading],
-                ['Want to Read', wantToRead],
-                ['Read', read],
-              ]}
-              handleChange={this.handleShelfChange}
-            /> */}
             <div className="list-books-content">
               <BookShelf
                 title="Currently Reading"

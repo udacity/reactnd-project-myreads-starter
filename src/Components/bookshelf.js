@@ -8,7 +8,7 @@ import Book from './book';
  * @param  {} books being included and displayed in the shelf
  * @param  {} handleShelfChange function to be invoked once the book is to be moved to another shelf
  */
-const BookShelf = ({ title = '', books = [], handleShelfChange }) => {
+const BookShelf = ({ title, books, handleShelfChange }) => {
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{title}</h2>
@@ -35,10 +35,15 @@ const BookShelf = ({ title = '', books = [], handleShelfChange }) => {
   );
 };
 
+BookShelf.defaultProps = {
+  title: 'My Bookshelf :)',
+  books: [],
+};
+
 BookShelf.propTypes = {
   title: PropTypes.string,
-  books: PropTypes.array,
-  handleShelfChange: PropTypes.func,
+  books: PropTypes.arrayOf(PropTypes.object),
+  handleShelfChange: PropTypes.func.isRequired,
 };
 
 export default BookShelf;

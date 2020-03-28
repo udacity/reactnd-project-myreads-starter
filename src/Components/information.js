@@ -15,7 +15,7 @@ const Information = ({ title, author }) => {
   );
 };
 Information.propTypes = {
-  title: PropTypes.string,
-  author: PropTypes.arrayOf(PropTypes.string),
+  title: PropTypes.string.isRequired,
+  author: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 export default Information;

@@ -8,6 +8,10 @@ import PropTypes from 'prop-types';
 const Option = ({ currShelf, label }) => {
   return currShelf !== label ? <option value={label}>{label}</option> : null;
 };
+Option.propTypes = {
+  currShelf: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+};
 
 /**
  * @description Adds Option Button to Move Book to Another Shelf.
@@ -15,7 +19,6 @@ const Option = ({ currShelf, label }) => {
  * @param  {{} currShelf='none' Current Shelf Of the Book. Default Value "none"
  */
 const ShelfChanger = ({ changeShelf, currShelf }) => {
-  console.log('CurrShelf: ', currShelf);
   return (
     <div className="book-shelf-changer">
       <select onChange={(value) => changeShelf(value)}>
@@ -33,7 +36,7 @@ const ShelfChanger = ({ changeShelf, currShelf }) => {
 
 ShelfChanger.propTypes = {
   changeShelf: PropTypes.func.isRequired,
-  currShelf: PropTypes.string,
+  currShelf: PropTypes.string.isRequired,
 };
 
 export default ShelfChanger;
