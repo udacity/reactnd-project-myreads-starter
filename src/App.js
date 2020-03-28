@@ -15,8 +15,10 @@ class BooksApp extends React.Component {
     showSearchPage: false,
     currentlyReading: [],
     wantToRead: [],
-    Read: [],
+    read: [],
   };
+
+  logState = () => console.log(this.state);
 
   addBook = (book, shelf) => {
     console.log('Book:\n', book);
@@ -29,6 +31,7 @@ class BooksApp extends React.Component {
   componentDidMount = async () => {
     const Books = await API.getAll();
     Books.forEach(book => this.addBook(book, book.shelf));
+    this.logState();
   };
 
   render() {

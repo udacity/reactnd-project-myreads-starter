@@ -24,7 +24,7 @@ const Book = ({ handleBookShelfChange, coverUrl, title, author }) => {
         />
         <ShelfChanger changeShelf={handleChange} />
       </div>
-      <BookInformation title="To Kill a Mockingbird" author="Harper Lee" />
+      <BookInformation title="To Kill a Mockingbird" author={['Harper Lee']} />
     </div>
   );
 };
