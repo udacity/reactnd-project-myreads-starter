@@ -23,15 +23,15 @@ class BooksApp extends React.Component {
 
   handleShelfChange = (book, shelf) => {
     console.log(`Should probably move book ${book} to shelf ${shelf} ¯\_(ツ)_/¯`);
-    //FIXME: MOVE BOOK TO OTHER SHELF; UPDATE STATE AND SERVER
+    // FIXME: MOVE BOOK TO OTHER SHELF; UPDATE STATE AND SERVER
   };
 
   fetchData = () => {
-    API.getAll().then(books => {
+    API.getAll().then((books) => {
       const currentlyReading = [];
       const wantToRead = [];
       const read = [];
-      books.forEach(book => {
+      books.forEach((book) => {
         if (book.shelf === 'currentlyReading') currentlyReading.push(book);
         else if (book.shelf === 'wantToRead') wantToRead.push(book);
         else if (book.shelf === 'read') read.push(book); // ? adding the evaluation to prevent mistakes from API
