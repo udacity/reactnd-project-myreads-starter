@@ -2,7 +2,6 @@ import React from 'react';
 // import * as BooksAPI from './BooksAPI'
 import './App.css';
 import * as API from './BooksAPI';
-import Book from './Components/book';
 import BookShelf from './Components/bookshelf';
 class BooksApp extends React.Component {
   state = {
@@ -13,15 +12,18 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
-    currentlyReading: [],
-    wantToRead: [],
-    read: [],
+    currentlyReading: null,
+    wantToRead: null,
+    read: null,
   };
 
   logState = () => console.log(this.state);
 
   addBook = (book, shelf) => {
     // console.log('Book:\n', book);
+    // this.setState(prevState => {
+    //   shelf = prevState[shelf].push(book);
+    // });
     this.setState(prevState => {
       shelf = prevState[shelf].push(book);
     });
@@ -30,16 +32,26 @@ class BooksApp extends React.Component {
     console.log(`Should probably change the shelf ¯\_(ツ)_/¯`);
   };
 
-  componentDidMount = async () => {
-    const Books = await API.getAll();
-    Books.forEach(book => this.addBook(book, book.shelf));
-    this.logState();
-    this.forceUpdate();
+  fetchData = () => {
+    API.getAll().then(books => {
+      this.setState({ currentlyReading: [], wantToRead: [], read: [] });
+      books.forEach(book =>
+        this.setState(prevState => {
+          book.shelf = prevState[book.shelf].push(book);
+        }),
+      );
+      console.log('done');
+      this.logState();
+      // this.forceUpdate();
+    });
+  };
+
+  componentDidMount = () => {
+    this.fetchData();
   };
 
   render() {
-    console.log('Amount Books currently reading: ', this.state.currentlyReading.length);
-    const { currentlyReading } = this.state;
+    const { currentlyReading, wantToRead, read } = this.state;
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -74,9 +86,9 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <BookShelf title="Currently Reading" books={this.state.currentlyReading} />
-                <BookShelf title="Want to Read" books={this.state.wantToRead} />
-                <BookShelf title="Read" books={this.state.read} />
+                <BookShelf title="Currently Reading" books={currentlyReading} />
+                <BookShelf title="Want to Read" books={wantToRead} />
+                <BookShelf title="Read" books={read} />
               </div>
             </div>
             <div className="open-search">
