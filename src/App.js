@@ -45,6 +45,7 @@ class BooksApp extends React.Component {
     const b = {};
     b.id = book;
     console.log(
+      // eslint-disable-next-line no-useless-escape
       `Should probably move book ${book} from shelf ${fromShelf} to shelf ${toShelf} ¯\_(ツ)_/¯\nBook: ${b.id}`,
     );
     API.update(b, toShelf).then((result) => {

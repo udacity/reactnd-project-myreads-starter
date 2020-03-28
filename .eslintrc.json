@@ -6,7 +6,5 @@
     "prettier/prettier": ["error"],
     "react/jsx-filename-extension": 0,
     "react/forbid-prop-types": 0
-
-    // "quotes": [2, "single", { "avoidEscape": true }]
   }
 }
