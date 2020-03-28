@@ -21,8 +21,30 @@ class BooksApp extends React.Component {
 
   logState = () => console.log(this.state);
 
+  addBook = (id, shelf) => {
+    console.log('Adding Book');
+    API.get(id).then((book) => {
+      const { [shelf]: currShelf } = this.state;
+      console.log('currShelf: ', currShelf, '\nbook: ', book);
+      currShelf.push(book);
+      this.setState({
+        [shelf]: currShelf,
+      });
+    });
+  };
+
   handleShelfChange = (book, shelf) => {
-    console.log(`Should probably move book ${book} to shelf ${shelf} ¯\_(ツ)_/¯`);
+    const b = new Object({});
+    b.id = book;
+    console.log(`Should probably move book ${book} to shelf ${shelf} ¯\_(ツ)_/¯\nBook: ${b.id}`);
+    API.update(b, shelf).then((result) => {
+      console.log('Update: ', result);
+      if (result[shelf].includes(book)) this.addBook(book, shelf);
+      // this.setState({
+      //   ...result,
+      // });
+    });
+
     // FIXME: MOVE BOOK TO OTHER SHELF; UPDATE STATE AND SERVER
   };
 
