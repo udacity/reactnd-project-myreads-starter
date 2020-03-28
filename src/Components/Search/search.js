@@ -1,8 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GoBackButton from './gobackbutton';
+import { search } from '../../BooksAPI';
+import BooksGrid from '../booksgrid';
 
-const Search = ({ goHome, currentlyReading, wantToRead, read }) => (
+const Search = ({
+  goHome,
+  currentlyReading,
+  wantToRead,
+  read,
+  queryResult,
+  setQuery,
+  handleShelfChange,
+}) => (
   <div className="search-books">
     <div className="search-books-bar">
       <GoBackButton goBack={goHome} />
@@ -20,15 +30,23 @@ const Search = ({ goHome, currentlyReading, wantToRead, read }) => (
     </div>
     <div className="search-books-results">
       <ol className="books-grid" />
+      <BooksGrid books={queryResult} handleShelfChange={handleShelfChange} />
     </div>
   </div>
 );
+
+Search.defaultProps = {
+  setQuery: () => console.log('SetQuery!'),
+};
 
 Search.propTypes = {
   goHome: PropTypes.func.isRequired,
   currentlyReading: PropTypes.arrayOf(PropTypes.object).isRequired,
   wantToRead: PropTypes.arrayOf(PropTypes.object).isRequired,
   read: PropTypes.arrayOf(PropTypes.object).isRequired,
+  queryResult: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setQuery: PropTypes.func,
+  handleShelfChange: PropTypes.func.isRequired,
 };
 
 export default Search;
