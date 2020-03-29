@@ -25,25 +25,29 @@ class BooksApp extends React.Component {
 
   varToString = (varObj) => Object.keys(varObj)[0];
 
-  checkShelf = (book, shelf, name) => {
-    if (shelf.includes(book)) {
-      /* eslint no-param-reassign: ["error", { "props": true, "ignorePropertyModificationsFor": ["book"] }] */
-      book.shelf = name;
-      console.log('Adding shelf');
-    }
+  filterResult = (booksInShelves, queryResult) => {
+    const filtered = booksInShelves.filter((stateBook) => {
+      const temp = queryResult.map((r) => r.id);
+      return temp.includes(stateBook.id);
+    });
+    console.log('F: ', filtered);
+    queryResult.forEach((book) => {
+      filtered.forEach((inState) => {
+        if (book.id === inState.id) {
+          /* eslint no-param-reassign: ["error", { "props": true, "ignorePropertyModificationsFor": ["book"] }] */
+          book.shelf = inState.shelf;
+          console.log('Adding shelf');
+        }
+      });
+    });
+    this.setState({ queryResult });
   };
 
   fetchQuery = () => {
     const { currentlyReading, wantToRead, read, queryResult } = this.state;
     API.search('Artificial Intelligence').then((result) => {
-      // const resultInShelf = result.map((book) => this.checkShelf(book, currentlyReading));
-      const arr = [];
-      result.forEach((book) => {
-        this.checkShelf(book, currentlyReading, this.varToString({ currentlyReading }));
-        this.checkShelf(book, wantToRead, this.varToString({ wantToRead }));
-        this.checkShelf(book, read, this.varToString({ read }));
-      });
       // console.log('SHELF: ', resultInShelf);
+      // this.filterResult([...currentlyReading, ...wantToRead, ...read], queryResult);
       this.setState({ queryResult: result });
       console.log('QueryResult: ', result);
     });
@@ -145,6 +149,7 @@ class BooksApp extends React.Component {
               handleShelfChange={this.handleShelfChange}
               queryResult={queryResult}
               stateShelves={[...currentlyReading, ...wantToRead, ...read]}
+              filterResult={this.filterResult}
             />
           )}
         />

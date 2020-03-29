@@ -4,6 +4,24 @@ import GoBackButton from './gobackbutton';
 import { search } from '../../BooksAPI';
 import BooksGrid from '../booksgrid';
 
+const filterResult = (booksInShelves, queryResult) => {
+  const filtered = booksInShelves.filter((stateBook) => {
+    const temp = queryResult.map((r) => r.id);
+    return temp.includes(stateBook.id);
+  });
+  console.log('F: ', filtered);
+  queryResult.forEach((book) => {
+    filtered.forEach((inState) => {
+      if (book.id === inState.id) {
+        /* eslint no-param-reassign: ["error", { "props": true, "ignorePropertyModificationsFor": ["book"] }] */
+        book.shelf = inState.shelf;
+        console.log('Adding shelf');
+      }
+    });
+  });
+  return queryResult;
+};
+
 const Search = ({
   goHome,
   currentlyReading,
@@ -14,14 +32,23 @@ const Search = ({
   setQuery,
   handleShelfChange,
   stateShelves,
+  filterResult,
 }) => {
-  const sShelves = [...currentlyReading, ...wantToRead, ...read];
-
-  const filtered = sShelves.filter((stateBook) => {
-    const temp = queryResult.map((r) => r.id);
-    return temp.includes(stateBook.id);
-  });
-  console.log('F: ', filtered);
+  // const sShelves = [...currentlyReading, ...wantToRead, ...read];
+  // const filtered = sShelves.filter((stateBook) => {
+  //   const temp = queryResult.map((r) => r.id);
+  //   return temp.includes(stateBook.id);
+  // });
+  // console.log('F: ', filtered);
+  // queryResult.forEach((book) => {
+  //   filtered.forEach((inState) => {
+  //     if (book.id === inState.id) {
+  //       /* eslint no-param-reassign: ["error", { "props": true, "ignorePropertyModificationsFor": ["book"] }] */
+  //       book.shelf = inState.shelf;
+  //       console.log('Adding shelf');
+  //     }
+  //   });
+  // });
 
   return (
     <div className="search-books">
@@ -36,12 +63,20 @@ const Search = ({
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-          <input type="text" placeholder="Search by title or author" />
+          <input
+            type="text"
+            placeholder="Search by title or author"
+            // onChange={() => filterResult(stateShelves, queryResult)}
+          />
         </div>
       </div>
       <div className="search-books-results">
-        <ol className="books-grid" />
-        <BooksGrid books={queryResult} handleShelfChange={handleShelfChange} />
+        {/* <ol className="books-grid" /> */}
+        <BooksGrid
+          books={queryResult}
+          handleShelfChange={handleShelfChange}
+          booksInShelve={stateShelves}
+        />
       </div>
     </div>
   );
