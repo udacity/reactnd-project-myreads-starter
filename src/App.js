@@ -23,33 +23,9 @@ class BooksApp extends React.Component {
 
   logState = () => console.log(this.state);
 
-  varToString = (varObj) => Object.keys(varObj)[0];
-
-  filterResult = (booksInShelves, queryResult) => {
-    const filtered = booksInShelves.filter((stateBook) => {
-      const temp = queryResult.map((r) => r.id);
-      return temp.includes(stateBook.id);
-    });
-    console.log('F: ', filtered);
-    queryResult.forEach((book) => {
-      filtered.forEach((inState) => {
-        if (book.id === inState.id) {
-          /* eslint no-param-reassign: ["error", { "props": true, "ignorePropertyModificationsFor": ["book"] }] */
-          book.shelf = inState.shelf;
-          console.log('Adding shelf');
-        }
-      });
-    });
-    this.setState({ queryResult });
-  };
-
   fetchQuery = () => {
-    const { currentlyReading, wantToRead, read, queryResult } = this.state;
     API.search('Artificial Intelligence').then((result) => {
-      // console.log('SHELF: ', resultInShelf);
-      // this.filterResult([...currentlyReading, ...wantToRead, ...read], queryResult);
       this.setState({ queryResult: result });
-      console.log('QueryResult: ', result);
     });
   };
 
@@ -149,7 +125,6 @@ class BooksApp extends React.Component {
               handleShelfChange={this.handleShelfChange}
               queryResult={queryResult}
               stateShelves={[...currentlyReading, ...wantToRead, ...read]}
-              filterResult={this.filterResult}
             />
           )}
         />

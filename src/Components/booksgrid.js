@@ -1,24 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Book from './book';
+
 /**
  * @description Returns a grid containing Books
  * @param  {} books Books contained in the grid
  * @param  {} handleShelfChange - Function which handles Shelf Changing
  */
 const BooksGrid = ({ books, handleShelfChange, booksInShelve }) => {
+  let booksToDisplay = books;
+
   if (booksInShelve.length > 0 && books.length > 0) {
-    // eslint-disable-next-line no-param-reassign
-    const included = [];
-    books = books.filter((book) => {
-      const temp = booksInShelve.map((r) => r.id);
-      return !temp.includes(book.id);
+    const sortedBooks = [];
+    const temp = booksInShelve.map((r) => r.id);
+    books.forEach((book) => {
+      temp.includes(book.id)
+        ? sortedBooks.push(booksInShelve.filter((b) => b.id === book.id).pop())
+        : sortedBooks.push(book);
+      return true;
     });
-    console.log('Books: ', books);
+    booksToDisplay = sortedBooks;
   }
+
   return (
     <ol className="books-grid">
-      {books.map((book) => {
+      {booksToDisplay.map((book) => {
         return (
           <li key={book.id}>
             <Book
