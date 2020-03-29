@@ -1,0 +1,10 @@
+{
+  "extends": ["airbnb", "prettier", "react-app"],
+  "parser": "babel-eslint",
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": ["error"],
+    "react/jsx-filename-extension": 0,
+    "react/forbid-prop-types": 0
+  }
+}
