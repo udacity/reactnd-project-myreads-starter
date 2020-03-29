@@ -7,6 +7,13 @@ import * as API from './BooksAPI';
 import LandingPage from './Components/landingpage';
 import Search from './Components/Search/search';
 
+/**
+ * @description Entry Class the MyBooks App!
+ * Genderal Notes:
+ * * Class Functions could be moved to another file in order to reduce Componet Size, but have been kept due to readability
+ * * UI Updates after Shelfmoving operations do not happen immediately since in this implementation
+ *   local State updates only happen after the completion of the API Call without an optimistic response.
+ */
 class BooksApp extends React.Component {
   constructor(props) {
     super(props);
@@ -35,8 +42,8 @@ class BooksApp extends React.Component {
   };
 
   /**
-   * @description Sets Query String to state.
-   * Using setQuery AND handleQuery in order to preserve State after Navigation
+   * @description Sets Query String from Search Input to state.
+   * Using setQuery AND handleQuery in order to preserve input State after Navigation
    * @param  {} query String
    */
   setQuery = (query) => {
@@ -60,34 +67,23 @@ class BooksApp extends React.Component {
   };
 
   /**
-   * @description Updates State: Removes Book from Current Shelf and Adds book to new Shelf
-   * @param  {} id Book ID
-   * @param  {} currShelf current Shelf
-   * @param  {} toShelf new Shelf
-   */
-  moveBook = (id, currShelf, toShelf) => {
-    if (currShelf !== 'none') {
-      let { [currShelf]: shelf } = this.state;
-      shelf = shelf.filter((book) => book.id !== id);
-      this.setState({
-        [currShelf]: shelf,
-      });
-    }
-    if (toShelf !== 'none') this.addBook(id, toShelf);
-  };
-
-  /**
-   * @description Moves Book from old Shelf to new Shelf
+   * @description Updates State and Backend: Removes Book from Current Shelf and Adds book to new Shelf
    * @param  {} book Book ID
-   * @param  {} fromShelf Old Shelf
-   * @param  {} toShelf New Shelf
+   * @param  {} oldShelf
+   * @param  {} newShelf
    */
-  handleShelfChange = (book, fromShelf, toShelf) => {
+  handleShelfChange = (bookId, oldShelf, newShelf) => {
     const b = {};
-    b.id = book;
-    API.update(b, toShelf).then((result) => {
-      if (toShelf === 'none' || result[toShelf].includes(book))
-        this.moveBook(book, fromShelf, toShelf);
+    b.id = bookId;
+    API.update(b, newShelf).then((result) => {
+      if (oldShelf !== 'none') {
+        let { [oldShelf]: shelf } = this.state;
+        shelf = shelf.filter((bookItem) => bookItem.id !== bookId);
+        this.setState({
+          [oldShelf]: shelf,
+        });
+      }
+      newShelf !== 'none' && this.addBook(bookId, newShelf);
     });
   };
 
@@ -100,9 +96,9 @@ class BooksApp extends React.Component {
       const wantToRead = [];
       const read = [];
       books.forEach((book) => {
-        if (book.shelf === 'currentlyReading') currentlyReading.push(book);
-        else if (book.shelf === 'wantToRead') wantToRead.push(book);
-        else if (book.shelf === 'read') read.push(book); // ? adding the evaluation to prevent errors from API
+        book.shelf === 'currentlyReading' && currentlyReading.push(book);
+        book.shelf === 'wantToRead' && wantToRead.push(book);
+        book.shelf === 'read' && read.push(book);
       });
       this.setState({
         currentlyReading,
