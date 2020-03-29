@@ -6,6 +6,7 @@ import Book from './book';
  * @description Returns a grid containing Books
  * @param  {} books Books contained in the grid
  * @param  {} handleShelfChange - Function which handles Shelf Changing
+ * @param  {} booksInShelve (optional) Array Containing all Books which correspondending Shelf Attribute is not null or 'none'
  */
 const BooksGrid = ({ books, handleShelfChange, booksInShelve }) => {
   let booksToDisplay = books;

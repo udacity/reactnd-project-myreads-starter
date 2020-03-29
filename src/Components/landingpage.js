@@ -22,7 +22,7 @@ const LandingPage = ({ currentlyReading, wantToRead, read, history, handleShelfC
     />
     <BookShelf title="Want to Read" books={wantToRead} handleShelfChange={handleShelfChange} />
     <BookShelf title="Read" books={read} handleShelfChange={handleShelfChange} />
-    <SearchButton goBack={() => history.push('/search')} />
+    <SearchButton openSearch={() => history.push('/search')} />
   </div>
 );
 

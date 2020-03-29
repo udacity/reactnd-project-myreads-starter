@@ -30,7 +30,7 @@ class BooksApp extends React.Component {
         (result) => Array.isArray(result) && this.setState({ queryResult: result }),
       );
     } catch (err) {
-      return null;
+      // Not gonna handle that ¯\_(ツ)_/¯
     }
   };
 
@@ -130,7 +130,7 @@ class BooksApp extends React.Component {
               query={query}
               setQuery={this.setQuery}
               queryResult={queryResult}
-              stateShelves={[...currentlyReading, ...wantToRead, ...read]}
+              booksInShelve={[...currentlyReading, ...wantToRead, ...read]}
             />
           )}
         />

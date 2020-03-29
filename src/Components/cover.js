@@ -17,8 +17,12 @@ const Cover = ({ url }) => {
   );
 };
 
+Cover.defaultProps = {
+  url: '',
+};
+
 Cover.propTypes = {
-  url: PropTypes.string.isRequired,
+  url: PropTypes.string,
 };
 
 export default Cover;

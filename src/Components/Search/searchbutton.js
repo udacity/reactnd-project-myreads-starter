@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-const SearchButton = ({ goBack }) => (
+/**
+ * @description Button navigating to Another Page
+ * @param  {} {openSearch} navigation method to open Search Component
+ */
+const SearchButton = ({ openSearch }) => (
   <div className="open-search">
-    <button onClick={() => goBack()}>Add a book</button>
+    <button type="submit" onClick={() => openSearch()}>
+      Add a book
+    </button>
   </div>
 );
 
 SearchButton.propTypes = {
-  goBack: PropTypes.func.isRequired,
+  openSearch: PropTypes.func.isRequired,
 };
 
 export default SearchButton;

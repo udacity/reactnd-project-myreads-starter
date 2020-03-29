@@ -42,7 +42,7 @@ Book.propTypes = {
   handleShelfChange: PropTypes.func.isRequired,
   coverUrl: PropTypes.string,
   title: PropTypes.string,
-  authors: PropTypes.arrayOf(PropTypes.string),
+  authors: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string).isRequired, PropTypes.string]),
   currentShelf: PropTypes.string,
   id: PropTypes.string.isRequired,
 };
