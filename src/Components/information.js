@@ -14,8 +14,14 @@ const Information = ({ title, author }) => {
     </div>
   );
 };
+
+Information.defaultProps = {
+  title: '',
+  author: '',
+};
+
 Information.propTypes = {
-  title: PropTypes.string.isRequired,
-  author: PropTypes.arrayOf(PropTypes.string).isRequired,
+  title: PropTypes.string,
+  author: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string).isRequired, PropTypes.string]),
 };
 export default Information;
