@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GoBackButton from './gobackbutton';
 import BooksGrid from '../booksgrid';
+import * as API from '../../BooksAPI';
 
-const Search = ({ goHome, queryResult, setQuery, handleShelfChange, stateShelves }) => {
+const Search = ({ goHome, query, handleQuery, queryResult, handleShelfChange, stateShelves }) => {
   return (
     <div className="search-books">
       <div className="search-books-bar">
@@ -20,7 +21,8 @@ const Search = ({ goHome, queryResult, setQuery, handleShelfChange, stateShelves
           <input
             type="text"
             placeholder="Search by title or author"
-            // onChange={}
+            onChange={(event) => handleQuery(event.target.value)}
+            value={query}
           />
         </div>
       </div>
@@ -36,16 +38,17 @@ const Search = ({ goHome, queryResult, setQuery, handleShelfChange, stateShelves
 };
 
 Search.defaultProps = {
-  setQuery: () => console.log('SetQuery!'),
   stateShelves: [],
+  query: '',
 };
 
 Search.propTypes = {
   goHome: PropTypes.func.isRequired,
-  queryResult: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setQuery: PropTypes.func,
   handleShelfChange: PropTypes.func.isRequired,
   stateShelves: PropTypes.arrayOf(PropTypes.object),
+  query: PropTypes.string,
+  handleQuery: PropTypes.func.isRequired,
+  queryResult: PropTypes.func.isRequired,
 };
 
 export default Search;

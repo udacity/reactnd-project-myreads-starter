@@ -12,20 +12,21 @@ class BooksApp extends React.Component {
     super(props);
 
     this.state = {
-      showSearchPage: false,
       currentlyReading: [],
       wantToRead: [],
       read: [],
-      searchQuery: '',
+      query: '',
       queryResult: [],
     };
   }
 
-  logState = () => console.log(this.state);
+  setQuery = (input) => {};
 
-  fetchQuery = () => {
-    API.search('Artificial Intelligence').then((result) => {
-      this.setState({ queryResult: result });
+  handleQuery = (input) => {
+    API.search(input).then((result) => {
+      Array.isArray(result)
+        ? this.setState({ queryResult: result })
+        : console.log('QueryResult: ', result);
     });
   };
 
@@ -76,14 +77,6 @@ class BooksApp extends React.Component {
     });
   };
 
-  wait = (ms) => {
-    const start = new Date().getTime();
-    let end = start;
-    while (end < start + ms) {
-      end = new Date().getTime();
-    }
-  };
-
   fetchData = () => {
     API.getAll().then((books) => {
       const currentlyReading = [];
@@ -99,19 +92,16 @@ class BooksApp extends React.Component {
         wantToRead,
         read,
       });
-      this.logState();
     });
   };
 
   componentDidMount = () => {
-    const { fetchData, fetchQuery } = this;
-    fetchData();
-    fetchQuery();
+    this.fetchData();
   };
 
   render() {
     const { history } = this.props;
-    const { currentlyReading, wantToRead, read, queryResult } = this.state;
+    const { currentlyReading, wantToRead, read, query, queryResult } = this.state;
     return (
       <div className="app">
         <Route
