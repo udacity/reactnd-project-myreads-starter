@@ -11,6 +11,9 @@ const BooksGrid = ({ books, handleShelfChange, booksInShelve }) => {
   let booksToDisplay = books;
 
   if (booksInShelve.length > 0 && books.length > 0) {
+    /* -------------------------------------------------------------------------- */
+    /*         //? filters books determining wheter they are in a shelf           */
+    /* -------------------------------------------------------------------------- */
     const sortedBooks = [];
     const temp = booksInShelve.map((r) => r.id);
     books.forEach((book) => {

@@ -119,9 +119,6 @@ class BooksApp extends React.Component {
           render={() => (
             <Search
               goHome={() => history.push('/')}
-              currentlyReading={currentlyReading}
-              wantToRead={wantToRead}
-              read={read}
               handleShelfChange={this.handleShelfChange}
               queryResult={queryResult}
               stateShelves={[...currentlyReading, ...wantToRead, ...read]}
