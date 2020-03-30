@@ -33,7 +33,8 @@ const BooksGrid = ({ books, handleShelfChange, booksInShelve }) => {
           <li key={book.id}>
             <Book
               handleShelfChange={handleShelfChange}
-              coverUrl={book.imageLinks.smallThumbnail}
+              // eslint-disable-next-line no-nested-ternary
+              coverUrl={book ? (book.imageLinks ? book.imageLinks.smallThumbnail : null) : null}
               title={book.title}
               authors={book.authors}
               currentShelf={book.shelf}
