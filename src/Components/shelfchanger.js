@@ -5,11 +5,19 @@ import PropTypes from 'prop-types';
  * @description Removes Boilerplate Code.
  * @returns <option /> Component for Selector
  */
-const Option = ({ currShelf, label }) => {
-  return currShelf !== label ? <option value={label}>{label}</option> : null;
+const Option = ({ label, currShelf }) => {
+  return (
+    <option value={label}>
+      {currShelf ? '✔' : `  `}
+      {label}
+    </option>
+  );
+};
+Option.defaultProps = {
+  currShelf: false,
 };
 Option.propTypes = {
-  currShelf: PropTypes.string.isRequired,
+  currShelf: PropTypes.bool,
   label: PropTypes.string.isRequired,
 };
 
@@ -19,16 +27,31 @@ Option.propTypes = {
  * @param  {} currShelf Current Shelf Of the Book.
  */
 const ShelfChanger = ({ changeShelf, currShelf, id }) => {
+  const shelves = [
+    'currentlyReading',
+    currShelf === 'currentlyReading',
+    'wantToRead',
+    currShelf === 'wantToRead',
+    'read',
+    currShelf === 'read',
+    'none',
+  ];
   return (
     <div className="book-shelf-changer">
-      <select value="move" onChange={(event) => changeShelf(id, currShelf, event.target.value)}>
+      <select
+        value="move"
+        onChange={(event) =>
+          event.target.value !== currShelf ? changeShelf(id, currShelf, event.target.value) : null
+        }
+      >
         <option value="move" disabled>
+          {currShelf === 'none' ? '✔' : `  `}
           Move to...
         </option>
-        <Option currShelf={currShelf} label="currentlyReading" />
-        <Option currShelf={currShelf} label="wantToRead" />
-        <Option currShelf={currShelf} label="read" />
-        <Option currShelf={currShelf} label="none" />
+        <Option currShelf={shelves[1]} label={shelves[0]} />
+        <Option currShelf={shelves[3]} label={shelves[2]} />
+        <Option currShelf={shelves[5]} label={shelves[4]} />
+        <Option label={shelves[6]} />
       </select>
     </div>
   );
