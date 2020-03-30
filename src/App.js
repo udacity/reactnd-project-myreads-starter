@@ -33,6 +33,7 @@ class BooksApp extends React.Component {
   handleQuery = () => {
     const { query } = this.state;
     try {
+      // eslint-disable-next-line no-unused-expressions
       API.search(query).then(
         (result) => Array.isArray(result) && this.setState({ queryResult: result }),
       );

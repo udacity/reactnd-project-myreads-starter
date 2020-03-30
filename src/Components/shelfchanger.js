@@ -35,23 +35,25 @@ const ShelfChanger = ({ changeShelf, currShelf, id }) => {
     'read',
     currShelf === 'read',
     'none',
+    currShelf === 'none',
   ];
   return (
     <div className="book-shelf-changer">
       <select
         value="move"
-        onChange={(event) =>
-          event.target.value !== currShelf ? changeShelf(id, currShelf, event.target.value) : null
+        onChange={
+          (event) =>
+            event.target.value !== currShelf ? changeShelf(id, currShelf, event.target.value) : null
+          // eslint-disable-next-line react/jsx-curly-newline
         }
       >
         <option value="move" disabled>
-          {currShelf === 'none' ? '✔' : `  `}
           Move to...
         </option>
         <Option currShelf={shelves[1]} label={shelves[0]} />
         <Option currShelf={shelves[3]} label={shelves[2]} />
         <Option currShelf={shelves[5]} label={shelves[4]} />
-        <Option label={shelves[6]} />
+        <Option currShelf={shelves[7]} label={shelves[6]} />
       </select>
     </div>
   );

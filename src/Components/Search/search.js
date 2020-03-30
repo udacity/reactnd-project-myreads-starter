@@ -12,6 +12,10 @@ import BooksGrid from '../booksgrid';
  * @param  {} booksInShelve} Array Containing all Books which correspondending Shelf Attribute is not null or 'none'
  */
 const Search = ({ goHome, query, setQuery, queryResult, handleShelfChange, booksInShelve }) => {
+  if (query.length === 0) {
+    // eslint-disable-next-line no-param-reassign
+    queryResult = [];
+  }
   return (
     <div className="search-books">
       <SearchBar goHome={goHome} query={query} setQuery={setQuery} />
