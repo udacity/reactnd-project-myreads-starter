@@ -1,6 +1,7 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
+
 
 // Components
 import Currently from './Components/Currently';
@@ -16,7 +17,43 @@ class BooksApp extends React.Component {
     showSearchPage: false
   }
 
+  componentDidMount() {
+    BooksAPI.getAll()
+      .then((books) => {
+        this.setState(() => ({
+          books
+        }))
+      }).then(() => {
+        this.setState({
+          currentlyReading: Object.values(this.state.books).filter((smoke) => (
+            smoke.shelf === 'currentlyReading'
+          ))
+        })
+      })
+  }
+  // removeContact = (contact) => {
+  //   this.setState((currentState) => ({
+  //     contacts: currentState.contacts.filter((c) => {
+  //       return c.id !== contact.id
+  //     })
+  //   }))
+
+  //   BooksAPI.remove(contact)
+  // }
+  // createContact = (contact) => {
+  //   BooksAPI.create(contact)
+  //     .then((contact) => {
+  //       this.setState((currentState) => ({
+  //         contacts: currentState.contacts.concat([contact])
+  //       }))
+  //     })
+  // }
+
   render() {
+    const currentReads = this.state.books && Object.values(this.state.books).filter((smoke) => (
+      smoke.shelf === 'currentlyReading'
+    ))
+    console.log(this.state.books)
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -47,7 +84,8 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <Currently />
+                <Currently currentBooks={this.state.currentlyReading} />
+               
                 <WantTo />
                 <Read />
               </div>
