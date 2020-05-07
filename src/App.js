@@ -2,7 +2,6 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
-
 // Components
 import Currently from './Components/Currently';
 import Read from './Components/Read';
@@ -11,6 +10,7 @@ import WantTo from './Components/WantTo';
 
 class BooksApp extends React.Component {
   state = {
+    books: [],
     currentlyReading: null,
     wantToRead: null,
     read: null,
@@ -27,74 +27,95 @@ class BooksApp extends React.Component {
         this.setState({
           currentlyReading: Object.values(this.state.books).filter((smoke) => (
             smoke.shelf === 'currentlyReading'
+          )),
+          read: Object.values(this.state.books).filter((smoke) => (
+            smoke.shelf === 'read'
+          )),
+          wantToRead: Object.values(this.state.books).filter((smoke) => (
+            smoke.shelf === 'wantToRead'
           ))
         })
+      }).then(() => {
+        console.log(this.state)
       })
   }
-  // removeContact = (contact) => {
-  //   this.setState((currentState) => ({
-  //     contacts: currentState.contacts.filter((c) => {
-  //       return c.id !== contact.id
-  //     })
-  //   }))
 
-  //   BooksAPI.remove(contact)
-  // }
-  // createContact = (contact) => {
-  //   BooksAPI.create(contact)
-  //     .then((contact) => {
-  //       this.setState((currentState) => ({
-  //         contacts: currentState.contacts.concat([contact])
-  //       }))
-  //     })
-  // }
+  changeShelf = (book, shelf) => {
+    BooksAPI.update(book, shelf)
+      .then(() =>
+        BooksAPI.getAll()
+        .then((books) => {
+          this.setState(() => ({
+            books
+          }))
+        }).then(() => {
+          this.setState({
+            currentlyReading: Object.values(this.state.books).filter((smoke) => (
+              smoke.shelf === 'currentlyReading'
+            )),
+            read: Object.values(this.state.books).filter((smoke) => (
+              smoke.shelf === 'read'
+            )),
+            wantToRead: Object.values(this.state.books).filter((smoke) => (
+              smoke.shelf === 'wantToRead'
+            ))
+          })
+        })
+      )
+  }
 
   render() {
-    const currentReads = this.state.books && Object.values(this.state.books).filter((smoke) => (
-      smoke.shelf === 'currentlyReading'
-    ))
-    console.log(this.state.books)
+    const readBooks = this.state.read && this.state.read.map((daBooks, index) => {
+     return <Read key={index} updateShelf={this.changeShelf} myBook={daBooks} />
+    })
+
+    const wantToReadBooks = this.state.wantToRead && this.state.wantToRead.map((daBooks, index) => {
+      return <WantTo key={index} updateShelf={this.changeShelf} myBook={daBooks} />
+     })
+
+    const currentlyReading = this.state.currentlyReading && this.state.currentlyReading.map((daBooks, index) => {
+      return <Currently key={index} updateShelf={this.changeShelf} myBook={daBooks} />
+     })
+
+
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
-          <div className="search-books">
-            <div className="search-books-bar">
-              <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
-              <div className="search-books-input-wrapper">
-                {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
-                <input type="text" placeholder="Search by title or author"/>
-
-              </div>
-            </div>
-            <div className="search-books-results">
-              <ol className="books-grid"></ol>
-            </div>
-          </div>
-        ) : (
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
               <div>
-                <Currently currentBooks={this.state.currentlyReading} />
-               
-                <WantTo />
-                <Read />
+              <div className="bookshelf">
+        <h2 className="bookshelf-title">Currently Reading</h2>
+        <div className="bookshelf-books">
+          <ol className="books-grid">
+            {currentlyReading}
+            </ol>
+                </div>
+                </div>
+                <div className="bookshelf">
+        <h2 className="bookshelf-title">Want To Read</h2>
+        <div className="bookshelf-books">
+          <ol className="books-grid">
+                {wantToReadBooks}
+                </ol>
+                </div>
+                </div>
+                <div className="bookshelf">
+        <h2 className="bookshelf-title">Read</h2>
+        <div className="bookshelf-books">
+          <ol className="books-grid">
+                {readBooks}
+                </ol>
+                </div>
+                </div>
               </div>
             </div>
             <div className="open-search">
               <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
             </div>
           </div>
-        )}
       </div>
     )
   }
