@@ -2,6 +2,7 @@ import React from 'react'
 import '../App.css'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from '../BooksAPI'
+import SearchBooks from './SearchBooks'
 
 export default class Search extends React.Component {
     constructor(props) {
@@ -44,31 +45,14 @@ render() {
 
     const { query, searchBooks } = this.state
     const bookList = searchBooks !== [] ? searchBooks.map((booksMan, index) => {
-    const noThumb = booksMan.imageLinks !== undefined ? booksMan.imageLinks.smallThumbnail : 'https://getuikit.com/v2/docs/images/placeholder_600x400.svg'
-    const ifMultipleAuthors = booksMan.authors !== undefined ? booksMan.authors.length === 1 ? booksMan.authors : booksMan.authors.map((writers, index) => { return <div key={index}>{writers}</div> }) : null
     
     return (
-        <li key={index}>
-        <div className="book">
-        <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${noThumb})` }}></div>
-                <div className="book-shelf-changer">
-                    <select value={this.state.value} onChange={this.handleChange}>
-                        <option value="move" disabled>Move to...</option>
-                        <option value="currentlyReading">Currently Reading</option>
-                        <option value="wantToRead">Want to Read</option>
-                        <option value="read">Read</option>
-                        <option value="none">None</option>
-                    </select>
-                </div>
-        </div>
-            <div className="book-title">{booksMan.title}</div>
-            <div className="book-authors">{ifMultipleAuthors}</div>
-        </div>
-    </li>
+        <div key={index}>
+    <SearchBooks searchList={booksMan} />
+    </div>
     )
     
-    }) : null
+    }) : <h2>No books Match Search Criteria</h2>
     return (
         <div className="search-books">
         <div className="search-books-bar">
