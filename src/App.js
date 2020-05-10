@@ -2,8 +2,8 @@ import React from 'react'
 import BooksList from './Components/BooksList'
 import Search from './Components/Search'
 import './App.css'
-import { Route } from 'react-router-dom'
-// import * as BooksAPI from './BooksAPI'
+import { Route,Switch } from 'react-router-dom'
+import NoMatch from './Components/NoMatch'
 
 export default class App extends React.Component {
   state = {
@@ -14,32 +14,11 @@ export default class App extends React.Component {
     showSearchPage: false
   }
 
-  // componentDidMount() {
-  //   BooksAPI.getAll()
-  //     .then((books) => {
-  //       this.setState(() => ({
-  //         books
-  //       }))
-  //     }).then(() => {
-  //       this.setState({
-  //         currentlyReading: Object.values(this.state.books).filter((smoke) => (
-  //           smoke.shelf === 'currentlyReading'
-  //         )),
-  //         read: Object.values(this.state.books).filter((smoke) => (
-  //           smoke.shelf === 'read'
-  //         )),
-  //         wantToRead: Object.values(this.state.books).filter((smoke) => (
-  //           smoke.shelf === 'wantToRead'
-  //         ))
-  //       })
-  //     }).then(() => {
-  //       console.log(this.state)
-  //     })
-  // }
 
 render() {
     return (
       <div>
+        <Switch>
         <Route exact path='/' render={() => (
           <BooksList
           />
@@ -49,6 +28,8 @@ render() {
           books={this.state.books}
           />
         )} />
+        <Route component={NoMatch} />
+        </Switch>
       </div>
     )
   }
