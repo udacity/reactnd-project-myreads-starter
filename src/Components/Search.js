@@ -9,14 +9,18 @@ export default class Search extends React.Component {
         super(props);
         this.state = {
             searchBooks: [],
-            query: ''
+            query: '',
+            books: []
         };
     }
 
 componentDidMount() {
-    this.setState({
-        books: this.props.books
-    })
+    BooksAPI.getAll()
+      .then((books) => {
+        this.setState(() => ({
+          books
+        }))
+      })
 }
 
 updateQuery = (query) => {
@@ -27,7 +31,7 @@ updateQuery = (query) => {
         }))
     } else {
     this.setState(() => ({
-        query: query.trim()
+        query: query
     }), () => 
     BooksAPI.search(this.state.query)
     .then((newBooks) => 
@@ -43,9 +47,14 @@ clearQuery = () => {
 
 render() {
 
-    const { query, searchBooks } = this.state
+    const { query, searchBooks, books } = this.state
     const bookList = searchBooks !== [] ? searchBooks.map((booksMan, index) => {
-    
+        books.forEach(element => {
+            if (element.title.toLowerCase().replace(" ", "") === booksMan.title.toLowerCase().replace(" ", "")) {
+                Object.assign(booksMan, {shelf: element.shelf});
+            } 
+        });
+
     return (
         <div key={index}>
     <SearchBooks searchList={booksMan} />

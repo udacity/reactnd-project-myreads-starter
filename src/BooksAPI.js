@@ -52,7 +52,6 @@ export const search = (query) =>
     body: JSON.stringify({ query })
   }).then(res => res.json())
   .then((data) => { 
-    console.log(data.books)
     if (data.books.error === 'empty query') {
       return []
     } else {

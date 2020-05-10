@@ -15,10 +15,10 @@ export default class SearchBooks extends React.Component {
     }
 
 componentDidMount() {
-    Object.assign(this.props.searchList, {shelf: "none"});
     this.setState({
-    currentBook: this.props.searchList
-    },() => console.log(this.state))
+    currentBook: this.props.searchList,
+    value: this.props.searchList.shelf    
+    })
 }
 
 changeShelf = (book, shelf) => {
