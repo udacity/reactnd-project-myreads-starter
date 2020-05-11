@@ -32,6 +32,16 @@ export const update = (book, shelf) =>
     body: JSON.stringify({ shelf })
   }).then(res => res.json())
 
+  export const addBook = (book, shelf) =>
+  fetch(`${api}/books/${book.id}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ shelf })
+  }).then(res => res.json())
+
 export const search = (query) =>
   fetch(`${api}/search`, {
     method: 'POST',
@@ -41,4 +51,14 @@ export const search = (query) =>
     },
     body: JSON.stringify({ query })
   }).then(res => res.json())
-    .then(data => data.books)
+  .then((data) => { 
+    if (data.books.error === 'empty query') {
+      return []
+    } else {
+    return data.books
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    return []
+  });
