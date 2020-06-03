@@ -1,11 +1,15 @@
 import React from 'react'
 import './App.css'
-import {Link} from 'react-router-dom'
+import {Link, } from 'react-router-dom'
+
 
 class Main extends React.Component 
 {
+
     render(props)
     {
+      
+      
       const books = this.props.books;
       
       const contreading = books.filter((book) =>
@@ -40,15 +44,19 @@ class Main extends React.Component
                     {
                        contreading.map((book ) =>
                        {
+                         console.log(book.shelf);
                          
                               return  <li key={book.id}>
                               <div className="book">
                                 <div className="book-top">
                                   <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                                   <div className="book-shelf-changer">
-                                    <select>
+                                    <select value ={book.shelf} id={book.id}  onChange = {(e) =>
+                                    {
+                                      this.props.updatebookshelf(e.target.id , e.target.value);
+                                    }}>
                                       <option value="move" disabled>Move to...</option>
-                                      <option value="currentlyReading">Currently Reading</option>
+                                      <option value="currentlyReading" >Currently Reading</option>
                                       <option value="wantToRead">Want to Read</option>
                                       <option value="read">Read</option>
                                       <option value="none">None</option>
@@ -80,7 +88,10 @@ class Main extends React.Component
                                 <div className="book-top">
                                   <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                                   <div className="book-shelf-changer">
-                                    <select>
+                                    <select value ={book.shelf} id={book.id}  onChange = {(e) =>
+                                    {
+                                      this.props.updatebookshelf(e.target.id , e.target.value);
+                                    }}>
                                       <option value="move" disabled>Move to...</option>
                                       <option value="currentlyReading">Currently Reading</option>
                                       <option value="wantToRead">Want to Read</option>
@@ -113,7 +124,10 @@ class Main extends React.Component
                                 <div className="book-top">
                                   <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                                   <div className="book-shelf-changer">
-                                    <select>
+                                    <select  value ={book.shelf} id={book.id}  onChange = {(e) =>
+                                    {
+                                      this.props.updatebookshelf(e.target.id , e.target.value);
+                                    }}>
                                       <option value="move" disabled>Move to...</option>
                                       <option value="currentlyReading">Currently Reading</option>
                                       <option value="wantToRead">Want to Read</option>

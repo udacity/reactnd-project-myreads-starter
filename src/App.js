@@ -16,16 +16,33 @@ class BooksApp extends React.Component {
     this.updatebook();
   }
 
-  async updatebook()
+
+
+  async updatebook(e)
   {
     const fetchapi = BooksAPI.getAll();
     fetchapi.then((data) =>
     {
-      console.log(data);
+      
       this.setState({books : data});
     });
   }
 
+
+   updatebookshelf = async (id,shelf) =>
+  {
+     console.log(id);
+     console.log(shelf);
+
+     BooksAPI.update(id,shelf).then((data) =>
+     {
+       
+       this.updatebook();
+     }
+     )
+  }
+
+ 
 
 
 
@@ -41,10 +58,10 @@ class BooksApp extends React.Component {
         <Router>
           <Route path="/" exact render = { () =>
           (
-            <Main books = {this.state.books}/>
+            <Main books = {this.state.books} updatebookshelf = {this.updatebookshelf}/>
           )}/>
           <Route path="/search" exact render = { () => (
-            <Search />
+            <Search updatebookshelf = {this.updatebookshelf}/>
           )} />
 
           
