@@ -7,9 +7,7 @@ class Main extends React.Component
 {
 
     render(props)
-    {
-      
-      
+    { 
       const books = this.props.books;
       
       const contreading = books.filter((book) =>

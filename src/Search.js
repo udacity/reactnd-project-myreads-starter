@@ -18,28 +18,33 @@ class Search extends React.Component
 
     searchbooks = async (query) =>
     {
-            BooksAPI.search(query).then((data) =>
+        BooksAPI.search(query).then((data) =>
+        {
+            
+            //console.log(data);
+            if(data === undefined)
             {
-                
                 console.log(data);
-                if(data === undefined)
-                {
-                    console.log(data);
-                }
-                else if(data.error === "empty query")
-                {
-                    console.log(data);
-                }
-                else
-                {
-                    this.setState({books : data});
-                    console.log("hello2");
-                }
-                          
-            })
-        
+                this.setState({books : []});
+            }
+            else if(data.error === "empty query")
+            {
+                console.log(data);
+                this.setState({books : []});
+            }
+            else
+            {
+                this.setState({books : data});
+                //console.log("hello2");
+            }
+                      
+        })
+    
        
     }
+
+ 
+
     render()
     {
         
@@ -49,7 +54,7 @@ class Search extends React.Component
                         <div className="search-books">
                             <div className="search-books-bar">
                                 <Link to="/">
-                                <button className="close-search" >Close</button>
+                                    <button className="close-search" >Close</button>
                                 </Link>
                                 
                                 <div className="search-books-input-wrapper">
@@ -58,47 +63,53 @@ class Search extends React.Component
                             </div>
                             <div className="search-books-results">
                                 <ol className="books-grid">
-                                   
+                                   {
+                                        this.state.books.map((book ) =>
+                                        {
 
+                                           
+                                           this.props.books.map((book1) =>
+                                           {
+                                               if(book1.id === book.id)
+                                               {
+                                                   book.shelf = book1.shelf;
+                                               }
+                                               return "";
+                                           })
 
-                                {
-
-                       this.state.books.map((book ) =>
-                       {
-                         console.log(book.shelf);
-                         
-                              return  <li key={book.id}>
-                              <div className="book">
-                                <div className="book-top">
-                                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
-                                  <div className="book-shelf-changer">
-                                    <select value ={book.shelf} id={book.id}  onChange = {(e) =>
-                                    {
-                                      this.props.updatebookshelf(e.target.id , e.target.value);
-                                    }}>
-                                      <option value="move" disabled>Move to...</option>
-                                      <option value="currentlyReading" >Currently Reading</option>
-                                      <option value="wantToRead">Want to Read</option>
-                                      <option value="read">Read</option>
-                                      <option value="none">None</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div className="book-title">{book.title}</div>
-                                <div className="book-authors">{book.authors}</div>
-                              </div>
-                            </li>
-
-                       }) } 
-                                    
-
-
-
-
-
-
-
-                                   
+                                           console.log(book);
+                                            
+                                            if(book.imageLinks === undefined)
+                                            {
+                                                book.imageLinks = "";
+                                            }
+                                            if(book.authors === undefined)
+                                            {
+                                                book.authors = "";
+                                            }
+                                                return  <li key={book.id}>
+                                                <div className="book">
+                                                    <div className="book-top">
+                                                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
+                                                    <div className="book-shelf-changer">
+                                                        <select value ={book.shelf} id={book.id}  onChange = {(e) =>
+                                                        {
+                                                        this.props.updatebookshelf(e.target.id , e.target.value);
+                                                        }}>
+                                                        <option value="move" disabled>Move to...</option>
+                                                        <option value="currentlyReading" >Currently Reading</option>
+                                                        <option value="wantToRead">Want to Read</option>
+                                                        <option value="read">Read</option>
+                                                        <option value="none">None</option>
+                                                        </select>
+                                                    </div>
+                                                    </div>
+                                                    <div className="book-title">{book.title}</div>
+                                                    <div className="book-authors">{book.authors}</div>
+                                                </div>
+                                                </li>
+                                        }) 
+                                    }              
                                 </ol>
                             </div>
                         </div>
