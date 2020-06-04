@@ -76,6 +76,10 @@ class Search extends React.Component
                                                }
                                                return "";
                                            })
+                                           if(book.shelf === undefined)
+                                           {
+                                               book.shelf = "none";
+                                           }
 
                                            console.log(book);
                                             
