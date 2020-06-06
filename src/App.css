@@ -184,6 +184,8 @@ button:active {
   cursor: pointer;
 }
 
+
+
 /* book cover */
 
 .book-cover {
@@ -195,4 +197,9 @@ button:active {
   padding: 20px 10px 0;
   text-align: center;
   font-size: 0.8em;
+}
+
+
+.select-selected {
+  background-color: DodgerBlue;
 }
