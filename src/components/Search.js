@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import * as BooksAPI from "../BooksAPI";
 import Book from "./Book";
-import SuccessModal from "./SuccessModal";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -68,7 +67,6 @@ class Search extends Component {
   render() {
     return (
       <div className="search-books">
-      <SuccessModal />
         <div className="search-books-bar">
           <Link className="close-search" to="/"></Link>
 
