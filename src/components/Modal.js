@@ -14,14 +14,11 @@ class Modal extends Component {
   };
 
   getShelfName = (shelf) => {
-    if (shelf === 'currentlyReading')
-      return ' to Currently reading'
-    if (shelf === 'wantToRead')
-      return 'to Want to Read'
-    if (shelf === 'read')
-      return 'to Read'
-    return 'off the shelves'
-  }
+    if (shelf === "currentlyReading") return "to Currently reading.";
+    if (shelf === "wantToRead") return "to Want to Read.";
+    if (shelf === "read") return "to Read.";
+    return "off the shelves.";
+  };
 
   render() {
     const { book, show, shelf } = this.props;
@@ -32,7 +29,9 @@ class Modal extends Component {
     return (
       <div className="modal" id="modal">
         <h2>Success</h2>
-        <div className="content">'{book.title}' by {book.authors} has been moved {this.getShelfName(shelf)}</div>
+        <div className="content">
+          '{book.title}' by {book.authors} has been moved {this.getShelfName(shelf)}
+        </div>
         <div className="actions">
           <button className="toggle-button" onClick={this.onClose}>
             Close

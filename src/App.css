@@ -214,36 +214,46 @@ button:active {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-*{box-sizing: border-box}
-:root{background: #ccc}
-.error{
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    position: relative;
-    margin: 40px auto;
-    box-shadow: 0 0 0 10px white, 0 0 24px 12px #B3B3B3, inset 0 0 16px 1px #B3B3B3;
+* {
+  box-sizing: border-box;
+}
+:root {
+  background: #ccc;
+}
+.error {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  position: relative;
+  margin: 40px auto;
+  box-shadow: 0 0 0 10px white, 0 0 24px 12px #b3b3b3,
+    inset 0 0 16px 1px #b3b3b3;
 }
 
-.error:before, .error:after{
-    content: ''; 
-    position:absolute;
-    width: 20px;
-    height: 100px;
-    left: 64px;
-    top: 25px;
-    box-shadow: 0 0 16px 1px #B3B3B3;
-    background: white
+.error:before,
+.error:after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 100px;
+  left: 64px;
+  top: 25px;
+  box-shadow: 0 0 16px 1px #b3b3b3;
+  background: white;
 }
-.error:before{
-    transform: skew(28deg)
+.error:before {
+  transform: skew(28deg);
 }
-.error:after{
-    transform: skew(-28deg);
+.error:after {
+  transform: skew(-28deg);
 }
 
 .modal {
@@ -255,13 +265,13 @@ button:active {
   /* -webkit-filter: blur(0);
           filter: blur(0); */
   -webkit-transform: scale(1);
-          transform: scale(1);
-          -webkit-box-shadow: 10px 10px 21px 12px rgba(0,0,0,0.75);
-          -moz-box-shadow: 10px 10px 21px 12px rgba(0,0,0,0.75);
-          box-shadow: 10px 10px 21px 12px rgba(0,0,0,0.75);
+  transform: scale(1);
+  -webkit-box-shadow: 10px 10px 21px 12px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 21px 12px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 21px 12px rgba(0, 0, 0, 0.75);
   opacity: 1;
   visibility: visible;
-  z-index:1;
+  z-index: 1;
   position: absolute;
   top: 15%;
   left: 35%;

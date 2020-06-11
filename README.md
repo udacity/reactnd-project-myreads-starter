@@ -1,18 +1,21 @@
 # MyReads Project
 
-This is Belén Pruvost's assessment project for the React Fundamentals module, included in Udacity's React Fundamentals course. 
+This is Belén Pruvost's assessment project for the React Fundamentals module, included in Udacity's React Fundamentals course.
 
-It is a bookshelf app that allows you to select and categorize books you have read, are currently reading, or want to read. 
+It is a bookshelf app that allows you to select and categorize books you have read, are currently reading, or want to read.
 Information is persisted through an API as you interact with the application.
 
 ## Running the app locally
-* install all project dependencies with `npm install`
-* start the development server with `npm start`
+
+- install all project dependencies with `npm install`
+- start the development server with `npm start`
 
 ## Sections
 
 ### My Library
+
 This section shows the three shelves available:
+
 - Currently reading
 - Want to Read
 - Read
@@ -36,9 +39,9 @@ When an async operation is done, a loader will be displayed.
 
 This section also provides access to the Search page.
 
-
 ### Search
-This section allows you to search for books. The list of available search terms that will actually return results is available [here](SEARCH_TERMS.md). 
+
+This section allows you to search for books. The list of available search terms that will actually return results is available [here](SEARCH_TERMS.md).
 
 ![search](images/search.png)
 
@@ -49,7 +52,6 @@ However, if no results are found - a message indicating so will be displayed.
 Also - if there is any issue connecting to the API, an error image will be displayed.
 
 ![error](images/error.png)
-
 
 When results are indeed found, books are displayed in the same way as in the Library section, indicating their title, their authors and their cover. A control is available to move them into or out of the shelves.
 

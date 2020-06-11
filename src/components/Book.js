@@ -9,10 +9,10 @@ class Book extends Component {
 
   getAuthors = (authors) => {
     if (authors) {
-    return authors.join(', ')
+      return authors.join(", ");
     }
-    return ''
-  }
+    return "";
+  };
 
   render() {
     const { book, onShelfChange } = this.props;
@@ -25,8 +25,12 @@ class Book extends Component {
             style={{
               width: 128,
               height: 174,
-              backgroundImage: `url(${book.imageLinks ? book.imageLinks.thumbnail : 'https://thebookworm1305.files.wordpress.com/2013/05/classic_red_book_cover.jpg'})`,
-              backgroundSize: '128px 174px'
+              backgroundImage: `url(${
+                book.imageLinks
+                  ? book.imageLinks.thumbnail
+                  : "https://thebookworm1305.files.wordpress.com/2013/05/classic_red_book_cover.jpg"
+              })`,
+              backgroundSize: "128px 174px",
             }}
           ></div>
           <div className="book-shelf-changer">
