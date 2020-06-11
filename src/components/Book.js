@@ -7,6 +7,13 @@ class Book extends Component {
     onShelfChange: PropTypes.func.isRequired,
   };
 
+  getAuthors = (authors) => {
+    if (authors) {
+    return authors.join(', ')
+    }
+    return ''
+  }
+
   render() {
     const { book, onShelfChange } = this.props;
 
@@ -38,7 +45,7 @@ class Book extends Component {
           </div>
         </div>
         <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.authors}</div>
+        <div className="book-authors">{this.getAuthors(book.authors)}</div>
       </div>
     );
   }
