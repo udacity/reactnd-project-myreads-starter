@@ -23,20 +23,25 @@ class BooksApp extends React.Component {
     this.setState({
       status: "loading",
     });
-    BooksAPI.getAll().then((books) => {
-      this.setState(() => ({
-        books: books,
-        status: "loaded",
-      }))
-    })
-    .catch(error => {
-      console.error('Error fetching API:', error);
-      this.setState({books: null, status: 'error'})
-  })
+    BooksAPI.getAll()
+      .then((books) => {
+        this.setState(() => ({
+          books: books,
+          status: "loaded",
+        }));
+      })
+      .catch((error) => {
+        console.error("Error fetching API:", error);
+        this.setState({ books: null, status: "error" });
+      });
   }
 
   onShelfChange = (book, shelf) => {
-    this.setState({ status: "loading", selectedBook: book, selectedShelf: shelf });
+    this.setState({
+      status: "loading",
+      selectedBook: book,
+      selectedShelf: shelf,
+    });
     BooksAPI.update(book, shelf).then((data) => {
       this.getBooks();
       this.showModal();
@@ -45,15 +50,19 @@ class BooksApp extends React.Component {
 
   showModal = () => {
     this.setState(() => ({
-      showModal: !this.state.showModal
-    }))
-  }
+      showModal: !this.state.showModal,
+    }));
+  };
 
   render() {
     return (
       <div className="app">
-        <Modal show={this.state.showModal} onClose={this.showModal} book={this.state.selectedBook} shelf={this.state.selectedShelf}>
-        </Modal>
+        <Modal
+          show={this.state.showModal}
+          onClose={this.showModal}
+          book={this.state.selectedBook}
+          shelf={this.state.selectedShelf}
+        ></Modal>
         <Route
           exact
           path="/"

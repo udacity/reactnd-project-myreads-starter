@@ -19,17 +19,18 @@ class Search extends Component {
 
   searchBook(book) {
     if (book) {
-      this.setState({ loading: true, error:false, books: [] });
-      BooksAPI.search(book).then(
-        (data) => {
+      this.setState({ loading: true, error: false, books: [] });
+      BooksAPI.search(book)
+        .then((data) => {
           const mappedData = this.map(data);
           this.setState({ loading: false, books: mappedData });
-        }
-      )
-      .catch(error => {
-        console.error('Error fetching API:', error);
-        this.setState({ loading: false, error: true, books: [] })
-    });
+        })
+        .catch((error) => {
+          console.error("Error fetching API:", error);
+          this.setState({ loading: false, error: true, books: [] });
+        });
+    } else {
+      this.setState({ loading: false, error: false, books: [] });
     }
   }
 
@@ -81,19 +82,20 @@ class Search extends Component {
         <div className="search-books-results">
           {this.state.loading && <div className="loader"></div>}
           {this.state.error && <div className="error"></div>}
-          {!this.state.loading && !this.state.error && 
-          <ol className="books-grid">
-          {!this.state.books && <p>No results were found</p>}
-            {this.state.books &&
-              !!this.state.books.length &&
-              this.state.books.map((book, index) => (
-                <Book
-                  book={book}
-                  key={index}
-                  onShelfChange={this.onShelfChange}
-                />
-              ))}
-          </ol>}
+          {!this.state.loading && !this.state.error && (
+            <ol className="books-grid">
+              {!this.state.books && <p>No results were found</p>}
+              {this.state.books &&
+                !!this.state.books.length &&
+                this.state.books.map((book, index) => (
+                  <Book
+                    book={book}
+                    key={index}
+                    onShelfChange={this.onShelfChange}
+                  />
+                ))}
+            </ol>
+          )}
         </div>
       </div>
     );
