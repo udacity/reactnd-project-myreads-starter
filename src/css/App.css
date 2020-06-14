@@ -1,0 +1,159 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+body, .hero-container {
+  font-family: 'Nunito', sans-serif;
+  background: white;
+}
+
+.root, .app {
+  height: 100%;
+}
+
+.hero-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+.hero-image-container {
+  width: 100%;
+  border-radius: 0;
+  background-color: #ebf1f4;
+}
+
+.hero-logo {
+  padding: 10px;
+}
+
+.hero-logo a {
+  text-decoration: none;
+  color: #272643;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.hero-logo a:hover {
+  text-decoration: none;
+}
+
+.hero-button {
+  background-color: #272643;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  width: 150px;
+  padding: 10px;
+}
+
+.hero-button a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.hero-button a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 100%;
+}
+
+.hero-text {
+  width: 100%;
+  text-align: center;
+  padding-top: 200px;
+}
+
+.hero-header-text {
+  font-size: 30px;
+  color: #c8cfd9;
+  padding: 10px;
+}
+
+.hero-sub-header-text {
+  font-size: 18px;
+  padding: 10px;
+}
+
+.books-container {
+  width: 100%;
+}
+
+.book-header-text {
+  text-align: center;
+  color: #fff;
+  padding: 10px;
+  background-color: #272643;
+}
+
+.book-main-container {
+  display: flex;
+  flex-flow: column;
+}
+
+.book-shelf {
+  display: inherit;
+  flex-flow: column;
+}
+
+.book-grid {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+}
+
+.book {
+  width: 20%;
+  margin: 1%;
+  padding: 10px;
+  border: 10px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.book-shelf-changer {
+  padding: 10px 10px 10px 0;
+}
+
+.book-title {
+  padding: 5px 5px 5px 0;
+}
+
+.book-authors {
+  padding: 5px 5px 5px 0;
+}
+
+.search-container {
+  width: 100%;
+}
+
+.search-bar {
+  width: 100%;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: #e2e8f0;
+  border-color: rgba(226, 232, 240, var(--border-opacity));
+  --border-opacity: 1;
+}
+
+@media screen and (min-width: 901px) {
+  .hero-container {
+    flex-flow: row;
+  }
+  .hero-image-container {
+    width: 60%;
+    background-color: #EBF1F4;
+    border-radius: 0 0 0 0;
+  }
+  .hero-text {
+    width: 50%;
+  }
+}
