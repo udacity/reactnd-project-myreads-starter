@@ -34,44 +34,59 @@ class SearchBooks extends React.Component {
   }
 }
 
-// TODO: Allow for moving books between shelves
-// TODO: Show correct shelf as default selection
-const Book = ({ book }) => (
-  <li>
-    <div className="book">
-      <div className="book-top">
-        <div
-          className="book-cover"
-          style={{
-            width: 128,
-            height: 193,
-            backgroundImage: `url(${book.imageLinks.thumbnail})` }}
-        ></div>
-        <div className="book-shelf-changer">
-          <select>
-            <option value="move" disabled>Move to...</option>
-            <option value="currentlyReading">Currently Reading</option>
-            <option value="wantToRead">Want to Read</option>
-            <option value="read">Read</option>
-            <option value="none">None</option>
-          </select>
+class Book extends React.Component {
+  handleShelfChange = (e) => {
+    const { onShelfChange, book } = this.props;
+    console.log(e.target.value);
+    onShelfChange(book, e.target.value);
+  };
+
+  render() {
+    const { book } = this.props;
+    return (
+      <li>
+        <div className="book">
+          <div className="book-top">
+            <div
+              className="book-cover"
+              style={{
+                width: 128,
+                height: 193,
+                backgroundImage: `url(${book.imageLinks.thumbnail})` }}
+            ></div>
+            <div className="book-shelf-changer">
+              <select value={book.shelf} onChange={this.handleShelfChange}>
+                <option value="move" disabled>Move to...</option>
+                <option value="currentlyReading">Currently Reading</option>
+                <option value="wantToRead">Want to Read</option>
+                <option value="read">Read</option>
+                <option value="none">None</option>
+              </select>
+            </div>
+          </div>
+          <div className="book-title">{book.title}</div>
+          <div className="book-authors">{book.authors}</div>
         </div>
-      </div>
-      <div className="book-title">{book.title}</div>
-      <div className="book-authors">{book.authors}</div>
-    </div>
-  </li>
-);
+      </li>
+    )
+  }
+}
 
 class Shelf extends React.Component {
   render() {
-    const { name, books } = this.props;
+    const { name, books, onShelfChange } = this.props;
     return (
       <div className="bookshelf">
           <h2 className="bookshelf-title">{name}</h2>
           <div className="bookshelf-books">
             <ol className="books-grid">
-              {books.length > 0 && books.map((book) => <Book key={book.id} book={book} />)}
+              {books.length > 0 && books.map((book) => (
+                <Book
+                  key={book.id}
+                  book={book}
+                  onShelfChange={onShelfChange}
+                />
+              ))}
             </ol>
           </div>
         </div>
@@ -80,7 +95,6 @@ class Shelf extends React.Component {
 }
 
 // TODO: Use React Router for navigation
-// TODO: Write callback for moving books between shelves
 class BooksApp extends React.Component {
   state = {
     /**
@@ -102,7 +116,25 @@ class BooksApp extends React.Component {
       })
   }
 
-  getBooksOnShelf = (shelf) => this.state.books.filter((book) => book.shelf === shelf);
+  getBooksOnShelf = (shelf) => {
+    const filteredArray = this.state.books.filter((book) => book.shelf === shelf);
+    const sortedArray = [...filteredArray].sort((a, b) => a.title > b.title ? 1 : -1);
+    return sortedArray
+  };
+
+  handleShelfChange = (book, newShelf) => {
+    book.shelf = newShelf;
+    console.log()
+    this.setState((prevState) => (
+      {
+        books: [
+          ...prevState.books.filter((b) => b.id !== book.id),
+          book
+        ]
+      }
+    ));
+    BooksAPI.update(book, newShelf);
+  }
 
   render() {
     return (
@@ -116,9 +148,21 @@ class BooksApp extends React.Component {
               </div>
               <div className="list-books-content">
                 <div>
-                  <Shelf name='Currently Reading' books = {this.getBooksOnShelf('currentlyReading')} />
-                  <Shelf name='Want To Read' books = {this.getBooksOnShelf('wantToRead')} />
-                  <Shelf name='Read' books = {this.getBooksOnShelf('read')} />
+                  <Shelf
+                    name='Currently Reading'
+                    books = {this.getBooksOnShelf('currentlyReading')}
+                    onShelfChange = {this.handleShelfChange}
+                  />
+                  <Shelf
+                    name='Want To Read'
+                    books = {this.getBooksOnShelf('wantToRead')}
+                    onShelfChange = {this.handleShelfChange}
+                  />
+                  <Shelf
+                    name='Read'
+                    books = {this.getBooksOnShelf('read')}
+                    onShelfChange = {this.handleShelfChange}
+                  />
                 </div>
               </div>
               <div className="open-search">
