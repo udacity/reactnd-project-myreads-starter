@@ -1,9 +1,9 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
+import { Route, Link } from 'react-router-dom'
 // TODO: Move all components into their own files
 
-// TODO: Use React Router to navigate back to home page
 class SearchBooks extends React.Component {
   state = {
     query: '',
@@ -43,7 +43,11 @@ class SearchBooks extends React.Component {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
+          <Link
+            to='/'
+          >
+            <button className="close-search">Close</button>
+          </Link>
           <div className="search-books-input-wrapper">
             {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -141,7 +145,6 @@ class Shelf extends React.Component {
   }
 }
 
-// TODO: Use React Router for navigation
 class BooksApp extends React.Component {
   state = {
     /**
@@ -150,8 +153,7 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: false,
-    books: {}
+    books: []
   };
 
   componentDidMount() {
@@ -185,11 +187,18 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage
-          ? <SearchBooks
+        <Route
+          path='/search'
+          render={() => (
+            <SearchBooks
               onShelfChange={this.handleShelfChange}
             />
-          : this.state.books.length > 0 &&
+          )}
+        />
+        <Route
+          exact path='/'
+          render={() => (
+            this.state.books.length > 0 &&
             <div className="list-books">
               <div className="list-books-title">
                 <h1>MyReads</h1>
@@ -214,10 +223,15 @@ class BooksApp extends React.Component {
                 </div>
               </div>
               <div className="open-search">
-                <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+                <Link
+                  to='/search'
+                >
+                  <button>Add a book</button>
+                </Link>
               </div>
             </div>
-        }
+          )}
+        />
       </div>
     )
   }
