@@ -50,6 +50,7 @@ class BooksApp extends React.Component {
           render={() => (
             <SearchBooks
               onShelfChange={this.handleShelfChange}
+              books={this.state.books}
             />
           )}
         />

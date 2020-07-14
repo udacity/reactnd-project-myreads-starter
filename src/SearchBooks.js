@@ -6,43 +6,60 @@ import PropTypes from 'prop-types'
 
 class SearchBooks extends React.Component {
   static propTypes = {
-    onShelfChange: PropTypes.func.isRequired
+    onShelfChange: PropTypes.func.isRequired,
+    books: PropTypes.array.isRequired
   }
 
   state = {
     query: '',
-    books: []
+    results: []
   };
 
   handleChange = (e) => {
     const query = e.target.value;
     this.setState({query: query});
     if (query === '') {
-      this.clearBooks();
+      this.clearResults();
     } else {
       this.getSearchResults(query);
     }
   }
 
-  clearBooks = () => {
-    this.setState({books: []})
+  clearResults = () => {
+    this.setState({results: []})
+  }
+
+  /*
+  The search results don't always have the correct shelf
+  information, so add it from the books on the shelves.
+  */
+  addShelfInfo = (books) => {
+    const booksWithShelf = books.map((book) => {
+      const bookOnShelf = this.props.books.find((b) => b.id === book.id)
+      return ({
+        ...book,
+        ...bookOnShelf
+      })
+    })
+
+    return booksWithShelf
   }
 
   getSearchResults = (query) => {
     BooksAPI.search(query)
-      .then((res) => {
-        if (res.error) {
-          this.clearBooks()
+      .then((response) => {
+        if (response.error) {
+          this.clearResults()
         } else {
           this.setState(() => ({
-            books: res
+            results: this.addShelfInfo(response)
           }))
         }
       })
   }
 
   render() {
-    const { query, books } = this.state;
+    const { query, results } = this.state;
     const { onShelfChange } = this.props;
     return (
       <div className="search-books">
@@ -70,9 +87,9 @@ class SearchBooks extends React.Component {
           </div>
         </div>
         <div className="search-books-results">
-          {books.length > 0 &&
+          {results.length > 0 &&
             <BooksGrid
-              books={books}
+              books={results}
               onShelfChange={onShelfChange}
             />
           }
