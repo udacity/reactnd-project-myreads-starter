@@ -3,10 +3,43 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 // TODO: Move all components into their own files
 
-// TODO: Build functioning search
 // TODO: Use React Router to navigate back to home page
 class SearchBooks extends React.Component {
+  state = {
+    query: '',
+    books: []
+  };
+
+  handleChange = (e) => {
+    const query = e.target.value;
+    this.setState({query: query});
+    if (query === '') {
+      this.clearBooks();
+    } else {
+      this.getSearchResults(query);
+    }
+  }
+
+  clearBooks = () => {
+    this.setState({books: []})
+  }
+
+  getSearchResults = (query) => {
+    BooksAPI.search(query)
+      .then((res) => {
+        if (res.error) {
+          this.clearBooks()
+        } else {
+          this.setState(() => ({
+            books: res
+          }))
+        }
+      })
+  }
+
   render() {
+    const { query, books } = this.state;
+    const { onShelfChange } = this.props;
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -20,14 +53,21 @@ class SearchBooks extends React.Component {
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
             */}
-            <input type="text" placeholder="Search by title or author"/>
-
+            <input
+              type="text"
+              placeholder="Search by title or author"
+              onChange={this.handleChange}
+              value={query}
+            />
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid">
-
-          </ol>
+          {books.length > 0 &&
+            <BooksGrid
+              books={books}
+              onShelfChange={onShelfChange}
+            />
+          }
         </div>
       </div>
     )
@@ -37,7 +77,6 @@ class SearchBooks extends React.Component {
 class Book extends React.Component {
   handleShelfChange = (e) => {
     const { onShelfChange, book } = this.props;
-    console.log(e.target.value);
     onShelfChange(book, e.target.value);
   };
 
@@ -52,10 +91,11 @@ class Book extends React.Component {
               style={{
                 width: 128,
                 height: 193,
-                backgroundImage: `url(${book.imageLinks.thumbnail})` }}
+                backgroundImage: book.imageLinks ? `url(${book.imageLinks.thumbnail})` : null
+              }}
             ></div>
             <div className="book-shelf-changer">
-              <select value={book.shelf} onChange={this.handleShelfChange}>
+              <select value={book.shelf || 'none'} onChange={this.handleShelfChange}>
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
@@ -72,6 +112,18 @@ class Book extends React.Component {
   }
 }
 
+const BooksGrid = ({ books, onShelfChange }) => (
+  <ol className="books-grid">
+    {books.length > 0 && books.map((book) => (
+      <Book
+        key={book.id}
+        book={book}
+        onShelfChange={onShelfChange}
+      />
+    ))}
+  </ol>
+);
+
 class Shelf extends React.Component {
   render() {
     const { name, books, onShelfChange } = this.props;
@@ -79,15 +131,10 @@ class Shelf extends React.Component {
       <div className="bookshelf">
           <h2 className="bookshelf-title">{name}</h2>
           <div className="bookshelf-books">
-            <ol className="books-grid">
-              {books.length > 0 && books.map((book) => (
-                <Book
-                  key={book.id}
-                  book={book}
-                  onShelfChange={onShelfChange}
-                />
-              ))}
-            </ol>
+            <BooksGrid
+              books={books}
+              onShelfChange={onShelfChange}
+            />
           </div>
         </div>
     )
@@ -124,7 +171,6 @@ class BooksApp extends React.Component {
 
   handleShelfChange = (book, newShelf) => {
     book.shelf = newShelf;
-    console.log()
     this.setState((prevState) => (
       {
         books: [
@@ -140,7 +186,9 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage
-          ? <SearchBooks />
+          ? <SearchBooks
+              onShelfChange={this.handleShelfChange}
+            />
           : this.state.books.length > 0 &&
             <div className="list-books">
               <div className="list-books-title">
