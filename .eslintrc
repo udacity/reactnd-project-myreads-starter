@@ -8,9 +8,6 @@
     "react-app",
     "plugin:prettier/recommended"
   ],
-  "parserOptions": {
-    "ecmaVersion": 2018
-  },
   "rules": {
     "no-console": "error"
   }
