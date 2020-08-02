@@ -6,29 +6,37 @@ import SearchInput from './SearchInput';
 
 const BooksDashboard = (props) => {
   const { filterShelfBooks, handleShelfUpdate } = props;
+  const bookShelves = [
+    {
+      title: 'Currently Reading',
+      value: 'currentlyReading'
+    },
+    {
+      title: 'Want To Read',
+      value: 'wantToRead'
+    },
+    {
+      title: 'Read',
+      value: 'read'
+    }
+  ];
+
+  const bookShelvesListing = bookShelves.map((bookShelf) => (
+    <BooksShelf
+      key={bookShelf.value}
+      name={bookShelf.title}
+      books={filterShelfBooks(bookShelf.value)}
+      handleShelfUpdate={handleShelfUpdate}
+    />
+  ));
+
   return (
     <div className="list-books">
       <div className="list-books-title">
         <h1>MyReads: A Book Lending App</h1>
       </div>
       <div className="list-books-content">
-        <div>
-          <BooksShelf
-            name="Currently Reading"
-            books={filterShelfBooks('currentlyReading')}
-            handleShelfUpdate={handleShelfUpdate}
-          />
-          <BooksShelf
-            name="Want To Read"
-            books={filterShelfBooks('wantToRead')}
-            handleShelfUpdate={handleShelfUpdate}
-          />
-          <BooksShelf
-            name="Read"
-            books={filterShelfBooks('read')}
-            handleShelfUpdate={handleShelfUpdate}
-          />
-        </div>
+        <div>{bookShelvesListing}</div>
       </div>
       <SearchInput />
     </div>

@@ -18,11 +18,7 @@ class SearchDashboard extends React.Component {
   handleInputChange = (event) => {
     const query = event.target.value;
     this.setState({ query: query });
-    if (query === '') {
-      this.updateSearchResults();
-    } else {
-      this.fetchSearchResults(query);
-    }
+    this.fetchSearchResults(query);
   };
 
   updateBookShelf = (books) => {
@@ -35,13 +31,19 @@ class SearchDashboard extends React.Component {
   };
 
   fetchSearchResults = (query) => {
-    searchBookRecords(query).then((response) => {
-      if (response.error) {
-        this.updateSearchResults();
-      } else {
-        this.updateSearchResults(this.updateBookShelf(response));
-      }
-    });
+    searchBookRecords(query)
+      .then((response) => {
+        if (response.error) {
+          this.updateSearchResults();
+        } else {
+          this.updateSearchResults(this.updateBookShelf(response));
+        }
+      })
+      .catch((error) => {
+        setTimeout(() => {
+          this.updateSearchResults([]);
+        }, 400);
+      });
   };
 
   render() {
@@ -63,10 +65,12 @@ class SearchDashboard extends React.Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            <BooksListing
-              books={this.state.searchResults}
-              handleShelfUpdate={handleShelfUpdate}
-            />
+            {this.state.searchResults.length > 0 && (
+              <BooksListing
+                books={this.state.searchResults}
+                handleShelfUpdate={handleShelfUpdate}
+              />
+            )}
           </ol>
         </div>
       </div>

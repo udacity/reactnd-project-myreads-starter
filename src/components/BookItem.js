@@ -28,11 +28,11 @@ const BookItem = (props) => {
           </div>
           <div className="book-shelf-changer">
             <select
-              value={book.shelf ? book.shelf : 'None'}
+              value={book.shelf ? book.shelf : 'none'}
               onChange={onSelectChange}
             >
               <option value="move" disabled>
-                Move to...
+                Move to... {book.shelf}
               </option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
