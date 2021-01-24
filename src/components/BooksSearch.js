@@ -11,13 +11,16 @@ class BooksSearch extends React.Component {
     }
     updateQuery = query => {
         this.setState({
-            'query': query.trim()
+            'query': query
         })
         this.fetchBooks(query)
     }
-    updateBooks = (books = []) => {
+    updateBooks = (results = []) => {
+        results = results.map((item) => {
+            return { ...item, ...this.props.library.find((book) => book.id === item.id) }
+        })
         this.setState({
-            'searchResults': books
+            'searchResults': results
         })
     }
     fetchBooks = query => {

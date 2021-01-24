@@ -14,6 +14,10 @@ To get started using this app right away:
 
 ## Application Screenshots
 
+* **_Home Page_**
+
 ![Screenshot](docs/bookapp-sc.png)
+
+* _**Search Page**_
 
 ![Screenshot](docs/bookapp-sc2.png)

@@ -4,16 +4,19 @@ import BookShelf from "./BookShelf";
 
 const BooksList = props => {
 
-    const titles = {
-        'currentlyReading': 'Currently Reading',
-        'wantToRead': 'Want to Read',
-        'read': 'Read',
-        'none': 'Removed'
-    }
     const shelves = [
-        'currentlyReading',
-        'wantToRead',
-        'read'
+        {
+            'id': 'currentlyReading',
+            'value': 'Currently Reading'
+        },
+        {
+            'id': 'wantToRead',
+            'value': 'Want to Read'
+        },
+        {
+            'id': 'read',
+            'value': 'Read'
+        }
     ]
     const { filterBooks, updateShelf } = props
 
@@ -26,7 +29,7 @@ const BooksList = props => {
                 <div>
                     {
                         shelves.map((shelf) => (
-                            <BookShelf key={shelf} title={titles[shelf]} books={filterBooks(shelf)} onUpdateShelf={updateShelf}/>
+                            <BookShelf key={shelf.id} title={shelf.value} books={filterBooks(shelf.id)} onUpdateShelf={updateShelf}/>
                         ))
                     }
                 </div>

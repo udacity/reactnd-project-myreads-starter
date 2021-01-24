@@ -3,7 +3,7 @@ import React from 'react'
 const Book = props => {
 
     const { bookDetails, onUpdateShelf } = props
-    const currentShelf = bookDetails.shelf ? bookDetails.shelf : 'move'
+    const currentShelf = bookDetails.shelf ? bookDetails.shelf : 'none'
     const authors = bookDetails.authors ? bookDetails.authors.join(', ') : ''
     const thumbnail = bookDetails.imageLinks ? bookDetails.imageLinks.smallThumbnail : ''
 

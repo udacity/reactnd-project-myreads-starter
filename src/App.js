@@ -53,6 +53,7 @@ class BooksApp extends React.Component {
                 )}/>
                 <Route path='/search' render={({history}) => (
                     <BooksSearch
+                        library={this.state.library}
                         updateShelf={this.updateShelf}
                     />
                 )}/>
