@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import * as BooksAPI from "../BooksAPI";
+// import BookShelf from "../ListBooks/BookShelf/BookShelf";
+import propTypes from "prop-types";
+import { Link } from "react-router-dom";
+import "../App.css";
 import Book from "../ListBooks/BookShelf/Book/Book";
 
 class Search extends Component {
-  // componentDidMount() {
-  //   BooksAPI.getAll().then((data) => {
-  //     console.log(data);
-  //   });
-  // }
+  static propTypes = {
+    onMoveBook: propTypes.func.isRequired,
+    myBooks: propTypes.array.isRequired,
+  };
 
   state = {
     query: "",
@@ -15,11 +18,35 @@ class Search extends Component {
   };
 
   searchBook = (query) => {
-    BooksAPI.search(query).then((results) => {
+    this.setState(() => ({
+      query: query.trim(),
+    }));
+    if (query.length > 0) {
+      BooksAPI.search(query).then((results) => {
+        // console.log("results", results);
+        const myBooks = this.props.myBooks;
+        if (results !== undefined && results.length) {
+          for (let j = 0; j < myBooks.length; j++) {
+            for (let i = 0; i < results.length; i++) {
+              if (results[i].id === myBooks[j].id)
+                results[i].shelf = myBooks[j].shelf;
+            }
+          }
+          this.setState(() => ({
+            books: [...results],
+          }));
+        } else {
+          this.setState(() => ({
+            books: [],
+          }));
+        }
+        // console.log("books", this.state.books);
+      });
+    } else {
       this.setState(() => ({
-        books: [...results],
+        books: [],
       }));
-    });
+    }
   };
 
   render() {
@@ -27,11 +54,12 @@ class Search extends Component {
       <div>
         <div className="search-books">
           <div className="search-books-bar">
-            <button
-              className="close-search"
-              onClick={() => this.setState({ showSearchPage: false })}>
-              Close
-            </button>
+            <Link to="/" className="close-search">
+              {/* <button onClick={() => this.setState({ screen: "" })}>
+                Close
+              </button> */}
+            </Link>
+
             <div className="search-books-input-wrapper">
               {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -50,10 +78,15 @@ class Search extends Component {
             </div>
           </div>
           <div className="search-books-results">
-            <ol className="books-grid" />
-            {this.state.books.map((book) => (
-              <Book key={book.id} />
-            ))}
+            {this.state.books !== undefined && this.state.books.length ? (
+              <ol className="books-grid">
+                {this.state.books.map((book) => (
+                  <li key={book.id}>
+                    <Book book={book} onMoveShelf={this.props.onMoveBook} />
+                  </li>
+                ))}
+              </ol>
+            ) : null}
           </div>
         </div>
       </div>

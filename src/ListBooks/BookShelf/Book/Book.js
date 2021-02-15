@@ -6,23 +6,23 @@ import SelectList from "./SelectList/SelectList";
 class Book extends Component {
   static propTypes = {
     book: propTypes.object.isRequired,
-    onChange: propTypes.func.isRequired,
-  };
-  state = {
-    selectStatus: true,
-  };
-  changeSelectStatus = () => {
-    this.setState((currentState) => ({
-      selectStatus: !currentState.selecStatus,
-    }));
+    onMoveShelf: propTypes.func.isRequired,
   };
   render() {
     const title = this.props.book.title;
-    const cover = `url("${this.props.book.imageLinks.smallThumbnail}")`;
-    const authors = this.props.book.authors.reduce(
-      (acc, author) => (acc += "," + author),
-      ""
-    );
+    let cover;
+    if (this.props.book.imageLinks !== undefined) {
+      cover = `url("${this.props.book.imageLinks.smallThumbnail}")`;
+    }
+    // console.log("books in the book render", this.props.book);
+    let authors;
+    if (this.props.book.authors !== undefined) {
+      authors = this.props.book.authors.reduce(
+        (acc, author) => (acc += "," + author),
+        ""
+      );
+    }
+
     return (
       <div>
         <div className="book">
@@ -37,8 +37,8 @@ class Book extends Component {
             />
             <SelectList
               book={this.props.book}
-              shelf={this.props.shelf}
-              onMoveBook={this.props.moveBook}
+              shelf={this.props.book.shelf}
+              onMoveBook={this.props.onMoveShelf}
             />
           </div>
           <div className="book-title">{title}</div>

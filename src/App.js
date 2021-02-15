@@ -7,7 +7,7 @@ import { Route } from "react-router-dom";
 
 class BooksApp extends Component {
   state = {
-    books: [],
+    myBooks: [],
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -19,20 +19,19 @@ class BooksApp extends Component {
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState(() => ({
-        books,
+        myBooks: [...books],
       }));
     });
   }
 
   moveBook = (book, shelf) => {
-    BooksAPI.update(book, shelf).then((book) => {
-      this.setBook((currentState) => ({
-        books: [
-          ...currentState.books.filter((b) => {
-            return b.id !== book.id;
-          }),
-        ].push(book),
-      }));
+    BooksAPI.update(book, shelf).then((data) => {
+      // console.log(data);
+      BooksAPI.getAll().then((books) => {
+        this.setState(() => ({
+          myBooks: [...books],
+        }));
+      });
     });
   };
 
@@ -43,15 +42,24 @@ class BooksApp extends Component {
           exact
           path="/"
           render={() => (
-            <ListBooks onMoveBook={this.moveBook} books={this.state.books} />
+            <ListBooks
+              onMoveBook={this.moveBook}
+              books={this.state.myBooks}
+              onNavigate={() => {
+                this.setState(() => ({
+                  screen: "search",
+                }));
+              }}
+            />
           )}
         />
         <Route
           path="/search"
           render={({ history }) => (
             <Search
-              onSearchBook={(book) => {
-                this.searchBook(book);
+              myBooks={this.state.myBooks}
+              onMoveBook={(book, shelf) => {
+                this.moveBook(book, shelf);
                 history.push("/");
               }}
             />
