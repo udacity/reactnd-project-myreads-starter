@@ -16,7 +16,7 @@ class BooksApp extends Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
+        
           <div className="search-books">
             <div className="search-books-bar">
               <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
@@ -37,7 +37,7 @@ class BooksApp extends Component {
               <ol className="books-grid"></ol>
             </div>
           </div>
-        ) : (
+        
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
@@ -197,7 +197,7 @@ class BooksApp extends Component {
               <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
             </div>
           </div>
-        )}
+        
       </div>
     )
   }
