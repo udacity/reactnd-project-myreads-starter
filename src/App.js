@@ -14,27 +14,32 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
-    books: []
+    books: [],
+    currentlyReading:[],
+    read:[],
+    wantToRead: [],
     
   }
   //TODO: ADD COMPONENT DID MOUNT AND GET STATE OF BOOKS 
    componentDidMount() {
     BooksAPI.getAll().then(books => {  
       this.setState(()=>({
-        books
+        books,
       }))
      })   
  
   }
-  changeShelf(bookId) {
-    this.setState(()=>{
-      
-    })
-    this.state.books.filter(book=> book.id === bookId && this.setState(()=>({books})))
+  //https://www.tutorialspoint.com/reactjs/reactjs_component_life_cycle.htm
+  changeShelf = (bookId, shelf)=> {    
+      const bookToUpdate = this.state.books.filter(book => book.id === bookId);
+     console.log(`found book =${JSON.stringify(bookToUpdate)}`) ;    
   }
+  //TODO: PLACE BOOK TO THEIR shelf
+
+
 
   render() {  
-    console.log(this.state.books)
+    
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -70,8 +75,8 @@ class BooksApp extends React.Component {
               <div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
-                  {/* <Shelf books={this.state.books} /> */}
-                  <Book books={this.state.books} />
+                  
+                  <Book books={this.state.books} changeShelf={this.changeShelf}/>
                 </div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Want to Read</h2>
