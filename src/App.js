@@ -45,9 +45,13 @@ class BooksApp extends React.Component {
   }
   searchBook=(query) => {
     BooksAPI.search(query).then(book =>{
-      
+      console.log(`Query is ${query} and total books ${book.length} and type of is ${typeof(book)}`);
+      let booksToArray = [];
+      booksToArray= booksToArray.concat(book).filter((book)=> book.title?book.title.includes(query):'')
+      console.log(booksToArray.length);
+      //const filteredBook = book.filter(({title}) => title.includes(query));
       this.setState((prevState)=>({
-        searchedBooks: prevState.searchedBooks.concat(book)
+        searchedBooks: booksToArray
         //I have to update a books array a book selected from this book
       }))
     })

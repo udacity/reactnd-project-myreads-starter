@@ -6,10 +6,12 @@ class SearchBook  extends React.Component{
     
     
      getQuery = (query) => {  
-         this.props.searchBook(query);
+         this.props.searchBook(query?query: ' ');
     }
     render(){
         const {books, getQuery} = this.props;
+        const { imageLinks } = this.props.books; 
+        const thumbnail = imageLinks? imageLinks.thumbnail : '';
     return(
         <div className="search-books">
             <div className="search-books-bar">            
@@ -33,13 +35,14 @@ class SearchBook  extends React.Component{
             </div>
             <div className="search-books-results">
             <ol className="books-grid">
-               { books && books.map(book =>(
+               { books && books.map(book => book.imageLinks && (
                    <li key={book.id}>
                    <div className="book">
                    <div className="book-top">
                        
                    <div className="book-cover"                                 
-                    style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                    // style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                     style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                        <div className="book-shelf-changer">
                        <select onChange={(e)=>this.changeShelfHandler(e.target.value, book)}>
                            <option value="move" disabled>Move to...</option>
