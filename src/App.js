@@ -7,6 +7,7 @@ import { BrowserRouter, Link, Route } from 'react-router-dom';
 import SearchBook from './components/SearchBook';
 
 
+
 class BooksApp extends React.Component {
   state = {
     /**
@@ -44,19 +45,24 @@ class BooksApp extends React.Component {
     }) 
   }
   searchBook=(query) => {
-    BooksAPI.search(query).then(book =>{
-      console.log(`Query is ${query} and total books ${book.length} and type of is ${typeof(book)}`);
+    BooksAPI.search(query).then(books =>{
+      
       let booksToArray = [];
-      booksToArray= booksToArray.concat(book).filter((book)=> book.title?book.title.includes(query):'')
-      console.log(booksToArray.length);
-      //const filteredBook = book.filter(({title}) => title.includes(query));
+      const filteredBooks = booksToArray.concat(books).filter((book) => 
+      book.name.includes(query) || 
+      book.authors.some(author => author.includes(query))
+    );
+       
       this.setState((prevState)=>({
-        searchedBooks: booksToArray
-        //I have to update a books array a book selected from this book
+        searchedBooks: filteredBooks
+        
       }))
-    })
-   }
+    
 
+    })
+
+    
+   }
 
   render() {  
     
@@ -108,7 +114,7 @@ class BooksApp extends React.Component {
           
         </div>
        <Route path="/search" render={()=>( searchedBooks &&
-           <SearchBook books={searchedBooks} searchBook={this.searchBook} />
+           <SearchBook books={searchedBooks} searchBook={this.searchBook} changeShelf={this.changeShelf} />
        ) } />
        <Route path="/" exact />
       </BrowserRouter>

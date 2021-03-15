@@ -23,6 +23,8 @@ render() {
                     <div className="book-shelf-changer">
                     <select onChange={(e)=>this.changeShelfHandler(e.target.value, book)}>
                         <option value="move" disabled>Move to...</option>
+                        <option value="" hidden></option>
+
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
                         <option value="read">Read</option>
