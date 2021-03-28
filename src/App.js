@@ -45,7 +45,8 @@ class BooksApp extends Component {
           <Link 
             to='/search'
             className="open-search"
-          >Add a book</Link>
+          >
+            <button></button></Link>
         </div>
       </div>
     )
