@@ -1,15 +1,12 @@
 # MyReads Project
+This is the starter template for the final assessment project for Udacity's. The project is about creating a bookshelf app that allows you to select and categorize books you have read, are currently reading, or want to read.The main page has three shelves that users are able to move the books between shelves. The search page allows users to search for new books to add to their shelves. After selecting books to add to shelves, when you navigate by routing ('/') for main page and ('/search') for search page, you can instantly see the selections made on the search page.
 
-This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
-
-Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
 
 ## TL;DR
-
 To get started developing right away:
-
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
+* Open automatically 'http://localhost:3000/' on web browser.
 
 ## What You're Getting
 ```bash
@@ -21,8 +18,12 @@ To get started developing right away:
 │   ├── favicon.ico # React Icon, You may change if you wish.
 │   └── index.html # DO NOT MODIFY
 └── src
-    ├── App.css # Styles for your app. Feel free to customize this as you desire.
-    ├── App.js # This is the root of your app. Contains static HTML right now.
+    ├── App.css # Styles for your app.    
+    ├── App.js # This is the root of your app, contains the routing that used in the project for both pages.
+    ├──Book.js # it return the jsx that related to the reflected books.
+    ├── MainPage.js # contains the shelves components
+    ├── HomeShelves.js # contains the book component 
+    ├── Search.js # represent the search page and contains the book component
     ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
     ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
     ├── icons # Helpful images for your app. Use at your discretion.
@@ -33,11 +34,8 @@ To get started developing right away:
     └── index.js # You should not need to modify this file. It is used for DOM rendering only.
 ```
 
-Remember that good React design practice is to create new JS files for each component and use import/require statements to include them where they are needed.
-
 ## Backend Server
-
-To simplify your development process, we've provided a backend server for you to develop against. The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods you will need to perform necessary operations on the backend:
+ The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods you will need to perform necessary operations on the backend:
 
 * [`getAll`](#getall)
 * [`update`](#update)
@@ -52,7 +50,7 @@ getAll()
 ```
 
 * Returns a Promise which resolves to a JSON object containing a collection of book objects.
-* This collection represents the books currently in the bookshelves in your app.
+* This collection represents the books currently in the bookshelves in the app.
 
 ### `update`
 
@@ -79,14 +77,19 @@ search(query)
 * These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
 
 ## Important
-The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
+The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). 
 
-## Create React App
+## Client side 
+we have three main functions:
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+### `componentDidMount`
+Here is the fun started, the place where we start to fetch and get all books from the backend-server.
 
-## Contributing
+### `moveBooks`
+function which is controlling & transfering the books from shelf to another and from search page to the main the page. 
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+whether the shelf is set to none or not, you set them to a shelf and update your state 
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+### `searchBooks`
+first, you have to make sure that you are reciving the right query or value to update your state with that value or even return [].
+
