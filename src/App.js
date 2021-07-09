@@ -1,6 +1,7 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
+import { BrowserRouter, Route } from 'react-router-dom'
 import ListBooks from './ListBooks.js'
 
 class BooksApp extends React.Component {
@@ -11,11 +12,29 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
+     books: [],
     showSearchPage: false
+  }
+
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => this.setState({books: books}))
+    console.log(this.state.books)
+  }
+
+  changeShelf = (b, shelf) => {
+    console.log("State", this.state)
+    this.setState((prevState) => {
+      let ind = prevState.books.findIndex(book => book.id === b.id)
+      prevState.books[ind].shelf = shelf
+      return prevState
+    })
+
+    BooksAPI.update(b, shelf)
   }
 
   render() {
     return (
+    <BrowserRouter>
       <div className="app">
         {this.state.showSearchPage ? (
           <div className="search-books">
@@ -45,17 +64,20 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <ListBooks shelf="currentlyReading" />
-                <ListBooks shelf="wantToRead" />
-                <ListBooks shelf="read" />
+                <ListBooks changeShelf={this.changeShelf} books={this.state.books.filter((b) => b.shelf === "currentlyReading")} shelf="Currently Reading" />
+                <ListBooks changeShelf={this.changeShelf} books={this.state.books.filter((b) => b.shelf === "wantToRead")} shelf="Want to Read" />
+                <ListBooks changeShelf={this.changeShelf} books={this.state.books.filter((b) => b.shelf === "read")} shelf="Read" />
               </div>
             </div>
-            <div className="open-search">
-              <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
-            </div>
+            <Route exact path="/" render={({ history }) => (
+              <div className="open-search">
+                <button onClick={() => history.push("/search")}>Add a book</button>
+              </div>)} 
+            />
           </div>
         )}
       </div>
+    </BrowserRouter>
     )
   }
 }
