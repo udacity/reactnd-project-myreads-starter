@@ -3,26 +3,29 @@ import BookShelfChanger  from './BookShelfChanger';
 
 
 function BookShelf(props){
-	const { shelves } = props
+	const { books, groupBy, shelfNames, handleShelfChange } = props;
+
+	const groupByShelf = groupBy(books, 'shelf');
+
 	return (
 		<div>
 			{
-				shelves.map((shelf, index)=>(
-					<div className="bookshelf" key={ index }>
-						<h2 className="bookshelf-title">{shelf.title}</h2>
+				Object.entries(groupByShelf).map(([key, value])=>(
+					<div className="bookshelf" key={ key }>
+						<h2 className="bookshelf-title">{ shelfNames[key] }</h2>
 						<div className="bookshelf-books">
 							<ol className="books-grid">
 								{
-									shelf.books.map((book, index) => {
+									value.map(({ imageLinks: {thumbnail = ''} = {}, title, authors, id, shelf }, index) => {
 										return (
 											<li key={index}>
 												<div className="book">
 													<div className="book-top">
-														<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.bookCoverUrl}")` }}></div>
-														<BookShelfChanger />
+														<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${ thumbnail }")` }}></div>
+														<BookShelfChanger  handleShelfChange={ handleShelfChange } bookId={ id } currentShelf={ shelf } />
 													</div>
-													<div className="book-title">{book.bookTitle}</div>
-													<div className="book-authors">{book.bookAuthors}</div>
+													<div className="book-title">{title}</div>
+													<div className="book-authors">{authors}</div>
 												</div>
 											</li>
 										)

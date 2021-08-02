@@ -5,26 +5,18 @@ import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    shelves: [
-      {
-        id: '1', 
-        title: 'Currently Reading', 
-        books: [
-        {bookCoverUrl: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api', bookTitle: 'To Kill a Mockingbird', bookAuthors: 'Harper Lee'},
-      ]},
-      {
-        id: '2', 
-        title: 'Want to Read', 
-        books: [
-        {bookCoverUrl: 'http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api', bookTitle: '1776', bookAuthors: 'David McCullough'},
-      ]},
-      {
-        id: '3', 
-        title: 'Read', 
-        books: [
-        {bookCoverUrl: 'http://books.google.com/books/content?id=pD6arNyKyi8C&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE70Rw0CCwNZh0SsYpQTkMbvz23npqWeUoJvVbi_gXla2m2ie_ReMWPl0xoU8Quy9fk0Zhb3szmwe8cTe4k7DAbfQ45FEzr9T7Lk0XhVpEPBvwUAztOBJ6Y0QPZylo4VbB7K5iRSk&source=gbs_api', bookTitle: 'The Hobbit', bookAuthors: 'J.R.R. Tolkien'},
-      ]},
+    shelfNames: { 
+      currentlyReading: 'Currently Reading',
+      wantToRead: 'Want to Read',
+      read: 'Read',
+    },
+    books: [
+      {imageLinks:{thumbnail: 'http://books.google.com/books/content?id=pD6arNyKyi8C&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE70Rw0CCwNZh0SsYpQTkMbvz23npqWeUoJvVbi_gXla2m2ie_ReMWPl0xoU8Quy9fk0Zhb3szmwe8cTe4k7DAbfQ45FEzr9T7Lk0XhVpEPBvwUAztOBJ6Y0QPZylo4VbB7K5iRSk&source=gbs_api'}, bookTitle: 'The Hobbit', bookAuthors: 'J.R.R. Tolkien', shelf: 'read'},
+      {imageLinks:{thumbnail: 'http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api'}, bookTitle: '1776', bookAuthors: 'David McCullough', shelf: 'want to read'},
+      {imageLinks:{thumbnail: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api'}, title: 'To Kill a Mockingbird', authors: 'Harper Lee', shelf: 'currently reading'},
     ],
+    shelf: 'currentlyReading',
+    searchResult: [],
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -33,6 +25,35 @@ class BooksApp extends React.Component {
      */
     showSearchPage: false
   }
+
+  groupBy = (xs, key) => xs.reduce((acc, x) => Object.assign({}, acc, {
+    [x[key]]: (acc[x[key]] || []).concat(x)
+  }), [])
+
+  async componentDidMount() {
+    const data = await BooksAPI.getAll();
+    this.setState({ books: data });
+  }
+
+  getCurBook = id => {
+    return this.state.books.find(book => book.id === id);
+  }
+
+  handleShelfChange = async(e, id) => {
+    const { value } = e.target;
+    const { books } = this.state;
+    const copyCurBook = this.getCurBook(id);
+    const curBookIndex = books.indexOf(copyCurBook);
+    if (copyCurBook) {
+      copyCurBook.shelf = value
+      this.setState(prevState => {
+        prevState.books.splice(curBookIndex, 1, copyCurBook)
+        return { books: prevState.books }
+      });
+      await BooksAPI.update(copyCurBook, value);
+    }
+  }
+
 
   render() {
     return (
@@ -55,7 +76,9 @@ class BooksApp extends React.Component {
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+
+              </ol>
             </div>
           </div>
         ) : (
@@ -64,7 +87,7 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-                <BookShelf shelves={this.state.shelves } />
+                <BookShelf books={ this.state.books } groupBy={ this.groupBy } shelfNames={ this.state.shelfNames } handleShelfChange={ this.handleShelfChange } />
             </div>
             <div className="open-search">
               <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
