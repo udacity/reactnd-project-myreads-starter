@@ -17,7 +17,7 @@ class BooksApp extends React.Component {
     this.shelfCategory = ['currentlyReading', 'wantToRead', 'read']
 
     this.state = {
-      books: [],
+      allBooks: [],
       queryText: '',
       bookShelf: {
         currentlyReading: [],
@@ -35,9 +35,9 @@ class BooksApp extends React.Component {
   getAllBooks = () => {
     BooksAPI.getAll().then((books) => {
       this.setState(() => ({
-        books: [books]
+        allBooks: [books]
       }))
-      this.categorizeBooks(this.state.books)
+      this.categorizeBooks(this.state.allBooks)
     })
   }
 
@@ -91,8 +91,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route path='/search' render={() => (
-          <SearchPage
-            books={this.state.books} />
+          <SearchPage />
         )} />
 
         <Route exact path='/' render={() => (
