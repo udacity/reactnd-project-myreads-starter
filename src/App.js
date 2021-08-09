@@ -1,64 +1,59 @@
-import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
+import React from 'react';
+import { Route, Link } from 'react-router-dom';
 import './App.css';
 import * as BooksAPI from './BooksAPI';
+import ListOfBooks from './components/ListOfBooks';
 import SearchPage from './components/SearchPage';
-import BookListing from './components/BooksListing';
+class BooksApp extends React.Component {
+    state = { books: [] };
 
-class BooksApp extends Component {
-
-    state = {
-        books: []
-    }
     componentDidMount() {
-        this.getAllBooks()
+        this.getAllBooks();
     }
 
     getAllBooks = () => {
-        BooksAPI.getAll().then((books) => {
+        BooksAPI.getAll().then((books) =>
             this.setState(() => ({
-                books: [books]
-            }))
-        })
+                books: books
+            })));
     }
 
-    onShelfOptionChange = (bookToChange, shelfCategory) => {
-        BooksAPI.update(bookToChange, shelfCategory).then(() => {
-            bookToChange.shelf = shelfCategory;
+    onSwithcBookShelfOption = (bookToBeChanged, bookShelfCategory) => {
+        BooksAPI.update(bookToBeChanged, bookShelfCategory).then(data => {
+            bookToBeChanged.shelf = bookShelfCategory;
 
-            this.setState((currentState) => ({
-                books: currentState.books.filter((book) => book.id !== bookToChange.id).concat(bookToChange)
-            }))
-        })
-    }
+            this.setState(oldState => ({
+                books: oldState.books.filter(book => book.id !== bookToBeChanged.id).concat(bookToBeChanged)
+            }));
+        });
+    };
 
     render() {
         const { books } = this.state;
-        console.log('Books', books)
         return (
             <div className="app">
-                <Route path='/search' render={() => (
-                    <SearchPage
-                        books={books}
-                        onShelfOptionChange={this.onShelfOptionChange} />
-                )} />
-
-                <Route exact path='/' render={() => (
-                    <div className="list-books">
-                        <div className="list-books-title">
-                            <h1>MyReads</h1>
+                <Route
+                    path="/search"
+                    render={() => (
+                        <SearchPage books={books} switchShelfOption={this.onSwithcBookShelfOption} />
+                    )}
+                />
+                <Route
+                    exact
+                    path="/"
+                    render={() => (
+                        <div className="list-books">
+                            <div className="list-books-title">
+                                <h1>My Reads</h1>
+                            </div>
+                            <ListOfBooks books={books} switchShelfOption={this.onSwithcBookShelfOption} />
+                            <div className="open-search">
+                                <Link to="/search">
+                                    <button>Add a Book</button></Link>
+                            </div>
                         </div>
-                        <BookListing
-                            books={books}
-                            onShelfOptionChange={this.onShelfOptionChange}
-                        />
-                        <div className="open-search">
-                            <Link to='/search'>
-                                <button>Add a book</button>
-                            </Link>
-                        </div>
-                    </div>
-                )} />
+                    )}
+                />
             </div>
         );
     }
