@@ -1,27 +1,35 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import * as Callbacks from '../components/Callbacks';
 import * as BooksAPI from '../BooksAPI';
-import BookOptions from "./BookOptions";
+import Books from "./Books";
+import noBookImage from '../imgs/1200px-No-Image-Placeholder.png';
 class SearchPage extends Component {
     state = {
-        searchText: '',
-        tempSearchResults: [],
+        searchQuery: '',
+        booksSearched: [],
+        searchError: false
     };
 
-    handleOnChange = (searchWord) => {
+    handleSearchBooksOnChange = (searchWord) => {
         this.setState(() => ({
             searchText: searchWord.trim()
         }))
-        this.findBook(searchWord.trim());
+        this.searchBooks(searchWord.trim());
+        console.log('SEARCH BOOKS', this.state.booksSearched);
     }
 
-    findBook = (searchQuery) => {
+    searchBooks = (searchQuery) => {
         if (searchQuery !== '') {
             BooksAPI.search(searchQuery).then((response) => {
                 if ((typeof response !== 'object') || (typeof response !== 'undefined')) {
                     this.setState(() => ({
-                        tempSearchResults: [response]
+                        booksSearched: [response],
+                        searchError: false
+                    }))
+                } else {
+                    this.setState(() => ({
+                        booksSearched: [],
+                        errorsFound: true
                     }))
                 }
             })
@@ -29,57 +37,8 @@ class SearchPage extends Component {
     }
 
     render() {
-        //let newBook = [];
-        const { tempSearchResults, searchText } = this.state;
-        // const displaySearchResults = (searchText) === ''
-        //     ? []
-        //     : tempSearchResults.filter(o => o.)
-        //     // : tempSearchResults.map((bookElement, index) => {
-        //     //         console.log('ELEMENT', bookElement[index])
-        //     //         return bookElement[index]
-        //     //     }).filter((book) => {
-        //     //     if (typeof book.title !== 'undefined') {
-        //     //         newBook.push(book)
-        //     //         console.log('BOOKS', newBook)
-        //     //        return book.title.toLowerCase().includes(searchText.toLowerCase())
-        //     //     }
-        //     //     return newBook
-        //     // }
-        //     )
-        const handleDisplay = () => {
-            let book = [];
-            for (const bookData of tempSearchResults) {
-                Object.keys(bookData).filter((index) => {
-                    if(typeof bookData[index].title !== 'undefined'){
-                        book.push(bookData[index])
-                        return bookData[index].title.toLowerCase().includes(searchText.toLowerCase())
-                    }
-                    return null;
-                })
-            }
-            return book
-        }
-
-        // const showSearchResult = () => {
-        //     if (searchText === '') {
-        //         return []
-        //     } else  {
-        //         try {
-        //             const mappedBook = tempSearchResults.map((e, i) => (e[i]))
-
-        //             const filteredBook = mappedBook.filter((book) => {
-        //                 if ((typeof book.title !== 'undefined') && (typeof book.authors !== 'undefined') && (typeof book.imageLinks !== 'undefined')) {
-        //                     return book.title.toLowerCase().includes(searchText.toLowerCase())
-        //                 }
-        //                 return null
-        //             })
-
-        //             return filteredBook
-        //         } catch (error) {
-        //             console.log('Error', error)
-        //         }
-        //     }
-        // }
+        
+        const { booksSearched, searchQuery, errorsFound } = this.state;
 
         return (
             <div className="search-books">
@@ -92,28 +51,37 @@ class SearchPage extends Component {
                         <input
                             type="text"
                             placeholder="Search by title or author"
-                            defaultValue={searchText}
-                            onChange={(event) => this.handleOnChange(event.target.value)} />
+                            defaultValue={searchQuery}
+                            onChange={(event) => this.handleSearchBooksOnChange(event.target.value)} />
                     </div>
                 </div>
                 <div className="search-books-results">
+                    { booksSearched.length > 0 && <h3 style={{color: 'blue'}}>Total Books found: <span style={{color: 'green'}}>{booksSearched.length}</span></h3>}
                     <ol className="books-grid">
                         {
-                            searchText.length > 0 ? handleDisplay().map((result, index) =>
+                            booksSearched.length > 0 ? booksSearched.map((book, index) =>
                                 <li key={index} >
                                     <div className="book">
                                         <div className="book-top">
                                             <div className="book-cover"
-                                                style={{ width: 128, height: 174, backgroundImage: `url(${result.imageLinks ? result.imageLinks.thumbnail : ''})` }}></div>
+                                                style={{ width: 128, height: 174, backgroundImage: `url(${book.imageLinks ? book.imageLinks.thumbnail : noBookImage})` }}></div>
                                             <div className="book-shelf-changer">
-                                                <BookOptions />
+                                                <Books 
+                                                    book={book} 
+                                                    books={this.props.books}
+                                                    key={book.id} 
+                                                    onShelfOptionChange={this.props.onShelfOptionChange}
+                                                />
                                             </div>
                                         </div>
-                                        <div className="book-title">{result.title ? result.title : ''}</div>
-                                        <div className="book-authors">{result.authors ? result.authors : ''}</div>
+                                        <div className="book-title">{book.title ? book.title : 'No Title found'}</div>
+                                        <div className="book-authors">{book.authors ? book.authors : 'No Author(s) found'}</div>
                                     </div>
                                 </li>
-                            ) : null
+                            ) : 
+                            <div>
+                                <p style={{color: 'red', fontSize: '16px'}}>No book found matching your search query {searchQuery.toUpperCase()}. Please try a different book title!</p>
+                            </div>
                         }
                     </ol>
                 </div>
