@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Book from "./Book.js";
 
 class Shelf extends Component{
     render() {
@@ -7,7 +8,7 @@ class Shelf extends Component{
                 <h2 className="bookshelf-title">Currently Reading</h2>
                 <div className="bookshelf-books">
                     <ol className="books-grid">
-
+                        <Book />
                         <li>
                             <div className="book">
                                 <div className="book-top">
@@ -34,3 +35,5 @@ class Shelf extends Component{
     }
 
 }
+
+export default Shelf;
