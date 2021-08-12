@@ -28,10 +28,11 @@ class BooksApp extends Component {
     return (
         <div>
           <Route exact path ='/search' render={ ()=> (
-              <SearchBooks books={this.state.books}
+              <SearchBooks
+                        books={this.state.books}
                            // onSearchBooks={}
               />
-          )}
+          )} >
 
           </Route>
 
