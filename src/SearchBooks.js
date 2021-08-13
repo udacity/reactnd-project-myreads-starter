@@ -33,6 +33,7 @@ class SearchBooks extends Component{
         if(this.state.query !== prevState.query){
             BooksAPI.search(this.state.query)
                 .then((books) => {
+                    console.log("here is books inside of componeentDidUPdate", books)
                     this.setState(() => ({
                         books : books
                     }))
@@ -52,15 +53,16 @@ class SearchBooks extends Component{
 
 
     render() {
-        const {query} = this.state
-        const {books} = this.state
+        const {query, books} = this.state
 
         return(
         <div className="search-books">
             <div className="search-books-bar">
+
                 <Link to='/' >
                 <button className="close-search">Close</button>
                 </Link>
+
                 <div className="search-books-input-wrapper">
                     <input
                         type="text"
@@ -69,13 +71,14 @@ class SearchBooks extends Component{
                         onChange={this.updateQuery}
 
                     />
-
                 </div>
+
             </div>
             <div className="search-books-results">
                 <ol className="books-grid">
-                    {books.map((book)=>
-                         <Book book={book} key={book.id}/>)
+                    {console.log(books)}
+                    {books.map((book)=>(
+                        <Book key={book.id} book={book}/>))
                     }
 
                 </ol>
