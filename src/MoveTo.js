@@ -24,13 +24,13 @@ class MoveTo extends Component{
 
 
     render() {
-        const values = [
+        const book = this.props
+        const values = [{shelfValue: null, name:"Move To...", id: 0},
             {shelfValue:"currentlyReading", name:"Currently Reading", id:1},
             {shelfValue:"wantToRead", name:"Want To Read", id:2},
-            {shelfValue:"Read", name:"Read", id:3},
-            {shelfValue: "None", name:"None", id:4},
+            {shelfValue:"read", name:"Read", id:3},
+            {shelfValue:"none", name:"None", id:4},
     ]
-        const book = this.props
 
         return(
             <div className="book-shelf-changer">
@@ -38,13 +38,13 @@ class MoveTo extends Component{
                     value={this.state.value}
                     onChange={this.handleChange}
                     >
-                    <option value={null}
-                            disabled
-                            >Move To...</option>
+                    {/*<option value={null}*/}
+                    {/*        disabled*/}
+                    {/*        >Move To...</option>*/}
                     {values.map((value)=>(
                         <option value={value.shelfValue}
                                 key={value.id}
-                                selected={book.shelf}
+                                {book.shelf === value.shelfValue && selected}
                         >{value.name}
                         </option>
                     ))}
