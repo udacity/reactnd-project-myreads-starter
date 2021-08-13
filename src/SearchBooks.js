@@ -2,41 +2,58 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import * as BooksAPI from './BooksAPI.js';
 import Book from "./Book";
+import Shelf from "./Shelf";
 
 
 class SearchBooks extends Component{
     state={
-        query: ''
+        query: '',
+        books: [],
     }
 
-    handleChange = (event) => {
+    updateQuery=(event)=>{
         event.preventDefault();
         this.setState({
             query: event.target.value
         })
-        this.searchBooks();
+
     }
 
-    searchBooks = () => {
-        let showBooks = []
-       if(this.state.query === ''){
-        showBooks = this.props.books
-           return showBooks
-       } else {
-           BooksAPI.search(this.state.query)
-               .then((books) => {
-                   showBooks = books
-               })
-           return showBooks
-       }
+    ComponentDidMount(){
+            BooksAPI.getAll()
+                .then((books) => {
+                    this.setState(() => ({
+                        books : books
+                    }))
+                })
+
     }
 
+    componentDidUpdate(prevProps, prevState){
+        if(this.state.query !== prevState.query){
+            BooksAPI.search(this.state.query)
+                .then((books) => {
+                    this.setState(() => ({
+                        books : books
+                    }))
+                })
+        }
+    }
+
+    // searchBooks=()=>{
+    //  BooksAPI.search(this.state.query)
+    //         .then((books) => {
+    //             this.setState(() => ({
+    //                 books : books
+    //             }))
+    //         })
+    // }
 
 
 
     render() {
         const {query} = this.state
-        const {books} = this.props
+        const {books} = this.state
 
         return(
         <div className="search-books">
@@ -45,19 +62,11 @@ class SearchBooks extends Component{
                 <button className="close-search">Close</button>
                 </Link>
                 <div className="search-books-input-wrapper">
-                    {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
                     <input
                         type="text"
                         placeholder="Search by title or author"
-                        value={this.state.query}
-                        onChange={this.handleChange}
+                        value={query}
+                        onChange={this.updateQuery}
 
                     />
 
@@ -66,9 +75,9 @@ class SearchBooks extends Component{
             <div className="search-books-results">
                 <ol className="books-grid">
                     {books.map((book)=>
-                        <Book book={book} key={book.id}/>
-                    )
+                         <Book book={book} key={book.id}/>)
                     }
+
                 </ol>
 
             </div>

@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-// import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Shelf from './Shelf.js';
 import {Link, Route} from 'react-router-dom';
@@ -26,37 +25,37 @@ class BooksApp extends Component {
 
   render() {
     return (
-        <div>
-          <Route exact path ='/search' render={ ()=> (
+
+        <div className='app'>
+
+          <Route path ='/search' render={ ()=> (
+
               <SearchBooks
-                        books={this.state.books}
-                           // onSearchBooks={}
               />
-          )} >
+          )} />
 
-          </Route>
-
-            <Route path='/'>
-      <div className="app">
+            <Route exact path='/' render={ ()=> (
+      <div>
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
               <div>
-                <Shelf books={this.state.books} shelf={"currentlyReading"}/>
-                <Shelf books={this.state.books} shelf={"wantToRead"}/>
-                <Shelf books={this.state.books} shelf={"read"}/>
+                <Shelf books={this.state.books} shelf={"currentlyReading"} title={"Currently Reading"}/>
+                <Shelf books={this.state.books} shelf={"wantToRead"} title={"Want To Read"}/>
+                <Shelf books={this.state.books} shelf={"read"} title={"Read"}/>
           </div>
       </div>
         </div>
-      </div>
-            </Route>
-            <div className="open-search">
-                <Link to='/search'>
-                    <button>Add a book</button>
+          <div className="open-search">
+              <Link to='/search'>
+                  <button>Add a book</button>
                 </Link>
-            </div>
+                </div>
+      </div>
+                )} />
+
         </div>
     )
   }

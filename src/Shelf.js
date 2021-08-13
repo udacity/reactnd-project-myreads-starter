@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Book from "./Book.js";
-import * as BooksAPI from './BooksAPI';
 
 
 class Shelf extends Component{
@@ -10,22 +9,25 @@ class Shelf extends Component{
         this.props.books.filter((book) =>{
             if(book.shelf === this.props.shelf){
                 books.push(book)
-    }
+    }      return books;
         })
         return books;
             }
 
-    render() {
 
+
+    render() {
         return(
             <div className="bookshelf">
-                <h2 className="bookshelf-title">{this.props.shelf}</h2>
+                <h2 className="bookshelf-title">{this.props.title}</h2>
                 <div className="bookshelf-books">
                     <ol className="books-grid">
                         {this.filterByShelf().map((book)=>(
                             <Book key={book.id} book={book}/>
                         ))
                         }
+                        {console.log(this.filterByShelf())}
+
 
                     </ol>
                 </div>
