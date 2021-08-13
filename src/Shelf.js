@@ -1,18 +1,44 @@
 import React, { Component } from "react";
 import Book from "./Book.js";
+import * as BooksAPI from './BooksAPI.js';
 
 
 class Shelf extends Component{
+    state={
+        books: []
+    }
+
+    componentDidMount() {
+        BooksAPI.getAll()
+            .then((books)=>{
+                this.setState(()=>({
+                            books
+                        }
+                    )
+                )
+            })
+    }
 
     filterByShelf = () => {
         const books = []
-        this.props.books.filter((book) =>{
+        this.state.books.filter((book) =>{
             if(book.shelf === this.props.shelf){
                 books.push(book)
     }      return books;
         })
         return books;
             }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(this.state.books !== prevState.books){
+            BooksAPI.getAll()
+                .then((books)=> {
+                    this.setState(() => ({
+                        books
+                    }))
+                })
+        }
+    }
 
 
 
@@ -26,9 +52,6 @@ class Shelf extends Component{
                             <Book key={book.id} book={book}/>
                         ))
                         }
-                        {console.log(this.filterByShelf())}
-
-
                     </ol>
                 </div>
             </div>

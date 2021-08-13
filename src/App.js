@@ -7,28 +7,13 @@ import * as BooksAPI from "./BooksAPI";
 
 
 class BooksApp extends Component {
-  state={
-    books: []
-  }
 
-  componentDidMount() {
-    BooksAPI.getAll()
-        .then((books)=>{
-          this.setState(()=>({
-                    books
-                  }
-              )
-          )
-        })
-  }
-
-
-  render() {
+    render() {
     return (
 
         <div className='app'>
 
-          <Route path ='/search' render={ ()=> (
+          <Route path ='/search' render={ ({history})=> (
 
               <SearchBooks
               />
@@ -42,9 +27,9 @@ class BooksApp extends Component {
             </div>
             <div className="list-books-content">
               <div>
-                <Shelf books={this.state.books} shelf={"currentlyReading"} title={"Currently Reading"}/>
-                <Shelf books={this.state.books} shelf={"wantToRead"} title={"Want To Read"}/>
-                <Shelf books={this.state.books} shelf={"read"} title={"Read"}/>
+                <Shelf shelf={"currentlyReading"} title={"Currently Reading"}/>
+                <Shelf shelf={"wantToRead"} title={"Want To Read"}/>
+                <Shelf shelf={"read"} title={"Read"}/>
           </div>
       </div>
         </div>

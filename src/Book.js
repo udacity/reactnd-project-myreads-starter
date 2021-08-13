@@ -2,11 +2,13 @@ import React, { Component} from "react";
 import MoveTo from "./MoveTo.js";
 
 class Book extends Component {
+
+
     render() {
         const {book} = this.props
-        if(book && book.authors){
+        if(book && book.authors && book.imageLinks){
+            //displays books if they have book and authors and imagelinks
             return(
-
                 <li>
                     <div className="book">
                         <div className="book-top">
@@ -14,7 +16,6 @@ class Book extends Component {
                             <MoveTo book={book}/>
                         </div>
                         <div className="book-title">{book.title}</div>
-                        {console.log( "value of authors", book.authors)}
                         {book.authors.map((author, index)=>(
                                 <div key={index} className="book-authors">{author}</div>
                             )
@@ -22,7 +23,8 @@ class Book extends Component {
                     </div>
                 </li>
             )
-        } else {
+        } else if(book && book.imageLinks){
+            //displays book and has a default for "no Authors"
             return(
                 <li>
                     <div className="book">
@@ -31,7 +33,28 @@ class Book extends Component {
                             <MoveTo book={book}/>
                         </div>
                         <div className="book-title">{book.title}</div>
-                                <div className="book-authors"><em>Author Not Available</em></div>
+                                <div className="book-authors">
+                                    <p><em>Author Not Available</em></p>
+                                </div>
+                    </div>
+                </li>
+            )
+        } else if (book && book.authors) {
+            //displays books with a default for no book image
+            return(
+                <li>
+                    <div className="book">
+                        <div className="book-top">
+                            <div className="book-cover" style={{ width: 128, height: 193}}></div>
+                            <MoveTo book={book}/>
+                        </div>
+                        <div className="book-title">{book.title}</div>
+                        <div className="book-authors">
+                            {book.authors.map((author, index)=>(
+                                    <div key={index} className="book-authors">{author}</div>
+                                )
+                            )}
+                        </div>
                     </div>
                 </li>
             )

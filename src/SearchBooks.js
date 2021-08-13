@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import * as BooksAPI from './BooksAPI.js';
 import Book from "./Book";
-import Shelf from "./Shelf";
+// import Shelf from "./Shelf";
 
 
 class SearchBooks extends Component{
@@ -19,6 +19,10 @@ class SearchBooks extends Component{
 
     }
 
+    clearQuery = () => {
+        this.updateQuery('')
+    }
+
     ComponentDidMount(){
             BooksAPI.getAll()
                 .then((books) => {
@@ -33,7 +37,6 @@ class SearchBooks extends Component{
         if(this.state.query !== prevState.query){
             BooksAPI.search(this.state.query)
                 .then((books) => {
-                    console.log("here is books inside of componeentDidUPdate", books)
                     this.setState(() => ({
                         books : books
                     }))
@@ -41,19 +44,21 @@ class SearchBooks extends Component{
         }
     }
 
-    // searchBooks=()=>{
-    //  BooksAPI.search(this.state.query)
-    //         .then((books) => {
-    //             this.setState(() => ({
-    //                 books : books
-    //             }))
-    //         })
-    // }
-
-
 
     render() {
         const {query, books} = this.state
+
+//adds a key of shelf for objects without it, defaults shelf value to "none"
+        if(books && books.length > 0) {
+            books.forEach((book) => {
+                if (!book.shelf) {
+                    book["shelf"] = "none";
+                    console.log(book.title, "is on", book.shelf)
+                } else {
+                    console.log(book.title, "is on", book.shelf)
+                }
+            })
+        }
 
         return(
         <div className="search-books">
@@ -72,21 +77,24 @@ class SearchBooks extends Component{
 
                     />
                 </div>
-
+                {/*//results only return if books array is defined and has a length greater than 1, displays a phrase otherwise */}
             </div>
             <div className="search-books-results">
+                { books && books.length > 0 ? (
                 <ol className="books-grid">
-                    {console.log(books)}
                     {books.map((book)=>(
                         <Book key={book.id} book={book}/>))
                     }
-
-                </ol>
-
+                </ol>) : (
+                    <p><em>No Books To Show...</em></p>)}
             </div>
         </div>
         )
     }
-}
+
+        }
+
+
+
 
 export default SearchBooks;
