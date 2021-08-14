@@ -13,6 +13,7 @@ class MoveTo extends Component{
         this.setState({
             value: event.target.value
             })
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -24,7 +25,7 @@ class MoveTo extends Component{
 
 
     render() {
-        const book = this.props
+        const { book } = this.props
         const values = [{shelfValue: null, name:"Move To...", id: 0},
             {shelfValue:"currentlyReading", name:"Currently Reading", id:1},
             {shelfValue:"wantToRead", name:"Want To Read", id:2},
@@ -38,16 +39,16 @@ class MoveTo extends Component{
                     value={this.state.value}
                     onChange={this.handleChange}
                     >
-                    {/*<option value={null}*/}
-                    {/*        disabled*/}
-                    {/*        >Move To...</option>*/}
-                    {values.map((value)=>(
-                        <option value={value.shelfValue}
-                                key={value.id}
-                                {book.shelf === value.shelfValue && selected}
-                        >{value.name}
-                        </option>
-                    ))}
+                    {values.map((value)=>{
+                        return(
+                            <option value={value.shelfValue}
+                                    key={value.id}
+                                    disabled={value.id===0}
+                                    selected={value.shelfValue === book.shelf ? "selected" : ""}
+                            >{value.name}
+                            </option>
+                        )
+                    })}
 
                 </select>
             </div>
@@ -56,10 +57,7 @@ class MoveTo extends Component{
 
 
     }
-// <option value="currentlyReading">Currently Reading</option>
-// <option value="wantToRead">Want To Read</option>
-// <option value="read">Read</option>
-// <option value="none">None</option>
+
 }
 
 export default MoveTo;

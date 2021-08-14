@@ -12,16 +12,16 @@ class Shelf extends Component{
         BooksAPI.getAll()
             .then((books)=>{
                 this.setState(()=>({
-                            books
+                            books : this.filterByShelf(books)
                         }
                     )
                 )
             })
     }
 
-    filterByShelf = () => {
+    filterByShelf = (arr) => {
         const books = []
-        this.state.books.filter((book) =>{
+        arr.filter((book) =>{
             if(book.shelf === this.props.shelf){
                 books.push(book)
     }      return books;
@@ -29,17 +29,13 @@ class Shelf extends Component{
         return books;
             }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if(this.state.books !== prevState.books){
-            BooksAPI.getAll()
-                .then((books)=> {
-                    this.setState(() => ({
-                        books
-                    }))
-                })
-        }
-    }
-
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     if(this.state.books !== prevState.books){
+    //         this.setState(()=>({
+    //            books: this.filterByShelf(this.state.books)
+    //         }))
+    //         }
+    //     }
 
 
     render() {
@@ -48,8 +44,8 @@ class Shelf extends Component{
                 <h2 className="bookshelf-title">{this.props.title}</h2>
                 <div className="bookshelf-books">
                     <ol className="books-grid">
-                        {this.filterByShelf().map((book)=>(
-                            <Book key={book.id} book={book}/>
+                        {this.state.books.map((book)=>(
+                            <Book key={book.id} book={book} />
                         ))
                         }
                     </ol>

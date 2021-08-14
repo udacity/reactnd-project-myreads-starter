@@ -44,21 +44,21 @@ class SearchBooks extends Component{
         }
     }
 
+    //adds a key of shelf for objects without it, defaults shelf value to "none"
+//         if(books && books.length > 0) {
+//             books.forEach((book) => {
+//                 if (!book.shelf) {
+//                     book["shelf"] = "none";
+//                     console.log(book.title, "is on", book.shelf)
+//                 } else {
+//                     console.log(book.title, "is on", book.shelf)
+//                 }
+//             })
+//         }
+
 
     render() {
         const {query, books} = this.state
-
-//adds a key of shelf for objects without it, defaults shelf value to "none"
-        if(books && books.length > 0) {
-            books.forEach((book) => {
-                if (!book.shelf) {
-                    book["shelf"] = "none";
-                    console.log(book.title, "is on", book.shelf)
-                } else {
-                    console.log(book.title, "is on", book.shelf)
-                }
-            })
-        }
 
         return(
         <div className="search-books">
