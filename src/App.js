@@ -7,48 +7,27 @@ import * as BooksAPI from "./BooksAPI";
 
 
 class BooksApp extends Component {
-
     state={
-        currentlyReading: [],
-        wantToRead: [],
-        read: [],
+        books: [],
     }
 
-    componentDidMount(){
-        const currentlyRead = [];
-        const want = [];
-        const readarr = [];
+    componentDidMount() {
         BooksAPI.getAll()
-            .then((books)=>{
-                books.map((book)=> {
-                    switch (book.shelf) {
-                        case "currentlyReading":
-                            currentlyRead.push(book);
-                            break;
-                        case"wantToRead":
-                            want.push(book);
-                            break;
-                        case"read":
-                            readarr.push(book);
-                            break;
-                    }
-                })
+            .then((books)=>
                 this.setState(()=>({
-                        currentlyReading: currentlyRead,
-                        wantToRead: want,
-                        read: readarr
-                    }
-                ))})}
+                books: books}
+                )
+             ))}
 
+    updateBook=(book, shelf)=>{
+        BooksAPI.update(book, shelf)
+            .then()
+    }
 
 
     render() {
 
-        const shelves =[
-            {books: this.state.currentlyReading, title:"Currently Reading"},
-            {books: this.state.wantToRead, title: "Want To Read"},
-            {books: this.state.read, title: "Read"}
-        ];
+        const {books} = this.state
 
     return (
 
@@ -57,6 +36,7 @@ class BooksApp extends Component {
           <Route path ='/search' render={ ({history})=> (
 
               <SearchBooks
+                  onUpdateBook={this.updateBook}
               />
           )} />
 
@@ -68,9 +48,10 @@ class BooksApp extends Component {
             </div>
               <div className="list-books-content">
                   <div>
-                      {shelves.map((shelf, index)=>(
-                          <Shelf books={shelf.books} title={shelf.title} key={index}/>)
-                      )}
+                      <Shelf books={books.filter((book)=> book.shelf === "currentlyReading")} title={"Currently Reading"} shelf={"currentlyReading"}/>
+                      <Shelf books={books.filter((book)=> book.shelf === "wantToRead")} title={"Want To Read"} shelf = {"wantToRead"} />
+                      <Shelf books={books.filter((book)=> book.shelf === "read")} title={"Read"} shelf={"read"} />
+
 
                   </div>
               </div>
