@@ -13,15 +13,28 @@ class MoveTo extends Component{
         this.setState({
             value: event.target.value
             })
-
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if(this.state.value !== prevState.value) {
-            BooksAPI.update(this.props.book, this.state.value)
-                .then()
+        BooksAPI.update(this.props.book, this.state.value)
+            .then()
+        if(this.props.onMove){
+            this.props.onMove(this.props.book, this.state.value)
         }
+        console.log("value passes as", this.state.value)
+
     }
+
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     if(this.state.value !== prevState.value) {
+    //         BooksAPI.update(this.props.book, this.state.value)
+    //             .then()
+    //     }
+    // }
+    //
+    // moveBook=(event)=>{
+    //     event.preventDefault();
+    //     // BooksAPI.update(this.props.book, this.state.value)
+    //     //     .then()
+    //
+    // }
 
 
     render() {
@@ -35,6 +48,8 @@ class MoveTo extends Component{
 
         return(
             <div className="book-shelf-changer">
+                {/*<form*/}
+                {/*    onSubmit={this.moveBook}>*/}
                 <select
                     value={this.state.value}
                     onChange={this.handleChange}
@@ -44,13 +59,13 @@ class MoveTo extends Component{
                             <option value={value.shelfValue}
                                     key={value.id}
                                     disabled={value.id===0}
-                                    selected={value.shelfValue === book.shelf ? "selected" : ""}
                             >{value.name}
                             </option>
                         )
                     })}
 
                 </select>
+                {/*</form>*/}
             </div>
 
         )

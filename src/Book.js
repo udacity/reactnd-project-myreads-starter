@@ -13,7 +13,7 @@ class Book extends Component {
                     <div className="book">
                         <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})`}}></div>
-                            <MoveTo book={book} />
+                            <MoveTo book={book} onMove={this.props.onMove}/>
                         </div>
                         <div className="book-title">{book.title}</div>
                         {book.authors.map((author, index)=>(
@@ -30,7 +30,7 @@ class Book extends Component {
                     <div className="book">
                         <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})`}}></div>
-                            <MoveTo book={book} />
+                            <MoveTo book={book} onMove={this.props.onMove}/>
                         </div>
                         <div className="book-title">{book.title}</div>
                                 <div className="book-authors">
@@ -46,7 +46,7 @@ class Book extends Component {
                     <div className="book">
                         <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193}}></div>
-                            <MoveTo book={book} />
+                            <MoveTo book={book} onMove={this.props.onMove}/>
                         </div>
                         <div className="book-title">{book.title}</div>
                         <div className="book-authors">
