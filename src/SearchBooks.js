@@ -83,7 +83,7 @@ class SearchBooks extends Component{
                 { books && books.length > 0 ? (
                 <ol className="books-grid">
                     {books.map((book)=>(
-                        <Book key={book.id} book={book}/>))
+                        <Book key={book.id} book={book} shelf={"none"} onUpdateBook={this.props.onUpdateBook}/>))
                     }
                 </ol>) : (
                     <p><em>No Books To Show...</em></p>)}

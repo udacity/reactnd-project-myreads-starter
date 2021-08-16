@@ -4,11 +4,28 @@ import * as BooksAPI from './BooksAPI.js';
 
 class MoveTo extends Component{
 
+    handleChange=(event)=>{
+        event.preventDefault();
+        if(this.props.onUpdateBook){
+            this.props.onUpdateBook(this.props.book, event.target.value)
+        }
+    }
+
     render() {
+        const {book, shelf} = this.props
 
         return(
             <div className="book-shelf-changer">
-
+                <select
+                    value={shelf}
+                    onChange={this.handleChange}
+                    >
+                <option disabled>Move To...</option>
+                <option value={"currentlyReading"}>Currently Reading</option>
+                <option value={"wantToRead"}>Want To Read</option>
+                <option value={"read"}>Read</option>
+                <option value={"none"}>None </option>
+                </select>
             </div>
 
         )

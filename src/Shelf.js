@@ -5,15 +5,14 @@ import * as BooksAPI from './BooksAPI.js';
 
 class Shelf extends Component {
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if(this.props !== prevProps){
-            console.log("shelf properties of books were updated")
-            }
-        }
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     if(this.props !== prevProps){
+    //         }
+    //     }
 
 
     render() {
-        const { shelf, title, books } = this.props
+        const { shelf, title, books, onUpdateBook } = this.props
 
         return(
             <div className="bookshelf">
@@ -23,7 +22,10 @@ class Shelf extends Component {
                 <div className="bookshelf-books">
                     <ol className="books-grid">
                         {books.map((book)=> (
-                            <Book book={book} shelf={shelf} key={book.id}/>
+                            <li key={book.id}>
+                            <Book book={book} shelf={shelf} key={book.id}
+                                  onUpdateBook={onUpdateBook}/>
+                            </li>
                         ))}
 
                     </ol>

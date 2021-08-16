@@ -22,6 +22,12 @@ class BooksApp extends Component {
     updateBook=(book, shelf)=>{
         BooksAPI.update(book, shelf)
             .then()
+        BooksAPI.getAll()
+            .then((books)=>
+                this.setState(()=>({
+                            books: books}
+                    )
+                ))
     }
 
 
@@ -36,7 +42,10 @@ class BooksApp extends Component {
           <Route path ='/search' render={ ({history})=> (
 
               <SearchBooks
-                  onUpdateBook={this.updateBook}
+                  onUpdateBook={(book, shelf)=>{
+                      this.updateBook(book,shelf)
+                      history.push('/')}
+                  }
               />
           )} />
 
@@ -48,9 +57,12 @@ class BooksApp extends Component {
             </div>
               <div className="list-books-content">
                   <div>
-                      <Shelf books={books.filter((book)=> book.shelf === "currentlyReading")} title={"Currently Reading"} shelf={"currentlyReading"}/>
-                      <Shelf books={books.filter((book)=> book.shelf === "wantToRead")} title={"Want To Read"} shelf = {"wantToRead"} />
-                      <Shelf books={books.filter((book)=> book.shelf === "read")} title={"Read"} shelf={"read"} />
+                      <Shelf books={books.filter((book)=> book.shelf === "currentlyReading")} title={"Currently Reading"} shelf={"currentlyReading"}
+                             onUpdateBook={this.updateBook}/>
+                      <Shelf books={books.filter((book)=> book.shelf === "wantToRead")} title={"Want To Read"} shelf = {"wantToRead"}
+                             onUpdateBook={this.updateBook}/>
+                      <Shelf books={books.filter((book)=> book.shelf === "read")} title={"Read"} shelf={"read"}
+                             onUpdateBook={this.updateBook}/>
 
 
                   </div>
