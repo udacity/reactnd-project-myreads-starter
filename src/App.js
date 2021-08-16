@@ -7,14 +7,14 @@ import * as BooksAPI from "./BooksAPI";
 
 
 class BooksApp extends Component {
+
     state={
-        books: [],
         currentlyReading: [],
         wantToRead: [],
         read: [],
     }
 
-    componentDidMount() {
+    componentDidMount(){
         const currentlyRead = [];
         const want = [];
         const readarr = [];
@@ -34,56 +34,21 @@ class BooksApp extends Component {
                     }
                 })
                 this.setState(()=>({
-                        books: books,
                         currentlyReading: currentlyRead,
                         wantToRead: want,
                         read: readarr
                     }
                 ))})}
 
-    moveBook = (book, value) => {
-        console.log("book equals", book, "value equals", book.shelf);
-
-        // this.setState((prevState)=>({
-        //         [book.shelf]: prevState[book.shelf].concat([book]),
-        //     }
-        // ))
-    }
-
-
-    componentDidUpdate(prevProps, prevState, snapshot){
-        // if(this.state !== prevState){
-        //     const currentlyRead = [];
-        //     const want = [];
-        //     const readarr = [];
-        //     BooksAPI.getAll()
-        //         .then((books)=>{
-        //             books.map((book)=> {
-        //                 switch (book.shelf) {
-        //                     case "currentlyReading":
-        //                         currentlyRead.push(book);
-        //                         break;
-        //                     case"wantToRead":
-        //                         want.push(book);
-        //                         break;
-        //                     case"read":
-        //                         readarr.push(book);
-        //                         break;
-        //                 }
-        //             })
-        //             this.setState(()=>({
-        //                     books: books,
-        //                     currentlyReading: currentlyRead,
-        //                     wantToRead: want,
-        //                     read: readarr
-        //                 }
-        //             ))})}
-                    }
 
 
     render() {
-        const {books, currentlyReading, read, wantToRead} = this.state
-        console.log(currentlyReading)
+
+        const shelves =[
+            {books: this.state.currentlyReading, title:"Currently Reading"},
+            {books: this.state.wantToRead, title: "Want To Read"},
+            {books: this.state.read, title: "Read"}
+        ];
 
     return (
 
@@ -101,19 +66,20 @@ class BooksApp extends Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-            <div className="list-books-content">
-              <div>
-                <Shelf books={currentlyReading} shelf={"currentlyReading"} title={"Currently Reading"} onMove={this.moveBook}/>
-                <Shelf books={wantToRead} shelf={"wantToRead"} title={"Want To Read"} onMove={this.moveBook}/>
-                <Shelf books={read} shelf={"read"} title={"Read"} onMove={this.moveBook}/>
-          </div>
-      </div>
-        </div>
+              <div className="list-books-content">
+                  <div>
+                      {shelves.map((shelf, index)=>(
+                          <Shelf books={shelf.books} title={shelf.title} key={index}/>)
+                      )}
+
+                  </div>
+              </div>
           <div className="open-search">
               <Link to='/search'>
                   <button>Add a book</button>
                 </Link>
                 </div>
+      </div>
       </div>
                 )} />
 

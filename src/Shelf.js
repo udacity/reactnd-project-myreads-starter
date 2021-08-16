@@ -3,45 +3,30 @@ import Book from "./Book.js";
 import * as BooksAPI from './BooksAPI.js';
 
 
-class Shelf extends Component{
-    //
-    // handleMove = (book) => {
-    //     this.props.books.concat(book);
-    //
-    //     this.setState((prevState)=>({
-    //         [book.shelf]: [...prevState.book.shelf, book]
-    //         })
-    //     )
-    // }
+class Shelf extends Component {
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.books !== prevProps.books){
-            (console.log("something should happen here"))
-        }
-    }
 
     render() {
-        const {books} = this.props
+        const { title, books } = this.props
+        return(
+            <div className="bookshelf">
+                <h2 className="bookshelf-title">
+                    {title}
+                </h2>
+                <div className="bookshelf-books">
+                    <ol className="books-grid">
+                        {books.map((book)=> (
+                            <Book book={book} shelfValue={this.props.shelf} key={book.id}/>
+                        ))}
 
-        if (books) {
-
-            return (
-                <div className="bookshelf">
-                    <h2 className="bookshelf-title">{this.props.title}</h2>
-                    <div className="bookshelf-books">
-                        <ol className="books-grid">
-                            {books.map((book) => (
-                                <Book key={book.id} book={book} onMove={this.props.onMove}/>
-                            ))
-                            }
-                        </ol>
-                    </div>
+                    </ol>
                 </div>
 
-            )
-        }
-    }
+            </div>
+        )
 
+    }
 }
+
 
 export default Shelf;

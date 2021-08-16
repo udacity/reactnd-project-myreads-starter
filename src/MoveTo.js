@@ -4,64 +4,11 @@ import * as BooksAPI from './BooksAPI.js';
 
 class MoveTo extends Component{
 
-    state={
-        value : ""
-    }
-
-    handleChange=(event)=>{
-        event.preventDefault();
-        this.setState({
-            value: event.target.value
-            })
-        console.log("value passes as", this.state.value)
-
-        if(this.props.onMove){
-            this.props.onMove(this.props.book, this.props.book.shelf)
-        }
-
-    }
-
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if(this.state.value !== prevState.value) {
-            BooksAPI.update(this.props.book, this.state.value)
-                .then()
-        }
-        if(this.props.onMove){
-            this.props.onMove(this.props.book, this.props.book.shelf)
-        }
-    }
-
-    // moveBook=(event)=>{
-    //     event.preventDefault();
-    //     // BooksAPI.update(this.props.book, this.state.value)
-    //     //     .then()
-    //
-    // }
-
-
     render() {
-        const { book } = this.props
-        const values = ["currentlyReading", "wantToRead", "read", "none"];
-
 
         return(
             <div className="book-shelf-changer">
-                {/*<form*/}
-                {/*    onSubmit={this.moveBook}>*/}
-                <select
-                    value={this.state.value}
-                    onChange={this.handleChange}>
-                    <option
-                        value="move"
-                        disabled>Move to...
-                    </option>
-                    {values.map((value, index)=>(
-                        <option value={value}
-                                key={index}>{value}
-                        </option>
-                    ))}
-                </select>
+
             </div>
 
         )
