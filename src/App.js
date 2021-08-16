@@ -44,10 +44,10 @@ class BooksApp extends Component {
     moveBook = (book, value) => {
         console.log("book equals", book, "value equals", book.shelf);
 
-        this.setState((prevState)=>({
-                [book.shelf]: prevState[book.shelf].concat([book]),
-            }
-        ))
+        // this.setState((prevState)=>({
+        //         [book.shelf]: prevState[book.shelf].concat([book]),
+        //     }
+        // ))
     }
 
 

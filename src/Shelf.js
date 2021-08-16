@@ -14,6 +14,12 @@ class Shelf extends Component{
     //     )
     // }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.books !== prevProps.books){
+            (console.log("something should happen here"))
+        }
+    }
+
     render() {
         const {books} = this.props
 

@@ -15,22 +15,23 @@ class MoveTo extends Component{
             })
         console.log("value passes as", this.state.value)
 
-        BooksAPI.update(this.props.book, this.state.value)
-            .then()
         if(this.props.onMove){
-            this.props.onMove(this.props.book, this.state.value)
+            this.props.onMove(this.props.book, this.props.book.shelf)
         }
 
     }
 
 
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     if(this.state.value !== prevState.value) {
-    //         BooksAPI.update(this.props.book, this.state.value)
-    //             .then()
-    //     }
-    // }
-    //
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(this.state.value !== prevState.value) {
+            BooksAPI.update(this.props.book, this.state.value)
+                .then()
+        }
+        if(this.props.onMove){
+            this.props.onMove(this.props.book, this.props.book.shelf)
+        }
+    }
+
     // moveBook=(event)=>{
     //     event.preventDefault();
     //     // BooksAPI.update(this.props.book, this.state.value)
