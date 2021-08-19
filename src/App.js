@@ -47,9 +47,9 @@ class BooksApp extends React.Component {
         }))
       }
       else{
-        this.setState(()=>({
+        this.setState({
           query: []
-        }))
+        })
       }
       
       console.log("my Query",this.state.query)

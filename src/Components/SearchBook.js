@@ -41,21 +41,21 @@ export class SearchBook extends Component {
                     <div className="search-books-results">
                     <ol className="books-grid">
                         {
-                        thequery.filter((missing)=> missing.imageLinks !== undefined).map((searchedBook)=>(
+                        thequery.filter((missing)=> missing.imageLinks !== undefined || missing.authors !== null).map((searchedBook)=>(
                             <li key={searchedBook.id}>
                             <div className="book">
                                 <div className="book-top">
                                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${searchedBook.imageLinks.thumbnail}")` }}></div>
                                     <div className="book-shelf-changer">
                                     
-                                    <select onChange={(e)=>changeBook(e.target.value,searchedBook)} defaultValue={searchedBook.shelf}>
+                                    <select onChange={(e)=>changeBook(e.target.value,searchedBook)} defaultValue={(searchedBook.shelf) ? searchedBook.shelf : "none"}>
                                         <option value="move" disabled>Move to...</option>
                                         <option value="currentlyReading">Currently Reading</option>
                                         <option value="wantToRead">Want to Read</option>
                                         <option value="read">Read</option>
                                         <option value="none">None</option>
                                     </select>
-                                    
+
                                     </div>
                                 </div>
                                 <div className="book-title">{searchedBook.title}</div>
