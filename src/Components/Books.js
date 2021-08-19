@@ -53,7 +53,7 @@ export class Books extends Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
                             <div className="book-shelf-changer">
-                              <select onChange={(e)=>changeBook(e.target.value,book)} defaultValue="move">
+                              <select onChange={(e)=>changeBook(e.target.value,book)} defaultValue={(book.shelf) ? book.shelf : "none"}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
@@ -86,7 +86,7 @@ export class Books extends Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
                             <div className="book-shelf-changer">
-                              <select onChange={(e)=>changeBook(e.target.value,book)} defaultValue="move">
+                              <select onChange={(e)=>changeBook(e.target.value,book)} defaultValue={(book.shelf) ? book.shelf : "none"}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
@@ -118,7 +118,7 @@ export class Books extends Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
                             <div className="book-shelf-changer">
-                              <select onChange={(e)=>changeBook(e.target.value,book)} defaultValue="move">
+                              <select onChange={(e)=>changeBook(e.target.value,book)} defaultValue={(book.shelf) ? book.shelf : "none"}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
