@@ -8,7 +8,8 @@ export class Books extends Component {
       super(props)
 
       this.state ={ 
-        isUpdated: false
+        isUpdated: false,
+        
       }
     }
 
@@ -27,11 +28,14 @@ export class Books extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
   }
+
+  
     
     
     
     render() {
         // const {books} = this.props
+        // const { query } = this.state
         const {books,changeBook} = this.props
         
         return (
