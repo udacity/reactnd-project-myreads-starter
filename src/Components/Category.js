@@ -11,19 +11,18 @@ export class Category extends Component {
           books: this.props
       }
       
-      console.log("New books")
     }
 
     
-    bookChange =(shelf,id)=> {
+    bookChange =(shelf,book)=> {
 
-      BooksAPI.update(id,shelf)
+      BooksAPI.update(book,shelf)
       .then((response)=>{
         this.setState(()=>({
-          books: response
+          booknow: response
           
         }))
-      console.log("shelfsss",this.state.books)
+      console.log("shelfs",this.state.booknow)
     }) 
     }
 
@@ -37,7 +36,7 @@ export class Category extends Component {
     
     render() {
         const {books} = this.props
-        console.log("this books",this.state.books)
+        
         return (
             <div>
                 
@@ -47,14 +46,14 @@ export class Category extends Component {
                     <ol className="books-grid">
                     {   
 
-                       books.filter((bookshelf)=>bookshelf.shelf==='currentlyReading').map((book)=>( 
+                       books.filter((bookshelf)=>bookshelf.shelf === 'currentlyReading').map((book)=>( 
                       <li key={book.id}>
                         <div className="book">
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
                             <div className="book-shelf-changer">
-                              <select onChange={(e)=>this.bookChange(e.target.value,book.id)} >
-                                <option defaultValue value="move" disabled>Move to...</option>
+                              <select onChange={(e)=>this.bookChange(e.target.value,book)} >
+                                <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
                                 <option value="read">Read</option>
@@ -86,8 +85,8 @@ export class Category extends Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
                             <div className="book-shelf-changer">
-                              <select onChange={(e)=>this.bookChange(e.target.value,book.id)} >
-                                <option defaultValue value="move" disabled>Move to...</option>
+                              <select onChange={(e)=>this.bookChange(e.target.value,book)} >
+                                <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
                                 <option value="read">Read</option>
@@ -118,8 +117,8 @@ export class Category extends Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
                             <div className="book-shelf-changer">
-                              <select onChange={(e)=>this.bookChange(e.target.value,book.id)} >
-                                <option defaultValue value="move" disabled>Move to...</option>
+                              <select onChange={(e)=>this.bookChange(e.target.value,book)} >
+                                <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
                                 <option value="read">Read</option>
