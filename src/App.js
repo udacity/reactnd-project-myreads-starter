@@ -1,7 +1,7 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import Category from './Components/Category'
+import Books from './Components/Books'
 
 class BooksApp extends React.Component {
   state = {
@@ -63,7 +63,7 @@ class BooksApp extends React.Component {
 
             <div className="list-books-content">
               <div>
-                  <Category books={this.state.books}/>
+                  <Books books={this.state.books}/>
               </div>
              </div>
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as BooksAPI from '../BooksAPI'
 
-export class Category extends Component {
+export class Books extends Component {
     
     constructor(props){
       super(props)
@@ -142,4 +142,4 @@ export class Category extends Component {
     }
 }
 
-export default Category
+export default Books
