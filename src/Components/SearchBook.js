@@ -12,8 +12,8 @@ export class SearchBook extends Component {
 
     render() {
 
-        const { thequery, updateQuery, changeBook, books } = this.props
-        let thebook = [];
+        const { thequery, updateQuery, changeBook } = this.props
+        
         return (
             <div>
                 <div className="search-books">
@@ -47,16 +47,15 @@ export class SearchBook extends Component {
                                 <div className="book-top">
                                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${searchedBook.imageLinks.thumbnail}")` }}></div>
                                     <div className="book-shelf-changer">
-                                        {
-                                            thebook = books.includes(searchedBook.id)
-                                        }
-                                    <select onChange={(e)=>changeBook(e.target.value,searchedBook)} defaultValue={(thebook) ? thebook.shelf : "none" }>
+                                    
+                                    <select onChange={(e)=>changeBook(e.target.value,searchedBook)} defaultValue={searchedBook.shelf}>
                                         <option value="move" disabled>Move to...</option>
                                         <option value="currentlyReading">Currently Reading</option>
                                         <option value="wantToRead">Want to Read</option>
                                         <option value="read">Read</option>
                                         <option value="none">None</option>
                                     </select>
+                                    
                                     </div>
                                 </div>
                                 <div className="book-title">{searchedBook.title}</div>

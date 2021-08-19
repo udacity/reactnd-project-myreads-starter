@@ -14,7 +14,7 @@ body, .app {
 
 .list-books-title {
   padding: 10px 0;
-  background: #2e7c31;
+  background: blueviolet;
   text-align: center;
 }
 
@@ -41,6 +41,7 @@ body, .app {
 
 .bookshelf-title {
   border-bottom: 1px solid #dedede;
+  color: blueviolet;
 }
 
 .bookshelf-books {
@@ -58,7 +59,7 @@ body, .app {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #2e7d32;
+  background: blueviolet;
   background-image: url('./icons/add.svg');
   background-repeat: no-repeat;
   background-position: center;
@@ -108,6 +109,7 @@ body, .app {
   background-position: center;
   background-repeat: no-repeat;
   background-size: 28px;
+  color: blueviolet;
   font-size: 0;
   border: none;
   outline: none;
