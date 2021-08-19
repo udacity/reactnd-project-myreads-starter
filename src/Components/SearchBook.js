@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import { Link } from 'react-router-dom'
 export class SearchBook extends Component {
 
     constructor(props){
@@ -12,13 +12,16 @@ export class SearchBook extends Component {
 
     render() {
 
-        const { thequery, updateQuery, changeBook } = this.props
-
+        const { thequery, updateQuery, changeBook, books } = this.props
+        let thebook = [];
         return (
             <div>
                 <div className="search-books">
                     <div className="search-books-bar">
-                    <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
+
+                    
+                    <Link to='/' className="close-search">Close</Link>
+
                     <div className="search-books-input-wrapper">
                         {/*
                         NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -44,7 +47,10 @@ export class SearchBook extends Component {
                                 <div className="book-top">
                                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${searchedBook.imageLinks.thumbnail}")` }}></div>
                                     <div className="book-shelf-changer">
-                                    <select onChange={(e)=>changeBook(e.target.value,searchedBook)} defaultValue={(searchedBook.shelf) ? searchedBook.shelf : "none" }>
+                                        {
+                                            thebook = books.includes(searchedBook.id)
+                                        }
+                                    <select onChange={(e)=>changeBook(e.target.value,searchedBook)} defaultValue={(thebook) ? thebook.shelf : "none" }>
                                         <option value="move" disabled>Move to...</option>
                                         <option value="currentlyReading">Currently Reading</option>
                                         <option value="wantToRead">Want to Read</option>
