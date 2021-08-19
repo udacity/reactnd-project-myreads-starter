@@ -1,41 +1,38 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import * as BooksAPI from '../BooksAPI'
 
+// import * as BooksAPI from '../BooksAPI'
 export class Books extends Component {
     
     constructor(props){
       super(props)
 
       this.state ={ 
-          books: this.props
+        isUpdated: false
       }
-      
     }
 
     
-    bookChange =(shelf,book)=> {
 
-      BooksAPI.update(book,shelf)
-      .then((response)=>{
-        this.setState(()=>({
-          booknow: response
-          
-        }))
-      console.log("shelfs",this.state.booknow)
-    }) 
-    }
+  // componentDidUpdate(prevprops,prevState){
+  //   if (this.props.books !== prevprops.books) {
+  //           this.setState({
+  //             isUpdated:true
+              
+  //           })
+  //   }
+  //   console.log("Updated...",this.state.isUpdated)
+  // }
 
-
-
-    static propTypes = {
-        books: PropTypes.array.isRequired,
-      }
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+  }
     
     
     
     render() {
-        const {books} = this.props
+        // const {books} = this.props
+        const {books,changeBook} = this.props
         
         return (
             <div>
@@ -52,7 +49,7 @@ export class Books extends Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
                             <div className="book-shelf-changer">
-                              <select onChange={(e)=>this.bookChange(e.target.value,book)} >
+                              <select onChange={(e)=>changeBook(e.target.value,book)} defaultValue="move">
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
@@ -85,7 +82,7 @@ export class Books extends Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
                             <div className="book-shelf-changer">
-                              <select onChange={(e)=>this.bookChange(e.target.value,book)} >
+                              <select onChange={(e)=>changeBook(e.target.value,book)} defaultValue="move">
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
@@ -117,7 +114,7 @@ export class Books extends Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
                             <div className="book-shelf-changer">
-                              <select onChange={(e)=>this.bookChange(e.target.value,book)} >
+                              <select onChange={(e)=>changeBook(e.target.value,book)} defaultValue="move">
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
