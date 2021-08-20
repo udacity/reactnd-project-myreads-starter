@@ -11,17 +11,14 @@ class BooksApp extends React.Component {
      
   }
 
-
-  componentDidMount(){
-    BooksAPI.getAll()
-    .then((response)=>{
+  async componentDidMount(){
+    const bookss = await BooksAPI.getAll()
+    
       this.setState(()=>({
-        books: response
+        books: bookss
         
       }))
       console.log("Books",this.state.books)
-    })
-    
   }
 
   bookChange =(shelf,book)=> {
@@ -58,10 +55,7 @@ class BooksApp extends React.Component {
     });
   }
 
-  
   render() {
-
-    
 
     return (
       <div className="app">
