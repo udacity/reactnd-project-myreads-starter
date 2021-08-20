@@ -6,7 +6,8 @@ export class SearchBook extends Component {
         super(props)
 
         this.state={
-            myquery: ''
+            myquery: '',
+            
         }
     }
 
@@ -60,7 +61,7 @@ export class SearchBook extends Component {
                                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${searchedBook.imageLinks && searchedBook.imageLinks.thumbnail})` }}></div>
                                     <div className="book-shelf-changer">
                                     
-                                    <select onChange={(e)=>changeBook(e.target.value,searchedBook)} >
+                                    <select onChange={(e)=>changeBook(e.target.value,searchedBook)} value={searchedBook.shelf}>
                                         <option value="move" disabled>Move to...</option>
                                         <option value="currentlyReading">Currently Reading</option>
                                         <option value="wantToRead">Want to Read</option>
@@ -71,7 +72,7 @@ export class SearchBook extends Component {
                                     </div>
                                 </div>
                                 <div className="book-title">{searchedBook.title}</div>
-                                <div className="book-authors">{searchedBook.authors}</div>
+                                <div className="book-authors">{searchedBook.authors && searchedBook.authors.join(', ')}</div>
                                 </div>
                             </li>
                         ))
