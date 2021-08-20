@@ -8,9 +8,7 @@ class BooksApp extends React.Component {
   state = {
 
     books: [],
-    query: [],
-    
-    
+     
   }
 
 
@@ -60,33 +58,16 @@ class BooksApp extends React.Component {
     });
   }
 
-  updateQuery = (quer)=>{
-    if(quer.length > 0){
-      BooksAPI.search(quer)
-      .then((booksresponse)=>{
-        if(booksresponse.error){
-          this.setState({ query: [] })
-        }
-        else{
-          this.setState({ query: booksresponse })
-        }
-      }).catch(this.setState({ query: [] }))
-    }
-    else{
-      this.setState({ query: [] })
-    }
-  };
-
-
+  
   render() {
 
-    const { query } = this.state
+    
 
     return (
       <div className="app">
         
         <Route exact path="/search" render={()=>(
-            <SearchBook books={this.state.books} thequery={query} updateQuery={this.updateQuery} changeBook={this.bookChange}/>
+            <SearchBook books={this.state.books} changeBook={this.bookChange}/>
 
         )}/>
 

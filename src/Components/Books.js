@@ -13,29 +13,12 @@ export class Books extends Component {
       }
     }
 
-    
-
-  // componentDidUpdate(prevprops,prevState){
-  //   if (this.props.books !== prevprops.books) {
-  //           this.setState({
-  //             isUpdated:true
-              
-  //           })
-  //   }
-  //   console.log("Updated...",this.state.isUpdated)
-  // }
-
   static propTypes = {
     books: PropTypes.array.isRequired,
   }
-
-  
-    
-    
-    
+ 
     render() {
-        // const {books} = this.props
-        // const { query } = this.state
+        
         const {books,changeBook} = this.props
         
         return (
