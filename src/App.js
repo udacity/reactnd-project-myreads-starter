@@ -28,15 +28,6 @@ class BooksApp extends React.Component {
 
   bookChange =(shelf,book)=> {
 
-    // BooksAPI.update(book,shelf)
-    // .then((response)=>{
-    //   this.setState(()=>({
-    //     books: Object.values(response)
-    //   }))
-    //   window.location.reload()
-    // console.log("shelfs",this.state.books)
-    // })
-
     BooksAPI.update(book, shelf)
     .then(booksresponse => {
       
@@ -67,36 +58,25 @@ class BooksApp extends React.Component {
           })
         }
     });
-
-
-
-
-
-
-
-
-
   }
 
   updateQuery = (quer)=>{
-    BooksAPI.search(quer)
-    .then((response)=>{
-      if (response != null) {
-        this.setState(()=>({
-          query: Object.values(response)
-        }))
-      }
-      else{
-        this.setState({
-          query: []
-        })
-      }
-      
-      console.log("my Query",this.state.query)
-    })
-    
-  }
-  
+    if(quer.length > 0){
+      BooksAPI.search(quer)
+      .then((booksresponse)=>{
+        if(booksresponse.error){
+          this.setState({ query: [] })
+        }
+        else{
+          this.setState({ query: booksresponse })
+        }
+      }).catch(this.setState({ query: [] }))
+    }
+    else{
+      this.setState({ query: [] })
+    }
+  };
+
 
   render() {
 

@@ -12,8 +12,20 @@ export class SearchBook extends Component {
 
     render() {
 
-        const { thequery, updateQuery, changeBook } = this.props
+        const { thequery, updateQuery, changeBook, books } = this.props
         
+        thequery.forEach(function(searchedBook){
+            books.forEach(function(book){
+              if (book.id === searchedBook.id) {
+                searchedBook.shelf = book.shelf;
+              }
+            });
+            if(!searchedBook.shelf){
+              searchedBook.shelf = 'none';
+            }
+          })
+
+
         return (
             <div>
                 <div className="search-books">
@@ -41,14 +53,14 @@ export class SearchBook extends Component {
                     <div className="search-books-results">
                     <ol className="books-grid">
                         {
-                        thequery.filter((missing)=> missing.imageLinks !== undefined || missing.authors !== null).map((searchedBook)=>(
+                        thequery.map((searchedBook)=>(
                             <li key={searchedBook.id}>
                             <div className="book">
                                 <div className="book-top">
-                                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${searchedBook.imageLinks.thumbnail}")` }}></div>
+                                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${searchedBook.imageLinks && searchedBook.imageLinks.thumbnail})` }}></div>
                                     <div className="book-shelf-changer">
                                     
-                                    <select onChange={(e)=>changeBook(e.target.value,searchedBook)} defaultValue={(searchedBook.shelf) ? searchedBook.shelf : "none"}>
+                                    <select onChange={(e)=>changeBook(e.target.value,searchedBook)} >
                                         <option value="move" disabled>Move to...</option>
                                         <option value="currentlyReading">Currently Reading</option>
                                         <option value="wantToRead">Want to Read</option>
