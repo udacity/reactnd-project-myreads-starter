@@ -19,7 +19,9 @@ class App extends React.Component {
   }
   updateShelf=(updatebook,shelf)=>{
   BooksAPI.update(updatebook,shelf);
-    BooksAPI.getAll().then((res) => {
+    BooksAPI.getAll().then((res) => {  
+
+      
       this.setState({ 
         book:res ,
         isloaded:true
