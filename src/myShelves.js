@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import SingleShelf from './singleShelf'
-import PropTypes from 'prop-types'
 
 class MyShelf extends Component {
-  static propTypes ={
-    books: PropTypes.array.isRequired
-  }
 
   render(){
+    // This component displays the home page
+    // This filters books into their various shelfs
     const { getBooks } = this.props
-    const currentlyReading = getBooks.filter((book) => book.shelf === 'currentyReading');
+    const currentlyReading = getBooks.filter((book) => book.shelf === 'currentlyReading');
     const wantToRead = getBooks.filter(book => book.shelf === 'wantToRead');
     const read = getBooks.filter(book => book.shelf === 'read');
     return(
@@ -20,16 +18,19 @@ class MyShelf extends Component {
         <div className="list-books-content">
          <div>
           <SingleShelf
-            books = {currentlyReading}
-            shelfName = {'Currently Reading'}
+            books = {currentlyReading} //filtered books according to shelve title
+            shelfName = {'Currently Reading'} //shelf title
+            shelfUpdate={this.props.shelfUpdate} // Updates individual shelves
           />
           <SingleShelf
             books = {wantToRead}
             shelfName = {'Want To Read'}
+            shelfUpdate={this.props.shelfUpdate}
           />
           <SingleShelf
             books = {read}
             shelfName = {'Read'}
+            shelfUpdate={this.props.shelfUpdate}
           />
          </div>
         </div>

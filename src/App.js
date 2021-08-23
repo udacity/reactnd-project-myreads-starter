@@ -24,6 +24,14 @@ class BooksApp extends Component {
       }))
     })
   }
+  shelfUpdate = (movedBook, shelf) => {
+    BooksAPI.update(movedBook, shelf).then(response =>{
+      movedBook.shelf = shelf
+      this.setState((prevState) =>({
+          books: prevState.books.filter(book => book.id !== movedBook.id).concat(movedBook)
+      }))
+    });
+  };
   render() {
     return (
       <div>
@@ -31,13 +39,17 @@ class BooksApp extends Component {
           <div>
           <MyShelf
             getBooks = {this.state.books}
+            shelfUpdate = {this.shelfUpdate}
           />
           <SearchPage
           />
         </div>
         )}/>
-        <Route path='/search' component={SearchBooks} 
-        />
+        <Route path='/search' render={() => (
+          <SearchBooks
+            getBooks={this.state.books} shelfUpdate={this.shelfUpdate}
+          /> 
+        )}/>
       </div>
     )
   }
