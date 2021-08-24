@@ -6,22 +6,20 @@ import '../App.css'
 class Book extends Component {
 
     render () {
-        let x=this.props.ListType;
-console.log(x,this.props.books.x);
-
+        console.log(this.props.books.wantToRead)
         return (
             <Fragment>
             {
-            this.props.ListType == 'Currently Reading' &&
+            this.props.ListType == 'currentlyReading' &&
             (
-            this.props.books.CurrentRead.map((book) => {
+            this.props.books.currentlyReading.map((book) => {
             return (
-              <li>
+              <li key={book.id} >
               <div className="book">
                 <div className="book-top">
                   <div className="book-cover" style={book.style}></div>
                   <div className="book-shelf-changer">
-                    <select>
+                    <select onChange= {(event)=>this.props.changeHandler(book,event.target.value,'currentlyReading')}>
                       <option value="move" disabled>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
@@ -30,7 +28,7 @@ console.log(x,this.props.books.x);
                     </select>
                   </div>
                 </div>
-                <div className="book-title">{book.name}</div>
+                <div className="book-title">{book.title}</div>
                 <div className="book-authors">{book.author}</div>
               </div>
             </li> 
@@ -38,17 +36,18 @@ console.log(x,this.props.books.x);
             })
             )}
 
-{
-            (this.props.ListType == 'Want to Read') &&
+{ 
+            //this.props.ListType == 'wantToRead' &&
             (
-            this.props.books.WantToRead.map((book) => {
+            this.props.books.wantToRead.map((book) => {
             return (
-              <li>
+            <li key={book.id} >
+
               <div className="book">
                 <div className="book-top">
                   <div className="book-cover" style={book.style}></div>
                   <div className="book-shelf-changer">
-                    <select>
+                    <select  onChange= {(event)=>this.props.changeHandler(book.title,event.target.value,'wantToRead')} >
                       <option value="move" disabled>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
@@ -57,7 +56,7 @@ console.log(x,this.props.books.x);
                     </select>
                   </div>
                 </div>
-                <div className="book-title">{book.name}</div>
+                <div className="book-title">{book.title}</div>
                 <div className="book-authors">{book.author}</div>
               </div>
             </li> 
@@ -67,16 +66,16 @@ console.log(x,this.props.books.x);
         }
 
         {
-            (this.props.ListType == 'Read') &&
+            (this.props.ListType == 'read') &&
             (
-            this.props.books.Read.map((book) => {
+            this.props.books.read.map((book) => {
             return (
-              <li>
+                <li key={book.id} >
               <div className="book">
                 <div className="book-top">
                   <div className="book-cover" style={book.style}></div>
                   <div className="book-shelf-changer">
-                    <select>
+                    <select  onChange= {(event)=>this.props.changeHandler(book.title,event.target.value,'read')}>
                       <option value="move" disabled>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
@@ -85,7 +84,7 @@ console.log(x,this.props.books.x);
                     </select>
                   </div>
                 </div>
-                <div className="book-title">{book.name}</div>
+                <div className="book-title">{book.title}</div>
                 <div className="book-authors">{book.author}</div>
               </div>
             </li> 

@@ -17,9 +17,7 @@ return (
                   <div className="bookshelf-books">
                     
                   <ol className="books-grid">
-                  <Book ListType = 'Currently Reading' {...this.props}/>
-                    
-                      
+                  <Book ListType = 'currentlyReading' {...this.props}/>     
                     </ol>
 
 
@@ -30,12 +28,11 @@ return (
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Want to Read</h2>
                   <div className="bookshelf-books">
+
                     <ol className="books-grid">
-
-                    <Book ListType = 'Want to Read' {...this.props}/>
-                    
-
+                    <Book ListType = 'WantToRead' {...this.props}/>
                     </ol>
+
                   </div>
                 </div>
 
@@ -43,10 +40,11 @@ return (
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Read</h2>
                   <div className="bookshelf-books">
+
                     <ol className="books-grid">
-                    <Book ListType = 'Read' {...this.props}/>
-                    
+                    <Book ListType = 'read' {...this.props}/>
                     </ol>
+
                   </div>
                 </div>
               </div>
