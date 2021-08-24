@@ -15,7 +15,7 @@ class BooksApp extends React.Component {
     books: {
      
       wantToRead: [
-     {title:'1776',                                 id:1, author:'David McCullough',style:{ width: 128, height: 193, backgroundImage: 'url("http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api")' } },
+     {title:'1776',  id:1, author:'David McCullough',style:{ width: 128, height: 193, backgroundImage: 'url("http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api")' } },
      {title:'Harry Potter and the Sorcerer\'s Stone',id:2, author:'J.K. Rowling',style:{ width: 128, height: 192, backgroundImage: 'url("http://books.google.com/books/content?id=wrOQLV6xB-wC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72G3gA5A-Ka8XjOZGDFLAoUeMQBqZ9y-LCspZ2dzJTugcOcJ4C7FP0tDA8s1h9f480ISXuvYhA_ZpdvRArUL-mZyD4WW7CHyEqHYq9D3kGnrZCNiqxSRhry8TiFDCMWP61ujflB&source=gbs_api")' } }
     ],
     
@@ -39,26 +39,28 @@ class BooksApp extends React.Component {
   }
 
 
-  changeHandler = (book,newList,oldList) =>
+  changeHandler = ((book,newList,oldList) =>
   {
 
-
-//console.log (book,newList,oldList);
-//console.log (this.state.books[oldList]);
 let booksarr = {...this.state.books};
-console.log (booksarr[newList]);
+booksarr[newList].push(book);
 
+let updatedarr= booksarr[oldList].filter ((mybook)=> {
+ return( mybook.title !== book.title);    
+});
 
-// booksarr[oldList].filter ((mybook)=> mybook.title != book.title);
-// booksarr[newList].push(book);
+booksarr[oldList]=[...updatedarr];
+console.log('heeeey/n');
+console.log (booksarr);
+ this.setState (
+   {
+     books : booksarr            
+   }
+   )
 
-// this.setState (
-//   {
-//     books = {...booksarr};
-//   }
-// )
-return null;
-  }
+return booksarr ;
+  
+  })
 
 
   render() {
