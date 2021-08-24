@@ -30,7 +30,7 @@ return (
                   <div className="bookshelf-books">
 
                     <ol className="books-grid">
-                    <Book ListType = 'WantToRead' {...this.props}/>
+                    <Book ListType="wantToRead" {...this.props}/>
                     </ol>
 
                   </div>
