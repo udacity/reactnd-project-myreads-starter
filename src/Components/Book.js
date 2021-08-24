@@ -11,7 +11,7 @@ class Book extends Component {
         return (
             <Fragment>
             {
-            this.props.ListType == "currentlyReading" &&
+            this.props.ListType === "currentlyReading" &&
             (
             this.props.books.currentlyReading.map((book) => {
             return (
@@ -39,7 +39,7 @@ class Book extends Component {
             )}
 
 { 
-            this.props.ListType == "wantToRead" &&
+            this.props.ListType === "wantToRead" &&
             (
             this.props.books.wantToRead.map((book) => {
             return (
@@ -69,7 +69,7 @@ class Book extends Component {
         }
 
         {
-            (this.props.ListType == "read") &&
+            (this.props.ListType === "read") &&
             (
             this.props.books.read.map((book) => {
             return (

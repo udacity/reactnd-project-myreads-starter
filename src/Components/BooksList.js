@@ -7,7 +7,8 @@ import Book from './Book'
 class BooksList extends Component{
 
     render (){
-
+console.log('component')
+console.log(this.props)
 return (
 <div className="list-books-content">
    
@@ -17,7 +18,7 @@ return (
                   <div className="bookshelf-books">
                     
                   <ol className="books-grid">
-                  <Book ListType = 'currentlyReading' {...this.props}/>     
+                  <Book ListType = "currentlyReading" {...this.props}/>     
                     </ol>
 
 
@@ -42,7 +43,7 @@ return (
                   <div className="bookshelf-books">
 
                     <ol className="books-grid">
-                    <Book ListType = 'read' {...this.props}/>
+                    <Book ListType = "read" {...this.props}/>
                     </ol>
 
                   </div>
