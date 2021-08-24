@@ -7,7 +7,14 @@ import {BrowserRouter, Route,Link} from 'react-router-dom'
 
 class BooksApp extends React.Component {
 
-  state = {
+constructor(props)
+{
+  super(props);
+
+  (localStorage.length)? 
+  (this.state=JSON.parse(localStorage.getItem('State'))):
+  (
+ this.state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -39,10 +46,28 @@ class BooksApp extends React.Component {
 
     showSearchPage: false
   }
+  )
+}
+
+
+
+componentDidMount()
+{
+
+  // let storedState = window.localStorage.getItem('State');
+  // storedState= JSON.parse(storedState);
+  // this.setState ({
+  //   books: {...storedState.books},
+  //   showSearchPage: storedState.showSearchPage
+  // })
+  // console.log('stored state')
+  // console.log(storedState)
+}
+
 
 
   changeHandler = ((book,newList,oldList) =>
-  {
+{
 
 if ((newList !== "none") && (newList !== oldList))
 {
@@ -64,6 +89,9 @@ booksarr[oldList]=[...updatedarr];
    }
    )
 
+window.localStorage.setItem( 'State', JSON.stringify(this.state) );  
+console.log('local storage:'); 
+console.log(localStorage.State);
 return booksarr ;
 }
   })
