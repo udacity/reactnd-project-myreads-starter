@@ -90,7 +90,6 @@ booksarr[oldList]=[...updatedarr];
    )
    console.log('local state:'); 
    console.log(this.state);
-window.localStorage.setItem( 'State', JSON.stringify(this.state) );  
 
 return booksarr ;
 }
@@ -99,6 +98,7 @@ return booksarr ;
 
   render() {
 
+    window.localStorage.setItem( 'State', JSON.stringify(this.state) );  
 
 
   
