@@ -42,9 +42,11 @@ class BooksApp extends React.Component {
   changeHandler = ((book,newList,oldList) =>
   {
 
-if (newList !== "none")
+if ((newList !== "none") && (newList !== oldList))
 {
 let booksarr = {...this.state.books};
+console.log('book is')
+console.log(book);
 booksarr[newList].push(book);
 
 let updatedarr= booksarr[oldList].filter ((mybook)=> {
@@ -52,8 +54,8 @@ let updatedarr= booksarr[oldList].filter ((mybook)=> {
 });
 
 booksarr[oldList]=[...updatedarr];
-console.log('heeeey/n');
-console.log (booksarr);
+//console.log('heeeey/n');
+//console.log (updatedarr);
  this.setState (
    {
      books : booksarr            

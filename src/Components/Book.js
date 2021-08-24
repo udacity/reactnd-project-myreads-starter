@@ -6,7 +6,7 @@ import '../App.css'
 class Book extends Component {
 
     render () {
-        console.log(this.props.books.read)
+        console.log(this.props.books.currentlyReading)
         //console.log(this.props);
         return (
             <Fragment>
@@ -22,10 +22,11 @@ class Book extends Component {
                   <div className="book-shelf-changer">
                     <select onChange= {(event)=>this.props.changeHandler(book,event.target.value,'currentlyReading')}>
                       <option value="move" disabled>Move to...</option>
+                      <option value="none">None</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
                       <option value="read">Read</option>
-                      <option value="none">None</option>
+                      
                     </select>
                   </div>
                 </div>
@@ -48,12 +49,13 @@ class Book extends Component {
                 <div className="book-top">
                   <div className="book-cover" style={book.style}></div>
                   <div className="book-shelf-changer">
-                    <select  onChange= {(event)=>this.props.changeHandler(book.title,event.target.value,'wantToRead')} >
+                    <select  onChange= {(event)=>this.props.changeHandler(book,event.target.value,'wantToRead')} >
                       <option value="move" disabled>Move to...</option>
+                      <option value="none">None</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
                       <option value="read">Read</option>
-                      <option value="none">None</option>
+                      
                     </select>
                   </div>
                 </div>
@@ -76,12 +78,13 @@ class Book extends Component {
                 <div className="book-top">
                   <div className="book-cover" style={book.style}></div>
                   <div className="book-shelf-changer">
-                    <select  onChange= {(event)=>this.props.changeHandler(book.title,event.target.value,'read')}>
+                    <select  onChange= {(event)=>this.props.changeHandler(book,event.target.value,'read')}>
                       <option value="move" disabled>Move to...</option>
+                      <option value="none">None</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
                       <option value="read">Read</option>
-                      <option value="none">None</option>
+                      
                     </select>
                   </div>
                 </div>
