@@ -42,6 +42,8 @@ class BooksApp extends React.Component {
   changeHandler = ((book,newList,oldList) =>
   {
 
+if (newList !== "none")
+{
 let booksarr = {...this.state.books};
 booksarr[newList].push(book);
 
@@ -59,7 +61,7 @@ console.log (booksarr);
    )
 
 return booksarr ;
-  
+}
   })
 
 
