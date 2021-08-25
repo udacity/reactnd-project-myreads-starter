@@ -114,8 +114,9 @@ return booksarr ;
   render() {
 
     window.localStorage.setItem( 'State', JSON.stringify(this.state) );  
-
-
+    let AllBooks = [];
+    AllBooks =(this.state.books.wantToRead.concat (this.state.books.read)).concat(this.state.books.currentlyReading) 
+console.log(AllBooks)
   
 
     return (
@@ -143,7 +144,36 @@ return booksarr ;
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid"> 
+
+
+                {
+                AllBooks.map((book) => {
+            return (
+              <li key={book.id} >
+              <div className="book">
+                <div className="book-top">
+                  <div className="book-cover" style={book.style}></div>
+                  <div className="book-shelf-changer">
+                    <select onChange= {(event)=>this.props.changeHandler(book,event.target.value,'currentlyReading')}>
+                      <option value="move" disabled>Move to...</option>
+                      <option value="none">None</option>
+                      <option value="currentlyReading">Currently Reading</option>
+                      <option value="wantToRead">Want to Read</option>
+                      <option value="read">Read</option>
+                      
+                    </select>
+                  </div>
+                </div>
+                <div className="book-title">{book.title}</div>
+                <div className="book-authors">{book.author}</div>
+              </div>
+            </li> 
+            )
+            })}
+
+            </ol>
+              
             </div>
           </div>
            ) } }/> 
