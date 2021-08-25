@@ -1,48 +1,36 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Home from './components/Home'
 import {Route} from "react-router-dom"
 import Search from './components/Search'
-class App extends React.Component {
-  state={
-    book:[],
-    isloaded: false
-  }
-  componentDidMount() {
-    BooksAPI.getAll().then((res) => {
-      this.setState({ 
-        book:res ,
-        isloaded:true
-      })
-    })
-  }
-  updateShelf=(updatebook,shelf)=>{
-  BooksAPI.update(updatebook,shelf);
-    BooksAPI.getAll().then((res) => {  
 
-      
-      this.setState({ 
-        book:res ,
-        isloaded:true
-      })
+function App(){
+  const [book,setBook]=useState([]);
+  const [isloaded,setIsloaded]=useState(false);
+  useEffect(() => {
+
+    BooksAPI.getAll().then((res) => {
+    setBook(res);
+    setIsloaded(true);
     })
-    this.componentDidMount()
+  }, [book]);
+  const updateShelf=(updatebook,shelf)=>{
+    BooksAPI.update(updatebook,shelf); 
   }
-  render() {
-    if(this.state.isloaded){
+  if(isloaded){
     return (
       <div className="app">
         <Route path="/" exact render={()=>(
           <Home 
-          books={this.state.book}
-          updateShelf={this.updateShelf}
+          books={book}
+          updateShelf={ updateShelf}
           />
         ) }></Route>
      <Route path="/search"  render={()=>(
           <Search 
-          books={this.state.book}
-          updateShelf={this.updateShelf}
+          books={book}
+          updateShelf={updateShelf}
           />
         ) }></Route> 
       </div>
@@ -51,9 +39,9 @@ class App extends React.Component {
      return(
        <div>
          <h1>Loading</h1>
+
        </div>
      )
-  }
 }
+export default App;
 
-export default App

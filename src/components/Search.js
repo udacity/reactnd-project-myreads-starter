@@ -1,37 +1,42 @@
-import React from "react"
+import React,{useEffect,useState} from "react"
 import { Link } from "react-router-dom"
 import ListingBooks from "./ListingBooks"
 import * as BooksAPI from '../BooksAPI'
-class Search extends React.Component{
-    state={
-        query: '',
-        tab: [],
-        empty: false
-    }
-    search=(query)=>{
-        this.setState({
-            query:query
-        })
-         this.SearchQuery(query)
-    }
-    SearchQuery=(query)=>{
-      if(query.length !==0){
-         BooksAPI.search(query).then((searchedBooks) => {
-                if (searchedBooks.error) {
-                    this.setState({ tab: []}) 
-                }
-                    else {
-                    this.setState({ tab: searchedBooks,empty:false})
-                   }
+function Search(props){
+  const{books,updateShelf}=props
+  const [query,setQuery]=useState('')
+  const [result,setResult]=useState([])
+  const [empty,setEmpty]=useState(true)
+useEffect(() => {
+    const  SearchQuery=()=>{
+          BooksAPI.search(query).then((searchedBooks) => {
+            if (searchedBooks.error) {
+                setResult([])
+                setEmpty(true)
             }
-            )
-        } 
-        else {
-            this.setState ({ empty:true})  
+                else {
+             setResult(searchedBooks)
+             setEmpty(false)
                }
-      }    
-    render(){
-      const{books,updateShelf}=this.props
+        }
+        )
+                }
+                const throttleid = setTimeout(()=>{
+                  if(query.length !== 0){
+                    SearchQuery()
+                  }
+                  else{
+                    setEmpty(true)
+                  }
+
+                },100)
+                return()=>{
+                  clearTimeout(throttleid)
+                };
+              
+               
+}, [query])
+
         return(
             <div className="search-books">
              
@@ -41,17 +46,16 @@ class Search extends React.Component{
               </Link>
               <div className="search-books-input-wrapper">
                 <input  placeholder="Search by title"
-                 value={this.state.query}
+                 value={query}
                  type="text"
-                 onChange={(event)=>{this.search(event.target.value)   
+                 onChange={(event)=>{setQuery(event.target.value)   
                    }}/>
               </div>
             </div>
                    <div className="search-books-results">
               <ol className="books-grid">
                     {   
-                        this.state.tab.map(searchedBook => {
-                          
+                        result.map(searchedBook => {
                             let shelf = "none"
                             books.forEach(book => {
                                 if (book.id !== searchedBook.id) {
@@ -60,7 +64,7 @@ class Search extends React.Component{
                                     shelf = book.shelf
                                 }
                             })
-                          if(this.state.empty===false){   
+                          if(empty===false){   
                             return(
                                 <li key={searchedBook.id}>
                                  <ListingBooks 
@@ -73,8 +77,7 @@ class Search extends React.Component{
                         }
                         else{
                           return(
-                                  <li key={searchedBook.id}>
-                            </li>
+                            <li key={searchedBook.id}></li>
                           )
                         }
                         }
@@ -84,6 +87,5 @@ class Search extends React.Component{
             </div>
             </div>
         )
-    }
 }
 export default Search

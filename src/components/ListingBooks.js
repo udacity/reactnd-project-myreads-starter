@@ -1,8 +1,7 @@
 import React from "react"
-class ListingBooks extends React.Component{
+function ListingBooks(props){
   
-    render(){
-        const{books,updateShelf,currentShelf}=this.props
+        const{books,updateShelf,currentShelf}=props
              let thumbnail
         if (books.imageLinks) {
             thumbnail = books.imageLinks.thumbnail
@@ -33,7 +32,7 @@ class ListingBooks extends React.Component{
                     </div>
          
     )
-                      }
+                      
 
     
 }

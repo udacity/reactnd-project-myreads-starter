@@ -1,13 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ListingBooks from "./ListingBooks";
-class Home extends React.Component {
-
-  render() {
-    const { books,updateShelf } = this.props;
-    const currentlyReading = books.filter((book) => book.shelf === "currentlyReading");
-    const wantToRead = books.filter((book) => book.shelf === "wantToRead");
-    const read = books.filter((book) => book.shelf === "read");
+function Home (props){
+  const { books,updateShelf } = props;
+  const currentlyReading = books.filter((book) => book.shelf === "currentlyReading");
+  const wantToRead = books.filter((book) => book.shelf === "wantToRead");
+  const read = books.filter((book) => book.shelf === "read");
+ 
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -71,6 +70,7 @@ class Home extends React.Component {
         </div>
       </div>
     );
-  }
-}
+                  }
+                  
+
 export default Home;
