@@ -111,6 +111,48 @@ return booksarr ;
  
 
 
+ searchChangeHandler = ((book,newList) =>
+ {
+ 
+ if (newList !== "none") 
+ {
+
+  /*Search if the book is in any of the lists */
+ let booksarr = {...this.state.books};
+
+
+ 
+ let updatedarr1= booksarr['currentlyReading'].filter ((mybook)=> {
+  return( mybook.title !== book.title);    
+ });
+
+ let updatedarr2= booksarr['read'].filter ((mybook)=> {
+  return( mybook.title !== book.title);    
+ });
+
+ let updatedarr3= booksarr['wantToRead'].filter ((mybook)=> {
+  return( mybook.title !== book.title);    
+ });
+ 
+ booksarr['currentlyReading']=[...updatedarr1];
+ booksarr['read']=[...updatedarr2];
+ booksarr['wantToRead']=[...updatedarr3];
+
+ booksarr[newList].push(book);
+
+
+
+  this.setState (
+    {
+      books : booksarr            
+    }
+    )
+ 
+ return booksarr ;
+ }
+   })
+
+
   render() {
 
     window.localStorage.setItem( 'State', JSON.stringify(this.state) );  
@@ -155,7 +197,7 @@ console.log(AllBooks)
                 <div className="book-top">
                   <div className="book-cover" style={book.style}></div>
                   <div className="book-shelf-changer">
-                    <select onChange= {(event)=>this.props.changeHandler(book,event.target.value,'currentlyReading')}>
+                    <select onChange= {(event)=>this.searchChangeHandler(book,event.target.value)}>
                       <option value="move" disabled>Move to...</option>
                       <option value="none">None</option>
                       <option value="currentlyReading">Currently Reading</option>
