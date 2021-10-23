@@ -16,7 +16,6 @@ class SearchBooks extends Component {
     if (!bookShelf)
        return 'none';
     const [shelf] = [...this.props.shelfs.filter(shelf => shelf === bookShelf)];
-    console.log(shelf);
     return shelf;
   }
 
@@ -39,7 +38,7 @@ class SearchBooks extends Component {
               {books.map((book) => {
                 const shelf = this.getShelf(book.shelf);
                 return (
-                  <li key={book.bookId}>
+                  <li key={book.id}>
                     <Book
                       book={book}
                       shelfName = {shelf}

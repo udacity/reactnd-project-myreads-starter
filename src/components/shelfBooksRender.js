@@ -45,7 +45,7 @@ class ShelfsBooks extends Component {
                       {books.map((book) => {
                         return (
                           shelf === book.shelf && (
-                            <li key={book.bookId}>
+                            <li key={book.id}>
                               <Book
                                 book={book}
                                 shelfName={shelf}

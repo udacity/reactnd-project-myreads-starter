@@ -4,6 +4,7 @@ import "./App.css";
 import ShelfsBooks from "./components/shelfBooksRender";
 import Search from "./components/search";
 import { Link, Route } from "react-router-dom";
+import BookDetails from "./components/bookDetails";
 
 
 /**
@@ -39,7 +40,7 @@ class BooksApp extends React.Component {
           
           //get fields from books and push it into books array
           books.push({
-            bookId: cur.id,
+            id: cur.id,
             title: cur.title,
             shelf: cur.shelf,
             bookImage: cur.imageLinks.smallThumbnail,
@@ -47,60 +48,10 @@ class BooksApp extends React.Component {
             authors: [...cur.authors],
           });
         });
-
-        /* if requried to use caching so trying to use localStorage as cache for books, 
-                so load last state of books ids on shelfs from localStorage 
-
-            // if (localStorage.length > 0 ) {
-            //   const ids = [];
-            //   const readBooks = localStorage.getItem('currentlyReading');
-            //   const currentlyReadingBooks = localStorage.getItem('read');
-            //   const wantToreadBooks = localStorage.getItem('wantToRead');  
-
-            //   currentlyReadingBooks && ids.push(...currentlyReadingBooks.split(','));
-            //   readBooks && ids.push(...readBooks.split(','));
-            //   wantToreadBooks && ids.push(...wantToreadBooks.split(','));
-              
-            //   const uniqueIds = new Set(ids);
-            //   console.log(uniqueIds);
-              
-            //   const booksIds = books.map(book => book.bookId);
-            //   const recentAddBooksIds = [...uniqueIds].filter(id => !booksIds.includes(id));
-              
-            //   const recentAddBooks = this.getBookById(recentAddBooksIds);
-            //   console.log(recentAddBooks);
-            //   (recentAddBooksIds.length > 0) && books.push([...recentAddBooks]);
-    
-            //   books.forEach(book => {
-            //     if (readBooks.includes(book.bookId))
-            //       book.shelf = 'read';
-            //     else if(currentlyReadingBooks.includes(book.bookId))
-            //       book.shelf = 'currentlyReading';
-            //     else if (wantToreadBooks.includes(book.bookId))
-            //       book.shelf = 'wantToRead';
-            //     else
-            //       book.shelf = 'none';
-            //   })
-            // }
-              }
-            */
-        
         //set state with recived data from server
         this.setState({ books, shelfs });
       });
   };
-
-//function for geting books that store in localstorage by Id, has a bug
-  getBookById = async (booksIds)=>{
-    // const books = [];
-    // await booksIds.forEach(id => {      
-    //   BooksAPI.get(id).then(res=> {
-    //     console.log(res);
-    //     books.push(res);
-    //   })
-    // });
-    // return books;
-  }
 
   /**
    *Update state of books and push not defined books into state and track book shefl
@@ -128,7 +79,7 @@ class BooksApp extends React.Component {
         else {                                              //if assign to none then remove book from shelfs
           this.setState((curState) => {
             const books = curState.books.filter(            //filter and remove book
-              (book) => book.bookId !== updatedBook.bookId
+              (book) => book.id !== updatedBook.id
             );
             return { books };
           });
@@ -138,23 +89,6 @@ class BooksApp extends React.Component {
         //this.cachedBooks();
       })
       .catch((er) => alert(`Error! can't update data `));
-  };
-
-  
-  //cached updated books in localStorage  
-  cachedBooks = () => {
-    // const books = [...this.state.books];
-    // console.log(books);
-    // const currentlyReadingBooksIds = books.filter(book => book.shelf === "currentlyReading").map(book=> book.bookId); 
-    // const readBooksIds = books.filter(book => book.shelf === 'read').map(book=> book.bookId); 
-    // const wantToReadBooksIds = books.filter(book => book.shelf === 'wantToRead').map(book=> book.bookId);
-    // console.log(currentlyReadingBooksIds);
-    // console.log(readBooksIds);
-    // console.log(wantToReadBooksIds);
-    // localStorage.setItem('currentlyReading',[...currentlyReadingBooksIds]);
-    // localStorage.setItem('read',[...readBooksIds]);
-    // localStorage.setItem('wantToRead',[...wantToReadBooksIds]);
-    // console.log(localStorage.getItem('read'));
   };
 
   /**
@@ -203,6 +137,13 @@ class BooksApp extends React.Component {
               </div>
             </div>
           )}
+        />
+        <Route exact path="/components/bookDetails/:id" render = {(props)=> 
+          {
+            return(
+              <BookDetails {...props} onUpdateBookShelf={this.updateBookShelf}/>
+          )
+          }} 
         />
       </div>
     );

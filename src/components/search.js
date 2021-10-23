@@ -25,7 +25,6 @@ class Search extends Component {
    */
   getSearchText = (ev) => {
     const searchTxt = ev.target.value.trim();
-    console.log(searchTxt);
     if (searchTxt !== "") {
       //fetch API for getting matched book
       BooksAPI.search(searchTxt)
@@ -40,7 +39,7 @@ class Search extends Component {
               const img = cur.imageLinks ? cur.imageLinks.smallThumbnail : "alt";
 
               const book = {
-                bookId: cur.id,
+                id: cur.id,
                 title: cur.title,
                 shelf: cur.shelf,
                 bookImage: img,
@@ -51,9 +50,11 @@ class Search extends Component {
               index === -1 && books.push(book);
             });
             this.setState({ books });
-          } else {
+          } 
+          else
+          {
             this.setState({ books: [] });
-            alert("invalid searche");
+            alert("No Books matched the search");
           }
         })
         .catch((er) => {
