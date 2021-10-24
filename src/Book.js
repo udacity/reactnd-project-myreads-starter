@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ShelfSelector } from './ShelfSelector';
+import ShelfSelector from './ShelfSelector';
 
 export class Book extends Component {
     render() {

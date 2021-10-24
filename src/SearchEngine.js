@@ -11,19 +11,20 @@ class SearchEngine extends Component {
 
     updateQuery = (query) => {
         const { matchedBooks } = this.props;
-        this.setState( { query: query });
-
-        BooksAPI.search(query).then((books) => {
-            for (let book of books) {
-                for (let matchedBook of matchedBooks) {
-                    if (book.id === matchedBook.id) {
-                        book.shelf = matchedBook.shelf;
-                    }
-                }
-            }
-            this.setState( { books });
-        });
-    }
+        this.setState({query: query})
+        BooksAPI.search(query)
+          .then(books => {
+              console.log('Checking what books are');
+              console.log(books);
+            this.setState({
+              books: books.map(b => {
+                var target = matchedBooks.filter(fb => fb.id === b.id);
+                if (target[0]) {b.shelf = target[0].shelf}
+                return b;
+              })
+            });
+          });
+      }
 
     render() {
         const { onBookMoved } = this.props;
