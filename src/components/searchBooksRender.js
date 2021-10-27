@@ -42,6 +42,7 @@ class SearchBooks extends Component {
                     <Book
                       book={book}
                       shelfName = {shelf}
+                      bookSender = 'search'
                      // authors={this.getAuthorsByID(book.authors)}
                       onUpdateBookShelf = {this.onUpdateBookShelf}
                     />

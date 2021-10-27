@@ -49,6 +49,7 @@ class ShelfsBooks extends Component {
                               <Book
                                 book={book}
                                 shelfName={shelf}
+                                bookSender = 'shelf'
                                 onUpdateBookShelf={this.onUpdateBookShelf}
                               />
                             </li>

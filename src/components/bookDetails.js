@@ -41,44 +41,60 @@ class BookDetails extends Component {
 
   render() {
       const book = {...this.state.book};
-      console.log(this.props);
-    return (
-    <div className='container' style={{ boxSizing:"border-box", height:"100vh" , padding:"10px 40px"}} >
-        <div className="card  justify-content-center align-items-center" 
-            style={{display:'', alignContent:"center", margin:"5px", padding: "40px 60px" , boxSizing:"border-box", height:"80%", width:"60%"}}>
-          <img className="card-img-top " src={book.image} alt="Card cap" style={{ boxSizing:"border-box", height:"50%", width:"40%"}}/>
-
-          <div className="card-body" style={{ boxSizing:"border-box"}}>
-            <h5 className="card-title">{book.title}</h5>
-            <div className="card-text">
-                <div>
-                     <p>description: {book.description.slice(0,70)} </p>
-                    <div>
-                        <span> <p style={{display:"inline"}}>publisher {book.publisher} </p> </span> 
-                        <span><p style={{display:"inline", paddingLeft:"30px"}}>page Count: {book.pageCount} </p></span>
-                    </div>
-                    <div >
-                        <p style={{display:"inline"}} >authors: {book.authors} </p>
-                        <p style={{display:"inline", marginLeft:"35px",paddingLeft: "90px" }}> categories: {book.categories} </p>
-                    </div>
-                    <p style={{display:"inline"}}>language: {book.language} </p>
+    return <div className='container'>
+      <div className="row d-flex justify-content-center m-3 p-3 bg-light" >
+            <div className="row col-md-6">
+              <h5 className="card-title bd-title" style={{fontSize:"calc(1.425rem + 2.1vw)", fontWeight:"bold"}}>{book.title}</h5>
+              <div className="card-text row">
+                <div className="">
+                  <p>description: {book.description.slice(0, 250)} </p>
+                  <div className='d-flex justify-content-between pt-4'>
+                    <span>
+                      <p >
+                        publisher {book.publisher}
+                      </p>
+                    </span>
+                    <span>
+                      <p >
+                        page Count: {book.pageCount}
+                      </p>
+                    </span>
+                  </div>
+                  <div className='d-flex justify-content-between pr-1'>
+                    <p >
+                      authors: {book.authors}
+                    </p>
+                    <p >
+                      categories: {book.categories}
+                    </p>
+                  </div>
+                  <p style={{ display: "inline" }}>
+                    language: {book.language}
+                  </p>
                 </div>
+              </div>
+              <div className="col-1" />
             </div>
-            <div className="book-shelf-changer">
-                {console.log(book.shelf)}
-              <select onChange={(ev)=> this.props.onUpdateBookShelf(ev.target.value, book)}  defaultValue={`${book.shelf}`}>
-                <option value="move" disabled>
-                  Move to...
-                </option>
-                <option value="currentlyReading">Currently Reading</option>
-                <option value="wantToRead">Want to Read</option>
-                <option value="read">Read</option>
-                <option value="none">None</option>
-              </select>
+            <div className='row col-5 d-flex justify-content-end align-items-end mb-5 pb-4'>
+                <div className="d-absolute " style={{ }}>
+                  <div className='d-flex align-items-center'>
+                    <img className="img-thumbnail" src={book.image} alt="Card cap" />
+                    <div className="book-shelf-changer d-absolute">
+                      <select onChange={(ev) => this.props.onUpdateBookShelf(ev.target.value, book)} value={book.shelf}>
+                        <option value="move" disabled>
+                          Move to...
+                        </option>
+                        <option value="currentlyReading">Currently Reading</option>
+                        <option value="wantToRead">Want to Read</option>
+                        <option value="read">Read</option>
+                        <option value="none">None</option>
+                      </select>
+                    </div>
+                  </div>
+                  </div>
             </div>
-          </div>
         </div>
-      </div>);
+    </div>
   }
 }
 

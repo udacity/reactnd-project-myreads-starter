@@ -13,13 +13,13 @@ import { Link } from "react-router-dom";
 const Book = (props) => {
 
   //handel images if not define so return alt text or black book image 
-  const {book,  shelfName } = {...props};
+  const {book,  shelfName, bookSender } = {...props};
   const imagePath = (book.bookImage !=='alt')? `${(book.bookImage)}`: '../icons/1021547.png';
 
   return <div className="book">
       <div className="book-top"> 
 
-        <Link to={`components/bookDetails/${book.id}`} >
+        <Link to={bookSender === 'search'?`bookDetails/${book.id}`:`components/bookDetails/${book.id}` } >
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${imagePath})` }} />
         </Link>
 

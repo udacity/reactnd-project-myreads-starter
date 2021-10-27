@@ -26,7 +26,7 @@ class Search extends Component {
   getSearchText = (ev) => {
     const searchTxt = ev.target.value.trim();
     if (searchTxt !== "") {
-      //fetch API for getting matched book
+      //fetch API for getting matched book after 500ms
       BooksAPI.search(searchTxt)
         .then((res) => {
           if (res.length > 0) {

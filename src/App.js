@@ -11,8 +11,8 @@ import BookDetails from "./components/bookDetails";
  * top parent where defines router components and instantiate all component
  *  handing shelf selection in here and send aknowldgement to server 
  *  rendering main pages
- * components map:  1- BooksApp => Search => SearchBooks => Books
- *                  2- BooksApp => BooksShelfRender => Book 
+ * components map:  1- BooksApp => Search => SearchBooks => Books => BookDetials
+ *                  2- BooksApp => BooksShelfRender => Book =
  */
 
 class BooksApp extends React.Component {
