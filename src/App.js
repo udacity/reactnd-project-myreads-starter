@@ -38,7 +38,7 @@ class SearchPage extends Component {
           <ol className="books-grid">
             {
               this.state.booksFound.length > 0
-                ? this.state.booksFound.map(b => <li><Book title={b.title} authors={b.authors} cover={b.imageLinks.thumbnail} /></li>)
+                ? this.state.booksFound.map(b => <li key={b.id}><Book book={b} updadeShelf={this.props.updadeShelf} /></li>)
                 : <div></div>
             }
           </ol>
@@ -57,7 +57,7 @@ class Book extends Component {
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
           <div className="book-shelf-changer">
             <select id="shelf" onChange={e => this.props.updadeShelf(book, e.target.value)} >
-              <option value="move" disabled>Move to...</option>
+              <option value="move" selected disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
               <option value="read">Read</option>
@@ -159,18 +159,26 @@ class BooksApp extends Component {
   }
 
   updadeShelf(book, shelf) {
-    const pro = (_) => {
-      this.setState(
-        (prevState) => {
-          prevState[book.shelf] = prevState[book.shelf].filter((b) => b.id !== book.id)
-          book.shelf = shelf
-          prevState[shelf].push(book)
+    BooksAPI.update(book, shelf).then(this.setState(
+      (prevState) => {
+        // TODO: Use response to update
+        if (book.shelf === shelf) {
           return prevState
         }
-      )
-    }
+        const prevBookShelf = book.shelf;
+        book.shelf = shelf
 
-    BooksAPI.update(book, shelf).then(pro)
+        if (shelf !== "none") {
+          prevState[shelf] = prevState[shelf].concat(book)
+        }
+
+        if (prevBookShelf) {
+          prevState[prevBookShelf] = prevState[prevBookShelf].filter((b) => b.id !== book.id)
+        }
+
+        return prevState
+      }
+    ))
   }
 
   render() {
@@ -186,7 +194,7 @@ class BooksApp extends Component {
           />
         }
         />
-        <Route exact path="/search" element={<SearchPage />} />
+        <Route exact path="/search" element={<SearchPage updadeShelf={this.updadeShelf} />} />
       </Routes>
     )
   }
