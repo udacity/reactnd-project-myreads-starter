@@ -42,10 +42,6 @@ class SearchPage extends Component {
     return this.setState({ query: query.trimStart(), booksFound:[] })
   }
 
-  componentDidMount() {
-    BooksAPI.getAll().then(books => this.setState({ allBooks: books }));
-  }
-
   render() {
     const { query } = this.state
 
