@@ -9,7 +9,7 @@ class SearchPage extends Component {
   state = { booksFound: [], query: "", allBooks: [] }
 
   getBooks(query) {
-    if (query != "") {
+    if (query !== "") {
       return BooksAPI.search(query).then(books => this.setState({ booksFound: books, query: query.trimStart() }))
     }
     return this.setState({ query: query.trimStart(), booksFound: [] })
@@ -50,12 +50,13 @@ class SearchPage extends Component {
 
 class Book extends Component {
   render() {
+    const { book } = this.props;
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.cover})` }}></div>
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
           <div className="book-shelf-changer">
-            <select>
+            <select id="shelf" onChange={e => this.props.updadeShelf(book, e.target.value)} >
               <option value="move" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
@@ -64,8 +65,8 @@ class Book extends Component {
             </select>
           </div>
         </div>
-        <div className="book-title">{this.props.title}</div>
-        <div className="book-authors">{this.props.authors}</div>
+        <div className="book-title">{book.title}</div>
+        <div className="book-authors">{book.authors}</div>
       </div>
     )
   }
@@ -80,7 +81,7 @@ class BookShelf extends Component {
         <div className="bookshelf-books">
           <ol className="books-grid">
             {this.props.bookList.map((book) => {
-              return <li><Book title={book.title} authors={book.authors} cover={book.imageLinks.thumbnail} /></li>
+              return <li key={book.id}><Book book={book} updadeShelf={this.props.updadeShelf} /></li>
             })}
           </ol>
         </div>
@@ -101,9 +102,21 @@ class BooksPage extends Component {
           </div >
           <div className="list-books-content">
             <div>
-              <BookShelf title="Currently Reading" bookList={this.props.reading} />
-              <BookShelf title="Want to Read" bookList={this.props.wantRead} />
-              <BookShelf title="Read" bookList={this.props.read} />
+              <BookShelf
+                title="Currently Reading"
+                bookList={this.props.reading}
+                updadeShelf={this.props.updadeShelf}
+              />
+              <BookShelf
+                title="Want to Read"
+                bookList={this.props.wantRead}
+                updadeShelf={this.props.updadeShelf}
+              />
+              <BookShelf
+                title="Read"
+                bookList={this.props.read}
+                updadeShelf={this.props.updadeShelf}
+              />
             </div>
           </div>
           <div className="open-search">
@@ -119,42 +132,60 @@ class BooksPage extends Component {
 
 
 class BooksApp extends Component {
-  state = { currentlyReading: [], wantToRead: [], read: [] }
+  constructor(props) {
+    super(props)
+    this.state = { currentlyReading: [], wantToRead: [], read: [] }
 
-  componentDidMount() {
+    this.getAllBooks = this.getAllBooks.bind(this)
+    this.updadeShelf = this.updadeShelf.bind(this)
+  }
+
+  getAllBooks() {
     BooksAPI.getAll().then(
       books => this.setState(
         (_) => {
           return {
-            currentlyReading: books.filter(b => b.shelf == "currentlyReading"),
-            wantToRead: books.filter(b => b.shelf == "wantToRead"),
-            read: books.filter(b => b.shelf == "read"),
+            currentlyReading: books.filter(b => b.shelf === "currentlyReading"),
+            wantToRead: books.filter(b => b.shelf === "wantToRead"),
+            read: books.filter(b => b.shelf === "read"),
           }
         }
       )
     )
   }
 
-  addReading(book) {
-    return
+  componentDidMount() {
+    this.getAllBooks()
   }
 
-  addWantRead(book) {
-    return
-  }
+  updadeShelf(book, shelf) {
+    const pro = (_) => {
+      this.setState(
+        (prevState) => {
+          prevState[book.shelf] = prevState[book.shelf].filter((b) => b.id !== book.id)
+          book.shelf = shelf
+          prevState[shelf].push(book)
+          return prevState
+        }
+      )
+    }
 
-  addRead(book) {
-    return
+    BooksAPI.update(book, shelf).then(pro)
   }
-
 
   render() {
-    const {currentlyReading, wantToRead, read} = this.state;
+    const { currentlyReading, wantToRead, read } = this.state;
     return (
       <Routes>
         <Route exact path="/" element={
-          <BooksPage reading={currentlyReading} wantRead={wantToRead} read={read} />
-        } />
+          <BooksPage
+            reading={currentlyReading}
+            wantRead={wantToRead}
+            read={read}
+            updadeShelf={this.updadeShelf}
+          />
+        }
+        />
         <Route exact path="/search" element={<SearchPage />} />
       </Routes>
     )
