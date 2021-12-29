@@ -161,7 +161,6 @@ class BooksApp extends Component {
   updadeShelf(book, shelf) {
     BooksAPI.update(book, shelf).then(this.setState(
       (prevState) => {
-        // TODO: Use response to update
         if (book.shelf === shelf) {
           return prevState
         }
