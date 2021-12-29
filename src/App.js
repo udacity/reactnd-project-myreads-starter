@@ -37,8 +37,12 @@ class SearchPage extends Component {
   getBooks(query) {
     this.setState(
       {
-        booksFound: query == "" ? [] : this.state.allBooks.filter((b) => b.title.toLowerCase().includes(query.toLowerCase())),
-        query: query,
+        booksFound: query == "" ? [] : this.state.allBooks.filter(
+          (b) => {
+            return b.title.toLowerCase().includes(query.toLowerCase()) || b.authors[0].toLowerCase().includes(query.toLowerCase().trimStart())
+          }
+        ),
+        query: query.trimStart(),
       }
     );
   }
@@ -59,20 +63,15 @@ class SearchPage extends Component {
           </div>
         </div>
         <div>
-          {
-            this.state.booksFound.length > 0 ?
-              this.state.booksFound.map(b => {
-                return (
-                  <div>
-                    <p>{JSON.stringify(b)}</p>
-                    <li><Book title={b.title} authors={b.authors} cover={b.coverUrl} /></li>
-                  </div>
-                )
-              })
-              : <div></div>}
         </div>
         <div className="search-books-results">
-          <ol className="books-grid"></ol>
+          <ol className="books-grid">
+            {
+              this.state.booksFound.length > 0
+                ? this.state.booksFound.map(b => <li><Book title={b.title} authors={b.authors} cover={b.imageLinks.thumbnail} /></li>)
+                : <div></div>
+            }
+          </ol>
         </div>
       </div>
     )
