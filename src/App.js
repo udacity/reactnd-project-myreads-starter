@@ -5,7 +5,7 @@ import './App.css'
 import BooksPage from './components/BooksPage'
 import SearchPage from './components/SearchPage'
 
-class BooksApp extends Component {
+class App extends Component {
   constructor (props) {
     super(props)
     this.state = { currentlyReading: [], wantToRead: [], read: [] }
@@ -77,4 +77,4 @@ class BooksApp extends Component {
   }
 }
 
-export default BooksApp
+export default App
