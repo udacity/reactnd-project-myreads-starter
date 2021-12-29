@@ -10,7 +10,7 @@ class Book extends Component {
     if (!allBooks) {
       return defaultShelf
     }
-    return allBooks.filter(b => b.id === book.id)[0] || defaultShelf
+    return allBooks.find(b => b.id === book.id) || defaultShelf
   }
 
   render () {
