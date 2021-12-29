@@ -15,12 +15,12 @@ body, .app {
 .list-books-title {
   padding: 10px 0;
   background: #2E4057;
-  text-align: center;
+  text-align: left;
 }
 
 .list-books-title h1 {
   font-weight: 400;
-  margin: 0;
+  margin: 0px 0px 0px 10px;
   color: white;
 }
 
