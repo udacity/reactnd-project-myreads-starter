@@ -41,7 +41,8 @@ class BooksApp extends Component {
         }
         const { currentlyReading, wantToRead, read } = prevState;
         const allBooks = currentlyReading.concat(wantToRead, read)
-        const prevBookShelf = book.shelf || allBooks.find(b => b.id === book.id).shelf;
+        const prevBook = allBooks.find(b => b.id === book.id);
+        const prevBookShelf = book.shelf || prevBook ? prevBook.shelf : false;
         book.shelf = shelf
 
         if (shelf !== "none") {
