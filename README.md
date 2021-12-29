@@ -1,3 +1,7 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Harduim_Screeps&metric=alert_status)](https://sonarcloud.io/dashboard?id=Harduim_Screeps)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Harduim_Screeps&metric=code_smells)](https://sonarcloud.io/dashboard?id=Harduim_Screeps)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Harduim_Screeps&metric=ncloc)](https://sonarcloud.io/dashboard?id=Harduim_Screeps)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Harduim_Screeps&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=Harduim_Screeps)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 # MyReads Project
 
