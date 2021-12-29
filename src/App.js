@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Routes, Route, Link } from "react-router-dom";
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 
@@ -31,20 +31,51 @@ const sampleWant = [
 ]
 
 
-
 class SearchPage extends Component {
+  state = { booksFound: [], query: "", allBooks: [] }
+
+  getBooks(query) {
+    this.setState(
+      {
+        booksFound: query == "" ? [] : this.state.allBooks.filter((b) => b.title.toLowerCase().includes(query.toLowerCase())),
+        query: query,
+      }
+    );
+  }
+
+  componentDidMount() {
+    BooksAPI.getAll().then(books => this.setState({ allBooks: books }));
+  }
+
   render() {
-    return (<div className="search-books">
-      <div className="search-books-bar">
-        <Link to="/"><button className="close-search">Close</button></Link>
-        <div className="search-books-input-wrapper">
-          <input type="text" placeholder="Search by title or author" />
+    const { query } = this.state
+
+    return (
+      <div className="search-books">
+        <div className="search-books-bar">
+          <Link to="/"><button className="close-search">Close</button></Link>
+          <div className="search-books-input-wrapper">
+            <input type="text" onChange={(event) => this.getBooks(event.target.value)} placeholder="Search by title or author" value={query} />
+          </div>
+        </div>
+        <div>
+          {
+            this.state.booksFound.length > 0 ?
+              this.state.booksFound.map(b => {
+                return (
+                  <div>
+                    <p>{JSON.stringify(b)}</p>
+                    <li><Book title={b.title} authors={b.authors} cover={b.coverUrl} /></li>
+                  </div>
+                )
+              })
+              : <div></div>}
+        </div>
+        <div className="search-books-results">
+          <ol className="books-grid"></ol>
         </div>
       </div>
-      <div className="search-books-results">
-        <ol className="books-grid"></ol>
-      </div>
-    </div>)
+    )
   }
 }
 
@@ -91,8 +122,7 @@ class BookShelf extends Component {
 
 
 class BooksPage extends Component {
-  state = {reading: sampleReading, wantRead: sampleWant, read: sampleWant}
-
+  state = { reading: sampleReading, wantRead: sampleWant, read: sampleWant }
 
   render() {
     return (
@@ -103,9 +133,9 @@ class BooksPage extends Component {
           </div >
           <div className="list-books-content">
             <div>
-            <BookShelf title="Currently Reading" bookList={this.state.reading} />
-            <BookShelf title="Want to Read" bookList={this.state.wantRead} />
-            <BookShelf title="Read" bookList={this.state.read} />
+              <BookShelf title="Currently Reading" bookList={this.state.reading} />
+              <BookShelf title="Want to Read" bookList={this.state.wantRead} />
+              <BookShelf title="Read" bookList={this.state.read} />
             </div>
           </div>
           <div className="open-search">
