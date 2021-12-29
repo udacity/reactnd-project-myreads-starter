@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Routes, Route, Link } from "react-router-dom";
+import { DebounceInput } from 'react-debounce-input';
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
@@ -35,16 +36,10 @@ class SearchPage extends Component {
   state = { booksFound: [], query: "", allBooks: [] }
 
   getBooks(query) {
-    this.setState(
-      {
-        booksFound: query == "" ? [] : this.state.allBooks.filter(
-          (b) => {
-            return b.title.toLowerCase().includes(query.toLowerCase()) || b.authors[0].toLowerCase().includes(query.toLowerCase().trimStart())
-          }
-        ),
-        query: query.trimStart(),
-      }
-    );
+    if (query != "") {
+      return BooksAPI.search(query).then(books => this.setState({ booksFound: books, query: query.trimStart() }))
+    }
+    return this.setState({ query: query.trimStart(), booksFound:[] })
   }
 
   componentDidMount() {
@@ -59,7 +54,13 @@ class SearchPage extends Component {
         <div className="search-books-bar">
           <Link to="/"><button className="close-search">Close</button></Link>
           <div className="search-books-input-wrapper">
-            <input type="text" onChange={(event) => this.getBooks(event.target.value)} placeholder="Search by title or author" value={query} />
+            <DebounceInput
+              type="text"
+              minLength={0}
+              debounceTimeout={300}
+              onChange={(event) => this.getBooks(event.target.value)}
+              placeholder="Search by title or author"
+              value={query} />
           </div>
         </div>
         <div>
@@ -121,7 +122,6 @@ class BookShelf extends Component {
 
 
 class BooksPage extends Component {
-  state = { reading: sampleReading, wantRead: sampleWant, read: sampleWant }
 
   render() {
     return (
@@ -132,9 +132,9 @@ class BooksPage extends Component {
           </div >
           <div className="list-books-content">
             <div>
-              <BookShelf title="Currently Reading" bookList={this.state.reading} />
-              <BookShelf title="Want to Read" bookList={this.state.wantRead} />
-              <BookShelf title="Read" bookList={this.state.read} />
+              <BookShelf title="Currently Reading" bookList={this.props.reading} />
+              <BookShelf title="Want to Read" bookList={this.props.wantRead} />
+              <BookShelf title="Read" bookList={this.props.read} />
             </div>
           </div>
           <div className="open-search">
@@ -150,10 +150,27 @@ class BooksPage extends Component {
 
 
 class BooksApp extends Component {
+  state = { reading: sampleReading, wantRead: sampleWant, read: sampleWant }
+
+  addReading(book) {
+    return
+  }
+
+  addWantRead(book) {
+    return
+  }
+
+  addRead(book) {
+    return
+  }
+
+
   render() {
     return (
       <Routes>
-        <Route exact path="/" element={<BooksPage />} />
+        <Route exact path="/" element={
+          <BooksPage reading={sampleReading} wantRead={sampleWant} read={sampleReading} />
+        } />
         <Route exact path="/search" element={<SearchPage />} />
       </Routes>
     )
