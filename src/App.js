@@ -6,7 +6,7 @@ import BooksPage from './components/BooksPage'
 import SearchPage from './components/SearchPage'
 
 class App extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = { currentlyReading: [], wantToRead: [], read: [], allBooks: [] }
 
@@ -14,7 +14,7 @@ class App extends Component {
     this.updadeShelf = this.updadeShelf.bind(this)
   }
 
-  getAllBooks () {
+  getAllBooks() {
     BooksAPI.getAll().then(
       books => this.setState(
         (_) => {
@@ -29,11 +29,11 @@ class App extends Component {
     )
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.getAllBooks()
   }
 
-  updadeShelf (book, shelf) {
+  updadeShelf(book, shelf) {
     BooksAPI.update(book, shelf).then(this.setState(
       (prevState) => {
         if (book.shelf === shelf) {
@@ -59,7 +59,7 @@ class App extends Component {
     ))
   }
 
-  render () {
+  render() {
     const { currentlyReading, wantToRead, read } = this.state
     return (
       <Routes>
