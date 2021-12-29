@@ -1,15 +1,28 @@
 import React, { Component } from 'react'
 
 class Book extends Component {
-  render() {
+  getShelf () {
+    const { book, allBooks } = this.props
+    if (book.shelf) {
+      return book
+    }
+    const defaultShelf = { shelf: 'none' }
+    if (!allBooks) {
+      return defaultShelf
+    }
+    return allBooks.filter(b => b.id === book.id)[0] || defaultShelf
+  }
+
+  render () {
     const { book } = this.props
-    const imageLinks = book.imageLinks || { thumbnail: "" }
+    const imageLinks = book.imageLinks || { thumbnail: '' }
+    const onShelf = this.getShelf()
     return (
       <div className='book'>
         <div className='book-top'>
           <div className='book-cover' style={{ width: 128, height: 193, backgroundImage: `url(${imageLinks.thumbnail || ''})` }} />
           <div className='book-shelf-changer'>
-            <select id='shelf' defaultValue='move' onChange={e => this.props.updadeShelf(book, e.target.value)}>
+            <select id='shelf' defaultValue={onShelf.shelf} onChange={e => this.props.updadeShelf(book, e.target.value)}>
               <option value='move' disabled>Move to...</option>
               <option value='currentlyReading'>Currently Reading</option>
               <option value='wantToRead'>Want to Read</option>
