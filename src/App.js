@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
-import { Routes, Route } from "react-router-dom";
-import * as BooksAPI from './BooksAPI';
-import './App.css';
-import BooksPage from './components/BooksPage';
-import SearchPage from './components/SearchPage';
-
+import React, { Component } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import * as BooksAPI from './BooksAPI'
+import './App.css'
+import BooksPage from './components/BooksPage'
+import SearchPage from './components/SearchPage'
 
 class BooksApp extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = { currentlyReading: [], wantToRead: [], read: [] }
 
@@ -15,37 +14,37 @@ class BooksApp extends Component {
     this.updadeShelf = this.updadeShelf.bind(this)
   }
 
-  getAllBooks() {
+  getAllBooks () {
     BooksAPI.getAll().then(
       books => this.setState(
         (_) => {
           return {
-            currentlyReading: books.filter(b => b.shelf === "currentlyReading"),
-            wantToRead: books.filter(b => b.shelf === "wantToRead"),
-            read: books.filter(b => b.shelf === "read"),
+            currentlyReading: books.filter(b => b.shelf === 'currentlyReading'),
+            wantToRead: books.filter(b => b.shelf === 'wantToRead'),
+            read: books.filter(b => b.shelf === 'read')
           }
         }
       )
     )
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.getAllBooks()
   }
 
-  updadeShelf(book, shelf) {
+  updadeShelf (book, shelf) {
     BooksAPI.update(book, shelf).then(this.setState(
       (prevState) => {
         if (book.shelf === shelf) {
           return prevState
         }
-        const { currentlyReading, wantToRead, read } = prevState;
+        const { currentlyReading, wantToRead, read } = prevState
         const allBooks = currentlyReading.concat(wantToRead, read)
-        const prevBook = allBooks.find(b => b.id === book.id);
-        const prevBookShelf = book.shelf || prevBook ? prevBook.shelf : false;
+        const prevBook = allBooks.find(b => b.id === book.id)
+        const prevBookShelf = book.shelf || prevBook ? prevBook.shelf : false
         book.shelf = shelf
 
-        if (shelf !== "none") {
+        if (shelf !== 'none') {
           prevState[shelf] = prevState[shelf].concat(book)
         }
 
@@ -58,20 +57,21 @@ class BooksApp extends Component {
     ))
   }
 
-  render() {
-    const { currentlyReading, wantToRead, read } = this.state;
+  render () {
+    const { currentlyReading, wantToRead, read } = this.state
     return (
       <Routes>
-        <Route exact path="/" element={
-          <BooksPage
-            reading={currentlyReading}
-            wantRead={wantToRead}
-            read={read}
-            updadeShelf={this.updadeShelf}
-          />
+        <Route
+          exact path='/' element={
+            <BooksPage
+              reading={currentlyReading}
+              wantRead={wantToRead}
+              read={read}
+              updadeShelf={this.updadeShelf}
+            />
         }
         />
-        <Route exact path="/search" element={<SearchPage updadeShelf={this.updadeShelf} />} />
+        <Route exact path='/search' element={<SearchPage updadeShelf={this.updadeShelf} />} />
       </Routes>
     )
   }
