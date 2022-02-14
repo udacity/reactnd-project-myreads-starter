@@ -2,6 +2,8 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import { Routes,Route } from 'react-router-dom';
 import './App.css'
+import MainPage from './MainPage';
+import SearchBook from './SearchBook';
 
 class BooksApp extends React.Component {
   state = {
@@ -17,30 +19,31 @@ class BooksApp extends React.Component {
     super(props);
  
     this.state = {
-      name: '',
-      age: ''
+      books: ''
     };
   }
  
   componentDidMount() {
-    BooksAPI.getAll().then((user) => this.setState({
+    BooksAPI.getAll().then((data) => this.setState({
       // name: user.name,
       // age: user.age
-      book: user
+      books: data
     }));
   }
+  addBookButtonClick = () => (
+    this.setState({showSearchPage: true})
+  )
+  backButtonClick = () => (
+    this.setState({showSearchPage: false})
+  )
+
   render() {
+    const { books } = this.state;
     return (
       <div className="app">
-        {console.log(this.state)}
         <Routes>
-        <Route exact path='/' render={() => (
-          
-          <p>root page</p>
-        )}/>
-        <Route exact path='/create' render={() => (
-          <p>create page</p>
-        )}/>
+          <Route exact path='/' element={<MainPage books={books} />} />
+          <Route exact path='/search' element={<SearchBook />} />
         </Routes>
       </div>
     )
