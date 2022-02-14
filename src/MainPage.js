@@ -10,13 +10,7 @@ class MainPage extends Component {
         <div className="list-books-title">
           <h1>MyReads</h1>
         </div>
-        <BookShelf books={books}/>
-        
-        {/* <Link>
-        <div className="open-search">
-          <button>Add a book</button>
-        </div>
-        </Link> */}
+        <BookShelf books={books} onShelfUpdate={this.props.onShelfUpdate}/>
         <Link className="open-search" to={{
           pathname: '/search',
           state: { value: 'hello' }

@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import Book from './Book'
 
 const ShelfFilter = [
-  {shelf: 'read', index: 1}, 
-  {shelf: 'currentlyReading', index: 2},
-  {shelf: 'wantToRead', index: 3}
+  {shelf: 'currentlyReading', index: 1}, 
+  {shelf: 'wantToRead', index: 2},
+  {shelf: 'read', index: 3}
 ]
 
 class BookShelf extends Component{
@@ -17,7 +17,7 @@ class BookShelf extends Component{
             <h2>{shelf}</h2>
             <ol className="books-grid">
                 {Object.values(books).filter(book => book.shelf === shelf).map((book)=>(
-                  <Book key={book.id} book={book}/>
+                  <Book key={book.id} book={book} onShelfUpdate={this.props.onShelfUpdate} />
                 ))}
             </ol>
           </div>
