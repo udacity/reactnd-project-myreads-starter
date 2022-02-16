@@ -7,7 +7,8 @@ body {
 }
 
 body, .app {
-  background: white;
+  /* background: white; */
+  background-image: url('./images/bg.jfif');
 }
 
 /* main page */
@@ -74,12 +75,18 @@ body, .app {
 
 
 /* search page */
-
+.search-books {
+  /* position:static; */
+	 /* width : 100%;
+	height : 10%; */
+  margin : 0;
+	padding : 0; 
+}
 .search-books-bar {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
+  position: absolute;
+  width: 80%;
+  top: 30px;
+  left: 10%;
   z-index: 5;
   display: flex;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 0 6px rgba(0,0,0,0.23);
@@ -122,8 +129,11 @@ button:active {
   padding: 80px 10px 20px;
 }
 
+.books-row {
+  text-align: center;
+  margin-bottom: 0;
+}
 /* books grid */
-
 .books-grid {
   list-style-type: none;
   padding: 0;
@@ -144,7 +154,7 @@ button:active {
 
 .book-title,
 .book-authors {
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 
 .book-title {
@@ -152,7 +162,34 @@ button:active {
 }
 
 .book-authors {
-  color: #999;
+  color: rgb(94, 94, 94);
+}
+
+.book-tag {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  margin-left: 2px;
+  margin-top: 1.5px;
+  font-size: 0;
+  border: 1px solid;
+  border-radius: 50%;
+  visibility: hidden;
+}
+
+.book-tag-currentlyReading {
+  background-color: #74fca1;
+  visibility: visible;
+}
+
+.book-tag-wantToRead {
+  background-color: #92f5d7;
+  visibility: visible;
+}
+
+.book-tag-read {
+  background-color: #c5a439;
+  visibility: visible;
 }
 
 .book-top {
@@ -188,11 +225,28 @@ button:active {
 
 .book-cover {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  background: #eee;
 }
 
 .book-cover-title {
   padding: 20px 10px 0;
   text-align: center;
   font-size: 0.8em;
+}
+
+.search-label {
+  border: 1.5px solid;
+  border-radius: 8px;
+  font-size: 20px;
+  padding: 2px;
+  margin: 2px;
+  background: #b3f5e1;
+  outline: 0;
+}
+.search-label:hover{
+  background: #92f5d7;
+}
+.search-label:active{
+  border: 1.5px solid;
+  border-radius: 8px;
+  background: #5ff7c9;
 }
