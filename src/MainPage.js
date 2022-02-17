@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import Button from '@mui/material/Button';
 import BookShelf from './BookShelf';
-import bg from './images/bg.jfif';
+import LeftPanel from './LeftPanel';
 
 const shelfFilter = [
-  {shelf: 'currentlyReading', index: 1}, 
-  {shelf: 'wantToRead', index: 2},
-  {shelf: 'read', index: 3}
+  {shelf: 'currentlyReading', shelfName: 'Currently Reading', index: 1}, 
+  {shelf: 'wantToRead', shelfName: 'Want To Read', index: 2},
+  {shelf: 'read', shelfName: 'Have Read Already',index: 3}
 ]
 class MainPage extends Component {  
   render() {
@@ -15,14 +14,13 @@ class MainPage extends Component {
     return (
       <div className="list-books">
         <div className="list-books-title">
-          <h1>MyReads</h1>
+          <h1>Ivan's Bookshelf</h1>
         </div>
-        <div>
-          <div>haha</div>
+        <div style={{display: 'flex'}}>
+          <LeftPanel shelfFilter={shelfFilter}/>
           <BookShelf books={books} shelfFilter={shelfFilter} onShelfUpdate={this.props.onShelfUpdate}/>
         </div>
-        <Link className="open-search" to='/search'
-        state = {{value: 'add book'}}>
+        <Link className="open-search" to='/search' state = {{value: 'add book'}}>
           <button>Add a book</button>
         </Link>
       </div>

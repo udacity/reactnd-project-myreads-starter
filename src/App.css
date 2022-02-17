@@ -14,21 +14,67 @@ body, .app {
 /* main page */
 
 .list-books-title {
+  position: absolute;
+  width: 100%;
   padding: 10px 0;
-  background: #50aefc;
+  background: #141414;
   text-align: center;
+  z-index: 1; /* value larger than sidebar -> top layer */
 }
 
 .list-books-title h1 {
   font-weight: 400;
   margin: 0;
-  color: white;
+  color: antiquewhite;
 }
 
 .list-books-content {
   padding: 0 0 80px;
   flex: 1;
+  margin-left: 350px;
+  margin-top: 100px;
 }
+
+.sidenav {
+  height: 100%;
+  width: 350px;
+  position: fixed;
+  background-color: black;
+  top: 0;
+  left: 0;
+  text-align: center;
+  color: antiquewhite;
+}
+
+.sidenav h1{
+  margin-left: 20px;
+  margin-top: 100px;
+  text-align: center;
+}
+
+.sidenav a{
+  color: antiquewhite;
+  text-decoration: none;
+  line-height: 30pt;
+  font-size: 15pt;
+}
+
+.sidenav a:hover{
+  color: aliceblue;
+  font-size: 18pt;
+}
+
+.sidenav ul li{
+  list-style: none;
+}
+
+.sidenav #sidenav_icon ul li{
+  list-style: none;
+  display: inline;
+  
+}
+
+
 
 .bookshelf {
   padding: 0 10px 20px;
@@ -36,7 +82,7 @@ body, .app {
 
 @media (min-width: 600px) {
   .bookshelf {
-    padding: 0 20px 40px;
+    padding: 0 20px 0;
   }
 }
 
@@ -130,8 +176,9 @@ button:active {
 }
 
 .books-row {
-  text-align: center;
-  margin-bottom: 0;
+  margin-left: 30px;
+  /* text-align: center; */
+  /* margin-bottom: 0; */
 }
 /* books grid */
 .books-grid {
