@@ -32,14 +32,14 @@ body, .app {
   padding: 0 0 80px;
   flex: 1;
   margin-left: 350px;
-  margin-top: 100px;
+  margin-top: 30px;
 }
 
 .sidenav {
   height: 100%;
   width: 350px;
   position: fixed;
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   top: 0;
   left: 0;
   text-align: center;
@@ -48,7 +48,7 @@ body, .app {
 
 .sidenav h1{
   margin-left: 20px;
-  margin-top: 100px;
+  margin-top: 40px;
   text-align: center;
 }
 
@@ -65,6 +65,7 @@ body, .app {
 }
 
 .sidenav ul li{
+  margin-top: 15px;
   list-style: none;
 }
 
@@ -122,15 +123,13 @@ body, .app {
 
 /* search page */
 .search-books {
-  /* position:static; */
-	 /* width : 100%;
-	height : 10%; */
-  margin : 0;
-	padding : 0; 
+  margin: 50px;
+	padding: 0; 
 }
 .search-books-bar {
-  position: absolute;
-  width: 80%;
+  /* position: absolute; */
+  margin: 0 auto;
+  width: 95%;
   top: 30px;
   left: 10%;
   z-index: 5;
@@ -172,7 +171,7 @@ button:active {
 }
 
 .search-books-results {
-  padding: 80px 10px 20px;
+  padding: 20px 10px 20px;
 }
 
 .books-row {

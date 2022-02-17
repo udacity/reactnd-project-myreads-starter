@@ -24,22 +24,22 @@ function SearchBook(props) {
         </div>
       </div>
       <div className="search-books-results">
-        <ol className="books-grid">
           {books.length === 0 ? (
-            <p>
+            <div>
               <h2>Probably try terms:</h2>
               {terms.map((label) => (
                 <button className="search-label" onClick={() => onLabelClick(label)}>
                   {label}
                 </button>)
               )}
-            </p>
+            </div>
             ) : (
-              Object.values(books).map((book)=>(
+            <ol className="books-grid">
+              {Object.values(books).map((book)=>(
               <Book key={book.id} book={book} onShelfUpdate={props.onShelfUpdate} />
-            ))
+              ))}
+            </ol>
           )}
-        </ol>
       </div>
     </div>
   )

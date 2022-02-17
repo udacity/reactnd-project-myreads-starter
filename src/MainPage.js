@@ -13,9 +13,9 @@ class MainPage extends Component {
     const { books, addBook } = this.props;
     return (
       <div className="list-books">
-        <div className="list-books-title">
+        {/* <div className="list-books-title">
           <h1>Ivan's Bookshelf</h1>
-        </div>
+        </div> */}
         <div style={{display: 'flex'}}>
           <LeftPanel shelfFilter={shelfFilter}/>
           <BookShelf books={books} shelfFilter={shelfFilter} onShelfUpdate={this.props.onShelfUpdate}/>

@@ -4,7 +4,7 @@ function LeftPanel (props) {
   return (
     <div className="sidenav">
       {console.log(shelfFilter)}
-      <h1>Book States</h1>
+      <h1>Ivan's Bookshelf</h1>
       <ul>
         {shelfFilter.map(({shelf, shelfName}) => (
           <li><a href={"#"+shelf}>{shelfName}</a></li>
