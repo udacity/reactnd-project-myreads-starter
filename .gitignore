@@ -180,3 +180,10 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+
+# lock files
+package-lock.json
+yarn.lock
+
+# .idea files
+.idea/**
