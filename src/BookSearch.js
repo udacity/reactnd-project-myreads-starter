@@ -20,21 +20,25 @@ class BookSearch extends Component {
     }
 
     fetchBooks = (query) => {
-        BooksAPI.search(query)
-                .then(
-                foundBooks => this.setState(
+        query.length===0
+        ? this.setState({foundBooks: []})
+        : BooksAPI.search(query)
+            .then(
+            foundBooks => {
+                foundBooks !== undefined && foundBooks.error === undefined
+                    ? this.setState(
                     () => ({
                         foundBooks: foundBooks
                     })
                 )
-            )
+                    : this.setState({foundBooks: []})
+            }
+        )
     }
 
     render() {
 
         const { query, foundBooks } = this.state
-
-        console.log(foundBooks)
 
         return (
             <div className="search-books">
