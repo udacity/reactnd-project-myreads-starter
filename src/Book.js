@@ -4,7 +4,8 @@ import './App.css'
 
 const Book = (props) => {
 
-    const { book } = props;
+    const { book, onShelfChange } = props;
+
     const backgroundImage = book.imageLinks === undefined
         ? "https://dummyimage.com/128x193/696969/fff.jpg&text=No+Image"
         : book.imageLinks.thumbnail
@@ -19,7 +20,7 @@ const Book = (props) => {
                          backgroundImage: `url(${backgroundImage})` }}
                 />
                 <div className="book-shelf-changer">
-                    <select>
+                    <select value={book.shelf} onChange={e => onShelfChange(book, e.target.value)}>
                         <option value="move" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>

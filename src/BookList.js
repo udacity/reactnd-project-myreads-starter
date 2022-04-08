@@ -6,13 +6,13 @@ import BookShelf from './BookShelf'
 
 const BookList = (props) => {
 
-    const { bookList } = props;
+    const { bookList, onShelfChange } = props;
     const bookShelves = [
         {'key':'currentlyReading', 'value': 'Currently Reading'},
         {'key':'wantToRead', 'value': 'Want to Read'},
         {'key':'read', 'value': 'Read'},
         {'key':'none', 'value': 'None'}
-    ]
+    ];
 
     return (
         <div className="list-books">
@@ -23,7 +23,9 @@ const BookList = (props) => {
                 {bookShelves.filter(shelf=> shelf.key !=="none").map(shelf =>
                     <div key={shelf.key} className={"bookshelf"}>
                     <h2 key={shelf.key} className="bookshelf-title">{shelf.value}</h2>
-                    <BookShelf booksOnShelf={bookList.filter( book => book.shelf === shelf.key)}/>
+                    <BookShelf
+                        booksOnShelf={bookList.filter( book => book.shelf === shelf.key)}
+                        onShelfChange={onShelfChange}/>
                     </div>
                 )}
             </div>
