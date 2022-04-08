@@ -1,13 +1,30 @@
-import React, { Component } from 'react'
+import React  from 'react'
 import { Link } from 'react-router-dom'
 import './App.css'
-import * as BooksAPI from "./BooksAPI";
 import Book from "./Book";
-
 
 const BookSearch = (props) => {
 
     const { bookList, query, foundBooks, onUpdateQuery, onShelfChange} = props
+
+    const foundBookIds = foundBooks.map(foundBook => foundBook.id)
+    console.log('Found Ids', foundBookIds)
+    let booksOnShelf =
+        bookList
+            .filter(book => {
+                return foundBooks.map(foundBook => foundBook.id).indexOf(book.id) > -1
+            }
+        );
+
+    let booksNotOnShelf = foundBooks
+        .filter(book => {return bookList.map(bookOnShelf => bookOnShelf.id).indexOf(book.id) < 0})
+        .map(book => {return {...book, shelf: 'none'}})
+
+    let searchResults = [...booksOnShelf, ...booksNotOnShelf]
+
+    console.log('booksOnShelf', booksOnShelf)
+    // console.log('booksNotOnShelf',booksNotOnShelf)
+    // console.log('searchResults',searchResults)
 
     return (
         <div className="search-books">
@@ -29,14 +46,15 @@ const BookSearch = (props) => {
                     type="text"
                     placeholder="Search by title or author"
                     value={query}
-                    onChange={(e) => onUpdateQuery(e.target.value)}/>
+                    onChange={(e) => onUpdateQuery(e.target.value)}
+                />
 
                 </div>
             </div>
             <div className="search-books-results">
                 <ol className="books-grid">
                     {foundBooks && query
-                        ? foundBooks.map((book) =>
+                        ? searchResults.map((book) =>
                         <li key={book.id}>
                             <Book
                                 book={book}

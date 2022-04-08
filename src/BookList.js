@@ -4,7 +4,7 @@ import './App.css'
 import BookShelf from './BookShelf'
 
 
-const BookList = (props) => {
+const BookList = props => {
 
     const { bookList, onShelfChange } = props;
     const bookShelves = [

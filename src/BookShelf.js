@@ -2,7 +2,7 @@ import React  from 'react'
 import './App.css'
 import Book from './Book'
 
-const BookShelf = (props) => {
+const BookShelf = props => {
 
     const { booksOnShelf, onShelfChange } = props;
 
