@@ -1,5 +1,14 @@
 # MyReads Project
 
+# updaed by sudhir kumar
+This project was made under udacity react course project , Feel free to give star to the project if you like and also any suggestion if you want to give to make this project good.
+
+
+How to Run the App :-
+  1 .  install all the dependency `npm install`
+  2 .  Run the project on terminal in project folder `npm start`
+
+
 This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
 
 Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
